@@ -26,9 +26,9 @@
 
 using System;
 using System.Collections.Generic;
+using NUnit.Framework;
 using OpenMetaverse;
 using OpenMetaverse.Packets;
-using NUnit.Framework;
 
 namespace OpenMetaverse.Tests
 {
@@ -109,6 +109,7 @@ namespace OpenMetaverse.Tests
                 bigPacket.QueryData[i] = new DirPlacesReplyPacket.QueryDataBlock();
                 bigPacket.QueryData[i].QueryID = testID;
             }
+
             bigPacket.QueryReplies = new DirPlacesReplyPacket.QueryRepliesBlock[100];
             for (int i = 0; i < bigPacket.QueryReplies.Length; i++)
             {
@@ -119,6 +120,7 @@ namespace OpenMetaverse.Tests
                 bigPacket.QueryReplies[i].Name = Utils.StringToBytes("DirPlacesReply Test String");
                 bigPacket.QueryReplies[i].ParcelID = testID;
             }
+
             bigPacket.StatusData = new DirPlacesReplyPacket.StatusDataBlock[100];
             for (int i = 0; i < bigPacket.StatusData.Length; i++)
             {

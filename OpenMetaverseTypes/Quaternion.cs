@@ -34,13 +34,24 @@ namespace OpenMetaverse
     [StructLayout(LayoutKind.Sequential)]
     public struct Quaternion : IEquatable<Quaternion>
     {
-        /// <summary>X value</summary>
+        /// <summary>
+        ///     X value
+        /// </summary>
         public float X;
-        /// <summary>Y value</summary>
+
+        /// <summary>
+        ///     Y value
+        /// </summary>
         public float Y;
-        /// <summary>Z value</summary>
+
+        /// <summary>
+        ///     Z value
+        /// </summary>
         public float Z;
-        /// <summary>W value</summary>
+        
+        /// <summary>
+        ///     W value
+        /// </summary>
         public float W;
 
         #region Constructors
@@ -62,7 +73,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Build a quaternion from normalized float values
+        ///     Build a quaternion from normalized float values
         /// </summary>
         /// <param name="x">X value from -1.0 to 1.0</param>
         /// <param name="y">Y value from -1.0 to 1.0</param>
@@ -78,7 +89,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Constructor, builds a quaternion object from a byte array
+        ///     Constructor, builds a quaternion object from a byte array
         /// </summary>
         /// <param name="byteArray">Byte array containing four four-byte floats</param>
         /// <param name="pos">Offset in the byte array to start reading at</param>
@@ -120,7 +131,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Normalizes the quaternion
+        ///     Normalizes the quaternion
         /// </summary>
         public void Normalize()
         {
@@ -128,7 +139,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Builds a quaternion object from a byte array
+        ///     Builds a quaternion object from a byte array
         /// </summary>
         /// <param name="byteArray">The source byte array</param>
         /// <param name="pos">Offset in the byte array to start reading at</param>
@@ -196,7 +207,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Normalize this quaternion and serialize it to a byte array
+        ///     Normalize this quaternion and serialize it to a byte array
         /// </summary>
         /// <returns>A 12 byte array containing normalized X, Y, and Z floating
         /// point values in order using little endian byte ordering</returns>
@@ -208,7 +219,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Writes the raw bytes for this quaternion to a byte array
+        ///     Writes the raw bytes for this quaternion to a byte array
         /// </summary>
         /// <param name="dest">Destination byte array</param>
         /// <param name="pos">Position in the destination array to start
@@ -244,13 +255,12 @@ namespace OpenMetaverse
             }
             else
             {
-                throw new InvalidOperationException(String.Format(
-                    "Quaternion {0} normalized to zero", ToString()));
+                throw new InvalidOperationException(String.Format("Quaternion {0} normalized to zero", ToString()));
             }
         }
 
         /// <summary>
-        /// Convert this quaternion to euler angles
+        ///     Convert this quaternion to euler angles
         /// </summary>
         /// <param name="roll">X euler angle</param>
         /// <param name="pitch">Y euler angle</param>
@@ -286,40 +296,10 @@ namespace OpenMetaverse
                 pitch = -(float)(Math.PI / 2d);
                 yaw = (float)Math.Atan2((this.Z * this.W + this.X * this.Y), 0.5f - t.X - t.Z);
             }
-
-            //float sqx = X * X;
-            //float sqy = Y * Y;
-            //float sqz = Z * Z;
-            //float sqw = W * W;
-
-            //// Unit will be a correction factor if the quaternion is not normalized
-            //float unit = sqx + sqy + sqz + sqw;
-            //double test = X * Y + Z * W;
-
-            //if (test > 0.499f * unit)
-            //{
-            //    // Singularity at north pole
-            //    yaw = 2f * (float)Math.Atan2(X, W);
-            //    pitch = (float)Math.PI / 2f;
-            //    roll = 0f;
-            //}
-            //else if (test < -0.499f * unit)
-            //{
-            //    // Singularity at south pole
-            //    yaw = -2f * (float)Math.Atan2(X, W);
-            //    pitch = -(float)Math.PI / 2f;
-            //    roll = 0f;
-            //}
-            //else
-            //{
-            //    yaw = (float)Math.Atan2(2f * Y * W - 2f * X * Z, sqx - sqy - sqz + sqw);
-            //    pitch = (float)Math.Asin(2f * test / unit);
-            //    roll = (float)Math.Atan2(2f * X * W - 2f * Y * Z, -sqx + sqy - sqz + sqw);
-            //}
         }
 
         /// <summary>
-        /// Convert this quaternion to an angle around an axis
+        ///     Convert this quaternion to an angle around an axis
         /// </summary>
         /// <param name="axis">Unit vector describing the axis</param>
         /// <param name="angle">Angle around the axis, in radians</param>
@@ -359,7 +339,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Returns the conjugate (spatial inverse) of a quaternion
+        ///     Returns the conjugate (spatial inverse) of a quaternion
         /// </summary>
         public static Quaternion Conjugate(Quaternion quaternion)
         {
@@ -370,8 +350,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Build a quaternion from an axis and an angle of rotation around
-        /// that axis
+        ///     Build a quaternion from an axis and an angle of rotation around
+        ///     that axis
         /// </summary>
         public static Quaternion CreateFromAxisAngle(float axisX, float axisY, float axisZ, float angle)
         {
@@ -380,8 +360,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Build a quaternion from an axis and an angle of rotation around
-        /// that axis
+        ///     Build a quaternion from an axis and an angle of rotation around
+        ///     that axis
         /// </summary>
         /// <param name="axis">Axis of rotation</param>
         /// <param name="angle">Angle of rotation</param>
@@ -403,8 +383,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Creates a quaternion from a vector containing roll, pitch, and yaw
-        /// in radians
+        ///     Creates a quaternion from a vector containing roll, pitch, and yaw
+        ///     in radians
         /// </summary>
         /// <param name="eulers">Vector representation of the euler angles in
         /// radians</param>
@@ -415,8 +395,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Creates a quaternion from roll, pitch, and yaw euler angles in
-        /// radians
+        ///     Creates a quaternion from roll, pitch, and yaw euler angles in
+        ///     radians
         /// </summary>
         /// <param name="roll">X angle in radians</param>
         /// <param name="pitch">Y angle in radians</param>
@@ -457,6 +437,7 @@ namespace OpenMetaverse
                 quaternion.Z = (matrix.M12 - matrix.M21) * num;
                 return quaternion;
             }
+
             if ((matrix.M11 >= matrix.M22) && (matrix.M11 >= matrix.M33))
             {
                 float num7 = (float)Math.Sqrt((double)(((1f + matrix.M11) - matrix.M22) - matrix.M33));
@@ -467,6 +448,7 @@ namespace OpenMetaverse
                 quaternion.W = (matrix.M23 - matrix.M32) * num4;
                 return quaternion;
             }
+
             if (matrix.M22 > matrix.M33)
             {
                 float num6 = (float)Math.Sqrt((double)(((1f + matrix.M22) - matrix.M11) - matrix.M33));
@@ -477,6 +459,7 @@ namespace OpenMetaverse
                 quaternion.W = (matrix.M31 - matrix.M13) * num3;
                 return quaternion;
             }
+
             float num5 = (float)Math.Sqrt((double)(((1f + matrix.M33) - matrix.M11) - matrix.M22));
             float num2 = 0.5f / num5;
             quaternion.X = (matrix.M31 + matrix.M13) * num2;
@@ -498,7 +481,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Conjugates and renormalizes a vector
+        ///     Conjugates and renormalizes a vector
         /// </summary>
         public static Quaternion Inverse(Quaternion quaternion)
         {
@@ -523,7 +506,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Spherical linear interpolation between two quaternions
+        ///     Spherical linear interpolation between two quaternions
         /// </summary>
         public static Quaternion Slerp(Quaternion q1, Quaternion q2, float amount)
         {
@@ -694,8 +677,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Get a string representation of the quaternion elements with up to three
-        /// decimal digits and separated by spaces only
+        ///     Get a string representation of the quaternion elements with up to three
+        ///     decimal digits and separated by spaces only
         /// </summary>
         /// <returns>Raw string representation of the quaternion</returns>
         public string ToRawString()
@@ -752,7 +735,9 @@ namespace OpenMetaverse
 
         #endregion Operators
 
-        /// <summary>A quaternion with a value of 0,0,0,1</summary>
+        /// <summary>
+        ///     A quaternion with a value of 0,0,0,1
+        /// </summary>
         public readonly static Quaternion Identity = new Quaternion(0f, 0f, 0f, 1f);
     }
 }

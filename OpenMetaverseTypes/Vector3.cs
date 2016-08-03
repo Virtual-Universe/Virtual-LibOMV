@@ -31,17 +31,25 @@ using System.Globalization;
 namespace OpenMetaverse
 {
     /// <summary>
-    /// A three-dimensional vector with floating-point values
+    ///     A three-dimensional vector with floating-point values
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Vector3 : IComparable<Vector3>, IEquatable<Vector3>
     {
-        /// <summary>X value</summary>
+        /// <summary>
+        ///     X value
+        /// </summary>
         public float X;
-        /// <summary>Y value</summary>
+        
+        /// <summary>
+        ///     Y value
+        /// </summary>
         public float Y;
-        /// <summary>Z value</summary>
+
+        /// <summary>
+        ///     Z value
+        /// </summary>
         public float Z;
 
         #region Constructors
@@ -75,7 +83,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Constructor, builds a vector from a byte array
+        ///     Constructor, builds a vector from a byte array
         /// </summary>
         /// <param name="byteArray">Byte array containing three four-byte floats</param>
         /// <param name="pos">Beginning position in the byte array</param>
@@ -112,8 +120,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Test if this vector is equal to another vector, within a given
-        /// tolerance range
+        ///     Test if this vector is equal to another vector, within a given
+        ///     tolerance range
         /// </summary>
         /// <param name="vec">Vector to test against</param>
         /// <param name="tolerance">The acceptable magnitude of difference
@@ -127,7 +135,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// IComparable.CompareTo implementation
+        ///     IComparable.CompareTo implementation
         /// </summary>
         public int CompareTo(Vector3 vector)
         {
@@ -135,7 +143,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Test if this vector is composed of all finite numbers
+        ///     Test if this vector is composed of all finite numbers
         /// </summary>
         public bool IsFinite()
         {
@@ -143,7 +151,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Builds a vector from a byte array
+        ///     Builds a vector from a byte array
         /// </summary>
         /// <param name="byteArray">Byte array containing a 12 byte vector</param>
         /// <param name="pos">Beginning position in the byte array</param>
@@ -174,7 +182,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Returns the raw bytes for this vector
+        ///     Returns the raw bytes for this vector
         /// </summary>
         /// <returns>A 12 byte array containing X, Y, and Z</returns>
         public byte[] GetBytes()
@@ -185,7 +193,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Writes the raw bytes for this vector to a byte array
+        ///     Writes the raw bytes for this vector to a byte array
         /// </summary>
         /// <param name="dest">Destination byte array</param>
         /// <param name="pos">Position in the destination array to start
@@ -337,11 +345,12 @@ namespace OpenMetaverse
                 value.Y = 0f;
                 value.Z = 0f;
             }
+
             return value;
         }
 
         /// <summary>
-        /// Parse a vector from a string
+        ///     Parse a vector from a string
         /// </summary>
         /// <param name="val">A string representation of a 3D vector, enclosed 
         /// in arrow brackets and separated by commas</param>
@@ -370,7 +379,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Calculate the rotation between two vectors
+        ///     Calculate the rotation between two vectors
         /// </summary>
         /// <param name="a">Normalized directional vector (such as 1,0,0 for forward facing)</param>
         /// <param name="b">Normalized target vector</param>
@@ -391,7 +400,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Interpolates between two vectors using a cubic equation
+        ///     Interpolates between two vectors using a cubic equation
         /// </summary>
         public static Vector3 SmoothStep(Vector3 value1, Vector3 value2, float amount)
         {
@@ -448,7 +457,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Get a formatted string representation of the vector
+        ///     Get a formatted string representation of the vector
         /// </summary>
         /// <returns>A string representation of the vector</returns>
         public override string ToString()
@@ -457,8 +466,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Get a string representation of the vector elements with up to three
-        /// decimal digits and separated by spaces only
+        ///     Get a string representation of the vector elements with up to three
+        ///     decimal digits and separated by spaces only
         /// </summary>
         /// <returns>Raw string representation of the vector</returns>
         public string ToRawString()
@@ -562,7 +571,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Cross product between two vectors
+        ///     Cross product between two vectors
         /// </summary>
         public static Vector3 operator %(Vector3 value1, Vector3 value2)
         {
@@ -570,27 +579,40 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Explicit casting for Vector3d > Vector3
+        ///     Explicit casting for Vector3d > Vector3
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         public static explicit operator Vector3(Vector3d value)
         {
-            //Vector3d foo = (Vector3d)Vector3.Zero;
             return new Vector3(value);
         }
 
         #endregion Operators
 
-        /// <summary>A vector with a value of 0,0,0</summary>
+        /// <summary>
+        ///     A vector with a value of 0,0,0
+        /// </summary>
         public readonly static Vector3 Zero = new Vector3();
-        /// <summary>A vector with a value of 1,1,1</summary>
+        
+        /// <summary>
+        ///     A vector with a value of 1,1,1
+        /// </summary>
         public readonly static Vector3 One = new Vector3(1f, 1f, 1f);
-        /// <summary>A unit vector facing forward (X axis), value 1,0,0</summary>
+        
+        /// <summary>
+        ///     A unit vector facing forward (X axis), value 1,0,0
+        /// </summary>
         public readonly static Vector3 UnitX = new Vector3(1f, 0f, 0f);
-        /// <summary>A unit vector facing left (Y axis), value 0,1,0</summary>
+        
+        /// <summary>
+        ///     A unit vector facing left (Y axis), value 0,1,0
+        /// </summary>
         public readonly static Vector3 UnitY = new Vector3(0f, 1f, 0f);
-        /// <summary>A unit vector facing up (Z axis), value 0,0,1</summary>
+        
+        /// <summary>
+        ///     A unit vector facing up (Z axis), value 0,0,1
+        /// </summary>
         public readonly static Vector3 UnitZ = new Vector3(0f, 0f, 1f);
     }
 }

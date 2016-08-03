@@ -233,8 +233,8 @@ namespace OpenMetaverse
         #region BytesTo
 
         /// <summary>
-        /// Convert the first two bytes starting in the byte array in
-        /// little endian ordering to a signed short integer
+        ///     Convert the first two bytes starting in the byte array in
+        ///     little endian ordering to a signed short integer
         /// </summary>
         /// <param name="bytes">An array two bytes or longer</param>
         /// <returns>A signed short integer, will be zero if a short can't be
@@ -245,8 +245,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert the first two bytes starting at the given position in
-        /// little endian ordering to a signed short integer
+        ///     Convert the first two bytes starting at the given position in
+        ///     little endian ordering to a signed short integer
         /// </summary>
         /// <param name="bytes">An array two bytes or longer</param>
         /// <param name="pos">Position in the array to start reading</param>
@@ -259,8 +259,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert the first four bytes starting at the given position in
-        /// little endian ordering to a signed integer
+        ///     Convert the first four bytes starting at the given position in
+        ///     little endian ordering to a signed integer
         /// </summary>
         /// <param name="bytes">An array four bytes or longer</param>
         /// <param name="pos">Position to start reading the int from</param>
@@ -273,8 +273,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert the first four bytes of the given array in little endian
-        /// ordering to a signed integer
+        ///     Convert the first four bytes of the given array in little endian
+        ///     ordering to a signed integer
         /// </summary>
         /// <param name="bytes">An array four bytes or longer</param>
         /// <returns>A signed integer, will be zero if the array contains
@@ -285,8 +285,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert the first eight bytes of the given array in little endian
-        /// ordering to a signed long integer
+        ///     Convert the first eight bytes of the given array in little endian
+        ///     ordering to a signed long integer
         /// </summary>
         /// <param name="bytes">An array eight bytes or longer</param>
         /// <returns>A signed long integer, will be zero if the array contains
@@ -297,8 +297,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert the first eight bytes starting at the given position in
-        /// little endian ordering to a signed long integer
+        ///     Convert the first eight bytes starting at the given position in
+        ///     little endian ordering to a signed long integer
         /// </summary>
         /// <param name="bytes">An array eight bytes or longer</param>
         /// <param name="pos">Position to start reading the long from</param>
@@ -319,8 +319,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert the first two bytes starting at the given position in
-        /// little endian ordering to an unsigned short
+        ///     Convert the first two bytes starting at the given position in
+        ///     little endian ordering to an unsigned short
         /// </summary>
         /// <param name="bytes">Byte array containing the ushort</param>
         /// <param name="pos">Position to start reading the ushort from</param>
@@ -333,7 +333,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert two bytes in little endian ordering to an unsigned short
+        ///     Convert two bytes in little endian ordering to an unsigned short
         /// </summary>
         /// <param name="bytes">Byte array containing the ushort</param>
         /// <returns>An unsigned short, will be zero if a ushort can't be
@@ -344,8 +344,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert the first four bytes starting at the given position in
-        /// little endian ordering to an unsigned integer
+        ///     Convert the first four bytes starting at the given position in
+        ///     little endian ordering to an unsigned integer
         /// </summary>
         /// <param name="bytes">Byte array containing the uint</param>
         /// <param name="pos">Position to start reading the uint from</param>
@@ -358,8 +358,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert the first four bytes of the given array in little endian
-        /// ordering to an unsigned integer
+        ///     Convert the first four bytes of the given array in little endian
+        ///     ordering to an unsigned integer
         /// </summary>
         /// <param name="bytes">An array four bytes or longer</param>
         /// <returns>An unsigned integer, will be zero if the array contains
@@ -370,8 +370,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert the first eight bytes of the given array in little endian
-        /// ordering to an unsigned 64-bit integer
+        ///     Convert the first eight bytes of the given array in little endian
+        ///     ordering to an unsigned 64-bit integer
         /// </summary>
         /// <param name="bytes">An array eight bytes or longer</param>
         /// <returns>An unsigned 64-bit integer, will be zero if the array
@@ -391,8 +391,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert four bytes in little endian ordering to a floating point
-        /// value
+        ///     Convert four bytes in little endian ordering to a floating point
+        ///     value
         /// </summary>
         /// <param name="bytes">Byte array containing a little ending floating
         /// point value</param>
@@ -468,7 +468,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert an integer to a byte array in little endian format
+        ///     Convert an integer to a byte array in little endian format
         /// </summary>
         /// <param name="value">The integer to convert</param>
         /// <returns>A four byte little endian array</returns>
@@ -485,7 +485,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert an integer to a byte array in big endian format
+        ///     Convert an integer to a byte array in big endian format
         /// </summary>
         /// <param name="value">The integer to convert</param>
         /// <returns>A four byte big endian array</returns>
@@ -536,7 +536,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert a 64-bit integer to a byte array in little endian format
+        ///     Convert a 64-bit integer to a byte array in little endian format
         /// </summary>
         /// <param name="value">The value to convert</param>
         /// <returns>An 8 byte little endian array</returns>
@@ -556,8 +556,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert a 64-bit unsigned integer to a byte array in little endian
-        /// format
+        ///     Convert a 64-bit unsigned integer to a byte array in little endian
+        ///     format
         /// </summary>
         /// <param name="value">The value to convert</param>
         /// <returns>An 8 byte little endian array</returns>
@@ -592,8 +592,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert a floating point value to four bytes in little endian
-        /// ordering
+        ///     Convert a floating point value to four bytes in little endian
+        ///     ordering
         /// </summary>
         /// <param name="value">A floating point value</param>
         /// <returns>A four byte array containing the value in little endian
@@ -639,7 +639,7 @@ namespace OpenMetaverse
         #region Strings
 
         /// <summary>
-        /// Converts an unsigned integer to a hexadecimal string
+        ///     Converts an unsigned integer to a hexadecimal string
         /// </summary>
         /// <param name="i">An unsigned integer to convert to a string</param>
         /// <returns>A hexadecimal string 10 characters long</returns>
@@ -650,7 +650,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert a variable length UTF8 byte array to a string
+        ///     Convert a variable length UTF8 byte array to a string
         /// </summary>
         /// <param name="bytes">The UTF8 encoded byte array to convert</param>
         /// <returns>The decoded string</returns>
@@ -677,7 +677,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Converts a byte array to a string containing hexadecimal characters
+        ///     Converts a byte array to a string containing hexadecimal characters
         /// </summary>
         /// <param name="bytes">The byte array to convert to a string</param>
         /// <param name="fieldName">The name of the field to prepend to each
@@ -691,7 +691,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Converts a byte array to a string containing hexadecimal characters
+        ///     Converts a byte array to a string containing hexadecimal characters
         /// </summary>
         /// <param name="bytes">The byte array to convert to a string</param>
         /// <param name="length">Number of bytes in the array to parse</param>
@@ -730,7 +730,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert a string to a UTF8 encoded byte array
+        ///     Convert a string to a UTF8 encoded byte array
         /// </summary>
         /// <param name="str">The string to convert</param>
         /// <returns>A null-terminated UTF8 byte array</returns>
@@ -742,7 +742,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Converts a string containing hexadecimal characters to a byte array
+        ///     Converts a string containing hexadecimal characters to a byte array
         /// </summary>
         /// <param name="hexString">String containing hexadecimal characters</param>
         /// <param name="handleDirty">If true, gracefully handles null, empty and
@@ -789,7 +789,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Returns true is c is a hexadecimal digit (A-F, a-f, 0-9)
+        ///     Returns true is c is a hexadecimal digit (A-F, a-f, 0-9)
         /// </summary>
         /// <param name="c">Character to test</param>
         /// <returns>true if hex digit, false if not</returns>
@@ -812,7 +812,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Converts 1 or 2 character string into equivalant byte value
+        ///     Converts 1 or 2 character string into equivalant byte value
         /// </summary>
         /// <param name="hex">1 or 2 character string</param>
         /// <returns>byte</returns>
@@ -829,7 +829,7 @@ namespace OpenMetaverse
         #region Packed Values
 
         /// <summary>
-        /// Convert a float value to a byte given a minimum and maximum range
+        ///     Convert a float value to a byte given a minimum and maximum range
         /// </summary>
         /// <param name="val">Value to convert to a byte</param>
         /// <param name="lower">Minimum value range</param>
@@ -846,7 +846,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert a byte to a float value given a minimum and maximum range
+        ///     Convert a byte to a float value given a minimum and maximum range
         /// </summary>
         /// <param name="bytes">Byte array to get the byte from</param>
         /// <param name="pos">Position in the byte array the desired byte is at</param>
@@ -860,7 +860,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert a byte to a float value given a minimum and maximum range
+        ///     Convert a byte to a float value given a minimum and maximum range
         /// </summary>
         /// <param name="val">Byte to convert to a float value</param>
         /// <param name="lower">Minimum value range</param>
@@ -921,8 +921,8 @@ namespace OpenMetaverse
         #region TryParse
 
         /// <summary>
-        /// Attempts to parse a floating point value from a string, using an
-        /// EN-US number format
+        ///     Attempts to parse a floating point value from a string, using an
+        ///     EN-US number format
         /// </summary>
         /// <param name="s">String to parse</param>
         /// <param name="result">Resulting floating point number</param>
@@ -947,7 +947,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Tries to parse an unsigned 32-bit integer from a hexadecimal string
+        ///     Tries to parse an unsigned 32-bit integer from a hexadecimal string
         /// </summary>
         /// <param name="s">String to parse</param>
         /// <param name="result">Resulting integer</param>
@@ -962,9 +962,9 @@ namespace OpenMetaverse
         #region Enum String Conversion
 
         /// <summary>
-        /// Returns text specified in EnumInfo attribute of the enumerator
-        /// To add the text use [EnumInfo(Text = "Some nice text here")] before declaration
-        /// of enum values
+        ///     Returns text specified in EnumInfo attribute of the enumerator
+        ///     To add the text use [EnumInfo(Text = "Some nice text here")] before declaration
+        ///     of enum values
         /// </summary>
         /// <param name="value">Enum value</param>
         /// <returns>Text representation of the enum</returns>
@@ -983,7 +983,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Takes an AssetType and returns the string representation
+        ///     Takes an AssetType and returns the string representation
         /// </summary>
         /// <param name="type">The source <seealso cref="AssetType"/></param>
         /// <returns>The string version of the AssetType</returns>
@@ -993,7 +993,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Translate a string name of an AssetType into the proper Type
+        ///     Translate a string name of an AssetType into the proper Type
         /// </summary>
         /// <param name="type">A string containing the AssetType name</param>
         /// <returns>The AssetType which matches the string name, or AssetType.Unknown if no match was found</returns>
@@ -1009,7 +1009,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Takes a FolderType and returns the string representation
+        ///     Takes a FolderType and returns the string representation
         /// </summary>
         /// <param name="type">The source <seealso cref="FolderType"/></param>
         /// <returns>The string version of the FolderType</returns>
@@ -1019,7 +1019,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Translate a string name of an FolderType into the proper Type
+        ///     Translate a string name of an FolderType into the proper Type
         /// </summary>
         /// <param name="type">A string containing the FolderType name</param>
         /// <returns>The FolderType which matches the string name, or FolderType. None if no match was found</returns>
@@ -1035,7 +1035,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert an InventoryType to a string
+        ///     Convert an InventoryType to a string
         /// </summary>
         /// <param name="type">The <seealso cref="T:InventoryType"/> to convert</param>
         /// <returns>A string representation of the source</returns>
@@ -1045,7 +1045,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert a string into a valid InventoryType
+        ///     Convert a string into a valid InventoryType
         /// </summary>
         /// <param name="type">A string representation of the InventoryType to convert</param>
         /// <returns>A InventoryType object which matched the type</returns>
@@ -1061,7 +1061,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert a SaleType to a string
+        ///     Convert a SaleType to a string
         /// </summary>
         /// <param name="type">The <seealso cref="T:SaleType"/> to convert</param>
         /// <returns>A string representation of the source</returns>
@@ -1071,7 +1071,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert a string into a valid SaleType
+        ///     Convert a string into a valid SaleType
         /// </summary>
         /// <param name="value">A string representation of the SaleType to convert</param>
         /// <returns>A SaleType object which matched the type</returns>
@@ -1087,7 +1087,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Converts a string used in LLSD to AttachmentPoint type
+        ///     Converts a string used in LLSD to AttachmentPoint type
         /// </summary>
         /// <param name="value">String representation of AttachmentPoint to convert</param>
         /// <returns>AttachmentPoint enum</returns>
@@ -1107,7 +1107,7 @@ namespace OpenMetaverse
         #region Miscellaneous
 
         /// <summary>
-        /// Copy a byte array
+        ///     Copy a byte array
         /// </summary>
         /// <param name="bytes">Byte array to copy</param>
         /// <returns>A copy of the given byte array</returns>
@@ -1122,7 +1122,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Packs to 32-bit unsigned integers in to a 64-bit unsigned integer
+        ///     Packs to 32-bit unsigned integers in to a 64-bit unsigned integer
         /// </summary>
         /// <param name="a">The left-hand (or X) value</param>
         /// <param name="b">The right-hand (or Y) value</param>
@@ -1133,7 +1133,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Unpacks two 32-bit unsigned integers from a 64-bit unsigned integer
+        ///     Unpacks two 32-bit unsigned integers from a 64-bit unsigned integer
         /// </summary>
         /// <param name="a">The 64-bit input integer</param>
         /// <param name="b">The left-hand (or X) output value</param>
@@ -1145,7 +1145,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert an IP address object to an unsigned 32-bit integer
+        ///     Convert an IP address object to an unsigned 32-bit integer
         /// </summary>
         /// <param name="address">IP address to convert</param>
         /// <returns>32-bit unsigned integer holding the IP address bits</returns>
@@ -1156,7 +1156,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Gets a unix timestamp for the current time
+        ///     Gets a unix timestamp for the current time
         /// </summary>
         /// <returns>An unsigned integer representing a unix timestamp for now</returns>
         public static uint GetUnixTime()
@@ -1165,7 +1165,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert a UNIX timestamp to a native DateTime object
+        ///     Convert a UNIX timestamp to a native DateTime object
         /// </summary>
         /// <param name="timestamp">An unsigned integer representing a UNIX
         /// timestamp</param>
@@ -1182,7 +1182,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert a UNIX timestamp to a native DateTime object
+        ///     Convert a UNIX timestamp to a native DateTime object
         /// </summary>
         /// <param name="timestamp">A signed integer representing a UNIX
         /// timestamp</param>
@@ -1194,7 +1194,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert a native DateTime object to a UNIX timestamp
+        ///     Convert a native DateTime object to a UNIX timestamp
         /// </summary>
         /// <param name="time">A DateTime object you want to convert to a 
         /// timestamp</param>
@@ -1206,7 +1206,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Swap two values
+        ///     Swap two values
         /// </summary>
         /// <typeparam name="T">Type of the values to swap</typeparam>
         /// <param name="lhs">First value</param>
@@ -1219,7 +1219,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Try to parse an enumeration value from a string
+        ///     Try to parse an enumeration value from a string
         /// </summary>
         /// <typeparam name="T">Enumeration type</typeparam>
         /// <param name="strType">String value to parse</param>
@@ -1244,13 +1244,14 @@ namespace OpenMetaverse
                         return true;
                     }
                 }
+
                 result = default(T);
                 return false;
             }
         }
 
         /// <summary>
-        /// Swaps the high and low words in a byte. Converts aaaabbbb to bbbbaaaa
+        ///     Swaps the high and low words in a byte. Converts aaaabbbb to bbbbaaaa
         /// </summary>
         /// <param name="value">Byte to swap the words in</param>
         /// <returns>Byte value with the words swapped</returns>
@@ -1260,8 +1261,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Attempts to convert a string representation of a hostname or IP
-        /// address to a <seealso cref="System.Net.IPAddress"/>
+        ///     Attempts to convert a string representation of a hostname or IP
+        ///     address to a <seealso cref="System.Net.IPAddress"/>
         /// </summary>
         /// <param name="hostname">Hostname to convert to an IPAddress</param>
         /// <returns>Converted IP address object, or null if the conversion

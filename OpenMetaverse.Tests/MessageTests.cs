@@ -31,18 +31,18 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Xml.Serialization;
+using NUnit.Framework;
 using OpenMetaverse;
 using OpenMetaverse.Packets;
 using OpenMetaverse.StructuredData;
 using OpenMetaverse.Messages.Linden;
-using NUnit.Framework;
 
 namespace OpenMetaverse.Tests
 {
     /// <summary>
-    /// These unit tests specifically test the Message class can serialize and deserialize its own data properly
-    /// a passed test does not necessarily indicate the formatting is correct in the resulting OSD to be handled
-    /// by the simulator.
+    ///     These unit tests specifically test the Message class can serialize and deserialize its own data properly
+    ///     a passed test does not necessarily indicate the formatting is correct in the resulting OSD to be handled
+    ///     by the simulator.
     /// </summary>
     [TestFixture]
     public class MessageTests : Assert
@@ -56,8 +56,6 @@ namespace OpenMetaverse.Tests
         {
             AgentGroupDataUpdateMessage s = new AgentGroupDataUpdateMessage();
             s.AgentID = UUID.Random();
-
-
 
             AgentGroupDataUpdateMessage.GroupData[] blocks = new AgentGroupDataUpdateMessage.GroupData[2];
             AgentGroupDataUpdateMessage.GroupData g1 = new AgentGroupDataUpdateMessage.GroupData();
@@ -305,7 +303,6 @@ namespace OpenMetaverse.Tests
             block2.Transition = "LEAVE";
 
             s.Updates[0] = block1;
-            // s.Updates[1] = block2;
 
             OSDMap map = s.Serialize();
 
@@ -416,8 +413,6 @@ namespace OpenMetaverse.Tests
             Assert.AreEqual(s.MiscVersion, t.MiscVersion);
             Assert.AreEqual(s.VertexBuffersEnabled, t.VertexBuffersEnabled);
             Assert.AreEqual(s.world_kbytes, t.world_kbytes);
-
-
         }
 
         [Test]
@@ -456,13 +451,11 @@ namespace OpenMetaverse.Tests
             Assert.AreEqual(s.Mono, t.Mono);
             Assert.AreEqual(s.ObjectID, t.ObjectID);
             Assert.AreEqual(s.Running, t.Running);
-
         }
 
         [Test]
         public void MapLayerMessage()
         {
-
             MapLayerReplyVariant s = new MapLayerReplyVariant();
             s.Flags = 1;
 
@@ -474,8 +467,6 @@ namespace OpenMetaverse.Tests
             block.Top = 2;
             block.Left = 3;
             block.Right = 4;
-
-
 
             blocks[0] = block;
 
@@ -636,7 +627,6 @@ namespace OpenMetaverse.Tests
 
             Assert.AreEqual(s.Language, t.Language);
             Assert.AreEqual(s.LanguagePublic, t.LanguagePublic);
-
         }
 
         [Test]
@@ -823,6 +813,7 @@ namespace OpenMetaverse.Tests
             Assert.AreEqual(s.UserLocation, t.UserLocation);
             Assert.AreEqual(s.UserLookAt, t.UserLookAt);
         }
+
         [Test]
         public void EnableSimulatorMessage()
         {
@@ -1011,7 +1002,6 @@ namespace OpenMetaverse.Tests
             Assert.AreEqual(s.ExtraParams, t.ExtraParams);
             Assert.AreEqual(s.MessageKey, t.MessageKey);
             Assert.AreEqual(s.Reason, t.Reason);
-
         }
 
         [Test]
@@ -1149,6 +1139,7 @@ namespace OpenMetaverse.Tests
                 Assert.AreEqual(s.QueryReplies[i].SalePrice, t.QueryReplies[i].SalePrice);
             }
         }
+
         #region Performance Testing
 
         private const int TEST_ITER = 100000;
@@ -1169,6 +1160,7 @@ namespace OpenMetaverse.Tests
 
                 Assert.AreEqual(s.ParcelID, t.ParcelID);
             }
+
             TimeSpan duration = DateTime.UtcNow - messageTestTime;
             Console.WriteLine("RemoteParcelRequestReply: OMV Message System Serialization/Deserialization Passes: {0} Total time: {1}", TEST_ITER, duration);
 
@@ -1188,10 +1180,10 @@ namespace OpenMetaverse.Tests
 
                 Assert.AreEqual(s.ParcelID, t.ParcelID);
             }
+
             TimeSpan durationxml = DateTime.UtcNow - xmlTestTime;
             Console.WriteLine("RemoteParcelRequestReply: .NET BinarySerialization/Deserialization Passes: {0} Total time: {1}", TEST_ITER, durationxml);
         }
-
 
         [Test]
         [Category("Benchmark")]
@@ -1246,6 +1238,7 @@ namespace OpenMetaverse.Tests
                     Assert.AreEqual(s.QueryReplies[i].SalePrice, t.QueryReplies[i].SalePrice);
                 }
             }
+
             TimeSpan duration = DateTime.UtcNow - messageTestTime;
             Console.WriteLine("DirLandReplyMessage: OMV Message System Serialization/Deserialization Passes: {0} Total time: {1}", TEST_ITER, duration);
 
@@ -1301,6 +1294,7 @@ namespace OpenMetaverse.Tests
                     Assert.AreEqual(s.QueryReplies[i].SalePrice, t.QueryReplies[i].SalePrice);
                 }
             }
+
             TimeSpan durationxml = DateTime.UtcNow - xmlTestTime;
             Console.WriteLine("DirLandReplyMessage: .NET BinarySerialization/Deserialization Passes: {0} Total time: {1}", TEST_ITER, durationxml);
         }
@@ -1349,6 +1343,7 @@ namespace OpenMetaverse.Tests
                 stream.Flush();
                 stream.Close();
             }
+
             timer.Stop();
             Console.WriteLine("OMV Message System Serialization/Deserialization Passes: {0} Total time: {1}", TEST_ITER, timer.Elapsed.TotalSeconds);
 
@@ -1361,6 +1356,7 @@ namespace OpenMetaverse.Tests
                 stream.Flush();
                 stream.Close();
             }
+
             timer.Stop();
             Console.WriteLine(".NET BinarySerialization/Deserialization Passes: {0} Total time: {1}", TEST_ITER, timer.Elapsed.TotalSeconds);
         }
@@ -1490,6 +1486,7 @@ namespace OpenMetaverse.Tests
                 Assert.AreEqual(s.UserLocation, t.UserLocation);
                 Assert.AreEqual(s.UserLookAt, t.UserLookAt);
             }
+
             TimeSpan duration = DateTime.UtcNow - messageTestTime;
             Console.WriteLine("ParcelPropertiesMessage: OMV Message System Serialization/Deserialization Passes: {0} Total time: {1}", TEST_ITER, duration);
 
@@ -1498,7 +1495,6 @@ namespace OpenMetaverse.Tests
             DateTime xmlTestTime = DateTime.UtcNow;
             for (int x = 0; x < TEST_ITER; x++)
             {
-
                 ParcelPropertiesMessage s = new ParcelPropertiesMessage();
                 s.AABBMax = Vector3.Parse("<1,2,3>");
                 s.AABBMin = Vector3.Parse("<2,3,1>");
@@ -1620,6 +1616,7 @@ namespace OpenMetaverse.Tests
                 Assert.AreEqual(s.UserLocation, t.UserLocation);
                 Assert.AreEqual(s.UserLookAt, t.UserLookAt);
             }
+
             TimeSpan durationxml = DateTime.UtcNow - xmlTestTime;
             Console.WriteLine("ParcelPropertiesMessage: .NET BinarySerialization/Deserialization Passes: {0} Total time: {1}", TEST_ITER, durationxml);
         }
@@ -1627,4 +1624,3 @@ namespace OpenMetaverse.Tests
         #endregion
     }
 }
-

@@ -30,28 +30,33 @@ using System.Threading;
 namespace OpenMetaverse
 {
     /// <summary>
-    /// A thread-safe lockless queue that supports multiple readers and 
-    /// multiple writers
+    ///     A thread-safe lockless queue that supports multiple readers and 
+    ///     multiple writers
     /// </summary>
     public sealed class LocklessQueue<T>
     {
         /// <summary>
-        /// Provides a node container for data in a singly linked list
+        ///     Provides a node container for data in a singly linked list
         /// </summary>
         private sealed class SingleLinkNode
         {
-            /// <summary>Pointer to the next node in list</summary>
+            /// <summary>
+            ///     Pointer to the next node in list
+            /// </summary>
             public SingleLinkNode Next;
-            /// <summary>The data contained by the node</summary>
+
+            /// <summary>
+            ///     The data contained by the node
+            /// </summary>
             public T Item;
 
             /// <summary>
-            /// Constructor
+            ///     Constructor
             /// </summary>
             public SingleLinkNode() { }
 
             /// <summary>
-            /// Constructor
+            ///     Constructor
             /// </summary>
             public SingleLinkNode(T item)
             {
@@ -59,20 +64,30 @@ namespace OpenMetaverse
             }
         }
 
-        /// <summary>Queue head</summary>
+        /// <summary>
+        ///     Queue head
+        /// </summary>
         SingleLinkNode head;
-        /// <summary>Queue tail</summary>
+
+        /// <summary>
+        ///     Queue tail
+        /// </summary>
         SingleLinkNode tail;
-        /// <summary>Queue item count</summary>
+
+        /// <summary>
+        ///     Queue item count
+        /// </summary>
         int count;
 
-        /// <summary>Gets the current number of items in the queue. Since this
-        /// is a lockless collection this value should be treated as a close
-        /// estimate</summary>
+        /// <summary>
+        ///     Gets the current number of items in the queue. Since this
+        ///     is a lockless collection this value should be treated as a close
+        ///     estimate
+        /// </summary>
         public int Count { get { return count; } }
 
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         public LocklessQueue()
         {
@@ -81,7 +96,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Enqueue an item
+        ///     Enqueue an item
         /// </summary>
         /// <param name="item">Item to enqeue</param>
         public void Enqueue(T item)
@@ -110,7 +125,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Try to dequeue an item
+        ///     Try to dequeue an item
         /// </summary>
         /// <param name="item">Dequeued item if the dequeue was successful</param>
         /// <returns>True if an item was successfully deqeued, otherwise false</returns>
@@ -129,6 +144,7 @@ namespace OpenMetaverse
                         count = 0;
                         return false;
                     }
+
                     if (CAS(ref head, oldHead, oldHeadNext))
                     {
                         item = oldHeadNext.Item;
@@ -142,8 +158,7 @@ namespace OpenMetaverse
         private static bool CAS(ref SingleLinkNode location, SingleLinkNode comparand, SingleLinkNode newValue)
         {
             return
-                (object)comparand ==
-                (object)Interlocked.CompareExchange<SingleLinkNode>(ref location, newValue, comparand);
+                (object)comparand == (object)Interlocked.CompareExchange<SingleLinkNode>(ref location, newValue, comparand);
         }
     }
 }

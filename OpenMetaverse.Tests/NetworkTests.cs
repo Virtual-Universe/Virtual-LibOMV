@@ -39,11 +39,6 @@ namespace OpenMetaverse.Tests
     {
         GridClient Client;
 
-        //ulong CurrentRegionHandle = 0;
-        //ulong AhernRegionHandle = 1096213093149184;
-        //ulong MorrisRegionHandle = 1096213093149183;
-        //ulong DoreRegionHandle = 1095113581521408;
-        //ulong HooperRegionHandle = 1106108697797888;
         bool DetectedObject = false;
 
         public NetworkTests()
@@ -52,7 +47,6 @@ namespace OpenMetaverse.Tests
             Client.Self.Movement.Fly = true;
             // Register callbacks
             Client.Network.RegisterCallback(PacketType.ObjectUpdate, ObjectUpdateHandler);
-            //Client.Self.OnTeleport += new MainAvatar.TeleportCallback(OnTeleportHandler)
         }
 
         [TestFixtureSetUp]
@@ -67,10 +61,7 @@ namespace OpenMetaverse.Tests
 
             Assert.IsTrue(Client.Network.Connected, "Client is not connected to the grid");
 
-            //int start = Environment.TickCount;
-
-            Assert.AreEqual("hooper", Client.Network.CurrentSim.Name.ToLower(), "Logged in to sim " + 
-                Client.Network.CurrentSim.Name + " instead of hooper");
+            Assert.AreEqual("hooper", Client.Network.CurrentSim.Name.ToLower(), "Logged in to sim " +  Client.Network.CurrentSim.Name + " instead of hooper");
         }
 
         [Test]
@@ -85,56 +76,6 @@ namespace OpenMetaverse.Tests
                 }
             }
         }
-
-        /*
-        [Test]
-        public void U64Receive()
-        {
-            int start = Environment.TickCount;
-            while (CurrentRegionHandle == 0)
-            {
-                if (Environment.TickCount - start > 10000)
-                {
-                    Assert.Fail("Timeout waiting for an ObjectUpdate packet");
-                }
-            }
-
-            Assert.IsTrue(CurrentRegionHandle == HooperRegionHandle, "Current region is " +
-                CurrentRegionHandle + " (" + Client.Network.CurrentSim.Name + ")" + " when we were expecting " + HooperRegionHandle + " (Dore), possible endian issue");
-        }
-        */
-        /*[Test]
-        public void Teleport()
-        {
-            // test in-sim teleports
-            Assert.IsTrue(CapsQueueRunning(), "CAPS Event queue is not running in " + Client.Network.CurrentSim.Name);
-            string localSimName = Client.Network.CurrentSim.Name;
-            Assert.IsTrue(Client.Self.Teleport(Client.Network.CurrentSim.Handle, new Vector3(121, 13, 41)),
-                "Teleport In-Sim Failed " + Client.Network.CurrentSim.Name);
-
-            // Assert that we really did make it to our scheduled destination
-            Assert.AreEqual(localSimName, Client.Network.CurrentSim.Name,
-                "Expected to teleport to " + localSimName + ", ended up in " + Client.Network.CurrentSim.Name +
-                ". Possibly region full or offline?");
-
-            Assert.IsTrue(CapsQueueRunning(), "CAPS Event queue is not running in " + Client.Network.CurrentSim.Name);
-            Assert.IsTrue(Client.Self.Teleport(DoreRegionHandle, new Vector3(128, 128, 32)),
-                "Teleport to Dore failed");
-
-            // Assert that we really did make it to our scheduled destination
-            Assert.AreEqual("dore", Client.Network.CurrentSim.Name.ToLower(),
-                "Expected to teleport to Dore, ended up in " + Client.Network.CurrentSim.Name +
-                ". Possibly region full or offline?");
-
-            Assert.IsTrue(CapsQueueRunning(), "CAPS Event queue is not running in " + Client.Network.CurrentSim.Name);
-            Assert.IsTrue(Client.Self.Teleport(HooperRegionHandle, new Vector3(179, 18, 32)),
-                "Teleport to Hooper failed");
-
-            // Assert that we really did make it to our scheduled destination
-            Assert.AreEqual("hooper", Client.Network.CurrentSim.Name.ToLower(),
-                "Expected to teleport to Hooper, ended up in " + Client.Network.CurrentSim.Name +
-                ". Possibly region full or offline?");
-        }*/
 
         [Test]
         public void CapsQueue()
@@ -165,16 +106,14 @@ namespace OpenMetaverse.Tests
                 Success = false;
                 Assert.Fail("Timeout waiting for event Queue to startup");
             }
+
             Client.Network.EventQueueRunning -= capsRunning;
             return Success;
         }
 
         private void ObjectUpdateHandler(object sender, PacketReceivedEventArgs e)
         {
-            //ObjectUpdatePacket update = (ObjectUpdatePacket)packet;
-
             DetectedObject = true;
-            //CurrentRegionHandle = update.RegionData.RegionHandle;
         }
 
         [TestFixtureTearDown]

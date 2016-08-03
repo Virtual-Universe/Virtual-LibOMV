@@ -34,8 +34,9 @@ namespace OpenMetaverse.Utilities
     public partial class VoiceManager
     {
         /// <summary>Amount of time to wait for the voice daemon to respond.
-        /// The value needs to stay relatively high because some of the calls
-        /// require the voice daemon to make remote queries before replying</summary>
+        ///     The value needs to stay relatively high because some of the calls
+        ///     require the voice daemon to make remote queries before replying
+        /// </summary>
         public int BlockingTimeout = 30 * 1000;
 
         protected Dictionary<int, AutoResetEvent> Events = new Dictionary<int, AutoResetEvent>();

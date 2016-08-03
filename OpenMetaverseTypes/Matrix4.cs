@@ -178,7 +178,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert this matrix to euler rotations
+        ///     Convert this matrix to euler rotations
         /// </summary>
         /// <param name="roll">X euler angle</param>
         /// <param name="pitch">Y euler angle</param>
@@ -227,7 +227,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Convert this matrix to a quaternion rotation
+        ///     Convert this matrix to a quaternion rotation
         /// </summary>
         /// <returns>A quaternion representation of this rotation matrix</returns>
         public Quaternion GetQuaternion()
@@ -355,26 +355,22 @@ namespace OpenMetaverse
             matrix.M11 = xx + (cos * (1f - xx));
             matrix.M12 = (xy - (cos * xy)) + (sin * z);
             matrix.M13 = (xz - (cos * xz)) - (sin * y);
-            //matrix.M14 = 0f;
 
             matrix.M21 = (xy - (cos * xy)) - (sin * z);
             matrix.M22 = yy + (cos * (1f - yy));
             matrix.M23 = (yz - (cos * yz)) + (sin * x);
-            //matrix.M24 = 0f;
 
             matrix.M31 = (xz - (cos * xz)) + (sin * y);
             matrix.M32 = (yz - (cos * yz)) - (sin * x);
             matrix.M33 = zz + (cos * (1f - zz));
-            //matrix.M34 = 0f;
 
-            //matrix.M41 = matrix.M42 = matrix.M43 = 0f;
             matrix.M44 = 1f;
 
             return matrix;
         }
 
         /// <summary>
-        /// Construct a matrix from euler rotation values in radians
+        ///     Construct a matrix from euler rotation values in radians
         /// </summary>
         /// <param name="roll">X euler angle in radians</param>
         /// <param name="pitch">Y euler angle in radians</param>
@@ -974,6 +970,7 @@ namespace OpenMetaverse
                     minor[m,n] = matrix[i,j];
                     n++;
                 }
+
                 m++;
             }
 
@@ -1007,7 +1004,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Get a formatted string representation of the vector
+        ///     Get a formatted string representation of the vector
         /// </summary>
         /// <returns>A string representation of the vector</returns>
         public override string ToString()
@@ -1072,16 +1069,11 @@ namespace OpenMetaverse
             {
                 switch (row)
                 {
-                    case 0:
-                        return new Vector4(M11, M12, M13, M14);
-                    case 1:
-                        return new Vector4(M21, M22, M23, M24);
-                    case 2:
-                        return new Vector4(M31, M32, M33, M34);
-                    case 3:
-                        return new Vector4(M41, M42, M43, M44);
-                    default:
-                        throw new IndexOutOfRangeException("Matrix4 row index must be from 0-3");
+                    case 0: return new Vector4(M11, M12, M13, M14);
+                    case 1: return new Vector4(M21, M22, M23, M24);
+                    case 2: return new Vector4(M31, M32, M33, M34);
+                    case 3: return new Vector4(M41, M42, M43, M44);
+                    default: throw new IndexOutOfRangeException("Matrix4 row index must be from 0-3");
                 }
             }
             set
@@ -1112,8 +1104,7 @@ namespace OpenMetaverse
                         M43 = value.Z;
                         M44 = value.W;
                         break;
-                    default:
-                        throw new IndexOutOfRangeException("Matrix4 row index must be from 0-3");
+                    default: throw new IndexOutOfRangeException("Matrix4 row index must be from 0-3");
                 }
             }
         }
@@ -1127,135 +1118,90 @@ namespace OpenMetaverse
                     case 0:
                         switch (column)
                         {
-                            case 0:
-                                return M11;
-                            case 1:
-                                return M12;
-                            case 2:
-                                return M13;
-                            case 3:
-                                return M14;
-                            default:
-                                throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
+                            case 0: return M11;
+                            case 1: return M12;
+                            case 2: return M13;
+                            case 3: return M14;
+                            default: throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
                         }
-                    case 1:
-                        switch (column)
+                    case 1: switch (column)
                         {
-                            case 0:
-                                return M21;
-                            case 1:
-                                return M22;
-                            case 2:
-                                return M23;
-                            case 3:
-                                return M24;
-                            default:
-                                throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
+                            case 0: return M21;
+                            case 1: return M22;
+                            case 2: return M23;
+                            case 3: return M24;
+                            default: throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
                         }
-                    case 2:
-                        switch (column)
+                    case 2: switch (column)
                         {
-                            case 0:
-                                return M31;
-                            case 1:
-                                return M32;
-                            case 2:
-                                return M33;
-                            case 3:
-                                return M34;
-                            default:
-                                throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
+                            case 0: return M31;
+                            case 1: return M32;
+                            case 2: return M33;
+                            case 3: return M34;
+                            default: throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
                         }
-                    case 3:
-                        switch (column)
+                    case 3: switch (column)
                         {
-                            case 0:
-                                return M41;
-                            case 1:
-                                return M42;
-                            case 2:
-                                return M43;
-                            case 3:
-                                return M44;
-                            default:
-                                throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
+                            case 0: return M41;
+                            case 1: return M42;
+                            case 2: return M43;
+                            case 3: return M44;
+                            default: throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
                         }
-                    default:
-                        throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
+                    default: throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
                 }
             }
             set
             {
                 switch (row)
                 {
-                    case 0:
-                        switch (column)
+                    case 0: switch (column)
                         {
-                            case 0:
-                                M11 = value; return;
-                            case 1:
-                                M12 = value; return;
-                            case 2:
-                                M13 = value; return;
-                            case 3:
-                                M14 = value; return;
-                            default:
-                                throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
+                            case 0: M11 = value; return;
+                            case 1: M12 = value; return;
+                            case 2: M13 = value; return;
+                            case 3: M14 = value; return;
+                            default: throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
                         }
-                    case 1:
-                        switch (column)
+                    case 1: switch (column)
                         {
-                            case 0:
-                                M21 = value; return;
-                            case 1:
-                                M22 = value; return;
-                            case 2:
-                                M23 = value; return;
-                            case 3:
-                                M24 = value; return;
-                            default:
-                                throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
+                            case 0: M21 = value; return;
+                            case 1: M22 = value; return;
+                            case 2: M23 = value; return;
+                            case 3: M24 = value; return;
+                            default: throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
                         }
-                    case 2:
-                        switch (column)
+                    case 2: switch (column)
                         {
-                            case 0:
-                                M31 = value; return;
-                            case 1:
-                                M32 = value; return;
-                            case 2:
-                                M33 = value; return;
-                            case 3:
-                                M34 = value; return;
-                            default:
-                                throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
+                            case 0: M31 = value; return;
+                            case 1: M32 = value; return;
+                            case 2: M33 = value; return;
+                            case 3: M34 = value; return;
+                            default: throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
                         }
-                    case 3:
-                        switch (column)
+                    case 3: switch (column)
                         {
-                            case 0:
-                                M41 = value; return;
-                            case 1:
-                                M42 = value; return;
-                            case 2:
-                                M43 = value; return;
-                            case 3:
-                                M44 = value; return;
-                            default:
-                                throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
+                            case 0: M41 = value; return;
+                            case 1: M42 = value; return;
+                            case 2: M43 = value; return;
+                            case 3: M44 = value; return;
+                            default: throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
                         }
-                    default:
-                        throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
+                    default: throw new IndexOutOfRangeException("Matrix4 row and column values must be from 0-3");
                 }
             }
         }
 
         #endregion Operators
 
-        /// <summary>A 4x4 matrix containing all zeroes</summary>
+        /// <summary>
+        ///     A 4x4 matrix containing all zeroes
+        /// </summary>
         public static readonly Matrix4 Zero = new Matrix4();
 
-        /// <summary>A 4x4 identity matrix</summary>
+        /// <summary>
+        ///     A 4x4 identity matrix
+        /// </summary>
         public static readonly Matrix4 Identity = new Matrix4(
             1f, 0f, 0f, 0f,
             0f, 1f, 0f, 0f,

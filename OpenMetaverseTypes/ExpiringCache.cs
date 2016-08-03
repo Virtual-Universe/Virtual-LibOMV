@@ -80,9 +80,14 @@ namespace OpenMetaverse
 
         #region Private fields
 
-        /// <summary>For thread safety</summary>
+        /// <summary>
+        ///     For thread safety
+        /// </summary>
         object syncRoot = new object();
-        /// <summary>For thread safety</summary>
+
+        /// <summary>
+        ///     For thread safety
+        /// </summary>
         object isPurging = new object();
 
         Dictionary<TimedCacheKey<TKey>, TValue> timedStorage = new Dictionary<TimedCacheKey<TKey>, TValue>();
@@ -122,6 +127,7 @@ namespace OpenMetaverse
                     return true;
                 }
             }
+
             finally { Monitor.Exit(syncRoot); }
         }
 
@@ -144,6 +150,7 @@ namespace OpenMetaverse
                     return true;
                 }
             }
+
             finally { Monitor.Exit(syncRoot); }
         }
 
@@ -164,6 +171,7 @@ namespace OpenMetaverse
                     return true;
                 }
             }
+
             finally { Monitor.Exit(syncRoot); }
         }
 
@@ -184,6 +192,7 @@ namespace OpenMetaverse
                     return true;
                 }
             }
+
             finally { Monitor.Exit(syncRoot); }
         }
 
@@ -196,6 +205,7 @@ namespace OpenMetaverse
                 timedStorage.Clear();
                 timedStorageIndex.Clear();
             }
+
             finally { Monitor.Exit(syncRoot); }
         }
 
@@ -207,6 +217,7 @@ namespace OpenMetaverse
             {
                 return timedStorageIndex.ContainsKey(key);
             }
+
             finally { Monitor.Exit(syncRoot); }
         }
 
@@ -241,6 +252,7 @@ namespace OpenMetaverse
                         throw new ArgumentException("Key not found in the cache");
                     }
                 }
+
                 finally { Monitor.Exit(syncRoot); }
             }
         }
@@ -262,6 +274,7 @@ namespace OpenMetaverse
                     return false;
                 }
             }
+
             finally { Monitor.Exit(syncRoot); }
         }
 
@@ -284,6 +297,7 @@ namespace OpenMetaverse
                     return true;
                 }
             }
+
             finally { Monitor.Exit(syncRoot); }
 
             value = default(TValue);
@@ -308,6 +322,7 @@ namespace OpenMetaverse
                     return false;
                 }
             }
+
             finally { Monitor.Exit(syncRoot); }
         }
 
@@ -332,6 +347,7 @@ namespace OpenMetaverse
                 timedStorageIndex.Add(key, internalKey);
                 return true;
             }
+
             finally { Monitor.Exit(syncRoot); }
         }
 
@@ -356,6 +372,7 @@ namespace OpenMetaverse
                 timedStorageIndex.Add(key, internalKey);
                 return true;
             }
+
             finally { Monitor.Exit(syncRoot); }
         }
 
@@ -381,6 +398,7 @@ namespace OpenMetaverse
                     startIndex++;
                 }
             }
+
             finally { Monitor.Exit(syncRoot); }
         }
 
@@ -389,13 +407,15 @@ namespace OpenMetaverse
         #region Private methods
 
         /// <summary>
-        /// Purges expired objects from the cache. Called automatically by the purge timer.
+        ///     Purges expired objects from the cache. Called automatically by the purge timer.
         /// </summary>
         private void PurgeCache(object sender, System.Timers.ElapsedEventArgs e)
         {
-            // Only let one thread purge at once - a buildup could cause a crash
-            // This could cause the purge to be delayed while there are lots of read/write ops 
-            // happening on the cache
+            /// <summary>
+            ///     Only let one thread purge at once - a buildup could cause a crash
+            ///     This could cause the purge to be delayed while there are lots of read/write ops 
+            ///     happening on the cache
+            /// </summary>
             if (!Monitor.TryEnter(isPurging))
                 return;
 
@@ -433,8 +453,10 @@ namespace OpenMetaverse
                         }
                     }
                 }
+
                 finally { Monitor.Exit(syncRoot); }
             }
+
             finally { Monitor.Exit(isPurging); }
         }
 

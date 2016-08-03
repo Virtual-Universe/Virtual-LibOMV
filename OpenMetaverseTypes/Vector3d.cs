@@ -31,17 +31,25 @@ using System.Globalization;
 namespace OpenMetaverse
 {
     /// <summary>
-    /// A three-dimensional vector with doubleing-point values
+    ///     A three-dimensional vector with doubleing-point values
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Vector3d : IComparable<Vector3d>, IEquatable<Vector3d>
     {
-        /// <summary>X value</summary>
+        /// <summary>
+        ///     X value
+        /// </summary>
         public double X;
-        /// <summary>Y value</summary>
+        
+        /// <summary>
+        ///     Y value
+        /// </summary>
         public double Y;
-        /// <summary>Z value</summary>
+        
+        /// <summary>
+        ///     Z value
+        /// </summary>
         public double Z;
 
         #region Constructors
@@ -61,7 +69,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Constructor, builds a vector from a byte array
+        ///     Constructor, builds a vector from a byte array
         /// </summary>
         /// <param name="byteArray">Byte array containing three eight-byte doubles</param>
         /// <param name="pos">Beginning position in the byte array</param>
@@ -105,8 +113,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Test if this vector is equal to another vector, within a given
-        /// tolerance range
+        ///     Test if this vector is equal to another vector, within a given
+        ///     tolerance range
         /// </summary>
         /// <param name="vec">Vector to test against</param>
         /// <param name="tolerance">The acceptable magnitude of difference
@@ -120,7 +128,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// IComparable.CompareTo implementation
+        ///     IComparable.CompareTo implementation
         /// </summary>
         public int CompareTo(Vector3d vector)
         {
@@ -128,7 +136,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Test if this vector is composed of all finite numbers
+        ///     Test if this vector is composed of all finite numbers
         /// </summary>
         public bool IsFinite()
         {
@@ -136,7 +144,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Builds a vector from a byte array
+        ///     Builds a vector from a byte array
         /// </summary>
         /// <param name="byteArray">Byte array containing a 24 byte vector</param>
         /// <param name="pos">Beginning position in the byte array</param>
@@ -167,7 +175,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Returns the raw bytes for this vector
+        ///     Returns the raw bytes for this vector
         /// </summary>
         /// <returns>A 24 byte array containing X, Y, and Z</returns>
         public byte[] GetBytes()
@@ -178,7 +186,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Writes the raw bytes for this vector to a byte array
+        ///     Writes the raw bytes for this vector to a byte array
         /// </summary>
         /// <param name="dest">Destination byte array</param>
         /// <param name="pos">Position in the destination array to start
@@ -324,11 +332,12 @@ namespace OpenMetaverse
                 value.Y = 0d;
                 value.Z = 0d;
             }
+
             return value;
         }
 
         /// <summary>
-        /// Parse a vector from a string
+        ///     Parse a vector from a string
         /// </summary>
         /// <param name="val">A string representation of a 3D vector, enclosed 
         /// in arrow brackets and separated by commas</param>
@@ -357,7 +366,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Interpolates between two vectors using a cubic equation
+        ///     Interpolates between two vectors using a cubic equation
         /// </summary>
         public static Vector3d SmoothStep(Vector3d value1, Vector3d value2, double amount)
         {
@@ -395,7 +404,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Get a formatted string representation of the vector
+        ///     Get a formatted string representation of the vector
         /// </summary>
         /// <returns>A string representation of the vector</returns>
         public override string ToString()
@@ -404,8 +413,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Get a string representation of the vector elements with up to three
-        /// decimal digits and separated by spaces only
+        ///     Get a string representation of the vector elements with up to three
+        ///     decimal digits and separated by spaces only
         /// </summary>
         /// <returns>Raw string representation of the vector</returns>
         public string ToRawString()
@@ -490,7 +499,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Cross product between two vectors
+        ///     Cross product between two vectors
         /// </summary>
         public static Vector3d operator %(Vector3d value1, Vector3d value2)
         {
@@ -498,7 +507,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Implicit casting for Vector3 > Vector3d
+        ///     Implicit casting for Vector3 > Vector3d
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -509,15 +518,29 @@ namespace OpenMetaverse
 
         #endregion Operators
 
-        /// <summary>A vector with a value of 0,0,0</summary>
+        /// <summary>
+        ///     A vector with a value of 0,0,0
+        /// </summary>
         public readonly static Vector3d Zero = new Vector3d();
-        /// <summary>A vector with a value of 1,1,1</summary>
+        
+        /// <summary>
+        ///     A vector with a value of 1,1,1
+        /// </summary>
         public readonly static Vector3d One = new Vector3d();
-        /// <summary>A unit vector facing forward (X axis), value of 1,0,0</summary>
+        
+        /// <summary>
+        ///     A unit vector facing forward (X axis), value of 1,0,0
+        /// </summary>
         public readonly static Vector3d UnitX = new Vector3d(1d, 0d, 0d);
-        /// <summary>A unit vector facing left (Y axis), value of 0,1,0</summary>
+        
+        /// <summary>
+        ///     A unit vector facing left (Y axis), value of 0,1,0
+        /// </summary>
         public readonly static Vector3d UnitY = new Vector3d(0d, 1d, 0d);
-        /// <summary>A unit vector facing up (Z axis), value of 0,0,1</summary>
+        
+        /// <summary>
+        ///     A unit vector facing up (Z axis), value of 0,0,1
+        /// </summary>
         public readonly static Vector3d UnitZ = new Vector3d(0d, 0d, 1d);
     }
 }

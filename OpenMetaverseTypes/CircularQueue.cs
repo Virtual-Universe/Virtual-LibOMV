@@ -85,6 +85,7 @@ namespace OpenMetaverse
             {
                 Items[next] = value;
                 next = (next + 1) % capacity;
+
                 if (next == first) first = (first + 1) % capacity;
             }
         }
@@ -123,6 +124,7 @@ namespace OpenMetaverse
                 else if (first != next)
                 {
                     --next;
+
                     if (next < 0) next = capacity - 1;
                 }
 

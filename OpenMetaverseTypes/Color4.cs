@@ -38,10 +38,13 @@ namespace OpenMetaverse
     {
         /// <summary>Red</summary>
         public float R;
+
         /// <summary>Green</summary>
         public float G;
+
         /// <summary>Blue</summary>
         public float B;
+
         /// <summary>Alpha</summary>
         public float A;
 
@@ -69,9 +72,7 @@ namespace OpenMetaverse
             // Quick check to see if someone is doing something obviously wrong
             // like using float values from 0.0 - 255.0
             if (r > 1f || g > 1f || b > 1f || a > 1f)
-                throw new ArgumentException(
-                    String.Format("Attempting to initialize Color4 with out of range values <{0},{1},{2},{3}>",
-                    r, g, b, a));
+                throw new ArgumentException(String.Format("Attempting to initialize Color4 with out of range values <{0},{1},{2},{3}>", r, g, b, a));
 
             // Valid range is from 0.0 to 1.0
             R = Utils.Clamp(r, 0f, 1f);
@@ -315,18 +316,25 @@ namespace OpenMetaverse
         {
             if (R < 0f)
                 R = 0f;
+
             if (G < 0f)
                 G = 0f;
+
             if (B < 0f)
                 B = 0f;
+
             if (A < 0f)
                 A = 0f;
+
             if (R > 1f)
                 R = 1f;
+
             if (G > 1f)
                 G = 1f;
+
             if (B > 1f)
                 B = 1f;
+
             if (A > 1f)
                 A = 1f;
         }
@@ -516,10 +524,14 @@ namespace OpenMetaverse
 
         #endregion Operators
 
-        /// <summary>A Color4 with zero RGB values and fully opaque (alpha 1.0)</summary>
+        /// <summary>
+        ///     A Color4 with zero RGB values and fully opaque (alpha 1.0)
+        /// </summary>
         public readonly static Color4 Black = new Color4(0f, 0f, 0f, 1f);
 
-        /// <summary>A Color4 with full RGB values (1.0) and fully opaque (alpha 1.0)</summary>
+        /// <summary>
+        ///     A Color4 with full RGB values (1.0) and fully opaque (alpha 1.0)
+        /// </summary>
         public readonly static Color4 White = new Color4(1f, 1f, 1f, 1f);
     }
 }

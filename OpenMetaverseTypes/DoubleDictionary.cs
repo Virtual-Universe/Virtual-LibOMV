@@ -74,6 +74,7 @@ namespace OpenMetaverse
                 Dictionary1[key1] = value;
                 Dictionary2[key2] = value;
             }
+
             finally { rwLock.ExitWriteLock(); }
         }
 
@@ -87,6 +88,7 @@ namespace OpenMetaverse
                 Dictionary1.Remove(key1);
                 success = Dictionary2.Remove(key2);
             }
+
             finally { rwLock.ExitWriteLock(); }
 
             return success;
@@ -115,6 +117,7 @@ namespace OpenMetaverse
                     }
                 }
             }
+
             finally { rwLock.ExitWriteLock(); }
 
             return found;
@@ -143,6 +146,7 @@ namespace OpenMetaverse
                     }
                 }
             }
+
             finally { rwLock.ExitWriteLock(); }
 
             return found;
@@ -157,6 +161,7 @@ namespace OpenMetaverse
                 Dictionary1.Clear();
                 Dictionary2.Clear();
             }
+
             finally { rwLock.ExitWriteLock(); }
         }
 
@@ -206,6 +211,7 @@ namespace OpenMetaverse
                 foreach (TValue value in Dictionary1.Values)
                     action(value);
             }
+
             finally { rwLock.ExitReadLock(); }
         }
 
@@ -218,6 +224,7 @@ namespace OpenMetaverse
                 foreach (KeyValuePair<TKey1, TValue> entry in Dictionary1)
                     action(entry);
             }
+
             finally { rwLock.ExitReadLock(); }
         }
 
@@ -230,6 +237,7 @@ namespace OpenMetaverse
                 foreach (KeyValuePair<TKey2, TValue> entry in Dictionary2)
                     action(entry);
             }
+
             finally { rwLock.ExitReadLock(); }
         }
 
@@ -244,6 +252,7 @@ namespace OpenMetaverse
                         return value;
                 }
             }
+
             finally { rwLock.ExitReadLock(); }
 
             return default(TValue);
@@ -262,6 +271,7 @@ namespace OpenMetaverse
                         list.Add(value);
                 }
             }
+
             finally { rwLock.ExitReadLock(); }
 
             return list;
@@ -298,8 +308,10 @@ namespace OpenMetaverse
                     for (int i = 0; i < list2.Count; i++)
                         Dictionary2.Remove(list2[i]);
                 }
+
                 finally { rwLock.ExitWriteLock(); }
             }
+
             finally { rwLock.ExitUpgradeableReadLock(); }
 
             return list.Count;

@@ -29,123 +29,217 @@ using System;
 namespace OpenMetaverse
 {
     /// <summary>
-    /// Identifier code for primitive types
+    ///     Identifier code for primitive types
     /// </summary>
     public enum PCode : byte
     {
-        /// <summary>None</summary>
+        /// <summary>
+        ///     None
+        /// </summary>
         None = 0,
-        /// <summary>A Primitive</summary>
+        /// <summary>
+        ///     A Primitive
+        /// </summary>
         Prim = 9,
-        /// <summary>A Avatar</summary>
+        /// <summary>
+        ///     A Avatar
+        /// </summary>
         Avatar = 47,
-        /// <summary>Linden grass</summary>
+        /// <summary>
+        ///     Linden grass
+        /// </summary>
         Grass = 95,
-        /// <summary>Linden tree</summary>
+        /// <summary>
+        ///     Linden tree
+        /// </summary>
         NewTree = 111,
-        /// <summary>A primitive that acts as the source for a particle stream</summary>
+        /// <summary>
+        ///     A primitive that acts as the source for a particle stream
+        /// </summary>
         ParticleSystem = 143,
-        /// <summary>A Linden tree</summary>
+        /// <summary>
+        ///     A Linden tree
+        /// </summary>
         Tree = 255
     }
 
     /// <summary>
-    /// Primary parameters for primitives such as Physics Enabled or Phantom
+    ///     Primary parameters for primitives such as Physics Enabled or Phantom
     /// </summary>
     [Flags]
     public enum PrimFlags : uint
     {
-        /// <summary>Deprecated</summary>
+        /// <summary>
+        ///     Depreciated
+        /// </summary>
         None = 0,
-        /// <summary>Whether physics are enabled for this object</summary>
+        /// <summary>
+        ///     Whether physics are enabled for this object
+        /// </summary>
         Physics = 0x00000001,
-        /// <summary></summary>
+        /// <summary>
+        ///     CreateSelected
+        /// </summary>
         CreateSelected = 0x00000002,
-        /// <summary></summary>
+        /// <summary>
+        /// ObjectModify
+        /// </summary>
         ObjectModify = 0x00000004,
-        /// <summary></summary>
+        /// <summary>
+        ///     ObjectCopy
+        /// </summary>
         ObjectCopy = 0x00000008,
-        /// <summary></summary>
+        /// <summary>
+        ///     ObjectAnyOwner
+        /// </summary>
         ObjectAnyOwner = 0x00000010,
-        /// <summary></summary>
+        /// <summary>
+        ///     ObjectYouOwner
+        /// </summary>
         ObjectYouOwner = 0x00000020,
-        /// <summary></summary>
+        /// <summary>
+        ///     Scripted
+        /// </summary>
         Scripted = 0x00000040,
-        /// <summary>Whether this object contains an active touch script</summary>
+        /// <summary>
+        ///     Whether this object contains an active touch script
+        /// </summary>
         Touch = 0x00000080,
-        /// <summary></summary>
+        /// <summary>
+        ///     ObjectMove
+        /// </summary>
         ObjectMove = 0x00000100,
-        /// <summary>Whether this object can receive payments</summary>
+        /// <summary>
+        ///     Whether this object can receive payments
+        /// </summary>
         Money = 0x00000200,
-        /// <summary>Whether this object is phantom (no collisions)</summary>
+        /// <summary>
+        ///     Whether this object is phantom (no collisions)
+        /// </summary>
         Phantom = 0x00000400,
-        /// <summary></summary>
+        /// <summary>
+        ///     InventoryEmpty
+        /// </summary>
         InventoryEmpty = 0x00000800,
-        /// <summary></summary>
+        /// <summary>
+        ///     JointHinge
+        /// </summary>
         JointHinge = 0x00001000,
-        /// <summary></summary>
+        /// <summary>
+        ///     JointP2P
+        /// </summary>
         JointP2P = 0x00002000,
-        /// <summary></summary>
+        /// <summary>
+        ///     JointLP2P
+        /// </summary>
         JointLP2P = 0x00004000,
-        /// <summary>Deprecated</summary>
+        /// <summary>
+        ///     Depreciated
+        /// </summary>
         JointWheel = 0x00008000,
-        /// <summary></summary>
+        /// <summary>
+        ///     AllowInventoryDrop
+        /// </summary>
         AllowInventoryDrop = 0x00010000,
-        /// <summary></summary>
+        /// <summary>
+        ///     ObjectTransfer
+        /// </summary>
         ObjectTransfer = 0x00020000,
-        /// <summary></summary>
+        /// <summary>
+        ///     ObjectGroupOwned
+        /// </summary>
         ObjectGroupOwned = 0x00040000,
-        /// <summary>Deprecated</summary>
+        /// <summary>
+        ///     Depreciated
+        /// </summary>
         ObjectYouOfficer = 0x00080000,
-        /// <summary></summary>
+        /// <summary>
+        ///     CameraDecoupled
+        /// </summary>
         CameraDecoupled = 0x00100000,
-        /// <summary></summary>
+        /// <summary>
+        ///     AnimSource
+        /// </summary>
         AnimSource = 0x00200000,
-        /// <summary></summary>
+        /// <summary>
+        ///     CameraSource
+        /// </summary>
         CameraSource = 0x00400000,
-        /// <summary></summary>
+        /// <summary>
+        ///     CastShadows
+        /// </summary>
         CastShadows = 0x00800000,
-        /// <summary>Server flag, will not be sent to clients. Specifies that
-        /// the object is destroyed when it touches a simulator edge</summary>
+        /// <summary>
+        ///     Server flag, will not be sent to clients. Specifies that
+        ///     the object is destroyed when it touches a simulator edge
+        /// </summary>
         DieAtEdge = 0x01000000,
-        /// <summary>Server flag, will not be sent to clients. Specifies that
-        /// the object will be returned to the owner's inventory when it
-        /// touches a simulator edge</summary>
+        /// <summary>
+        ///     Server flag, will not be sent to clients. Specifies that
+        ///     the object will be returned to the owner's inventory when it
+        ///     touches a simulator edge
+        /// </summary>
         ReturnAtEdge = 0x02000000,
-        /// <summary>Server flag, will not be sent to clients.</summary>
+        /// <summary>
+        ///     Server flag, will not be sent to clients.
+        /// </summary>
         Sandbox = 0x04000000,
-        /// <summary>Server flag, will not be sent to client. Specifies that
-        /// the object is hovering/flying</summary>
+        /// <summary>
+        ///     Server flag, will not be sent to client. Specifies that
+        ///     the object is hovering/flying
+        /// </summary>
         Flying = 0x08000000,
-        /// <summary></summary>
+        /// <summary>
+        ///     ObjectOwnerModify
+        /// </summary>
         ObjectOwnerModify = 0x10000000,
-        /// <summary></summary>
+        /// <summary>
+        ///     TemproraryOnRez
+        /// </summary>
         TemporaryOnRez = 0x20000000,
-        /// <summary></summary>
+        /// <summary>
+        ///     Temporary
+        /// </summary>
         Temporary = 0x40000000,
-        /// <summary></summary>
+        /// <summary>
+        ///     ZlibCompressed
+        /// </summary>
         ZlibCompressed = 0x80000000
     }
 
     /// <summary>
-    /// Sound flags for sounds attached to primitives
+    ///     Sound flags for sounds attached to primitives
     /// </summary>
     [Flags]
     public enum SoundFlags : byte
     {
-        /// <summary></summary>
+        /// <summary>
+        ///     None
+        /// </summary>
         None = 0,
-        /// <summary></summary>
+        /// <summary>
+        ///     Loop
+        /// </summary>
         Loop = 0x01,
-        /// <summary></summary>
+        /// <summary>
+        ///     SyncMaster
+        /// </summary>
         SyncMaster = 0x02,
-        /// <summary></summary>
+        /// <summary>
+        ///     SyncSlave
+        /// </summary>
         SyncSlave = 0x04,
-        /// <summary></summary>
+        /// <summary>
+        ///     SyncPending
+        /// </summary>
         SyncPending = 0x08,
-        /// <summary></summary>
+        /// <summary>
+        ///     Queue
+        /// </summary>
         Queue = 0x10,
-        /// <summary></summary>
+        /// <summary>
+        ///     Stop
+        /// </summary>
         Stop = 0x20
     }
 
@@ -177,30 +271,46 @@ namespace OpenMetaverse
     }
 
     /// <summary>
-    /// Material type for a primitive
+    ///     Material type for a primitive
     /// </summary>
     public enum Material : byte
     {
-        /// <summary></summary>
+        /// <summary>
+        ///     Stone
+        /// </summary>
         Stone = 0,
-        /// <summary></summary>
+        /// <summary>
+        ///     Metal
+        /// </summary>
         Metal,
-        /// <summary></summary>
+        /// <summary>
+        ///     Glass
+        /// </summary>
         Glass,
-        /// <summary></summary>
+        /// <summary>
+        ///     Wood
+        /// </summary>
         Wood,
-        /// <summary></summary>
+        /// <summary>
+        ///     Flesh
+        /// </summary>
         Flesh,
-        /// <summary></summary>
+        /// <summary>
+        ///     Plastic
+        /// </summary>
         Plastic,
-        /// <summary></summary>
+        /// <summary>
+        ///     Rubber
+        /// </summary>
         Rubber,
-        /// <summary></summary>
+        /// <summary>
+        ///     Light
+        /// </summary>
         Light
     }
 
     /// <summary>
-    /// Used in a helper function to roughly determine prim shape
+    ///     Used in a helper function to roughly determine prim shape
     /// </summary>
     public enum PrimType
     {
@@ -217,344 +327,569 @@ namespace OpenMetaverse
     }
 
     /// <summary>
-    /// Extra parameters for primitives, these flags are for features that have
-    /// been added after the original ObjectFlags that has all eight bits 
-    /// reserved already
+    ///     Extra parameters for primitives, these flags are for features that have
+    ///     been added after the original ObjectFlags that has all eight bits 
+    ///     reserved already
     /// </summary>
     [Flags]
     public enum ExtraParamType : ushort
     {
-        /// <summary>Whether this object has flexible parameters</summary>
+        /// <summary>
+        ///     Whether this object has flexible parameters
+        /// </summary>
         Flexible = 0x10,
-        /// <summary>Whether this object has light parameters</summary>
+        /// <summary>
+        ///     Whether this object has light parameters
+        /// </summary>
         Light = 0x20,
-        /// <summary>Whether this object is a sculpted prim</summary>
+        /// <summary>
+        ///     Whether this object is a sculpted prim
+        /// </summary>
         Sculpt = 0x30,
-        /// <summary>Whether this object is a light image map</summary>
+        /// <summary>
+        ///     Whether this object is a light image map
+        /// </summary>
         LightImage = 0x40,
-        /// <summary>Whether this object is a mesh</summary>
+        /// <summary>
+        ///     Whether this object is a mesh
+        /// </summary>
         Mesh = 0x60,
     }
 
     /// <summary>
-    /// 
+    ///     Joint Type
     /// </summary>
     public enum JointType : byte
     {
-        /// <summary></summary>
+        /// <summary>
+        ///     Invalid
+        /// </summary>
         Invalid = 0,
-        /// <summary></summary>
+        /// <summary>
+        ///     Hinge
+        /// </summary>
         Hinge = 1,
-        /// <summary></summary>
+        /// <summary>
+        ///     Point
+        /// </summary>
         Point = 2,
-        // <summary></summary>
+        /// <summary>
+        ///     LPoint
+        /// </summary>
         //[Obsolete]
         //LPoint = 3,
+        /// <summary>
+        ///     Wheel
+        /// </summary>
         //[Obsolete]
         //Wheel = 4
     }
 
     /// <summary>
-    /// 
+    ///     SculptType
     /// </summary>
     public enum SculptType : byte
     {
-        /// <summary></summary>
+        /// <summary>
+        ///     None
+        /// </summary>
         None = 0,
-        /// <summary></summary>
+        /// <summary>
+        ///     Sphere
+        /// </summary>
         Sphere = 1,
-        /// <summary></summary>
+        /// <summary>
+        ///     Torus
+        /// </summary>
         Torus = 2,
-        /// <summary></summary>
+        /// <summary>
+        ///     Plane
+        /// </summary>
         Plane = 3,
-        /// <summary></summary>
+        /// <summary>
+        ///     Cylindar
+        /// </summary>
         Cylinder = 4,
-        /// <summary></summary>
+        /// <summary>
+        ///     Mesh
+        /// </summary>
         Mesh = 5,
-        /// <summary></summary>
+        /// <summary>
+        ///     Invert
+        /// </summary>
         Invert = 64,
-        /// <summary></summary>
+        /// <summary>
+        ///     Mirror
+        /// </summary>
         Mirror = 128
     }
 
     /// <summary>
-    /// 
+    ///     FaceType
     /// </summary>
     public enum FaceType : ushort
     {
-        /// <summary></summary>
+        /// <summary>
+        ///     PathBegin
+        /// </summary>
         PathBegin = 0x1 << 0,
-        /// <summary></summary>
+        /// <summary>
+        ///     PathEnd
+        /// </summary>
         PathEnd = 0x1 << 1,
-        /// <summary></summary>
+        /// <summary>
+        ///     InnerSide
+        /// </summary>
         InnerSide = 0x1 << 2,
-        /// <summary></summary>
+        /// <summary>
+        ///     ProfileBegin
+        /// </summary>
         ProfileBegin = 0x1 << 3,
-        /// <summary></summary>
+        /// <summary>
+        ///     ProfileEnd
+        /// </summary>
         ProfileEnd = 0x1 << 4,
-        /// <summary></summary>
+        /// <summary>
+        ///     OuterSide0
+        /// </summary>
         OuterSide0 = 0x1 << 5,
-        /// <summary></summary>
+        /// <summary>
+        ///     OuterSide1
+        /// </summary>
         OuterSide1 = 0x1 << 6,
-        /// <summary></summary>
+        /// <summary>
+        ///     OuterSide2
+        /// </summary>
         OuterSide2 = 0x1 << 7,
-        /// <summary></summary>
+        /// <summary>
+        ///     OuterSide3
+        /// </summary>
         OuterSide3 = 0x1 << 8
     }
 
     /// <summary>
-    /// 
+    ///     ObjectCategory
     /// </summary>
     public enum ObjectCategory
     {
-        /// <summary></summary>
+        /// <summary>
+        ///     Invalid
+        /// </summary>
         Invalid = -1,
-        /// <summary></summary>
+        /// <summary>
+        ///     None
+        /// </summary>
         None = 0,
-        /// <summary></summary>
+        /// <summary>
+        ///     Owner
+        /// </summary>
         Owner,
-        /// <summary></summary>
+        /// <summary>
+        ///     Group
+        /// </summary>
         Group,
-        /// <summary></summary>
+        /// <summary>
+        ///     Other
+        /// </summary>
         Other,
-        /// <summary></summary>
+        /// <summary>
+        ///     Selected
+        /// </summary>
         Selected,
-        /// <summary></summary>
+        /// <summary>
+        ///     Temporary
+        /// </summary>
         Temporary
     }
 
     /// <summary>
-    /// Attachment points for objects on avatar bodies
+    ///     ttachment points for objects on avatar bodies
     /// </summary>
     /// <remarks>
-    /// Both InventoryObject and InventoryAttachment types can be attached
+    ///     Both InventoryObject and InventoryAttachment types can be attached
     ///</remarks>
     public enum AttachmentPoint : byte
     {
-        /// <summary>Right hand if object was not previously attached</summary>
+        /// <summary>
+        ///     Right hand if object was not previously attached
+        /// </summary>
         [EnumInfo(Text = "Default")]
         Default = 0,
-        /// <summary>Chest</summary>
+        /// <summary>
+        ///     Chest
+        /// </summary>
         [EnumInfo(Text = "Chest")]
         Chest = 1,
-        /// <summary>Skull</summary>
+        /// <summary>
+        ///     Skull
+        /// </summary>
         [EnumInfo(Text = "Head")]
         Skull,
-        /// <summary>Left shoulder</summary>
+        /// <summary>
+        ///     Left shoulder
+        /// </summary>
         [EnumInfo(Text = "Left Shoulder")]
         LeftShoulder,
-        /// <summary>Right shoulder</summary>
+        /// <summary>
+        ///     Right shoulder
+        /// </summary>
         [EnumInfo(Text = "Right Shoulder")]
         RightShoulder,
-        /// <summary>Left hand</summary>
+        /// <summary>
+        ///     Left hand
+        /// </summary>
         [EnumInfo(Text = "Left Hand")]
         LeftHand,
-        /// <summary>Right hand</summary>
+        /// <summary>
+        ///     Right hand
+        /// </summary>
         [EnumInfo(Text = "Right Hand")]
         RightHand,
-        /// <summary>Left foot</summary>
+        /// <summary>
+        ///     Left foot
+        /// </summary>
         [EnumInfo(Text = "Left Foot")]
         LeftFoot,
-        /// <summary>Right foot</summary>
+        /// <summary>
+        ///     Right foot
+        /// </summary>
         [EnumInfo(Text = "Right Foot")]
         RightFoot,
-        /// <summary>Spine</summary>
+        /// <summary>
+        ///     Spine
+        /// </summary>
         [EnumInfo(Text = "Back")]
         Spine,
-        /// <summary>Pelvis</summary>
+        /// <summary>
+        ///     Pelvis
+        /// </summary>
         [EnumInfo(Text = "Pelvis")]
         Pelvis,
-        /// <summary>Mouth</summary>
+        /// <summary>
+        ///     Mouth
+        /// </summary>
         [EnumInfo(Text = "Mouth")]
         Mouth,
-        /// <summary>Chin</summary>
+        /// <summary>
+        ///     Chin
+        /// </summary>
         [EnumInfo(Text = "Chin")]
         Chin,
-        /// <summary>Left ear</summary>
+        /// <summary>
+        ///     Left ear
+        /// </summary>
         [EnumInfo(Text = "Left Ear")]
         LeftEar,
-        /// <summary>Right ear</summary>
+        /// <summary>
+        ///     Right ear
+        /// </summary>
         [EnumInfo(Text = "Right Ear")]
         RightEar,
-        /// <summary>Left eyeball</summary>
+        /// <summary>
+        ///     Left eyeball
+        /// </summary>
         [EnumInfo(Text = "Left Eye")]
         LeftEyeball,
-        /// <summary>Right eyeball</summary>
+        /// <summary>
+        ///     Right eyeball
+        /// </summary>
         [EnumInfo(Text = "Right Eye")]
         RightEyeball,
-        /// <summary>Nose</summary>
+        /// <summary>
+        ///     Nose
+        /// </summary>
         [EnumInfo(Text = "Nose")]
         Nose,
-        /// <summary>Right upper arm</summary>
+        /// <summary>
+        ///     Right upper arm
+        /// </summary>
         [EnumInfo(Text = "Right Upper Arm")]
         RightUpperArm,
-        /// <summary>Right forearm</summary>
+        /// <summary>
+        ///     Right forearm
+        /// </summary>
         [EnumInfo(Text = "Right Lower Arm")]
         RightForearm,
-        /// <summary>Left upper arm</summary>
+        /// <summary>
+        ///     Left upper arm
+        /// </summary>
         [EnumInfo(Text = "Left Upper Arm")]
         LeftUpperArm,
-        /// <summary>Left forearm</summary>
+        /// <summary>
+        ///     Left forearm
+        /// </summary>
         [EnumInfo(Text = "Left Lower Arm")]
         LeftForearm,
-        /// <summary>Right hip</summary>
+        /// <summary>
+        ///     Right hip
+        /// </summary>
         [EnumInfo(Text = "Right Hip")]
         RightHip,
-        /// <summary>Right upper leg</summary>
+        /// <summary>
+        ///     Right upper leg
+        /// </summary>
         [EnumInfo(Text = "Right Upper Leg")]
         RightUpperLeg,
-        /// <summary>Right lower leg</summary>
+        /// <summary>
+        ///     Right lower leg
+        /// </summary>
         [EnumInfo(Text = "Right Lower Leg")]
         RightLowerLeg,
-        /// <summary>Left hip</summary>
+        /// <summary>
+        ///     Left hip
+        /// </summary>
         [EnumInfo(Text = "Left Hip")]
         LeftHip,
-        /// <summary>Left upper leg</summary>
+        /// <summary>
+        ///     Left upper leg
+        /// </summary>
         [EnumInfo(Text = "Left Upper Leg")]
         LeftUpperLeg,
-        /// <summary>Left lower leg</summary>
+        /// <summary>
+        ///     Left lower leg
+        /// </summary>
         [EnumInfo(Text = "Left Lower Leg")]
         LeftLowerLeg,
-        /// <summary>Stomach</summary>
+        /// <summary>
+        ///     Stomach
+        /// </summary>
         [EnumInfo(Text = "Belly")]
         Stomach,
-        /// <summary>Left pectoral</summary>
+        /// <summary>
+        ///     Left pectoral
+        /// </summary>
         [EnumInfo(Text = "Left Pec")]
         LeftPec,
-        /// <summary>Right pectoral</summary>
+        /// <summary>
+        ///     Right pectoral
+        /// </summary>
         [EnumInfo(Text = "Right Pec")]
         RightPec,
-        /// <summary>HUD Center position 2</summary>
+        /// <summary>
+        ///     HUD Center position 2
+        /// </summary>
         [EnumInfo(Text = "HUD Center 2")]
         HUDCenter2,
-        /// <summary>HUD Top-right</summary>
+        /// <summary>
+        ///     HUD Top-right
+        /// </summary>
         [EnumInfo(Text = "HUD Top Right")]
         HUDTopRight,
-        /// <summary>HUD Top</summary>
+        /// <summary>
+        ///     HUD Top
+        /// </summary>
         [EnumInfo(Text = "HUD Top Center")]
         HUDTop,
-        /// <summary>HUD Top-left</summary>
+        /// <summary>
+        ///     HUD Top-left
+        /// </summary>
         [EnumInfo(Text = "HUD Top Left")]
         HUDTopLeft,
-        /// <summary>HUD Center</summary>
+        /// <summary>
+        ///     HUD Center
+        /// </summary>
         [EnumInfo(Text = "HUD Center 1")]
         HUDCenter,
-        /// <summary>HUD Bottom-left</summary>
+        /// <summary>
+        ///     HUD Bottom-left
+        /// </summary>
         [EnumInfo(Text = "HUD Bottom Left")]
         HUDBottomLeft,
-        /// <summary>HUD Bottom</summary>
+        /// <summary>
+        ///     HUD Bottom
+        /// </summary>
         [EnumInfo(Text = "HUD Bottom")]
         HUDBottom,
-        /// <summary>HUD Bottom-right</summary>
+        /// <summary>
+        ///     HUD Bottom-right
+        /// </summary>
         [EnumInfo(Text = "HUD Bottom Right")]
         HUDBottomRight,
-        /// <summary>Neck</summary>
+        /// <summary>
+        ///     Neck
+        /// </summary>
         [EnumInfo(Text = "Neck")]
         Neck,
-        /// <summary>Avatar Center</summary>
+        /// <summary>
+        ///     Avatar Center
+        /// </summary>
         [EnumInfo(Text = "Avatar Center")]
         Root,
     }
 
     /// <summary>
-    /// Tree foliage types
+    ///     Tree foliage types
     /// </summary>
     public enum Tree : byte
     {
-        /// <summary>Pine1 tree</summary>
+        /// <summary>
+        ///     Pine1 tree
+        /// </summary>
         Pine1 = 0,
-        /// <summary>Oak tree</summary>
+        /// <summary>
+        ///     Oak tree
+        /// </summary>
         Oak,
-        /// <summary>Tropical Bush1</summary>
+        /// <summary>
+        ///     Tropical Bush1
+        /// </summary>
         TropicalBush1,
-        /// <summary>Palm1 tree</summary>
+        /// <summary>
+        ///     Palm1 tree
+        /// </summary>
         Palm1,
-        /// <summary>Dogwood tree</summary>
+        /// <summary>
+        ///     Dogwood tree
+        /// </summary>
         Dogwood,
-        /// <summary>Tropical Bush2</summary>
+        /// <summary>
+        ///     Tropical Bush2
+        /// </summary>
         TropicalBush2,
-        /// <summary>Palm2 tree</summary>
+        /// <summary>
+        ///     Palm2 tree
+        /// </summary>
         Palm2,
-        /// <summary>Cypress1 tree</summary>
+        /// <summary>
+        ///     Cypress1 tree
+        /// </summary>
         Cypress1,
-        /// <summary>Cypress2 tree</summary>
+        /// <summary>
+        ///     Cypress2 tree
+        /// </summary>
         Cypress2,
-        /// <summary>Pine2 tree</summary>
+        /// <summary>
+        ///     Pine2 tree
+        /// </summary>
         Pine2,
-        /// <summary>Plumeria</summary>
+        /// <summary>
+        ///     Plumeria
+        /// </summary>
         Plumeria,
-        /// <summary>Winter pinetree1</summary>
+        /// <summary>
+        ///     Winter pinetree1
+        /// </summary>
         WinterPine1,
-        /// <summary>Winter Aspen tree</summary>
+        /// <summary>
+        ///     Winter Aspen tree
+        /// </summary>
         WinterAspen,
-        /// <summary>Winter pinetree2</summary>
+        /// <summary>
+        ///     Winter pinetree2
+        /// </summary>
         WinterPine2,
-        /// <summary>Eucalyptus tree</summary>
+        /// <summary>
+        ///     Eucalyptus tree
+        /// </summary>
         Eucalyptus,
-        /// <summary>Fern</summary>
+        /// <summary>
+        ///     Fern
+        /// </summary>
         Fern,
-        /// <summary>Eelgrass</summary>
+        /// <summary>
+        ///     Eelgrass
+        /// </summary>
         Eelgrass,
-        /// <summary>Sea Sword</summary>
+        /// <summary>
+        ///     Sea Sword
+        /// </summary>
         SeaSword,
-        /// <summary>Kelp1 plant</summary>
+        /// <summary>
+        ///     Kelp1 plant
+        /// </summary>
         Kelp1,
-        /// <summary>Beach grass</summary>
+        /// <summary>
+        ///     Beach grass
+        /// </summary>
         BeachGrass1,
-        /// <summary>Kelp2 plant</summary>
+        /// <summary>
+        ///     Kelp2 plant
+        /// </summary>
         Kelp2
     }
 
     /// <summary>
-    /// Grass foliage types
+    ///     Grass foliage types
     /// </summary>
     public enum Grass : byte
     {
-        /// <summary></summary>
+        /// <summary>
+        ///     Grass0
+        /// </summary>
         Grass0 = 0,
-        /// <summary></summary>
+        /// <summary>
+        ///     Grass1
+        /// </summary>
         Grass1,
-        /// <summary></summary>
+        /// <summary>
+        ///     Grass2
+        /// </summary>
         Grass2,
-        /// <summary></summary>
+        /// <summary>
+        ///     Grass3
+        /// </summary>
         Grass3,
-        /// <summary></summary>
+        /// <summary>
+        ///     Grass4
+        /// </summary>
         Grass4,
-        /// <summary></summary>
+        /// <summary>
+        ///     Undergrowth1
+        /// </summary>
         Undergrowth1
     }
 
     /// <summary>
-    /// Action associated with clicking on an object
+    ///     Action associated with clicking on an object
     /// </summary>
     public enum ClickAction : byte
     {
-        /// <summary>Touch object</summary>
+        /// <summary>
+        ///     Touch object
+        /// </summary>
         Touch = 0,
-        /// <summary>Sit on object</summary>
+        /// <summary>
+        ///     Sit on object
+        /// </summary>
         Sit = 1,
-        /// <summary>Purchase object or contents</summary>
+        /// <summary>
+        ///     Purchase object or contents
+        /// </summary>
         Buy = 2,
-        /// <summary>Pay the object</summary>
+        /// <summary>
+        ///     Pay the object
+        /// </summary>
         Pay = 3,
-        /// <summary>Open task inventory</summary>
+        /// <summary>
+        ///     Open task inventory
+        /// </summary>
         OpenTask = 4,
-        /// <summary>Play parcel media</summary>
+        /// <summary>
+        ///     Play parcel media
+        /// </summary>
         PlayMedia = 5,
-        /// <summary>Open parcel media</summary>
+        /// <summary>
+        ///     Open parcel media
+        /// </summary>
         OpenMedia = 6
     }
 
     /// <summary>
-    /// Type of physics representation used for this prim in the simulator
+    ///     Type of physics representation used for this prim in the simulator
     /// </summary>
     public enum PhysicsShapeType : byte
     {
-        /// <summary>Use prim physics form this object</summary>
+        /// <summary>
+        ///     Use prim physics form this object
+        /// </summary>
         Prim = 0,
-        /// <summary>No physics, prim doesn't collide</summary>
+        /// <summary>
+        ///     No physics, prim doesn't collide
+        /// </summary>
         None,
-        /// <summary>Use convex hull represantion of this prim</summary>
+        /// <summary>
+        /// Use convex hull represantion of this prim
+        /// </summary>
         ConvexHull
     }
 }

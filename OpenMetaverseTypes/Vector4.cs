@@ -34,13 +34,24 @@ namespace OpenMetaverse
     [StructLayout(LayoutKind.Sequential)]
     public struct Vector4 : IComparable<Vector4>, IEquatable<Vector4>
     {
-        /// <summary>X value</summary>
+        /// <summary>
+        ///     X value
+        /// </summary>
         public float X;
-        /// <summary>Y value</summary>
+        
+        /// <summary>
+        ///     Y value
+        /// </summary>
         public float Y;
-        /// <summary>Z value</summary>
+        
+        /// <summary>
+        ///     Z value
+        /// </summary>
         public float Z;
-        /// <summary>W value</summary>
+        
+        /// <summary>
+        ///     W value
+        /// </summary>
         public float W;
 
         #region Constructors
@@ -78,7 +89,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Constructor, builds a vector from a byte array
+        ///     Constructor, builds a vector from a byte array
         /// </summary>
         /// <param name="byteArray">Byte array containing four four-byte floats</param>
         /// <param name="pos">Beginning position in the byte array</param>
@@ -116,8 +127,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Test if this vector is equal to another vector, within a given
-        /// tolerance range
+        ///     Test if this vector is equal to another vector, within a given
+        ///     tolerance range
         /// </summary>
         /// <param name="vec">Vector to test against</param>
         /// <param name="tolerance">The acceptable magnitude of difference
@@ -131,7 +142,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// IComparable.CompareTo implementation
+        ///     IComparable.CompareTo implementation
         /// </summary>
         public int CompareTo(Vector4 vector)
         {
@@ -139,7 +150,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Test if this vector is composed of all finite numbers
+        ///     Test if this vector is composed of all finite numbers
         /// </summary>
         public bool IsFinite()
         {
@@ -147,7 +158,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Builds a vector from a byte array
+        ///     Builds a vector from a byte array
         /// </summary>
         /// <param name="byteArray">Byte array containing a 16 byte vector</param>
         /// <param name="pos">Beginning position in the byte array</param>
@@ -181,7 +192,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Returns the raw bytes for this vector
+        ///     Returns the raw bytes for this vector
         /// </summary>
         /// <returns>A 16 byte array containing X, Y, Z, and W</returns>
         public byte[] GetBytes()
@@ -192,7 +203,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Writes the raw bytes for this vector to a byte array
+        ///     Writes the raw bytes for this vector to a byte array
         /// </summary>
         /// <param name="dest">Destination byte array</param>
         /// <param name="pos">Position in the destination array to start
@@ -346,6 +357,7 @@ namespace OpenMetaverse
                 vector.Z = 0f;
                 vector.W = 0f;
             }
+
             return vector;
         }
 
@@ -447,8 +459,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Get a string representation of the vector elements with up to three
-        /// decimal digits and separated by spaces only
+        ///     Get a string representation of the vector elements with up to three
+        ///     decimal digits and separated by spaces only
         /// </summary>
         /// <returns>Raw string representation of the vector</returns>
         public string ToRawString()
@@ -538,17 +550,34 @@ namespace OpenMetaverse
 
         #endregion Operators
 
-        /// <summary>A vector with a value of 0,0,0,0</summary>
+        /// <summary>
+        ///     A vector with a value of 0,0,0,0
+        /// </summary>
         public readonly static Vector4 Zero = new Vector4();
-        /// <summary>A vector with a value of 1,1,1,1</summary>
+        
+        /// <summary>
+        ///     A vector with a value of 1,1,1,1
+        /// </summary>
         public readonly static Vector4 One = new Vector4(1f, 1f, 1f, 1f);
-        /// <summary>A vector with a value of 1,0,0,0</summary>
+        
+        /// <summary>
+        ///     A vector with a value of 1,0,0,0
+        /// </summary>
         public readonly static Vector4 UnitX = new Vector4(1f, 0f, 0f, 0f);
-        /// <summary>A vector with a value of 0,1,0,0</summary>
+        
+        /// <summary>
+        ///     A vector with a value of 0,1,0,0
+        /// </summary>
         public readonly static Vector4 UnitY = new Vector4(0f, 1f, 0f, 0f);
-        /// <summary>A vector with a value of 0,0,1,0</summary>
+        
+        /// <summary>
+        ///     A vector with a value of 0,0,1,0
+        /// </summary>
         public readonly static Vector4 UnitZ = new Vector4(0f, 0f, 1f, 0f);
-        /// <summary>A vector with a value of 0,0,0,1</summary>
+        
+        /// <summary>
+        ///     A vector with a value of 0,0,0,1
+        /// </summary>
         public readonly static Vector4 UnitW = new Vector4(0f, 0f, 0f, 1f);
     }
 }

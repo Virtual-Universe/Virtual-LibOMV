@@ -29,19 +29,21 @@ using System;
 namespace OpenMetaverse
 {
     /// <summary>
-    /// A 128-bit Universally Unique Identifier, used throughout the Second
-    /// Life networking protocol
+    ///     A 128-bit Universally Unique Identifier, used throughout the Second
+    ///     Life networking protocol
     /// </summary>
     [Serializable]
     public struct UUID : IComparable<UUID>, IEquatable<UUID>
     {
-        /// <summary>The System.Guid object this struct wraps around</summary>
+        /// <summary>
+        ///     The System.Guid object this struct wraps around
+        /// </summary>
         public Guid Guid;
 
         #region Constructors
 
         /// <summary>
-        /// Constructor that takes a string UUID representation
+        ///     Constructor that takes a string UUID representation
         /// </summary>
         /// <param name="val">A string representation of a UUID, case 
         /// insensitive and can either be hyphenated or non-hyphenated</param>
@@ -55,7 +57,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Constructor that takes a System.Guid object
+        ///     Constructor that takes a System.Guid object
         /// </summary>
         /// <param name="val">A Guid object that contains the unique identifier
         /// to be represented by this UUID</param>
@@ -65,7 +67,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Constructor that takes a byte array containing a UUID
+        ///     Constructor that takes a byte array containing a UUID
         /// </summary>
         /// <param name="source">Byte array containing a 16 byte UUID</param>
         /// <param name="pos">Beginning offset in the array</param>
@@ -76,8 +78,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Constructor that takes an unsigned 64-bit unsigned integer to 
-        /// convert to a UUID
+        ///     Constructor that takes an unsigned 64-bit unsigned integer to 
+        ///     convert to a UUID
         /// </summary>
         /// <param name="val">64-bit unsigned integer to convert to a UUID</param>
         public UUID(ulong val)
@@ -90,7 +92,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Copy constructor
+        ///     Copy constructor
         /// </summary>
         /// <param name="val">UUID to copy</param>
         public UUID(UUID val)
@@ -103,7 +105,7 @@ namespace OpenMetaverse
         #region Public Methods
 
         /// <summary>
-        /// IComparable.CompareTo implementation
+        ///     IComparable.CompareTo implementation
         /// </summary>
         public int CompareTo(UUID id)
         {
@@ -111,7 +113,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Assigns this UUID from 16 bytes out of a byte array
+        ///     Assigns this UUID from 16 bytes out of a byte array
         /// </summary>
         /// <param name="source">Byte array containing the UUID to assign this UUID to</param>
         /// <param name="pos">Starting position of the UUID in the byte array</param>
@@ -121,12 +123,11 @@ namespace OpenMetaverse
             short b = (short)((source[pos + 4] << 8) | source[pos + 5]);
             short c = (short)((source[pos + 6] << 8) | source[pos + 7]);
 
-            Guid = new Guid(a, b, c, source[pos + 8], source[pos + 9], source[pos + 10], source[pos + 11],
-                source[pos + 12], source[pos + 13], source[pos + 14], source[pos + 15]);
+            Guid = new Guid(a, b, c, source[pos + 8], source[pos + 9], source[pos + 10], source[pos + 11], source[pos + 12], source[pos + 13], source[pos + 14], source[pos + 15]);
         }
 
         /// <summary>
-        /// Returns a copy of the raw bytes for this UUID
+        ///     Returns a copy of the raw bytes for this UUID
         /// </summary>
         /// <returns>A 16 byte array containing this UUID</returns>
         public byte[] GetBytes()
@@ -137,7 +138,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Writes the raw bytes for this UUID to a byte array
+        ///     Writes the raw bytes for this UUID to a byte array
         /// </summary>
         /// <param name="dest">Destination byte array</param>
         /// <param name="pos">Position in the destination array to start
@@ -157,7 +158,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Calculate an LLCRC (cyclic redundancy check) for this UUID
+        ///     Calculate an LLCRC (cyclic redundancy check) for this UUID
         /// </summary>
         /// <returns>The CRC checksum for this UUID</returns>
         public uint CRC()
@@ -174,7 +175,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Create a 64-bit integer representation from the second half of this UUID
+        ///     Create a 64-bit integer representation from the second half of this UUID
         /// </summary>
         /// <returns>An integer created from the last eight bytes of this UUID</returns>
         public ulong GetULong()
@@ -197,7 +198,7 @@ namespace OpenMetaverse
         #region Static Methods
 
         /// <summary>
-        /// Generate a UUID from a string
+        ///     Generate a UUID from a string
         /// </summary>
         /// <param name="val">A string representation of a UUID, case 
         /// insensitive and can either be hyphenated or non-hyphenated</param>
@@ -208,7 +209,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Generate a UUID from a string
+        ///     Generate a UUID from a string
         /// </summary>
         /// <param name="val">A string representation of a UUID, case 
         /// insensitive and can either be hyphenated or non-hyphenated</param>
@@ -239,8 +240,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Combine two UUIDs together by taking the MD5 hash of a byte array
-        /// containing both UUIDs
+        ///     Combine two UUIDs together by taking the MD5 hash of a byte array
+        ///     containing both UUIDs
         /// </summary>
         /// <param name="first">First UUID to combine</param>
         /// <param name="second">Second UUID to combine</param>
@@ -255,10 +256,6 @@ namespace OpenMetaverse
             return new UUID(Utils.MD5(input), 0);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public static UUID Random()
         {
             return new UUID(Guid.NewGuid());
@@ -269,7 +266,7 @@ namespace OpenMetaverse
         #region Overrides
 
         /// <summary>
-        /// Return a hash code for this UUID, used by .NET for hash tables
+        ///     Return a hash code for this UUID, used by .NET for hash tables
         /// </summary>
         /// <returns>An integer composed of all the UUID bytes XORed together</returns>
         public override int GetHashCode()
@@ -278,7 +275,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Comparison function
+        ///     Comparison function
         /// </summary>
         /// <param name="o">An object to compare to this UUID</param>
         /// <returns>True if the object is a UUID and both UUIDs are equal</returns>
@@ -291,7 +288,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Comparison function
+        ///     Comparison function
         /// </summary>
         /// <param name="uuid">UUID to compare to</param>
         /// <returns>True if the UUIDs are equal, otherwise false</returns>
@@ -301,7 +298,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Get a hyphenated string representation of this UUID
+        ///     Get a hyphenated string representation of this UUID
         /// </summary>
         /// <returns>A string representation of this UUID, lowercase and 
         /// with hyphens</returns>
@@ -319,7 +316,7 @@ namespace OpenMetaverse
         #region Operators
 
         /// <summary>
-        /// Equals operator
+        ///     Equals operator
         /// </summary>
         /// <param name="lhs">First UUID for comparison</param>
         /// <param name="rhs">Second UUID for comparison</param>
@@ -330,7 +327,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Not equals operator
+        ///     Not equals operator
         /// </summary>
         /// <param name="lhs">First UUID for comparison</param>
         /// <param name="rhs">Second UUID for comparison</param>
@@ -341,7 +338,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// XOR operator
+        ///     XOR operator
         /// </summary>
         /// <param name="lhs">First UUID</param>
         /// <param name="rhs">Second UUID</param>
@@ -361,7 +358,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// String typecasting operator
+        ///     String typecasting operator
         /// </summary>
         /// <param name="val">A UUID in string form. Case insensitive, 
         /// hyphenated or non-hyphenated</param>
@@ -373,10 +370,14 @@ namespace OpenMetaverse
 
         #endregion Operators
 
-        /// <summary>An UUID with a value of all zeroes</summary>
+        /// <summary>
+        ///     An UUID with a value of all zeroes
+        /// </summary>
         public static readonly UUID Zero = new UUID();
 
-        /// <summary>A cache of UUID.Zero as a string to optimize a common path</summary>
+        /// <summary>
+        ///     A cache of UUID.Zero as a string to optimize a common path
+        /// </summary>
         private static readonly string ZeroString = Guid.Empty.ToString();
     }
 }

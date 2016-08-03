@@ -137,6 +137,7 @@ namespace OpenMetaverse
                     if (!Monitor.Wait(SyncRoot, timeout))
                         throw new InvalidOperationException("Timeout");
                 }
+
                 if (open)
                     return base.Dequeue();
                 else
@@ -153,6 +154,7 @@ namespace OpenMetaverse
                     if (!Monitor.Wait(SyncRoot, timeout))
                         return false;
                 }
+
                 if (open)
                 {
                     obj = base.Dequeue();

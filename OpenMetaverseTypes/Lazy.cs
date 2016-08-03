@@ -40,18 +40,15 @@ namespace OpenMetaverse
 
         public bool IsValueCreated { get { return _isValueCreated; } }
 
-        public Lazy()
-            : this(() => Activator.CreateInstance<T>())
+        public Lazy() : this(() => Activator.CreateInstance<T>())
         {
         }
 
-        public Lazy(bool isThreadSafe)
-            : this(() => Activator.CreateInstance<T>(), isThreadSafe)
+        public Lazy(bool isThreadSafe) : this(() => Activator.CreateInstance<T>(), isThreadSafe)
         {
         }
 
-        public Lazy(Func<T> valueFactory) :
-            this(valueFactory, true)
+        public Lazy(Func<T> valueFactory) : this(valueFactory, true)
         {
         }
 
@@ -93,6 +90,7 @@ namespace OpenMetaverse
                         }
                     }
                 }
+
                 return this._value;
             }
         }

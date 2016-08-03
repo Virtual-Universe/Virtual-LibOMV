@@ -34,25 +34,33 @@ using OpenMetaverse.Packets;
 namespace OpenMetaverse.Utilities
 {
     /// <summary>
-    /// 
+    ///     WaterType
     /// </summary>
     public enum WaterType
     {
-        /// <summary></summary>
+        /// <summary>
+        ///     Unknown
+        /// </summary>
         Unknown,
-        /// <summary></summary>
+        /// <summary>
+        ///     Dry
+        /// </summary>
         Dry,
-        /// <summary></summary>
+        /// <summary>
+        ///     Waterfront
+        /// </summary>
         Waterfront,
-        /// <summary></summary>
+        /// <summary>
+        ///     Underwater
+        /// </summary>
         Underwater
     }
 
     public static class Realism
     {
         /// <summary>
-        /// Aims at the specified position, enters mouselook, presses and
-        /// releases the left mouse button, and leaves mouselook
+        ///     Aims at the specified position, enters mouselook, presses and
+        ///     releases the left mouse button, and leaves mouselook
         /// </summary>
         /// <param name="client"></param>
         /// <param name="target">Target to shoot at</param>
@@ -66,7 +74,7 @@ namespace OpenMetaverse.Utilities
         }
 
         /// <summary>
-        /// Enters mouselook, presses and releases the left mouse button, and leaves mouselook
+        ///     Enters mouselook, presses and releases the left mouse button, and leaves mouselook
         /// </summary>
         /// <returns></returns>
         public static bool Shoot(GridClient client)
@@ -97,9 +105,9 @@ namespace OpenMetaverse.Utilities
         }
 
         /// <summary>
-        ///  A psuedo-realistic chat function that uses the typing sound and
-        /// animation, types at three characters per second, and randomly 
-        /// pauses. This function will block until the message has been sent
+        ///     A psuedo-realistic chat function that uses the typing sound and
+        ///     animation, types at three characters per second, and randomly 
+        ///     pauses. This function will block until the message has been sent
         /// </summary>
         /// <param name="client">A reference to the client that will chat</param>
         /// <param name="message">The chat message to send</param>
@@ -109,9 +117,9 @@ namespace OpenMetaverse.Utilities
         }
 
         /// <summary>
-        /// A psuedo-realistic chat function that uses the typing sound and
-        /// animation, types at a given rate, and randomly pauses. This 
-        /// function will block until the message has been sent
+        ///     A psuedo-realistic chat function that uses the typing sound and
+        ///     animation, types at a given rate, and randomly pauses. This 
+        ///     function will block until the message has been sent
         /// </summary>
         /// <param name="client">A reference to the client that will chat</param>
         /// <param name="message">The chat message to send</param>
@@ -176,8 +184,7 @@ namespace OpenMetaverse.Utilities
             CheckTimer.Elapsed += new System.Timers.ElapsedEventHandler(CheckTimer_Elapsed);
         }
 
-        public static bool PersistentLogin(GridClient client, string firstName, string lastName, string password,
-            string userAgent, string start, string author)
+        public static bool PersistentLogin(GridClient client, string firstName, string lastName, string password, string userAgent, string start, string author)
         {
             int unknownLogins = 0;
 

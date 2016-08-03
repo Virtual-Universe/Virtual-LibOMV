@@ -1,40 +1,40 @@
-﻿//
-// System.Threading.ReaderWriterLockSlim.cs
-//
-// Authors:
-//   Miguel de Icaza (miguel@novell.com) 
-//   Dick Porter (dick@ximian.com)
-//   Jackson Harper (jackson@ximian.com)
-//   Lluis Sanchez Gual (lluis@ximian.com)
-//   Marek Safar (marek.safar@gmail.com)
-//
-// Copyright 2004-2008 Novell, Inc (http://www.novell.com)
-// Copyright 2003, Ximian, Inc.
-//
-// NoRecursion code based on the blog post from Vance Morrison:
-//   http://blogs.msdn.com/vancem/archive/2006/03/28/563180.aspx
-//
-// Recursion code based on Mono's implementation of ReaderWriterLock.
-// 
-// Permission is hereby granted, free of charge, to any person obtaining
-// a copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to
-// permit persons to whom the Software is furnished to do so, subject to
-// the following conditions:
-// 
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
+﻿/*
+ * System.Threading.ReaderWriterLockSlim.cs
+ * 
+ * Authors:
+ *      Miguel de Icaza (miguel@novell.com) 
+ *      Dick Porter (dick@ximian.com)
+ *      Jackson Harper (jackson@ximian.com)
+ *      Lluis Sanchez Gual (lluis@ximian.com)
+ *      Marek Safar (marek.safar@gmail.com)
+ * 
+ * Copyright 2004-2008 Novell, Inc (http://www.novell.com)
+ * Copyright 2003, Ximian, Inc.
+ * 
+ * NoRecursion code based on the blog post from Vance Morrison:
+ *   http://blogs.msdn.com/vancem/archive/2006/03/28/563180.aspx
+ *   
+ * Recursion code based on Mono's implementation of ReaderWriterLock.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 using System;
 using System.Collections;
@@ -49,35 +49,30 @@ namespace OpenMetaverse
     [Serializable]
     public class LockRecursionException : Exception
     {
-        public LockRecursionException()
-            : base()
+        public LockRecursionException() : base()
         {
         }
 
-        public LockRecursionException(string message)
-            : base(message)
+        public LockRecursionException(string message) : base(message)
         {
         }
 
-        public LockRecursionException(string message, Exception e)
-            : base(message, e)
+        public LockRecursionException(string message, Exception e) : base(message, e)
         {
         }
 
-        protected LockRecursionException(SerializationInfo info, StreamingContext sc)
-            : base(info, sc)
+        protected LockRecursionException(SerializationInfo info, StreamingContext sc) : base(info, sc)
         {
         }
     }
 
-    //
-    // This implementation is based on the light-weight
-    // Reader/Writer lock sample from Vance Morrison's blog:
-    //
-    // http://blogs.msdn.com/vancem/archive/2006/03/28/563180.aspx
-    //
-    // And in Mono's ReaderWriterLock
-    //
+    /// <summary>
+    ///     This implementation is based on the light-weight
+    ///     Reader/Writer lock sample from Vance Morrison's blog:
+    ///     http://blogs.msdn.com/vancem/archive/2006/03/28/563180.aspx
+    /// 
+    ///     And in Mono's ReaderWriterLock
+    /// </summary>
     [HostProtectionAttribute(SecurityAction.LinkDemand, MayLeakOnAbort = true)]
     [HostProtectionAttribute(SecurityAction.LinkDemand, Synchronization = true, ExternalThreading = true)]
     public class ReaderWriterLockSlim : IDisposable
@@ -111,11 +106,6 @@ namespace OpenMetaverse
         EventWaitHandle writeEvent;    // threads waiting to aquire a write lock go here.
         EventWaitHandle readEvent;     // threads waiting to aquire a read lock go here (will be released in bulk)
         EventWaitHandle upgradeEvent;  // thread waiting to upgrade a read lock to a write lock go here (at most one)
-
-        //int lock_owner;
-
-        // Only set if we are a recursive lock
-        //Dictionary<int,int> reader_locks;
 
         LockDetails[] read_locks = new LockDetails[8];
 
@@ -153,6 +143,7 @@ namespace OpenMetaverse
                 ExitMyLock();
                 throw new LockRecursionException("Recursive read lock can only be aquired in SupportsRecursion mode");
             }
+
             ++ld.ReadLocks;
 
             while (true)
@@ -183,6 +174,7 @@ namespace OpenMetaverse
                 if (!WaitOnEvent(readEvent, ref numReadWaiters, millisecondsTimeout))
                     return false;
             }
+
             ExitMyLock();
 
             return true;
@@ -193,9 +185,7 @@ namespace OpenMetaverse
             return TryEnterReadLock(CheckTimeout(timeout));
         }
 
-        //
         // TODO: What to do if we are releasing a ReadLock and we do not own it?
-        //
         public void ExitReadLock()
         {
             EnterMyLock();
@@ -295,6 +285,7 @@ namespace OpenMetaverse
                         // since we left the lock, retry
                         continue;
                     }
+
                     if (!WaitOnEvent(writeEvent, ref numWriteWaiters, millisecondsTimeout))
                         return false;
                 }
@@ -320,7 +311,6 @@ namespace OpenMetaverse
                 throw new SynchronizationLockException("Calling ExitWriterLock when no write lock is held");
             }
 
-            //Debug.Assert (numUpgradeWaiters > 0);
             write_thread = upgradable_thread = null;
             owners = 0;
             ExitAndWakeUpAppropriateWaiters();
@@ -331,10 +321,8 @@ namespace OpenMetaverse
             TryEnterUpgradeableReadLock(-1);
         }
 
-        //
         // Taking the Upgradable read lock is like taking a read lock
         // but we limit it to a single upgradable at a time.
-        //
         public bool TryEnterUpgradeableReadLock(int millisecondsTimeout)
         {
             if (millisecondsTimeout < Timeout.Infinite)
@@ -458,6 +446,7 @@ namespace OpenMetaverse
         }
 
         #region Private methods
+
         void EnterMyLock()
         {
             if (Interlocked.CompareExchange(ref myLock, 1, 0) != 0)
@@ -488,7 +477,7 @@ namespace OpenMetaverse
         bool MyLockHeld { get { return myLock != 0; } }
 
         /// <summary>
-        /// Determines the appropriate events to set, leaves the locks, and sets the events. 
+        ///     Determines the appropriate events to set, leaves the locks, and sets the events. 
         /// </summary>
         private void ExitAndWakeUpAppropriateWaiters()
         {
@@ -501,7 +490,7 @@ namespace OpenMetaverse
                 ExitMyLock();
                 // release all upgraders (however there can be at most one). 
                 upgradeEvent.Set();
-                //
+
                 // TODO: What does the following comment mean?
                 // two threads upgrading is a guarenteed deadlock, so we throw in that case. 
             }
@@ -509,6 +498,7 @@ namespace OpenMetaverse
             {
                 // Exit before signaling to improve efficiency (wakee will need the lock)
                 ExitMyLock();
+
                 // release one writer. 
                 writeEvent.Set();
             }
@@ -516,6 +506,7 @@ namespace OpenMetaverse
             {
                 // Exit before signaling to improve efficiency (wakee will need the lock)
                 ExitMyLock();
+
                 // release all readers.
                 readEvent.Set();
             }
@@ -524,10 +515,10 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// A routine for lazily creating a event outside the lock (so if errors
-        /// happen they are outside the lock and that we don't do much work
-        /// while holding a spin lock).  If all goes well, reenter the lock and
-        /// set 'waitEvent' 
+        ///     A routine for lazily creating a event outside the lock (so if errors
+        ///     happen they are outside the lock and that we don't do much work
+        ///     while holding a spin lock).  If all goes well, reenter the lock and
+        ///     set 'waitEvent' 
         /// </summary>
         void LazyCreateEvent(ref EventWaitHandle waitEvent, bool makeAutoResetEvent)
         {
@@ -549,8 +540,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        /// Waits on 'waitEvent' with a timeout of 'millisceondsTimeout.  
-        /// Before the wait 'numWaiters' is incremented and is restored before leaving this routine.
+        ///     Waits on 'waitEvent' with a timeout of 'millisceondsTimeout.  
+        ///     Before the wait 'numWaiters' is incremented and is restored before leaving this routine.
         /// </summary>
         bool WaitOnEvent(EventWaitHandle waitEvent, ref uint numWaiters, int millisecondsTimeout)
         {
@@ -571,9 +562,11 @@ namespace OpenMetaverse
             {
                 EnterMyLock();
                 --numWaiters;
+
                 if (!waitSuccessful)
                     ExitMyLock();
             }
+
             return waitSuccessful;
         }
 
@@ -613,6 +606,7 @@ namespace OpenMetaverse
             ld.ThreadId = threadId;
             return ld;
         }
+
         #endregion
     }
 }
