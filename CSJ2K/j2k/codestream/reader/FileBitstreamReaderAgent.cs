@@ -51,9 +51,9 @@ using CSJ2K.j2k.image;
 using CSJ2K.j2k.util;
 using CSJ2K.j2k.io;
 using CSJ2K.j2k;
+
 namespace CSJ2K.j2k.codestream.reader
-{
-	
+{	
 	/// <summary> This class reads the bit stream (with the help of HeaderDecoder for tile
 	/// headers and PktDecoder for packets header and body) and retrives location
 	/// of all code-block's codewords.
@@ -299,7 +299,9 @@ namespace CSJ2K.j2k.codestream.reader
 			{
 				//UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
 				tnbytes = (int) (trate * hd.MaxCompImgWidth * hd.MaxCompImgHeight) / 8;
-                if (tnbytes < 0) tnbytes = int.MaxValue;
+                // tnbytes may be up to max int
+                //if (tnbytes < 0) tnbytes = int.MaxValue;
+                if (tnbytes <= 0) tnbytes = int.MaxValue;
 			}
 			isTruncMode = !pl.getBooleanParameter("parsing");
 			
