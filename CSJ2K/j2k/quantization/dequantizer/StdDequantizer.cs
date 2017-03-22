@@ -294,8 +294,8 @@ namespace CSJ2K.j2k.quantization.dequantizer
 			outfarr = null;
 			inarr = null;
 			
-			// Get source data and initialize output DataBlk object.
-			switch (outdtype)
+            // Get source data and initialize output DataBlk object.
+            switch (outdtype)
 			{
 				
 				case DataBlk.TYPE_INT: 
@@ -312,10 +312,6 @@ namespace CSJ2K.j2k.quantization.dequantizer
 					// the data from the source and to return the dequantized data.
 					inblk = (DataBlkInt) src.getInternCodeBlock(c, m, n, sb, inblk);
 					inarr = inblk.DataInt;
-					if (cblk == null)
-					{
-						cblk = new DataBlkFloat();
-					}
 					// Copy the attributes of the CodeBlock object
 					cblk.ulx = inblk.ulx;
 					cblk.uly = inblk.uly;

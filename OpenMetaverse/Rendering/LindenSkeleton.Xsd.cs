@@ -17,227 +17,182 @@
     using System.Xml.Serialization;
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [XmlRoot("linden_skeleton", Namespace = "", IsNullable = false)]
+    [System.CodeDom.Compiler.GeneratedCode ("xsd", "4.0.30319.1")]
+    [System.Serializable]
+    [System.ComponentModel.DesignerCategory ("code")]
+    [XmlRoot ("linden_skeleton", Namespace = "", IsNullable = false)]
     public partial class LindenSkeleton
     {
 
-        private Joint boneField;
-
-        private float versionField;
-
-        private bool versionFieldSpecified;
-
-        private string num_bonesField;
-
-        private string num_collision_volumesField;
+        Joint boneField;
+        float versionField;
+        bool versionFieldSpecified;
+        string num_bonesField;
+        string num_collision_volumesField;
 
         /// <remarks/>
-        public Joint bone
-        {
-            get
-            {
-                return this.boneField;
+        public Joint bone {
+            get {
+                return boneField;
             }
-            set
-            {
-                this.boneField = value;
+            set {
+                boneField = value;
             }
         }
 
         /// <remarks/>
-        [XmlAttribute()]
-        public float version
-        {
-            get
-            {
-                return this.versionField;
+        [XmlAttribute]
+        public float version {
+            get {
+                return versionField;
             }
-            set
-            {
-                this.versionField = value;
+            set {
+                versionField = value;
             }
         }
 
         /// <remarks/>
-        [XmlIgnore()]
-        public bool versionSpecified
-        {
-            get
-            {
-                return this.versionFieldSpecified;
+        [XmlIgnore]
+        public bool versionSpecified {
+            get {
+                return versionFieldSpecified;
             }
-            set
-            {
-                this.versionFieldSpecified = value;
+            set {
+                versionFieldSpecified = value;
             }
         }
 
         /// <remarks/>
-        [XmlAttribute(DataType = "positiveInteger")]
-        public string num_bones
-        {
-            get
-            {
-                return this.num_bonesField;
+        [XmlAttribute (DataType = "positiveInteger")]
+        public string num_bones {
+            get {
+                return num_bonesField;
             }
-            set
-            {
-                this.num_bonesField = value;
+            set {
+                num_bonesField = value;
             }
         }
 
         /// <remarks/>
-        [XmlAttribute(DataType = "positiveInteger")]
-        public string num_collision_volumes
-        {
-            get
-            {
-                return this.num_collision_volumesField;
+        [XmlAttribute (DataType = "positiveInteger")]
+        public string num_collision_volumes {
+            get {
+                return num_collision_volumesField;
             }
-            set
-            {
-                this.num_collision_volumesField = value;
+            set {
+                num_collision_volumesField = value;
             }
         }
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.CodeDom.Compiler.GeneratedCode ("xsd", "4.0.30319.1")]
+    [System.Serializable ()]
+    [System.ComponentModel.DesignerCategory ("code")]
     public partial class Joint : JointBase
     {
 
-        private CollisionVolume[] collision_volumeField;
-
-        private Joint[] boneField;
-
-        private float[] pivotField;
+        CollisionVolume [] collision_volumeField;
+        Joint [] boneField;
+        float [] pivotField;
 
         /// <remarks/>
-        [XmlElement("collision_volume")]
-        public CollisionVolume[] collision_volume
-        {
-            get
-            {
-                return this.collision_volumeField;
+        [XmlElement ("collision_volume")]
+        public CollisionVolume [] collision_volume {
+            get {
+                return collision_volumeField;
             }
-            set
-            {
-                this.collision_volumeField = value;
+            set {
+                collision_volumeField = value;
             }
         }
 
         /// <remarks/>
-        [XmlElement("bone")]
-        public Joint[] bone
-        {
-            get
-            {
-                return this.boneField;
+        [XmlElement ("bone")]
+        public Joint [] bone {
+            get {
+                return boneField;
             }
-            set
-            {
-                this.boneField = value;
+            set {
+                boneField = value;
             }
         }
 
         /// <remarks/>
-        [XmlAttribute()]
-        public float[] pivot
-        {
-            get
-            {
-                return this.pivotField;
+        [XmlAttribute ()]
+        public float [] pivot {
+            get {
+                return pivotField;
             }
-            set
-            {
-                this.pivotField = value;
+            set {
+                pivotField = value;
             }
         }
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.CodeDom.Compiler.GeneratedCode ("xsd", "4.0.30319.1")]
+    [System.Serializable ()]
+    [System.ComponentModel.DesignerCategory ("code")]
     public partial class CollisionVolume : JointBase
     {
     }
 
     /// <remarks/>
-    [XmlInclude(typeof(Joint))]
-    [XmlInclude(typeof(CollisionVolume))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [XmlInclude (typeof (Joint))]
+    [XmlInclude (typeof (CollisionVolume))]
+    [System.CodeDom.Compiler.GeneratedCode ("xsd", "4.0.30319.1")]
+    [System.Serializable ()]
+    [System.ComponentModel.DesignerCategory ("code")]
     public partial class JointBase
     {
 
-        private string nameField;
-
-        private float[] posField;
-
-        private float[] rotField;
-
-        private float[] scaleField;
+        string nameField;
+        float [] posField;
+        float [] rotField;
+        float [] scaleField;
 
         /// <remarks/>
-        [XmlAttribute(DataType = "token")]
-        public string name
-        {
-            get
-            {
-                return this.nameField;
+        [XmlAttribute (DataType = "token")]
+        public string name {
+            get {
+                return nameField;
             }
-            set
-            {
-                this.nameField = value;
+            set {
+                nameField = value;
             }
         }
 
         /// <remarks/>
-        [XmlAttribute()]
-        public float[] pos
-        {
-            get
-            {
-                return this.posField;
+        [XmlAttribute ()]
+        public float [] pos {
+            get {
+                return posField;
             }
-            set
-            {
-                this.posField = value;
+            set {
+                posField = value;
             }
         }
 
         /// <remarks/>
-        [XmlAttribute()]
-        public float[] rot
-        {
-            get
-            {
-                return this.rotField;
+        [XmlAttribute ()]
+        public float [] rot {
+            get {
+                return rotField;
             }
-            set
-            {
-                this.rotField = value;
+            set {
+                rotField = value;
             }
         }
 
         /// <remarks/>
-        [XmlAttribute()]
-        public float[] scale
-        {
-            get
-            {
-                return this.scaleField;
+        [XmlAttribute ()]
+        public float [] scale {
+            get {
+                return scaleField;
             }
-            set
-            {
-                this.scaleField = value;
+            set {
+                scaleField = value;
             }
         }
     }

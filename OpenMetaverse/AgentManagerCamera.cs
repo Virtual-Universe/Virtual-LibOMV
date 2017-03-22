@@ -24,7 +24,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System;
 
 namespace OpenMetaverse
 {
@@ -39,12 +38,12 @@ namespace OpenMetaverse
             /// </summary>
             public class AgentCamera
             {
-                /// <summary></summary>
-                public float Far;
-
                 /// <summary>The camera is a local frame of reference inside of
                 /// the larger grid space. This is where the math happens</summary>
-                private CoordinateFrame Frame;
+                readonly CoordinateFrame Frame;
+
+                /// <summary></summary>
+                public float Far;
 
                 /// <summary></summary>
                 public Vector3 Position

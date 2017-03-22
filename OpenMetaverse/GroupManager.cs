@@ -467,7 +467,7 @@ namespace OpenMetaverse
     /// <summary>
     /// Ban actions available for group members
     /// </summary>
-    public enum GroupBanAction : int
+    public enum GroupBanAction
     {
         /// <summary> Ban agent from joining a group </summary>
         Ban = 1,
@@ -486,7 +486,7 @@ namespace OpenMetaverse
         #region Delegates
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<CurrentGroupsEventArgs> m_CurrentGroups;
+        EventHandler<CurrentGroupsEventArgs> m_CurrentGroups;
 
         /// <summary>Raises the CurrentGroups event</summary>
         /// <param name="e">A CurrentGroupsEventArgs object containing the
@@ -499,7 +499,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_CurrentGroupsLock = new object();
+        readonly object m_CurrentGroupsLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// our current group membership</summary>
@@ -510,7 +510,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupNamesEventArgs> m_GroupNames;
+        EventHandler<GroupNamesEventArgs> m_GroupNames;
 
         /// <summary>Raises the GroupNamesReply event</summary>
         /// <param name="e">A GroupNamesEventArgs object containing the
@@ -523,7 +523,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupNamesLock = new object();
+        readonly object m_GroupNamesLock = new object();
 
         /// <summary>Raised when the simulator responds to a RequestGroupName 
         /// or RequestGroupNames request</summary>
@@ -534,7 +534,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupProfileEventArgs> m_GroupProfile;
+        EventHandler<GroupProfileEventArgs> m_GroupProfile;
 
         /// <summary>Raises the GroupProfile event</summary>
         /// <param name="e">An GroupProfileEventArgs object containing the
@@ -547,7 +547,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupProfileLock = new object();
+        readonly object m_GroupProfileLock = new object();
 
         /// <summary>Raised when the simulator responds to a <see cref="RequestGroupProfile"/> request</summary>
         public event EventHandler<GroupProfileEventArgs> GroupProfile
@@ -557,7 +557,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupMembersReplyEventArgs> m_GroupMembers;
+        EventHandler<GroupMembersReplyEventArgs> m_GroupMembers;
 
         /// <summary>Raises the GroupMembers event</summary>
         /// <param name="e">A GroupMembersEventArgs object containing the
@@ -570,7 +570,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupMembersLock = new object();
+        readonly object m_GroupMembersLock = new object();
 
         /// <summary>Raised when the simulator responds to a <see cref="RequestGroupMembers"/> request</summary>
         public event EventHandler<GroupMembersReplyEventArgs> GroupMembersReply
@@ -580,7 +580,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupRolesDataReplyEventArgs> m_GroupRoles;
+        EventHandler<GroupRolesDataReplyEventArgs> m_GroupRoles;
 
         /// <summary>Raises the GroupRolesDataReply event</summary>
         /// <param name="e">A GroupRolesDataReplyEventArgs object containing the
@@ -593,7 +593,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupRolesLock = new object();
+        readonly object m_GroupRolesLock = new object();
 
         /// <summary>Raised when the simulator responds to a <see cref="RequestGroupRoleData"/> request</summary>
         public event EventHandler<GroupRolesDataReplyEventArgs> GroupRoleDataReply
@@ -603,7 +603,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupRolesMembersReplyEventArgs> m_GroupRoleMembers;
+        EventHandler<GroupRolesMembersReplyEventArgs> m_GroupRoleMembers;
 
         /// <summary>Raises the GroupRoleMembersReply event</summary>
         /// <param name="e">A GroupRolesRoleMembersReplyEventArgs object containing the
@@ -616,7 +616,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupRolesMembersLock = new object();
+        readonly object m_GroupRolesMembersLock = new object();
 
         /// <summary>Raised when the simulator responds to a <see cref="RequestGroupRolesMembers"/> request</summary>
         public event EventHandler<GroupRolesMembersReplyEventArgs> GroupRoleMembersReply
@@ -626,7 +626,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupTitlesReplyEventArgs> m_GroupTitles;
+        EventHandler<GroupTitlesReplyEventArgs> m_GroupTitles;
 
 
         /// <summary>Raises the GroupTitlesReply event</summary>
@@ -640,7 +640,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupTitlesLock = new object();
+        readonly object m_GroupTitlesLock = new object();
 
         /// <summary>Raised when the simulator responds to a <see cref="RequestGroupTitles"/> request</summary>
         public event EventHandler<GroupTitlesReplyEventArgs> GroupTitlesReply
@@ -650,7 +650,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupAccountSummaryReplyEventArgs> m_GroupAccountSummary;
+        EventHandler<GroupAccountSummaryReplyEventArgs> m_GroupAccountSummary;
 
         /// <summary>Raises the GroupAccountSummary event</summary>
         /// <param name="e">A GroupAccountSummaryReplyEventArgs object containing the
@@ -663,7 +663,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupAccountSummaryLock = new object();
+        readonly object m_GroupAccountSummaryLock = new object();
 
         /// <summary>Raised when a response to a RequestGroupAccountSummary is returned
         /// by the simulator</summary>
@@ -674,7 +674,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupCreatedReplyEventArgs> m_GroupCreated;
+        EventHandler<GroupCreatedReplyEventArgs> m_GroupCreated;
 
         /// <summary>Raises the GroupCreated event</summary>
         /// <param name="e">An GroupCreatedEventArgs object containing the
@@ -686,7 +686,7 @@ namespace OpenMetaverse
                 handler(this, e);
         }
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupCreatedLock = new object();
+        readonly object m_GroupCreatedLock = new object();
 
         /// <summary>Raised when a request to create a group is successful</summary>
         public event EventHandler<GroupCreatedReplyEventArgs> GroupCreatedReply
@@ -696,7 +696,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupOperationEventArgs> m_GroupJoined;
+        EventHandler<GroupOperationEventArgs> m_GroupJoined;
 
         /// <summary>Raises the GroupJoined event</summary>
         /// <param name="e">A GroupOperationEventArgs object containing the
@@ -708,7 +708,7 @@ namespace OpenMetaverse
                 handler(this, e);
         }
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupJoinedLock = new object();
+        readonly object m_GroupJoinedLock = new object();
 
         /// <summary>Raised when a request to join a group either
         /// fails or succeeds</summary>
@@ -719,7 +719,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupOperationEventArgs> m_GroupLeft;
+        EventHandler<GroupOperationEventArgs> m_GroupLeft;
 
         /// <summary>Raises the GroupLeft event</summary>
         /// <param name="e">A GroupOperationEventArgs object containing the
@@ -731,7 +731,7 @@ namespace OpenMetaverse
                 handler(this, e);
         }
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupLeftLock = new object();
+        readonly object m_GroupLeftLock = new object();
 
         /// <summary>Raised when a request to leave a group either
         /// fails or succeeds</summary>
@@ -742,7 +742,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupDroppedEventArgs> m_GroupDropped;
+        EventHandler<GroupDroppedEventArgs> m_GroupDropped;
 
         /// <summary>Raises the GroupDropped event</summary>
         /// <param name="e">An GroupDroppedEventArgs object containing the
@@ -754,7 +754,7 @@ namespace OpenMetaverse
                 handler(this, e);
         }
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupDroppedLock = new object();
+        readonly object m_GroupDroppedLock = new object();
 
         /// <summary>Raised when A group is removed from the group server</summary>
         public event EventHandler<GroupDroppedEventArgs> GroupDropped
@@ -764,7 +764,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupOperationEventArgs> m_GroupMemberEjected;
+        EventHandler<GroupOperationEventArgs> m_GroupMemberEjected;
 
         /// <summary>Raises the GroupMemberEjected event</summary>
         /// <param name="e">An GroupMemberEjectedEventArgs object containing the
@@ -776,7 +776,7 @@ namespace OpenMetaverse
                 handler(this, e);
         }
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupMemberEjectedLock = new object();
+        readonly object m_GroupMemberEjectedLock = new object();
 
         /// <summary>Raised when a request to eject a member from a group either
         /// fails or succeeds</summary>
@@ -787,7 +787,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupNoticesListReplyEventArgs> m_GroupNoticesListReply;
+        EventHandler<GroupNoticesListReplyEventArgs> m_GroupNoticesListReply;
 
         /// <summary>Raises the GroupNoticesListReply event</summary>
         /// <param name="e">An GroupNoticesListReplyEventArgs object containing the
@@ -800,7 +800,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupNoticesListReplyLock = new object();
+        readonly object m_GroupNoticesListReplyLock = new object();
 
         /// <summary>Raised when the simulator sends us group notices</summary>
         /// <seealso cref="RequestGroupNoticesList"/>
@@ -811,7 +811,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<GroupInvitationEventArgs> m_GroupInvitation;
+        EventHandler<GroupInvitationEventArgs> m_GroupInvitation;
 
         /// <summary>Raises the GroupInvitation event</summary>
         /// <param name="e">An GroupInvitationEventArgs object containing the
@@ -824,7 +824,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_GroupInvitationLock = new object();
+        readonly object m_GroupInvitationLock = new object();
 
         /// <summary>Raised when another agent invites our avatar to join a group</summary>
         public event EventHandler<GroupInvitationEventArgs> GroupInvitation
@@ -839,20 +839,22 @@ namespace OpenMetaverse
 
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<BannedAgentsEventArgs> m_BannedAgents;
+        EventHandler<BannedAgentsEventArgs> m_BannedAgents;
 
         /// <summary>Raises the BannedAgents event</summary>
         /// <param name="e">An BannedAgentsEventArgs object containing the
         /// data returned from the simulator</param>
         protected virtual void OnBannedAgents(BannedAgentsEventArgs e)
         {
-            EventHandler<BannedAgentsEventArgs> handler = m_BannedAgents;
-            if (handler != null)
-                handler(this, e);
+            lock (m_BannedAgentsLock) {
+                EventHandler<BannedAgentsEventArgs> handler = m_BannedAgents;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_BannedAgentsLock = new object();
+        readonly object m_BannedAgentsLock = new object();
 
         /// <summary>Raised when another agent invites our avatar to join a group</summary>
         public event EventHandler<BannedAgentsEventArgs> BannedAgents
@@ -865,19 +867,19 @@ namespace OpenMetaverse
 
 
         /// <summary>A reference to the current <seealso cref="GridClient"/> instance</summary>
-        private GridClient Client;
+        GridClient Client;
         /// <summary>Currently-active group members requests</summary>
-        private List<UUID> GroupMembersRequests;
+        List<UUID> GroupMembersRequests;
         /// <summary>Currently-active group roles requests</summary>
-        private List<UUID> GroupRolesRequests;
+        List<UUID> GroupRolesRequests;
         /// <summary>Currently-active group role-member requests</summary>
-        private List<UUID> GroupRolesMembersRequests;
+        List<UUID> GroupRolesMembersRequests;
         /// <summary>Dictionary keeping group members while request is in progress</summary>
-        private InternalDictionary<UUID, Dictionary<UUID, GroupMember>> TempGroupMembers;
+        InternalDictionary<UUID, Dictionary<UUID, GroupMember>> TempGroupMembers;
         /// <summary>Dictionary keeping mebmer/role mapping while request is in progress</summary>
-        private InternalDictionary<UUID, List<KeyValuePair<UUID, UUID>>> TempGroupRolesMembers;
+        InternalDictionary<UUID, List<KeyValuePair<UUID, UUID>>> TempGroupRolesMembers;
         /// <summary>Dictionary keeping GroupRole information while request is in progress</summary>
-        private InternalDictionary<UUID, Dictionary<UUID, GroupRole>> TempGroupRoles;
+        InternalDictionary<UUID, Dictionary<UUID, GroupRole>> TempGroupRoles;
         /// <summary>Caches group name lookups</summary>
         public InternalDictionary<UUID, string> GroupName2KeyCache;
 
@@ -1108,7 +1110,7 @@ namespace OpenMetaverse
         public UUID RequestGroupRolesMembers(UUID group)
         {
             UUID requestID = UUID.Random();
-            lock (GroupRolesRequests) GroupRolesMembersRequests.Add(requestID);
+            lock (GroupRolesMembersRequests) GroupRolesMembersRequests.Add(requestID);
 
             GroupRoleMembersRequestPacket request = new GroupRoleMembersRequestPacket();
             request.AgentData.AgentID = Client.Self.AgentID;
@@ -1262,7 +1264,7 @@ namespace OpenMetaverse
         /// <param name="group">Group struct containing the new group info</param>
         public void RequestCreateGroup(Group group)
         {
-            OpenMetaverse.Packets.CreateGroupRequestPacket cgrp = new CreateGroupRequestPacket();
+            var cgrp = new CreateGroupRequestPacket();
             cgrp.AgentData = new CreateGroupRequestPacket.AgentDataBlock();
             cgrp.AgentData.AgentID = Client.Self.AgentID;
             cgrp.AgentData.SessionID = Client.Self.SessionID;
@@ -1285,7 +1287,7 @@ namespace OpenMetaverse
         /// <param name="group">Group struct to update.</param>
         public void UpdateGroup(UUID id, Group group)
         {
-            OpenMetaverse.Packets.UpdateGroupInfoPacket cgrp = new UpdateGroupInfoPacket();
+            var cgrp = new UpdateGroupInfoPacket();
             cgrp.AgentData = new UpdateGroupInfoPacket.AgentDataBlock();
             cgrp.AgentData.AgentID = Client.Self.AgentID;
             cgrp.AgentData.SessionID = Client.Self.SessionID;
@@ -1308,7 +1310,7 @@ namespace OpenMetaverse
         /// <param name="member">Avatar's key to eject</param>
         public void EjectUser(UUID group, UUID member)
         {
-            OpenMetaverse.Packets.EjectGroupMemberRequestPacket eject = new EjectGroupMemberRequestPacket();
+            var eject = new EjectGroupMemberRequestPacket();
             eject.AgentData = new EjectGroupMemberRequestPacket.AgentDataBlock();
             eject.AgentData.AgentID = Client.Self.AgentID;
             eject.AgentData.SessionID = Client.Self.SessionID;
@@ -1327,7 +1329,7 @@ namespace OpenMetaverse
         /// <param name="role">Modified role to be updated</param>
         public void UpdateRole(GroupRole role)
         {
-            OpenMetaverse.Packets.GroupRoleUpdatePacket gru = new GroupRoleUpdatePacket();
+            var gru = new GroupRoleUpdatePacket();
             gru.AgentData.AgentID = Client.Self.AgentID;
             gru.AgentData.SessionID = Client.Self.SessionID;
             gru.AgentData.GroupID = role.GroupID;
@@ -1347,7 +1349,7 @@ namespace OpenMetaverse
         /// <param name="role">Role to create</param>
         public void CreateRole(UUID group, GroupRole role)
         {
-            OpenMetaverse.Packets.GroupRoleUpdatePacket gru = new GroupRoleUpdatePacket();
+            var gru = new GroupRoleUpdatePacket();
             gru.AgentData.AgentID = Client.Self.AgentID;
             gru.AgentData.SessionID = Client.Self.SessionID;
             gru.AgentData.GroupID = group;
@@ -1367,7 +1369,7 @@ namespace OpenMetaverse
         /// <param name="roleID">Role to delete</param>
         public void DeleteRole(UUID group, UUID roleID)
         {
-            OpenMetaverse.Packets.GroupRoleUpdatePacket gru = new GroupRoleUpdatePacket();
+            var gru = new GroupRoleUpdatePacket();
             gru.AgentData.AgentID = Client.Self.AgentID;
             gru.AgentData.SessionID = Client.Self.SessionID;
             gru.AgentData.GroupID = group;
@@ -1388,7 +1390,7 @@ namespace OpenMetaverse
         /// <param name="member">Avatar's Key to remove</param>
         public void RemoveFromRole(UUID group, UUID role, UUID member)
         {
-            OpenMetaverse.Packets.GroupRoleChangesPacket grc = new GroupRoleChangesPacket();
+            var grc = new GroupRoleChangesPacket();
             grc.AgentData.AgentID = Client.Self.AgentID;
             grc.AgentData.SessionID = Client.Self.SessionID;
             grc.AgentData.GroupID = group;
@@ -1408,7 +1410,7 @@ namespace OpenMetaverse
         /// <param name="member">Avatar's ID to assign to role</param>
         public void AddToRole(UUID group, UUID role, UUID member)
         {
-            OpenMetaverse.Packets.GroupRoleChangesPacket grc = new GroupRoleChangesPacket();
+            var grc = new GroupRoleChangesPacket();
             grc.AgentData.AgentID = Client.Self.AgentID;
             grc.AgentData.SessionID = Client.Self.SessionID;
             grc.AgentData.GroupID = group;
@@ -1426,7 +1428,7 @@ namespace OpenMetaverse
         /// <param name="group">Group ID to fetch notices for</param>
         public void RequestGroupNoticesList(UUID group)
         {
-            OpenMetaverse.Packets.GroupNoticesListRequestPacket gnl = new GroupNoticesListRequestPacket();
+            var gnl = new GroupNoticesListRequestPacket();
             gnl.AgentData.AgentID = Client.Self.AgentID;
             gnl.AgentData.SessionID = Client.Self.SessionID;
             gnl.Data.GroupID = group;
@@ -1437,7 +1439,7 @@ namespace OpenMetaverse
         /// <param name="noticeID">ID of group notice</param>
         public void RequestGroupNotice(UUID noticeID)
         {
-            OpenMetaverse.Packets.GroupNoticeRequestPacket gnr = new GroupNoticeRequestPacket();
+            var gnr = new GroupNoticeRequestPacket();
             gnr.AgentData.AgentID = Client.Self.AgentID;
             gnr.AgentData.SessionID = Client.Self.SessionID;
             gnr.Data.GroupNoticeID = noticeID;
@@ -1459,7 +1461,7 @@ namespace OpenMetaverse
         /// <param name="prop"><code>GroupProposal</code> structure containing the proposal</param>
         public void StartProposal(UUID group, GroupProposal prop)
         {
-            StartGroupProposalPacket p = new StartGroupProposalPacket();
+            var p = new StartGroupProposalPacket();
             p.AgentData.AgentID = Client.Self.AgentID;
             p.AgentData.SessionID = Client.Self.SessionID;
             p.ProposalData.GroupID = group;
@@ -1475,7 +1477,7 @@ namespace OpenMetaverse
         /// <param name="groupID">The group to leave</param>
         public void LeaveGroup(UUID groupID)
         {
-            LeaveGroupRequestPacket p = new LeaveGroupRequestPacket();
+            var p = new LeaveGroupRequestPacket();
             p.AgentData.AgentID = Client.Self.AgentID;
             p.AgentData.SessionID = Client.Self.SessionID;
             p.GroupData.GroupID = groupID;
@@ -1499,7 +1501,7 @@ namespace OpenMetaverse
                 ret = Client.Network.CurrentSim.Caps.CapabilityURI("GroupAPIv1");
                 if (ret != null)
                 {
-                    ret = new Uri(string.Format("{0}?group_id={1}", ret.ToString(), groupID.ToString()));
+                    ret = new Uri(string.Format("{0}?group_id={1}", ret, groupID));
                 }
             }
 
@@ -1531,26 +1533,20 @@ namespace OpenMetaverse
                 try
                 {
 
-                    if (error != null)
-                    {
+                    if (error != null) {
                         throw error;
                     }
-                    else
-                    {
-                        UUID gid = ((OSDMap)result)["group_id"];
-                        var banList = (OSDMap)((OSDMap)result)["ban_list"];
-                        Dictionary<UUID, DateTime> bannedAgents = new Dictionary<UUID, DateTime>(banList.Count);
+                    UUID gid = ((OSDMap)result) ["group_id"];
+                    var banList = (OSDMap)((OSDMap)result) ["ban_list"];
+                    Dictionary<UUID, DateTime> bannedAgents = new Dictionary<UUID, DateTime> (banList.Count);
 
-                        foreach (var id in banList.Keys)
-                        {
-                            bannedAgents[new UUID(id)] = ((OSDMap)banList[id])["ban_date"].AsDate();
-                        }
-
-                        var ret = new BannedAgentsEventArgs(groupID, true, bannedAgents);
-                        OnBannedAgents(ret);
-                        if (callback != null) try { callback(this, ret); }
-                            catch { }
+                    foreach (var id in banList.Keys) {
+                        bannedAgents [new UUID (id)] = ((OSDMap)banList [id]) ["ban_date"].AsDate ();
                     }
+
+                    var ret = new BannedAgentsEventArgs (groupID, true, bannedAgents);
+                    OnBannedAgents (ret);
+                    if (callback != null) try { callback (this, ret); } catch { }
 
                 }
                 catch (Exception ex)
@@ -1838,7 +1834,7 @@ namespace OpenMetaverse
                     {
                         groupMember.Powers = (GroupPowers)(ulong)member["powers"];
                     }
-                    groupMember.Title = titles[(int)member["title"]];
+                    groupMember.Title = titles[member["title"]];
 
                     groupMembers[groupMember.ID] = groupMember;
                 }
@@ -2056,7 +2052,7 @@ namespace OpenMetaverse
         /// <summary>Process an incoming packet and raise the appropriate events</summary>
         /// <param name="sender">The sender</param>
         /// <param name="e">The EventArgs object containing the packet data</param>
-        private void UUIDGroupNameReplyHandler(object sender, PacketReceivedEventArgs e)
+        void UUIDGroupNameReplyHandler(object sender, PacketReceivedEventArgs e)
         {
             Packet packet = e.Packet;
             UUIDGroupNameReplyPacket reply = (UUIDGroupNameReplyPacket)packet;
@@ -2101,7 +2097,7 @@ namespace OpenMetaverse
     /// <summary>Contains the current groups your agent is a member of</summary>
     public class CurrentGroupsEventArgs : EventArgs
     {
-        private readonly Dictionary<UUID, Group> m_Groups;
+        readonly Dictionary<UUID, Group> m_Groups;
 
         /// <summary>Get the current groups your agent is a member of</summary>
         public Dictionary<UUID, Group> Groups { get { return m_Groups; } }
@@ -2110,14 +2106,14 @@ namespace OpenMetaverse
         /// <param name="groups">The current groups your agent is a member of</param>
         public CurrentGroupsEventArgs(Dictionary<UUID, Group> groups)
         {
-            this.m_Groups = groups;
+            m_Groups = groups;
         }
     }
 
     /// <summary>A Dictionary of group names, where the Key is the groups ID and the value is the groups name</summary>
     public class GroupNamesEventArgs : EventArgs
     {
-        private readonly Dictionary<UUID, string> m_GroupNames;
+        readonly Dictionary<UUID, string> m_GroupNames;
 
         /// <summary>Get the Group Names dictionary</summary>
         public Dictionary<UUID, string> GroupNames { get { return m_GroupNames; } }
@@ -2126,16 +2122,16 @@ namespace OpenMetaverse
         /// <param name="groupNames">The Group names dictionary</param>
         public GroupNamesEventArgs(Dictionary<UUID, string> groupNames)
         {
-            this.m_GroupNames = groupNames;
+            m_GroupNames = groupNames;
         }
     }
 
     /// <summary>Represents the members of a group</summary>
     public class GroupMembersReplyEventArgs : EventArgs
     {
-        private readonly UUID m_RequestID;
-        private readonly UUID m_GroupID;
-        private readonly Dictionary<UUID, GroupMember> m_Members;
+        readonly UUID m_RequestID;
+        readonly UUID m_GroupID;
+        readonly Dictionary<UUID, GroupMember> m_Members;
 
         /// <summary>Get the ID as returned by the request to correlate
         /// this result set and the request</summary>
@@ -2153,18 +2149,18 @@ namespace OpenMetaverse
         /// <param name="members">The membership list of the group</param>
         public GroupMembersReplyEventArgs(UUID requestID, UUID groupID, Dictionary<UUID, GroupMember> members)
         {
-            this.m_RequestID = requestID;
-            this.m_GroupID = groupID;
-            this.m_Members = members;
+            m_RequestID = requestID;
+            m_GroupID = groupID;
+            m_Members = members;
         }
     }
 
     /// <summary>Represents the roles associated with a group</summary>
     public class GroupRolesDataReplyEventArgs : EventArgs
     {
-        private readonly UUID m_RequestID;
-        private readonly UUID m_GroupID;
-        private readonly Dictionary<UUID, GroupRole> m_Roles;
+        readonly UUID m_RequestID;
+        readonly UUID m_GroupID;
+        readonly Dictionary<UUID, GroupRole> m_Roles;
 
         /// <summary>Get the ID as returned by the request to correlate
         /// this result set and the request</summary>
@@ -2181,18 +2177,18 @@ namespace OpenMetaverse
         /// <param name="roles">The dictionary containing the roles</param>
         public GroupRolesDataReplyEventArgs(UUID requestID, UUID groupID, Dictionary<UUID, GroupRole> roles)
         {
-            this.m_RequestID = requestID;
-            this.m_GroupID = groupID;
-            this.m_Roles = roles;
+            m_RequestID = requestID;
+            m_GroupID = groupID;
+            m_Roles = roles;
         }
     }
 
     /// <summary>Represents the Role to Member mappings for a group</summary>
     public class GroupRolesMembersReplyEventArgs : EventArgs
     {
-        private readonly UUID m_RequestID;
-        private readonly UUID m_GroupID;
-        private readonly List<KeyValuePair<UUID, UUID>> m_RolesMembers;
+        readonly UUID m_RequestID;
+        readonly UUID m_GroupID;
+        readonly List<KeyValuePair<UUID, UUID>> m_RolesMembers;
 
         /// <summary>Get the ID as returned by the request to correlate
         /// this result set and the request</summary>
@@ -2209,18 +2205,18 @@ namespace OpenMetaverse
         /// <param name="rolesMembers">The member to roles map</param>
         public GroupRolesMembersReplyEventArgs(UUID requestID, UUID groupID, List<KeyValuePair<UUID, UUID>> rolesMembers)
         {
-            this.m_RequestID = requestID;
-            this.m_GroupID = groupID;
-            this.m_RolesMembers = rolesMembers;
+            m_RequestID = requestID;
+            m_GroupID = groupID;
+            m_RolesMembers = rolesMembers;
         }
     }
 
     /// <summary>Represents the titles for a group</summary>
     public class GroupTitlesReplyEventArgs : EventArgs
     {
-        private readonly UUID m_RequestID;
-        private readonly UUID m_GroupID;
-        private readonly Dictionary<UUID, GroupTitle> m_Titles;
+        readonly UUID m_RequestID;
+        readonly UUID m_GroupID;
+        readonly Dictionary<UUID, GroupTitle> m_Titles;
 
         /// <summary>Get the ID as returned by the request to correlate
         /// this result set and the request</summary>
@@ -2237,17 +2233,17 @@ namespace OpenMetaverse
         /// <param name="titles">The titles</param>
         public GroupTitlesReplyEventArgs(UUID requestID, UUID groupID, Dictionary<UUID, GroupTitle> titles)
         {
-            this.m_RequestID = requestID;
-            this.m_GroupID = groupID;
-            this.m_Titles = titles;
+            m_RequestID = requestID;
+            m_GroupID = groupID;
+            m_Titles = titles;
         }
     }
 
     /// <summary>Represents the summary data for a group</summary>
     public class GroupAccountSummaryReplyEventArgs : EventArgs
     {
-        private readonly UUID m_GroupID;
-        private readonly GroupAccountSummary m_Summary;
+        readonly UUID m_GroupID;
+        readonly GroupAccountSummary m_Summary;
 
         /// <summary>Get the ID of the group</summary>
         public UUID GroupID { get { return m_GroupID; } }
@@ -2259,17 +2255,17 @@ namespace OpenMetaverse
         /// <param name="summary">The summary data</param>
         public GroupAccountSummaryReplyEventArgs(UUID groupID, GroupAccountSummary summary)
         {
-            this.m_GroupID = groupID;
-            this.m_Summary = summary;
+            m_GroupID = groupID;
+            m_Summary = summary;
         }
     }
 
     /// <summary>A response to a group create request</summary>
     public class GroupCreatedReplyEventArgs : EventArgs
     {
-        private readonly UUID m_GroupID;
-        private readonly bool m_Success;
-        private readonly string m_Message;
+        readonly UUID m_GroupID;
+        readonly bool m_Success;
+        readonly string m_Message;
 
         /// <summary>Get the ID of the group</summary>
         public UUID GroupID { get { return m_GroupID; } }
@@ -2284,17 +2280,17 @@ namespace OpenMetaverse
         /// <param name="messsage">A string containing additional information</param>
         public GroupCreatedReplyEventArgs(UUID groupID, bool success, string messsage)
         {
-            this.m_GroupID = groupID;
-            this.m_Success = success;
-            this.m_Message = messsage;
+            m_GroupID = groupID;
+            m_Success = success;
+            m_Message = messsage;
         }
     }
 
     /// <summary>Represents a response to a request</summary>
     public class GroupOperationEventArgs : EventArgs
     {
-        private readonly UUID m_GroupID;
-        private readonly bool m_Success;
+        readonly UUID m_GroupID;
+        readonly bool m_Success;
 
         /// <summary>Get the ID of the group</summary>
         public UUID GroupID { get { return m_GroupID; } }
@@ -2306,15 +2302,15 @@ namespace OpenMetaverse
         /// <param name="success">true of the request was successful</param>
         public GroupOperationEventArgs(UUID groupID, bool success)
         {
-            this.m_GroupID = groupID;
-            this.m_Success = success;
+            m_GroupID = groupID;
+            m_Success = success;
         }
     }
 
     /// <summary>Represents your agent leaving a group</summary>
     public class GroupDroppedEventArgs : EventArgs
     {
-        private readonly UUID m_GroupID;
+        readonly UUID m_GroupID;
         /// <summary>Get the ID of the group</summary>
         public UUID GroupID { get { return m_GroupID; } }
 
@@ -2329,8 +2325,8 @@ namespace OpenMetaverse
     /// <summary>Represents a list of active group notices</summary>
     public class GroupNoticesListReplyEventArgs : EventArgs
     {
-        private readonly UUID m_GroupID;
-        private readonly List<GroupNoticesListEntry> m_Notices;
+        readonly UUID m_GroupID;
+        readonly List<GroupNoticesListEntry> m_Notices;
 
         /// <summary>Get the ID of the group</summary>
         public UUID GroupID { get { return m_GroupID; } }
@@ -2350,7 +2346,7 @@ namespace OpenMetaverse
     /// <summary>Represents the profile of a group</summary>
     public class GroupProfileEventArgs : EventArgs
     {
-        private readonly Group m_Group;
+        readonly Group m_Group;
 
         /// <summary>Get the group profile</summary>
         public Group Group { get { return m_Group; } }
@@ -2359,7 +2355,7 @@ namespace OpenMetaverse
         /// <param name="group">The group profile</param>
         public GroupProfileEventArgs(Group group)
         {
-            this.m_Group = group;
+            m_Group = group;
         }
     }
 
@@ -2370,10 +2366,10 @@ namespace OpenMetaverse
     /// to join a group.</remarks>
     public class GroupInvitationEventArgs : EventArgs
     {
-        private readonly UUID m_FromAgentID;
-        private readonly string m_FromAgentName;
-        private readonly string m_Message;
-        private readonly Simulator m_Simulator;
+        readonly UUID m_FromAgentID;
+        readonly string m_FromAgentName;
+        readonly string m_Message;
+        readonly Simulator m_Simulator;
 
         /// <summary>The ID of the Avatar sending the group invitation</summary>
         public UUID AgentID { get { return m_FromAgentID; } }
@@ -2390,10 +2386,10 @@ namespace OpenMetaverse
 
         public GroupInvitationEventArgs(Simulator simulator, UUID agentID, string agentName, string message)
         {
-            this.m_Simulator = simulator;
-            this.m_FromAgentID = agentID;
-            this.m_FromAgentName = agentName;
-            this.m_Message = message;
+            m_Simulator = simulator;
+            m_FromAgentID = agentID;
+            m_FromAgentName = agentName;
+            m_Message = message;
         }
     }
 
@@ -2417,9 +2413,9 @@ namespace OpenMetaverse
 
         public BannedAgentsEventArgs(UUID groupID, bool success, Dictionary<UUID, DateTime> bannedAgents)
         {
-            this.mGroupID = groupID;
-            this.mSuccess = success;
-            this.mBannedAgents = bannedAgents;
+            mGroupID = groupID;
+            mSuccess = success;
+            mBannedAgents = bannedAgents;
         }
     }
 

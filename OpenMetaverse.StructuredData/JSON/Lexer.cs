@@ -10,14 +10,13 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
 
 namespace LitJson
 {
-    internal class FsmContext
+    class FsmContext
     {
         public bool  Return;
         public int   NextState;
@@ -26,26 +25,26 @@ namespace LitJson
     }
 
 
-    internal class Lexer
+    class Lexer
     {
         #region Fields
-        private delegate bool StateHandler (FsmContext ctx);
+        delegate bool StateHandler (FsmContext ctx);
 
-        private static int[]          fsm_return_table;
-        private static StateHandler[] fsm_handler_table;
+        static int[]          fsm_return_table;
+        static StateHandler[] fsm_handler_table;
 
-        private bool          allow_comments;
-        private bool          allow_single_quoted_strings;
-        private bool          end_of_input;
-        private FsmContext    fsm_context;
-        private int           input_buffer;
-        private int           input_char;
-        private TextReader    reader;
-        private int           state;
-        private StringBuilder string_buffer;
-        private string        string_value;
-        private int           token;
-        private int           unichar;
+        bool          allow_comments;
+        bool          allow_single_quoted_strings;
+        bool          end_of_input;
+        FsmContext    fsm_context;
+        int           input_buffer;
+        int           input_char;
+        TextReader    reader;
+        int           state;
+        StringBuilder string_buffer;
+        string        string_value;
+        int           token;
+        int           unichar;
         #endregion
 
 
@@ -98,7 +97,7 @@ namespace LitJson
 
 
         #region Static Methods
-        private static int HexValue (int digit)
+        static int HexValue (int digit)
         {
             switch (digit) {
             case 'a':
@@ -130,9 +129,9 @@ namespace LitJson
             }
         }
 
-        private static void PopulateFsmTables ()
+        static void PopulateFsmTables ()
         {
-            fsm_handler_table = new StateHandler[28] {
+            fsm_handler_table = new StateHandler[] {
                 State1,
                 State2,
                 State3,
@@ -163,7 +162,7 @@ namespace LitJson
                 State28
             };
 
-            fsm_return_table = new int[28] {
+            fsm_return_table = new int[] {
                 (int) ParserToken.Char,
                 0,
                 (int) ParserToken.Number,
@@ -195,7 +194,7 @@ namespace LitJson
             };
         }
 
-        private static char ProcessEscChar (int esc_char)
+        static char ProcessEscChar (int esc_char)
         {
             switch (esc_char) {
             case '"':
@@ -225,7 +224,7 @@ namespace LitJson
             }
         }
 
-        private static bool State1 (FsmContext ctx)
+        static bool State1 (FsmContext ctx)
         {
             while (ctx.L.GetChar ()) {
                 if (ctx.L.input_char == ' ' ||
@@ -300,7 +299,7 @@ namespace LitJson
             return true;
         }
 
-        private static bool State2 (FsmContext ctx)
+        static bool State2 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -321,7 +320,7 @@ namespace LitJson
             }
         }
 
-        private static bool State3 (FsmContext ctx)
+        static bool State3 (FsmContext ctx)
         {
             while (ctx.L.GetChar ()) {
                 if (ctx.L.input_char >= '0' && ctx.L.input_char <= '9') {
@@ -363,7 +362,7 @@ namespace LitJson
             return true;
         }
 
-        private static bool State4 (FsmContext ctx)
+        static bool State4 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -399,7 +398,7 @@ namespace LitJson
             }
         }
 
-        private static bool State5 (FsmContext ctx)
+        static bool State5 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -412,7 +411,7 @@ namespace LitJson
             return false;
         }
 
-        private static bool State6 (FsmContext ctx)
+        static bool State6 (FsmContext ctx)
         {
             while (ctx.L.GetChar ()) {
                 if (ctx.L.input_char >= '0' && ctx.L.input_char <= '9') {
@@ -450,7 +449,7 @@ namespace LitJson
             return true;
         }
 
-        private static bool State7 (FsmContext ctx)
+        static bool State7 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -472,7 +471,7 @@ namespace LitJson
             }
         }
 
-        private static bool State8 (FsmContext ctx)
+        static bool State8 (FsmContext ctx)
         {
             while (ctx.L.GetChar ()) {
                 if (ctx.L.input_char >= '0' && ctx.L.input_char<= '9') {
@@ -504,7 +503,7 @@ namespace LitJson
             return true;
         }
 
-        private static bool State9 (FsmContext ctx)
+        static bool State9 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -518,7 +517,7 @@ namespace LitJson
             }
         }
 
-        private static bool State10 (FsmContext ctx)
+        static bool State10 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -532,7 +531,7 @@ namespace LitJson
             }
         }
 
-        private static bool State11 (FsmContext ctx)
+        static bool State11 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -547,7 +546,7 @@ namespace LitJson
             }
         }
 
-        private static bool State12 (FsmContext ctx)
+        static bool State12 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -561,7 +560,7 @@ namespace LitJson
             }
         }
 
-        private static bool State13 (FsmContext ctx)
+        static bool State13 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -575,7 +574,7 @@ namespace LitJson
             }
         }
 
-        private static bool State14 (FsmContext ctx)
+        static bool State14 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -589,7 +588,7 @@ namespace LitJson
             }
         }
 
-        private static bool State15 (FsmContext ctx)
+        static bool State15 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -604,7 +603,7 @@ namespace LitJson
             }
         }
 
-        private static bool State16 (FsmContext ctx)
+        static bool State16 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -618,7 +617,7 @@ namespace LitJson
             }
         }
 
-        private static bool State17 (FsmContext ctx)
+        static bool State17 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -632,7 +631,7 @@ namespace LitJson
             }
         }
 
-        private static bool State18 (FsmContext ctx)
+        static bool State18 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -647,7 +646,7 @@ namespace LitJson
             }
         }
 
-        private static bool State19 (FsmContext ctx)
+        static bool State19 (FsmContext ctx)
         {
             while (ctx.L.GetChar ()) {
                 switch (ctx.L.input_char) {
@@ -671,7 +670,7 @@ namespace LitJson
             return true;
         }
 
-        private static bool State20 (FsmContext ctx)
+        static bool State20 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -686,7 +685,7 @@ namespace LitJson
             }
         }
 
-        private static bool State21 (FsmContext ctx)
+        static bool State21 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -714,7 +713,7 @@ namespace LitJson
             }
         }
 
-        private static bool State22 (FsmContext ctx)
+        static bool State22 (FsmContext ctx)
         {
             int counter = 0;
             int mult    = 4096;
@@ -748,7 +747,7 @@ namespace LitJson
             return true;
         }
 
-        private static bool State23 (FsmContext ctx)
+        static bool State23 (FsmContext ctx)
         {
             while (ctx.L.GetChar ()) {
                 switch (ctx.L.input_char) {
@@ -772,7 +771,7 @@ namespace LitJson
             return true;
         }
 
-        private static bool State24 (FsmContext ctx)
+        static bool State24 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -788,7 +787,7 @@ namespace LitJson
             }
         }
 
-        private static bool State25 (FsmContext ctx)
+        static bool State25 (FsmContext ctx)
         {
             ctx.L.GetChar ();
 
@@ -806,7 +805,7 @@ namespace LitJson
             }
         }
 
-        private static bool State26 (FsmContext ctx)
+        static bool State26 (FsmContext ctx)
         {
             while (ctx.L.GetChar ()) {
                 if (ctx.L.input_char == '\n') {
@@ -818,7 +817,7 @@ namespace LitJson
             return true;
         }
 
-        private static bool State27 (FsmContext ctx)
+        static bool State27 (FsmContext ctx)
         {
             while (ctx.L.GetChar ()) {
                 if (ctx.L.input_char == '*') {
@@ -830,7 +829,7 @@ namespace LitJson
             return true;
         }
 
-        private static bool State28 (FsmContext ctx)
+        static bool State28 (FsmContext ctx)
         {
             while (ctx.L.GetChar ()) {
                 if (ctx.L.input_char == '*')
@@ -850,7 +849,7 @@ namespace LitJson
         #endregion
 
 
-        private bool GetChar ()
+        bool GetChar ()
         {
             if ((input_char = NextChar ()) != -1)
                 return true;
@@ -859,7 +858,7 @@ namespace LitJson
             return false;
         }
 
-        private int NextChar ()
+        int NextChar ()
         {
             if (input_buffer != 0) {
                 int tmp = input_buffer;
@@ -902,7 +901,7 @@ namespace LitJson
             }
         }
 
-        private void UngetChar ()
+        void UngetChar ()
         {
             input_buffer = input_char;
         }

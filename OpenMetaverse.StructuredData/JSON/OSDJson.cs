@@ -13,7 +13,7 @@ namespace OpenMetaverse.StructuredData
         {
             using (StreamReader streamReader = new StreamReader(json))
             {
-                JsonReader reader = new JsonReader(streamReader);
+                var reader = new JsonReader(streamReader);
                 return DeserializeJson(JsonMapper.ToObject(reader));
             }
         }
@@ -27,36 +27,34 @@ namespace OpenMetaverse.StructuredData
         {
             if (json == null) return new OSD();
 
-            switch (json.GetJsonType())
-            {
-                case JsonType.Boolean:
-                    return OSD.FromBoolean((bool)json);
-                case JsonType.Int:
-                    return OSD.FromInteger((int)json);
-                case JsonType.Long:
-                    return OSD.FromLong((long)json);
-                case JsonType.Double:
-                    return OSD.FromReal((double)json);
-                case JsonType.String:
-                    string str = (string)json;
-                    if (String.IsNullOrEmpty(str))
-                        return new OSD();
-                    else
-                        return OSD.FromString(str);
-                case JsonType.Array:
-                    OSDArray array = new OSDArray(json.Count);
-                    for (int i = 0; i < json.Count; i++)
-                        array.Add(DeserializeJson(json[i]));
-                    return array;
-                case JsonType.Object:
-                    OSDMap map = new OSDMap(json.Count);
-                    IDictionaryEnumerator e = ((IOrderedDictionary)json).GetEnumerator();
-                    while (e.MoveNext())
-                        map.Add((string)e.Key, DeserializeJson((JsonData)e.Value));
-                    return map;
-                case JsonType.None:
-                default:
-                    return new OSD();
+            switch (json.GetJsonType ()) {
+            case JsonType.Boolean:
+                return OSD.FromBoolean ((bool)json);
+            case JsonType.Int:
+                return OSD.FromInteger ((int)json);
+            case JsonType.Long:
+                return OSD.FromLong ((long)json);
+            case JsonType.Double:
+                return OSD.FromReal ((double)json);
+            case JsonType.String:
+                var str = (string)json;
+                if (string.IsNullOrEmpty (str))
+                    return new OSD ();
+                return OSD.FromString (str);
+            case JsonType.Array:
+                var array = new OSDArray (json.Count);
+                for (int i = 0; i < json.Count; i++)
+                    array.Add (DeserializeJson (json [i]));
+                return array;
+            case JsonType.Object:
+                var map = new OSDMap (json.Count);
+                IDictionaryEnumerator e = ((IOrderedDictionary)json).GetEnumerator ();
+                while (e.MoveNext ())
+                    map.Add ((string)e.Key, DeserializeJson ((JsonData)e.Value));
+                return map;
+            //case JsonType.None:
+            default:
+                return new OSD ();
             }
         }
 
@@ -92,22 +90,22 @@ namespace OpenMetaverse.StructuredData
                     return new JsonData(osd.AsString());
                 case OSDType.Binary:
                     byte[] binary = osd.AsBinary();
-                    JsonData jsonbinarray = new JsonData();
+                    var jsonbinarray = new JsonData();
                     jsonbinarray.SetJsonType(JsonType.Array);
                     for (int i = 0; i < binary.Length; i++)
                         jsonbinarray.Add(new JsonData(binary[i]));
                     return jsonbinarray;
                 case OSDType.Array:
-                    JsonData jsonarray = new JsonData();
+                    var jsonarray = new JsonData();
                     jsonarray.SetJsonType(JsonType.Array);
-                    OSDArray array = (OSDArray)osd;
+                    var array = (OSDArray)osd;
                     for (int i = 0; i < array.Count; i++)
                         jsonarray.Add(SerializeJson(array[i], preserveDefaults));
                     return jsonarray;
                 case OSDType.Map:
-                    JsonData jsonmap = new JsonData();
+                    var jsonmap = new JsonData();
                     jsonmap.SetJsonType(JsonType.Object);
-                    OSDMap map = (OSDMap)osd;
+                    var map = (OSDMap)osd;
                     foreach (KeyValuePair<string, OSD> kvp in map)
                     {
                         JsonData data;
@@ -121,46 +119,45 @@ namespace OpenMetaverse.StructuredData
                             jsonmap[kvp.Key] = data;
                     }
                     return jsonmap;
-                case OSDType.Unknown:
+                //case OSDType.Unknown:
                 default:
                     return new JsonData(null);
             }
         }
 
-        private static JsonData SerializeJsonNoDefaults(OSD osd)
+        static JsonData SerializeJsonNoDefaults(OSD osd)
         {
             switch (osd.Type)
             {
                 case OSDType.Boolean:
-                    bool b = osd.AsBoolean();
+                    var b = osd.AsBoolean();
                     if (!b)
                         return null;
 
                     return new JsonData(b);
                 case OSDType.Integer:
-                    int v = osd.AsInteger();
+                    var v = osd.AsInteger();
                     if (v == 0)
                         return null;
 
                     return new JsonData(v);
                 case OSDType.Real:
-                    double d = osd.AsReal();
-                    if (d == 0.0d)
+                    var d = osd.AsReal();
+                    if (Math.Abs (d) < 0.00000001f)     // floating point errors comparing to zero
                         return null;
 
                     return new JsonData(d);
                 case OSDType.String:
                 case OSDType.Date:
                 case OSDType.URI:
-                    string str = osd.AsString();
-                    if (String.IsNullOrEmpty(str))
+                    var str = osd.AsString();
+                    if (string.IsNullOrEmpty(str))
                         return null;
 
                     return new JsonData(str);
                 case OSDType.UUID:
                     UUID uuid = osd.AsUUID();
-                    if (uuid == UUID.Zero)
-                        return null;
+                    if (uuid == UUID.Zero)return null;
 
                     return new JsonData(uuid.ToString());
                 case OSDType.Binary:
@@ -168,30 +165,30 @@ namespace OpenMetaverse.StructuredData
                     if (binary == Utils.EmptyBytes)
                         return null;
 
-                    JsonData jsonbinarray = new JsonData();
+                    var jsonbinarray = new JsonData();
                     jsonbinarray.SetJsonType(JsonType.Array);
                     for (int i = 0; i < binary.Length; i++)
                         jsonbinarray.Add(new JsonData(binary[i]));
                     return jsonbinarray;
                 case OSDType.Array:
-                    JsonData jsonarray = new JsonData();
+                    var jsonarray = new JsonData();
                     jsonarray.SetJsonType(JsonType.Array);
-                    OSDArray array = (OSDArray)osd;
+                    var array = (OSDArray)osd;
                     for (int i = 0; i < array.Count; i++)
                         jsonarray.Add(SerializeJson(array[i], false));
                     return jsonarray;
                 case OSDType.Map:
-                    JsonData jsonmap = new JsonData();
+                    var jsonmap = new JsonData();
                     jsonmap.SetJsonType(JsonType.Object);
-                    OSDMap map = (OSDMap)osd;
+                    var map = (OSDMap)osd;
                     foreach (KeyValuePair<string, OSD> kvp in map)
                     {
-                        JsonData data = SerializeJsonNoDefaults(kvp.Value);
+                        var data = SerializeJsonNoDefaults(kvp.Value);
                         if (data != null)
                             jsonmap[kvp.Key] = data;
                     }
                     return jsonmap;
-                case OSDType.Unknown:
+                //case OSDType.Unknown:
                 default:
                     return null;
             }

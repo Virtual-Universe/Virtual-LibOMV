@@ -22,18 +22,18 @@ namespace LitJson
     public class JsonData : IJsonWrapper, IEquatable<JsonData>
     {
         #region Fields
-        private IList<JsonData>               inst_array;
-        private bool                          inst_boolean;
-        private double                        inst_double;
-        private int                           inst_int;
-        private long                          inst_long;
-        private IDictionary<string, JsonData> inst_object;
-        private string                        inst_string;
-        private string                        json;
-        private JsonType                      type;
+        IList<JsonData>               inst_array;
+        bool                          inst_boolean;
+        double                        inst_double;
+        int                           inst_int;
+        long                          inst_long;
+        IDictionary<string, JsonData> inst_object;
+        string                        inst_string;
+        string                        json;
+        JsonType                      type;
 
         // Used to implement the IOrderedDictionary interface
-        private IList<KeyValuePair<string, JsonData>> object_list;
+        IList<KeyValuePair<string, JsonData>> object_list;
         #endregion
 
 
@@ -190,7 +190,7 @@ namespace LitJson
             }
 
             set {
-                if (! (key is String))
+                if (! (key is string))
                     throw new ArgumentException (
                         "The key has to be a string");
 
@@ -217,8 +217,7 @@ namespace LitJson
 
                 inst_object[old_entry.Key] = data;
 
-                KeyValuePair<string, JsonData> entry =
-                    new KeyValuePair<string, JsonData> (old_entry.Key, data);
+                var entry = new KeyValuePair<string, JsonData> (old_entry.Key, data);
 
                 object_list[idx] = entry;
             }
@@ -252,8 +251,7 @@ namespace LitJson
             set {
                 EnsureDictionary ();
 
-                KeyValuePair<string, JsonData> entry =
-                    new KeyValuePair<string, JsonData> (prop_name, value);
+                var entry = new KeyValuePair<string, JsonData> (prop_name, value);
 
                 if (inst_object.ContainsKey (prop_name)) {
                     for (int i = 0; i < object_list.Count; i++) {
@@ -288,8 +286,7 @@ namespace LitJson
                     inst_array[index] = value;
                 else {
                     KeyValuePair<string, JsonData> entry = object_list[index];
-                    KeyValuePair<string, JsonData> new_entry =
-                        new KeyValuePair<string, JsonData> (entry.Key, value);
+                    var new_entry = new KeyValuePair<string, JsonData> (entry.Key, value);
 
                     object_list[index] = new_entry;
                     inst_object[entry.Key] = value;
@@ -332,31 +329,31 @@ namespace LitJson
 
         public JsonData (object obj)
         {
-            if (obj is Boolean) {
+            if (obj is bool) {
                 type = JsonType.Boolean;
                 inst_boolean = (bool) obj;
                 return;
             }
 
-            if (obj is Double) {
+            if (obj is double) {
                 type = JsonType.Double;
                 inst_double = (double) obj;
                 return;
             }
 
-            if (obj is Int32) {
+            if (obj is int) {
                 type = JsonType.Int;
                 inst_int = (int) obj;
                 return;
             }
 
-            if (obj is Int64) {
+            if (obj is long) {
                 type = JsonType.Long;
                 inst_long = (long) obj;
                 return;
             }
 
-            if (obj is String) {
+            if (obj is string) {
                 type = JsonType.String;
                 inst_string = (string) obj;
                 return;
@@ -375,27 +372,27 @@ namespace LitJson
 
 
         #region Implicit Conversions
-        public static implicit operator JsonData (Boolean data)
+        public static implicit operator JsonData (bool data)
         {
             return new JsonData (data);
         }
 
-        public static implicit operator JsonData (Double data)
+        public static implicit operator JsonData (double data)
         {
             return new JsonData (data);
         }
 
-        public static implicit operator JsonData (Int32 data)
+        public static implicit operator JsonData (int data)
         {
             return new JsonData (data);
         }
 
-        public static implicit operator JsonData (Int64 data)
+        public static implicit operator JsonData (long data)
         {
             return new JsonData (data);
         }
 
-        public static implicit operator JsonData (String data)
+        public static implicit operator JsonData (string data)
         {
             return new JsonData (data);
         }
@@ -403,7 +400,7 @@ namespace LitJson
 
 
         #region Explicit Conversions
-        public static explicit operator Boolean (JsonData data)
+        public static explicit operator bool (JsonData data)
         {
             if (data.type != JsonType.Boolean)
                 throw new InvalidCastException (
@@ -412,7 +409,7 @@ namespace LitJson
             return data.inst_boolean;
         }
 
-        public static explicit operator Double (JsonData data)
+        public static explicit operator double (JsonData data)
         {
             if (data.type != JsonType.Double)
                 throw new InvalidCastException (
@@ -421,7 +418,7 @@ namespace LitJson
             return data.inst_double;
         }
 
-        public static explicit operator Int32 (JsonData data)
+        public static explicit operator int (JsonData data)
         {
             if (data.type != JsonType.Int)
                 throw new InvalidCastException (
@@ -430,7 +427,7 @@ namespace LitJson
             return data.inst_int;
         }
 
-        public static explicit operator Int64 (JsonData data)
+        public static explicit operator long (JsonData data)
         {
             if (data.type != JsonType.Long)
                 throw new InvalidCastException (
@@ -439,7 +436,7 @@ namespace LitJson
             return data.inst_long;
         }
 
-        public static explicit operator String (JsonData data)
+        public static explicit operator string (JsonData data)
         {
             if (data.type != JsonType.String)
                 throw new InvalidCastException (
@@ -465,8 +462,7 @@ namespace LitJson
 
             EnsureDictionary ().Add (key, data);
 
-            KeyValuePair<string, JsonData> entry =
-                new KeyValuePair<string, JsonData> ((string) key, data);
+            var entry = new KeyValuePair<string, JsonData> ((string) key, data);
             object_list.Add (entry);
 
             json = null;
@@ -659,13 +655,12 @@ namespace LitJson
 
         void IOrderedDictionary.Insert (int idx, object key, object value)
         {
-            string property = (string) key;
+            var property = (string) key;
             JsonData data  = ToJsonData (value);
 
             this[property] = data;
 
-            KeyValuePair<string, JsonData> entry =
-                new KeyValuePair<string, JsonData> (property, data);
+            var entry = new KeyValuePair<string, JsonData> (property, data);
 
             object_list.Insert (idx, entry);
         }
@@ -813,33 +808,33 @@ namespace LitJson
             if (x == null)
                 return false;
 
-            if (x.type != this.type)
+            if (x.type != type)
                 return false;
 
-            switch (this.type) {
+            switch (type) {
             case JsonType.None:
                 return true;
 
             case JsonType.Object:
-                return this.inst_object.Equals (x.inst_object);
+                return inst_object.Equals (x.inst_object);
 
             case JsonType.Array:
-                return this.inst_array.Equals (x.inst_array);
+                return inst_array.Equals (x.inst_array);
 
             case JsonType.String:
-                return this.inst_string.Equals (x.inst_string);
+                return inst_string.Equals (x.inst_string);
 
             case JsonType.Int:
-                return this.inst_int.Equals (x.inst_int);
+                return inst_int.Equals (x.inst_int);
 
             case JsonType.Long:
-                return this.inst_long.Equals (x.inst_long);
+                return inst_long.Equals (x.inst_long);
 
             case JsonType.Double:
-                return this.inst_double.Equals (x.inst_double);
+                return inst_double.Equals (x.inst_double);
 
             case JsonType.Boolean:
-                return this.inst_boolean.Equals (x.inst_boolean);
+                return inst_boolean.Equals (x.inst_boolean);
             }
 
             return false;
@@ -869,23 +864,23 @@ namespace LitJson
                 break;
 
             case JsonType.String:
-                inst_string = default (String);
+                inst_string = default (string);
                 break;
 
             case JsonType.Int:
-                inst_int = default (Int32);
+                inst_int = default (int);
                 break;
 
             case JsonType.Long:
-                inst_long = default (Int64);
+                inst_long = default (long);
                 break;
 
             case JsonType.Double:
-                inst_double = default (Double);
+                inst_double = default (double);
                 break;
 
             case JsonType.Boolean:
-                inst_boolean = default (Boolean);
+                inst_boolean = default (bool);
                 break;
             }
 
@@ -897,8 +892,8 @@ namespace LitJson
             if (json != null)
                 return json;
 
-            StringWriter sw = new StringWriter ();
-            JsonWriter writer = new JsonWriter (sw);
+            var sw = new StringWriter ();
+            var writer = new JsonWriter (sw);
             writer.Validate = false;
 
             WriteJson (this, writer);
@@ -912,8 +907,10 @@ namespace LitJson
             bool old_validate = writer.Validate;
 
             writer.Validate = false;
-
-            WriteJson (this, writer);
+            try {
+                WriteJson (this, writer);
+            } catch {
+            }
 
             writer.Validate = old_validate;
         }
@@ -948,9 +945,9 @@ namespace LitJson
     }
 
 
-    internal class OrderedDictionaryEnumerator : IDictionaryEnumerator
+    class OrderedDictionaryEnumerator : IDictionaryEnumerator
     {
-        IEnumerator<KeyValuePair<string, JsonData>> list_enumerator;
+        readonly IEnumerator<KeyValuePair<string, JsonData>> list_enumerator;
 
 
         public object Current {

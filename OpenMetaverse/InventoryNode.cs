@@ -25,22 +25,21 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.Serialization;
 
 namespace OpenMetaverse
 {
-    [Serializable()]
+    [Serializable]
     public class InventoryNode : ISerializable
     {
-        private InventoryBase data;
-        private InventoryNode parent;
-        private UUID parentID; //used for de-seralization 
-        private InventoryNodeDictionary nodes;
-        private bool needsUpdate = true;
+        InventoryBase data;
+        InventoryNode parent;
+        UUID parentID; //used for de-seralization 
+        InventoryNodeDictionary nodes;
+        bool needsUpdate = true;
+
         [NonSerialized]
-        private object tag;
+        object tag;
 
         /// <summary></summary>
         public InventoryBase Data
@@ -83,7 +82,7 @@ namespace OpenMetaverse
         }
 
 
-        public System.DateTime ModifyTime
+        public DateTime ModifyTime
         {
             get
             {
@@ -170,11 +169,11 @@ namespace OpenMetaverse
         public InventoryNode(SerializationInfo info, StreamingContext ctxt)
         {
             parentID = (UUID)info.GetValue("Parent", typeof(UUID));
-            Type type = (Type)info.GetValue("Type", typeof(Type));
+            var type = (Type)info.GetValue("Type", typeof(Type));
          
 	    // Construct a new inventory object based on the Type stored in Type
             System.Reflection.ConstructorInfo ctr = type.GetConstructor(new Type[] {typeof(SerializationInfo),typeof(StreamingContext)});
-            data = (InventoryBase) ctr.Invoke(new Object[] { info, ctxt });
+            data = (InventoryBase) ctr.Invoke(new object[] { info, ctxt });
         }
 
         /// <summary>
@@ -183,8 +182,8 @@ namespace OpenMetaverse
         /// <returns></returns>
         public override string ToString()
         {
-            if (this.Data == null) return "[Empty Node]";
-            return this.Data.ToString();
+            if (Data == null) return "[Empty Node]";
+            return Data.ToString();
         }
     }
 }

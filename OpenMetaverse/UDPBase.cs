@@ -28,7 +28,6 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
 
 namespace OpenMetaverse
 {
@@ -46,19 +45,19 @@ namespace OpenMetaverse
         protected int udpPort;
 
         // the remote endpoint to communicate with
-        protected IPEndPoint remoteEndPoint = null;
+        protected IPEndPoint remoteEndPoint;
 
         // the UDP socket
-        private Socket udpSocket;
+        Socket udpSocket;
 
         // the all important shutdownFlag.
-        private volatile bool shutdownFlag = true;
+        volatile bool shutdownFlag = true;
 
         /// <summary>
         /// Initialize the UDP packet handler in server mode
         /// </summary>
         /// <param name="port">Port to listening for incoming UDP packets on</param>
-        public UDPBase(int port)
+        protected UDPBase(int port)
         {
             udpPort = port;
         }
@@ -67,7 +66,7 @@ namespace OpenMetaverse
         /// Initialize the UDP packet handler in client mode
         /// </summary>
         /// <param name="endPoint">Remote UDP server to connect to</param>
-        public UDPBase(IPEndPoint endPoint)
+        protected UDPBase(IPEndPoint endPoint)
         {
             remoteEndPoint = endPoint;
             udpPort = 0;
@@ -82,7 +81,7 @@ namespace OpenMetaverse
             {
                 const int SIO_UDP_CONNRESET = -1744830452;
 
-                IPEndPoint ipep = new IPEndPoint(Settings.BIND_ADDR, udpPort);
+                var ipep = new IPEndPoint(Settings.BIND_ADDR, udpPort);
                 udpSocket = new Socket(
                     AddressFamily.InterNetwork,
                     SocketType.Dgram,
@@ -140,11 +139,11 @@ namespace OpenMetaverse
             get { return !shutdownFlag; }
         }
 
-        private void AsyncBeginReceive()
+        void AsyncBeginReceive()
         {
             // allocate a packet buffer
             //WrappedObject<UDPPacketBuffer> wrappedBuffer = Pool.CheckOut();
-            UDPPacketBuffer buf = new UDPPacketBuffer();
+            var buf = new UDPPacketBuffer();
 
             if (!shutdownFlag)
             {
@@ -195,7 +194,7 @@ namespace OpenMetaverse
             }
         }
 
-        private void AsyncEndReceive(IAsyncResult iar)
+        void AsyncEndReceive(IAsyncResult iar)
         {
             // Asynchronous receive operations will complete here through the call
             // to AsyncBeginReceive
@@ -208,7 +207,7 @@ namespace OpenMetaverse
                 // this is the received data
                 //WrappedObject<UDPPacketBuffer> wrappedBuffer = (WrappedObject<UDPPacketBuffer>)iar.AsyncState;
                 //UDPPacketBuffer buffer = wrappedBuffer.Instance;
-                UDPPacketBuffer buffer = (UDPPacketBuffer)iar.AsyncState;
+                var buffer = (UDPPacketBuffer)iar.AsyncState;
 
                 try
                 {

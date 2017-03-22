@@ -125,7 +125,7 @@ namespace OpenMetaverse.Messages.Linden
         {
             OSDMap map = new OSDMap(3);
             map["agent-id"] = OSD.FromUUID(AgentID);
-            map["sim-ip-and-port"] = OSD.FromString(String.Format("{0}:{1}", Address, Port));
+            map["sim-ip-and-port"] = OSD.FromString(string.Format("{0}:{1}", Address, Port));
             map["seed-capability"] = OSD.FromUri(SeedCapability);
             return map;
         }
@@ -141,7 +141,7 @@ namespace OpenMetaverse.Messages.Linden
 
             AgentID = map["agent-id"].AsUUID();
             Address = IPAddress.Parse(ipAndPort.Substring(0, i));
-            Port = Int32.Parse(ipAndPort.Substring(i + 1));
+            Port = int.Parse(ipAndPort.Substring(i + 1));
             SeedCapability = map["seed-capability"].AsUri();
         }
     }
@@ -362,9 +362,9 @@ namespace OpenMetaverse.Messages.Linden
             OSDMap map = new OSDMap(3);
 
             OSDMap requestDataMap = new OSDMap(3);
-            requestDataMap["ReportType"] = OSD.FromUInteger(this.ReportType);
-            requestDataMap["RequestFlags"] = OSD.FromUInteger(this.RequestFlags);
-            requestDataMap["TotalObjectCount"] = OSD.FromUInteger(this.TotalObjectCount);
+            requestDataMap["ReportType"] = OSD.FromUInteger(ReportType);
+            requestDataMap["RequestFlags"] = OSD.FromUInteger(RequestFlags);
+            requestDataMap["TotalObjectCount"] = OSD.FromUInteger(TotalObjectCount);
 
             OSDArray requestDatArray = new OSDArray();
             requestDatArray.Add(requestDataMap);
@@ -407,9 +407,9 @@ namespace OpenMetaverse.Messages.Linden
             OSDArray requestDataArray = (OSDArray)map["RequestData"];
             OSDMap requestMap = (OSDMap)requestDataArray[0];
 
-            this.ReportType = requestMap["ReportType"].AsUInteger();
-            this.RequestFlags = requestMap["RequestFlags"].AsUInteger();
-            this.TotalObjectCount = requestMap["TotalObjectCount"].AsUInteger();
+            ReportType = requestMap["ReportType"].AsUInteger();
+            RequestFlags = requestMap["RequestFlags"].AsUInteger();
+            TotalObjectCount = requestMap["TotalObjectCount"].AsUInteger();
 
             if (TotalObjectCount < 1)
             {
@@ -736,8 +736,8 @@ namespace OpenMetaverse.Messages.Linden
             parcelDataMap["OtherPrims"] = OSD.FromInteger(OtherPrims);
             parcelDataMap["OwnerID"] = OSD.FromUUID(OwnerID);
             parcelDataMap["OwnerPrims"] = OSD.FromInteger(OwnerPrims);
-            parcelDataMap["ParcelPrimBonus"] = OSD.FromReal((float)ParcelPrimBonus);
-            parcelDataMap["PassHours"] = OSD.FromReal((float)PassHours);
+            parcelDataMap["ParcelPrimBonus"] = OSD.FromReal(ParcelPrimBonus);
+            parcelDataMap["PassHours"] = OSD.FromReal(PassHours);
             parcelDataMap["PassPrice"] = OSD.FromInteger(PassPrice);
             parcelDataMap["PublicCount"] = OSD.FromInteger(PublicCount);
             parcelDataMap["Privacy"] = OSD.FromBoolean(Privacy);
@@ -2062,9 +2062,9 @@ namespace OpenMetaverse.Messages.Linden
         /// <param name="map">An <see cref="OSDMap"/> containing the data</param>
         public void Deserialize(OSDMap map)
         {
-            if (map.ContainsKey("state") && map["state"].Equals("upload"))
+            if (map.ContainsKey("state") && (map["state"] == "upload"))
                 Request = new UploaderRequestUpload();
-            else if (map.ContainsKey("state") && map["state"].Equals("complete"))
+            else if (map.ContainsKey("state") && (map["state"] == "complete"))
                 Request = new UploaderRequestComplete();
             else
                 Logger.Log("Unable to deserialize UploadScriptTask: No message handler exists for state " + map["state"].AsString(), Helpers.LogLevel.Warning);
@@ -2104,7 +2104,7 @@ namespace OpenMetaverse.Messages.Linden
             scriptMap["Running"] = OSD.FromBoolean(Running);
 
             OSDArray scriptArray = new OSDArray(1);
-            scriptArray.Add((OSD)scriptMap);
+            scriptArray.Add(scriptMap);
 
             map["Script"] = scriptArray;
 
@@ -3278,10 +3278,10 @@ namespace OpenMetaverse.Messages.Linden
 
         public void Deserialize(OSDMap map)
         {
-            this.ParcelLocalID = map["parcel_local_id"].AsInteger();
-            this.RegionName = map["region_name"].AsString();
-            OSDMap voiceMap = (OSDMap)map["voice_credentials"];
-            this.ChannelUri = voiceMap["channel_uri"].AsString();
+            ParcelLocalID = map["parcel_local_id"].AsInteger();
+            RegionName = map["region_name"].AsString();
+            var voiceMap = (OSDMap)map["voice_credentials"];
+            ChannelUri = voiceMap["channel_uri"].AsString();
         }
 
         #endregion
@@ -3339,8 +3339,8 @@ namespace OpenMetaverse.Messages.Linden
                 mutesMap["voice"] = OSD.FromBoolean(Updates[i].MuteVoice);
 
                 OSDMap infoMap = new OSDMap(4);
-                infoMap["can_voice_chat"] = OSD.FromBoolean((bool)Updates[i].CanVoiceChat);
-                infoMap["is_moderator"] = OSD.FromBoolean((bool)Updates[i].IsModerator);
+                infoMap["can_voice_chat"] = OSD.FromBoolean(Updates[i].CanVoiceChat);
+                infoMap["is_moderator"] = OSD.FromBoolean(Updates[i].IsModerator);
                 infoMap["mutes"] = mutesMap;
 
                 OSDMap imap = new OSDMap(1);
@@ -5020,11 +5020,11 @@ namespace OpenMetaverse.Messages.Linden
         /// <summary>
         /// Deserializes object from OSD
         /// </summary>
-        /// <param name="osd">An <see cref="OSDMap"/> containing the data</param>
-        public override void Deserialize(OSDMap osd)
+        /// <param name="map">An <see cref="OSDMap"/> containing the data</param>
+        public override void Deserialize(OSDMap map)
         {
-            base.Deserialize(osd);
-            OSDArray attachments = (OSDArray)((OSDMap)osd)["attachments"];
+            base.Deserialize(map);
+            OSDArray attachments = (OSDArray)map ["attachments"];
             Attachments = new Dictionary<AttachmentPoint, ObjectResourcesDetail[]>();
 
             for (int i = 0; i < attachments.Count; i++)

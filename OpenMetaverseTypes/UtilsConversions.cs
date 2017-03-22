@@ -35,8 +35,7 @@ namespace OpenMetaverse
     {
         #region String Arrays
 
-        private static readonly string[] _AssetTypeNames = new string[]
-        {
+        static readonly string[] _AssetTypeNames = {
             "texture",    //  0
 	        "sound",      //  1
 	        "callcard",   //  2
@@ -46,77 +45,76 @@ namespace OpenMetaverse
 	        "object",     //  6
 	        "notecard",   //  7
 	        "category",   //  8
-	        String.Empty, //  9
+	        string.Empty, //  9
 	        "lsltext",    // 10
 	        "lslbyte",    // 11
 	        "txtr_tga",   // 12
 	        "bodypart",   // 13
-	        String.Empty, // 14
-	        String.Empty, // 15
-	        String.Empty, // 16
+	        string.Empty, // 14
+	        string.Empty, // 15
+	        string.Empty, // 16
 	        "snd_wav",    // 17
 	        "img_tga",    // 18
 	        "jpeg",       // 19
 	        "animatn",    // 20
 	        "gesture",    // 21
 	        "simstate",   // 22
-            String.Empty, // 23
+            string.Empty, // 23
             "link",       // 24
             "linkfolder", // 25
             "marketplacefolder", // 26
-            String.Empty, // 27
-            String.Empty, // 28
-            String.Empty, // 29
-            String.Empty, // 30
-            String.Empty, // 31
-            String.Empty, // 32
-            String.Empty, // 33
-            String.Empty, // 34
-            String.Empty, // 35
-            String.Empty, // 36
-            String.Empty, // 37
-            String.Empty, // 38
-            String.Empty, // 39
-            String.Empty, // 40
-            String.Empty, // 41
-            String.Empty, // 42
-            String.Empty, // 43
-            String.Empty, // 44
-            String.Empty, // 45
-            String.Empty, // 46
-            String.Empty, // 47
-            String.Empty, // 48
-            "mesh",       // 49
+            string.Empty, // 27
+            string.Empty, // 28
+            string.Empty, // 29
+            string.Empty, // 30
+            string.Empty, // 31
+            string.Empty, // 32
+            string.Empty, // 33
+            string.Empty, // 34
+            string.Empty, // 35
+            string.Empty, // 36
+            string.Empty, // 37
+            string.Empty, // 38
+            string.Empty, // 39
+            string.Empty, // 40
+            string.Empty, // 41
+            string.Empty, // 42
+            string.Empty, // 43
+            string.Empty, // 44
+            string.Empty, // 45
+            string.Empty, // 46
+            string.Empty, // 47
+            string.Empty, // 48
+            "mesh"        // 49
         };
 
-        private static readonly string[] _FolderTypeNames = new string[]
-        {
+        static readonly string[] _FolderTypeNames = {
             "texture",    //  0
             "sound",      //  1
             "callcard",   //  2
             "landmark",   //  3
-            String.Empty, //  4
+            string.Empty, //  4
             "clothing",   //  5
             "object",     //  6
             "notecard",   //  7
             "root_inv",   //  8
-            String.Empty, //  9
+            string.Empty, //  9
             "lsltext",    // 10
-            String.Empty, // 11
-            String.Empty, // 12
+            string.Empty, // 11
+            string.Empty, // 12
             "bodypart",   // 13
             "trash",      // 14
             "snapshot",   // 15
             "lstndfnd",   // 16
-            String.Empty, // 17
-            String.Empty, // 18
-            String.Empty, // 19
+            string.Empty, // 17
+            string.Empty, // 18
+            string.Empty, // 19
             "animatn",    // 20
             "gesture",    // 21
-            String.Empty, // 22
+            string.Empty, // 22
             "favorite",   // 23
-            String.Empty, // 24
-            String.Empty, // 25
+            string.Empty, // 24
+            string.Empty, // 25
             "ensemble",   // 26
             "ensemble",   // 27
             "ensemble",   // 28
@@ -145,46 +143,43 @@ namespace OpenMetaverse
             "outbox",     // 51
             "basic_rt",   // 52
             "merchant",   // 53
-            "stock",      // 54
+            "stock"       // 54
         };
 
-        private static readonly string[] _InventoryTypeNames = new string[]
-        {
+        static readonly string[] _InventoryTypeNames = {
             "texture",    //  0
 	        "sound",      //  1
 	        "callcard",   //  2
 	        "landmark",   //  3
-	        String.Empty, //  4
-	        String.Empty, //  5
+	        string.Empty, //  4
+	        string.Empty, //  5
 	        "object",     //  6
 	        "notecard",   //  7
 	        "category",   //  8
 	        "root",       //  9
 	        "script",     // 10
-	        String.Empty, // 11
-	        String.Empty, // 12
-	        String.Empty, // 13
-	        String.Empty, // 14
+	        string.Empty, // 11
+	        string.Empty, // 12
+	        string.Empty, // 13
+	        string.Empty, // 14
 	        "snapshot",   // 15
-	        String.Empty, // 16
+	        string.Empty, // 16
 	        "attach",     // 17
 	        "wearable",   // 18
 	        "animation",  // 19
 	        "gesture",    // 20
-            String.Empty, // 21
+            string.Empty, // 21
             "mesh"        // 22
         };
 
-        private static readonly string[] _SaleTypeNames = new string[]
-        {
+        static readonly string[] _SaleTypeNames = {
             "not",
             "orig",
             "copy",
             "cntn"
         };
 
-        private static readonly string[] _AttachmentPointNames = new string[]
-        {
+        static readonly string[] _AttachmentPointNames = {
             string.Empty,
             "ATTACH_CHEST",
 	        "ATTACH_HEAD",
@@ -223,7 +218,25 @@ namespace OpenMetaverse
 	        "ATTACH_HUD_CENTER_1",
 	        "ATTACH_HUD_BOTTOM_LEFT",
 	        "ATTACH_HUD_BOTTOM",
-	        "ATTACH_HUD_BOTTOM_RIGHT"
+	        "ATTACH_HUD_BOTTOM_RIGHT",
+          "ATTACH_NECK",
+          "ATTACH_AVATAR_CENTER",
+          /* Bento Additions */
+          "ATTACH_LHAND_RING1",
+          "ATTACH_RHAND_RING1",
+          "ATTACH_TAIL_BASE",
+          "ATTACH_TAIL_TIP",
+          "ATTACH_LWING",
+          "ATTACH_RWING",
+          "ATTACH_FACE_JAW",
+          "ATTACH_FACE_LEAR",
+          "ATTACH_FACE_REAR",
+          "ATTACH_FACE_LEYE",
+          "ATTACH_FACE_REYE",
+          "ATTACH_FACE_TONGUE",
+          "ATTACH_GROIN",
+          "ATTACH_HIND_LFOOT",
+          "ATTACH_HIND_RFOOT",
         };
 
         public static bool InternStrings = false;
@@ -233,8 +246,8 @@ namespace OpenMetaverse
         #region BytesTo
 
         /// <summary>
-        ///     Convert the first two bytes starting in the byte array in
-        ///     little endian ordering to a signed short integer
+        /// Convert the first two bytes starting in the byte array in
+        /// little endian ordering to a signed short integer
         /// </summary>
         /// <param name="bytes">An array two bytes or longer</param>
         /// <returns>A signed short integer, will be zero if a short can't be
@@ -245,8 +258,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert the first two bytes starting at the given position in
-        ///     little endian ordering to a signed short integer
+        /// Convert the first two bytes starting at the given position in
+        /// little endian ordering to a signed short integer
         /// </summary>
         /// <param name="bytes">An array two bytes or longer</param>
         /// <param name="pos">Position in the array to start reading</param>
@@ -259,8 +272,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert the first four bytes starting at the given position in
-        ///     little endian ordering to a signed integer
+        /// Convert the first four bytes starting at the given position in
+        /// little endian ordering to a signed integer
         /// </summary>
         /// <param name="bytes">An array four bytes or longer</param>
         /// <param name="pos">Position to start reading the int from</param>
@@ -269,12 +282,12 @@ namespace OpenMetaverse
         public static int BytesToInt(byte[] bytes, int pos)
         {
             if (bytes.Length < pos + 4) return 0;
-            return (int)(bytes[pos + 0] + (bytes[pos + 1] << 8) + (bytes[pos + 2] << 16) + (bytes[pos + 3] << 24));
+            return (bytes[pos + 0] + (bytes[pos + 1] << 8) + (bytes[pos + 2] << 16) + (bytes[pos + 3] << 24));
         }
 
         /// <summary>
-        ///     Convert the first four bytes of the given array in little endian
-        ///     ordering to a signed integer
+        /// Convert the first four bytes of the given array in little endian
+        /// ordering to a signed integer
         /// </summary>
         /// <param name="bytes">An array four bytes or longer</param>
         /// <returns>A signed integer, will be zero if the array contains
@@ -285,8 +298,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert the first eight bytes of the given array in little endian
-        ///     ordering to a signed long integer
+        /// Convert the first eight bytes of the given array in little endian
+        /// ordering to a signed long integer
         /// </summary>
         /// <param name="bytes">An array eight bytes or longer</param>
         /// <returns>A signed long integer, will be zero if the array contains
@@ -297,8 +310,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert the first eight bytes starting at the given position in
-        ///     little endian ordering to a signed long integer
+        /// Convert the first eight bytes starting at the given position in
+        /// little endian ordering to a signed long integer
         /// </summary>
         /// <param name="bytes">An array eight bytes or longer</param>
         /// <param name="pos">Position to start reading the long from</param>
@@ -307,8 +320,8 @@ namespace OpenMetaverse
         public static long BytesToInt64(byte[] bytes, int pos)
         {
             if (bytes.Length < pos + 8) return 0;
-            return (long)
-                ((long)bytes[pos + 0] +
+            return 
+                (bytes[pos + 0] +
                 ((long)bytes[pos + 1] << 8) +
                 ((long)bytes[pos + 2] << 16) +
                 ((long)bytes[pos + 3] << 24) +
@@ -319,8 +332,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert the first two bytes starting at the given position in
-        ///     little endian ordering to an unsigned short
+        /// Convert the first two bytes starting at the given position in
+        /// little endian ordering to an unsigned short
         /// </summary>
         /// <param name="bytes">Byte array containing the ushort</param>
         /// <param name="pos">Position to start reading the ushort from</param>
@@ -333,7 +346,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert two bytes in little endian ordering to an unsigned short
+        /// Convert two bytes in little endian ordering to an unsigned short
         /// </summary>
         /// <param name="bytes">Byte array containing the ushort</param>
         /// <returns>An unsigned short, will be zero if a ushort can't be
@@ -344,8 +357,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert the first four bytes starting at the given position in
-        ///     little endian ordering to an unsigned integer
+        /// Convert the first four bytes starting at the given position in
+        /// little endian ordering to an unsigned integer
         /// </summary>
         /// <param name="bytes">Byte array containing the uint</param>
         /// <param name="pos">Position to start reading the uint from</param>
@@ -358,8 +371,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert the first four bytes of the given array in little endian
-        ///     ordering to an unsigned integer
+        /// Convert the first four bytes of the given array in little endian
+        /// ordering to an unsigned integer
         /// </summary>
         /// <param name="bytes">An array four bytes or longer</param>
         /// <returns>An unsigned integer, will be zero if the array contains
@@ -370,8 +383,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert the first eight bytes of the given array in little endian
-        ///     ordering to an unsigned 64-bit integer
+        /// Convert the first eight bytes of the given array in little endian
+        /// ordering to an unsigned 64-bit integer
         /// </summary>
         /// <param name="bytes">An array eight bytes or longer</param>
         /// <returns>An unsigned 64-bit integer, will be zero if the array
@@ -379,8 +392,8 @@ namespace OpenMetaverse
         public static ulong BytesToUInt64(byte[] bytes)
         {
             if (bytes.Length < 8) return 0;
-            return (ulong)
-                ((ulong)bytes[0] +
+            return 
+                (bytes[0] +
                 ((ulong)bytes[1] << 8) +
                 ((ulong)bytes[2] << 16) +
                 ((ulong)bytes[3] << 24) +
@@ -391,8 +404,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert four bytes in little endian ordering to a floating point
-        ///     value
+        /// Convert four bytes in little endian ordering to a floating point
+        /// value
         /// </summary>
         /// <param name="bytes">Byte array containing a little ending floating
         /// point value</param>
@@ -408,10 +421,7 @@ namespace OpenMetaverse
                 Array.Reverse(newBytes, 0, 4);
                 return BitConverter.ToSingle(newBytes, 0);
             }
-            else
-            {
-                return BitConverter.ToSingle(bytes, pos);
-            }
+            return BitConverter.ToSingle(bytes, pos);
         }
 
         public static double BytesToDouble(byte[] bytes, int pos)
@@ -423,10 +433,7 @@ namespace OpenMetaverse
                 Array.Reverse(newBytes, 0, 8);
                 return BitConverter.ToDouble(newBytes, 0);
             }
-            else
-            {
-                return BitConverter.ToDouble(bytes, pos);
-            }
+            return BitConverter.ToDouble(bytes, pos);
         }
 
         #endregion BytesTo
@@ -468,7 +475,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert an integer to a byte array in little endian format
+        /// Convert an integer to a byte array in little endian format
         /// </summary>
         /// <param name="value">The integer to convert</param>
         /// <returns>A four byte little endian array</returns>
@@ -485,7 +492,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert an integer to a byte array in big endian format
+        /// Convert an integer to a byte array in big endian format
         /// </summary>
         /// <param name="value">The integer to convert</param>
         /// <returns>A four byte big endian array</returns>
@@ -536,7 +543,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert a 64-bit integer to a byte array in little endian format
+        /// Convert a 64-bit integer to a byte array in little endian format
         /// </summary>
         /// <param name="value">The value to convert</param>
         /// <returns>An 8 byte little endian array</returns>
@@ -556,8 +563,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert a 64-bit unsigned integer to a byte array in little endian
-        ///     format
+        /// Convert a 64-bit unsigned integer to a byte array in little endian
+        /// format
         /// </summary>
         /// <param name="value">The value to convert</param>
         /// <returns>An 8 byte little endian array</returns>
@@ -592,8 +599,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert a floating point value to four bytes in little endian
-        ///     ordering
+        /// Convert a floating point value to four bytes in little endian
+        /// ordering
         /// </summary>
         /// <param name="value">A floating point value</param>
         /// <returns>A four byte array containing the value in little endian
@@ -639,7 +646,7 @@ namespace OpenMetaverse
         #region Strings
 
         /// <summary>
-        ///     Converts an unsigned integer to a hexadecimal string
+        /// Converts an unsigned integer to a hexadecimal string
         /// </summary>
         /// <param name="i">An unsigned integer to convert to a string</param>
         /// <returns>A hexadecimal string 10 characters long</returns>
@@ -650,7 +657,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert a variable length UTF8 byte array to a string
+        /// Convert a variable length UTF8 byte array to a string
         /// </summary>
         /// <param name="bytes">The UTF8 encoded byte array to convert</param>
         /// <returns>The decoded string</returns>
@@ -672,12 +679,12 @@ namespace OpenMetaverse
 
         private static string GetString(byte[] bytes, int index, int count)
         {
-            string cnv = UTF8Encoding.UTF8.GetString(bytes, index, count);
+            string cnv = Encoding.UTF8.GetString(bytes, index, count);
             return InternStrings ? string.Intern(cnv) : cnv;
         }
 
         /// <summary>
-        ///     Converts a byte array to a string containing hexadecimal characters
+        /// Converts a byte array to a string containing hexadecimal characters
         /// </summary>
         /// <param name="bytes">The byte array to convert to a string</param>
         /// <param name="fieldName">The name of the field to prepend to each
@@ -691,7 +698,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Converts a byte array to a string containing hexadecimal characters
+        /// Converts a byte array to a string containing hexadecimal characters
         /// </summary>
         /// <param name="bytes">The byte array to convert to a string</param>
         /// <param name="length">Number of bytes in the array to parse</param>
@@ -708,7 +715,7 @@ namespace OpenMetaverse
                 if (i != 0)
                     output.Append('\n');
 
-                if (!String.IsNullOrEmpty(fieldName))
+                if (!string.IsNullOrEmpty(fieldName))
                 {
                     output.Append(fieldName);
                     output.Append(": ");
@@ -721,7 +728,7 @@ namespace OpenMetaverse
                         if (j != 0)
                             output.Append(' ');
 
-                        output.Append(String.Format("{0:X2}", bytes[i + j]));
+                        output.Append(string.Format("{0:X2}", bytes[i + j]));
                     }
                 }
             }
@@ -730,19 +737,19 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert a string to a UTF8 encoded byte array
+        /// Convert a string to a UTF8 encoded byte array
         /// </summary>
         /// <param name="str">The string to convert</param>
         /// <returns>A null-terminated UTF8 byte array</returns>
         public static byte[] StringToBytes(string str)
         {
-            if (String.IsNullOrEmpty(str)) { return Utils.EmptyBytes; }
-            if (!str.EndsWith("\0")) { str += "\0"; }
-            return System.Text.UTF8Encoding.UTF8.GetBytes(str);
+            if (string.IsNullOrEmpty(str)) { return EmptyBytes; }
+            if (!str.EndsWith ("\0", StringComparison.Ordinal)) { str += "\0"; }
+            return Encoding.UTF8.GetBytes(str);
         }
 
         /// <summary>
-        ///     Converts a string containing hexadecimal characters to a byte array
+        /// Converts a string containing hexadecimal characters to a byte array
         /// </summary>
         /// <param name="hexString">String containing hexadecimal characters</param>
         /// <param name="handleDirty">If true, gracefully handles null, empty and
@@ -752,8 +759,8 @@ namespace OpenMetaverse
         {
             if (handleDirty)
             {
-                if (String.IsNullOrEmpty(hexString))
-                    return Utils.EmptyBytes;
+                if (string.IsNullOrEmpty(hexString))
+                    return EmptyBytes;
 
                 StringBuilder stripped = new StringBuilder(hexString.Length);
                 char c;
@@ -789,38 +796,35 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Returns true is c is a hexadecimal digit (A-F, a-f, 0-9)
+        /// Returns true is c is a hexadecimal digit (A-F, a-f, 0-9)
         /// </summary>
         /// <param name="c">Character to test</param>
         /// <returns>true if hex digit, false if not</returns>
-        private static bool IsHexDigit(Char c)
+        static bool IsHexDigit(char c)
         {
             const int numA = 65;
             const int num0 = 48;
 
             int numChar;
 
-            c = Char.ToUpper(c);
+            c = char.ToUpper(c);
             numChar = Convert.ToInt32(c);
 
             if (numChar >= numA && numChar < (numA + 6))
                 return true;
-            else if (numChar >= num0 && numChar < (num0 + 10))
-                return true;
-            else
-                return false;
+            return numChar >= num0 && numChar < (num0 + 10);
         }
 
         /// <summary>
-        ///     Converts 1 or 2 character string into equivalant byte value
+        /// Converts 1 or 2 character string into equivalant byte value
         /// </summary>
         /// <param name="hex">1 or 2 character string</param>
         /// <returns>byte</returns>
-        private static byte HexToByte(string hex)
+        static byte HexToByte(string hex)
         {
             if (hex.Length > 2 || hex.Length <= 0)
                 throw new ArgumentException("hex must be 1 or 2 characters in length");
-            byte newByte = Byte.Parse(hex, System.Globalization.NumberStyles.HexNumber);
+            byte newByte = byte.Parse(hex, System.Globalization.NumberStyles.HexNumber);
             return newByte;
         }
 
@@ -829,7 +833,7 @@ namespace OpenMetaverse
         #region Packed Values
 
         /// <summary>
-        ///     Convert a float value to a byte given a minimum and maximum range
+        /// Convert a float value to a byte given a minimum and maximum range
         /// </summary>
         /// <param name="val">Value to convert to a byte</param>
         /// <param name="lower">Minimum value range</param>
@@ -837,16 +841,16 @@ namespace OpenMetaverse
         /// <returns>A single byte representing the original float value</returns>
         public static byte FloatToByte(float val, float lower, float upper)
         {
-            val = Utils.Clamp(val, lower, upper);
+            val = Clamp(val, lower, upper);
             // Normalize the value
             val -= lower;
             val /= (upper - lower);
 
-            return (byte)Math.Floor(val * (float)byte.MaxValue);
+            return (byte)Math.Floor(val * byte.MaxValue);
         }
 
         /// <summary>
-        ///     Convert a byte to a float value given a minimum and maximum range
+        /// Convert a byte to a float value given a minimum and maximum range
         /// </summary>
         /// <param name="bytes">Byte array to get the byte from</param>
         /// <param name="pos">Position in the byte array the desired byte is at</param>
@@ -855,12 +859,11 @@ namespace OpenMetaverse
         /// <returns>A float value inclusively between lower and upper</returns>
         public static float ByteToFloat(byte[] bytes, int pos, float lower, float upper)
         {
-            if (bytes.Length <= pos) return 0;
-            return ByteToFloat(bytes[pos], lower, upper);
+            return bytes.Length <= pos ? 0 : ByteToFloat(bytes[pos], lower, upper);
         }
 
         /// <summary>
-        ///     Convert a byte to a float value given a minimum and maximum range
+        /// Convert a byte to a float value given a minimum and maximum range
         /// </summary>
         /// <param name="val">Byte to convert to a float value</param>
         /// <param name="lower">Minimum value range</param>
@@ -868,9 +871,9 @@ namespace OpenMetaverse
         /// <returns>A float value inclusively between lower and upper</returns>
         public static float ByteToFloat(byte val, float lower, float upper)
         {
-            const float ONE_OVER_BYTEMAX = 1.0f / (float)byte.MaxValue;
+            const float ONE_OVER_BYTEMAX = 1.0f / byte.MaxValue;
 
-            float fval = (float)val * ONE_OVER_BYTEMAX;
+            float fval = val * ONE_OVER_BYTEMAX;
             float delta = (upper - lower);
             fval *= delta;
             fval += lower;
@@ -891,9 +894,9 @@ namespace OpenMetaverse
 
         public static float UInt16ToFloat(ushort val, float lower, float upper)
         {
-            const float ONE_OVER_U16_MAX = 1.0f / (float)UInt16.MaxValue;
+            const float ONE_OVER_U16_MAX = 1.0f / ushort.MaxValue;
 
-            float fval = (float)val * ONE_OVER_U16_MAX;
+            float fval = val * ONE_OVER_U16_MAX;
             float delta = upper - lower;
             fval *= delta;
             fval += lower;
@@ -911,7 +914,7 @@ namespace OpenMetaverse
             float delta = upper - lower;
             value -= lower;
             value /= delta;
-            value *= (float)UInt16.MaxValue;
+            value *= ushort.MaxValue;
 
             return (ushort)value;
         }
@@ -921,15 +924,15 @@ namespace OpenMetaverse
         #region TryParse
 
         /// <summary>
-        ///     Attempts to parse a floating point value from a string, using an
-        ///     EN-US number format
+        /// Attempts to parse a floating point value from a string, using an
+        /// EN-US number format
         /// </summary>
         /// <param name="s">String to parse</param>
         /// <param name="result">Resulting floating point number</param>
         /// <returns>True if the parse was successful, otherwise false</returns>
         public static bool TryParseSingle(string s, out float result)
         {
-            return Single.TryParse(s, System.Globalization.NumberStyles.Float, EnUsCulture.NumberFormat, out result);
+            return float.TryParse(s, System.Globalization.NumberStyles.Float, EnUsCulture.NumberFormat, out result);
         }
 
         /// <summary>
@@ -943,18 +946,18 @@ namespace OpenMetaverse
         {
             // NOTE: Double.TryParse can't parse Double.[Min/Max]Value.ToString(), see:
             // http://blogs.msdn.com/bclteam/archive/2006/05/24/598169.aspx
-            return Double.TryParse(s, System.Globalization.NumberStyles.Float, EnUsCulture.NumberFormat, out result);
+            return double.TryParse(s, System.Globalization.NumberStyles.Float, EnUsCulture.NumberFormat, out result);
         }
 
         /// <summary>
-        ///     Tries to parse an unsigned 32-bit integer from a hexadecimal string
+        /// Tries to parse an unsigned 32-bit integer from a hexadecimal string
         /// </summary>
         /// <param name="s">String to parse</param>
         /// <param name="result">Resulting integer</param>
         /// <returns>True if the parse was successful, otherwise false</returns>
         public static bool TryParseHex(string s, out uint result)
         {
-            return UInt32.TryParse(s, System.Globalization.NumberStyles.HexNumber, EnUsCulture.NumberFormat, out result);
+            return uint.TryParse(s, System.Globalization.NumberStyles.HexNumber, EnUsCulture.NumberFormat, out result);
         }
 
         #endregion TryParse
@@ -962,9 +965,9 @@ namespace OpenMetaverse
         #region Enum String Conversion
 
         /// <summary>
-        ///     Returns text specified in EnumInfo attribute of the enumerator
-        ///     To add the text use [EnumInfo(Text = "Some nice text here")] before declaration
-        ///     of enum values
+        /// Returns text specified in EnumInfo attribute of the enumerator
+        /// To add the text use [EnumInfo(Text = "Some nice text here")] before declaration
+        /// of enum values
         /// </summary>
         /// <param name="value">Enum value</param>
         /// <returns>Text representation of the enum</returns>
@@ -977,13 +980,13 @@ namespace OpenMetaverse
             FieldInfo fieldInfo = type.GetField(value.ToString());
 
             // Find extended attributes, if any
-            EnumInfoAttribute[] attribs = (EnumInfoAttribute[])fieldInfo.GetCustomAttributes(typeof(EnumInfoAttribute), false);
+            var attribs = (EnumInfoAttribute[])fieldInfo.GetCustomAttributes(typeof(EnumInfoAttribute), false);
 
             return attribs.Length > 0 ? attribs[0].Text : value.ToString();
         }
 
         /// <summary>
-        ///     Takes an AssetType and returns the string representation
+        /// Takes an AssetType and returns the string representation
         /// </summary>
         /// <param name="type">The source <seealso cref="AssetType"/></param>
         /// <returns>The string version of the AssetType</returns>
@@ -993,7 +996,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Translate a string name of an AssetType into the proper Type
+        /// Translate a string name of an AssetType into the proper Type
         /// </summary>
         /// <param name="type">A string containing the AssetType name</param>
         /// <returns>The AssetType which matches the string name, or AssetType.Unknown if no match was found</returns>
@@ -1009,7 +1012,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Takes a FolderType and returns the string representation
+        /// Takes a FolderType and returns the string representation
         /// </summary>
         /// <param name="type">The source <seealso cref="FolderType"/></param>
         /// <returns>The string version of the FolderType</returns>
@@ -1019,7 +1022,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Translate a string name of an FolderType into the proper Type
+        /// Translate a string name of an FolderType into the proper Type
         /// </summary>
         /// <param name="type">A string containing the FolderType name</param>
         /// <returns>The FolderType which matches the string name, or FolderType. None if no match was found</returns>
@@ -1035,7 +1038,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert an InventoryType to a string
+        /// Convert an InventoryType to a string
         /// </summary>
         /// <param name="type">The <seealso cref="T:InventoryType"/> to convert</param>
         /// <returns>A string representation of the source</returns>
@@ -1045,7 +1048,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert a string into a valid InventoryType
+        /// Convert a string into a valid InventoryType
         /// </summary>
         /// <param name="type">A string representation of the InventoryType to convert</param>
         /// <returns>A InventoryType object which matched the type</returns>
@@ -1061,7 +1064,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert a SaleType to a string
+        /// Convert a SaleType to a string
         /// </summary>
         /// <param name="type">The <seealso cref="T:SaleType"/> to convert</param>
         /// <returns>A string representation of the source</returns>
@@ -1071,7 +1074,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert a string into a valid SaleType
+        /// Convert a string into a valid SaleType
         /// </summary>
         /// <param name="value">A string representation of the SaleType to convert</param>
         /// <returns>A SaleType object which matched the type</returns>
@@ -1087,7 +1090,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Converts a string used in LLSD to AttachmentPoint type
+        /// Converts a string used in LLSD to AttachmentPoint type
         /// </summary>
         /// <param name="value">String representation of AttachmentPoint to convert</param>
         /// <returns>AttachmentPoint enum</returns>
@@ -1107,7 +1110,7 @@ namespace OpenMetaverse
         #region Miscellaneous
 
         /// <summary>
-        ///     Copy a byte array
+        /// Copy a byte array
         /// </summary>
         /// <param name="bytes">Byte array to copy</param>
         /// <returns>A copy of the given byte array</returns>
@@ -1122,18 +1125,18 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Packs to 32-bit unsigned integers in to a 64-bit unsigned integer
+        /// Packs to 32-bit unsigned integers in to a 64-bit unsigned integer
         /// </summary>
         /// <param name="a">The left-hand (or X) value</param>
         /// <param name="b">The right-hand (or Y) value</param>
         /// <returns>A 64-bit integer containing the two 32-bit input values</returns>
         public static ulong UIntsToLong(uint a, uint b)
         {
-            return ((ulong)a << 32) | (ulong)b;
+            return ((ulong)a << 32) | b;
         }
 
         /// <summary>
-        ///     Unpacks two 32-bit unsigned integers from a 64-bit unsigned integer
+        /// Unpacks two 32-bit unsigned integers from a 64-bit unsigned integer
         /// </summary>
         /// <param name="a">The 64-bit input integer</param>
         /// <param name="b">The left-hand (or X) output value</param>
@@ -1145,18 +1148,18 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert an IP address object to an unsigned 32-bit integer
+        /// Convert an IP address object to an unsigned 32-bit integer
         /// </summary>
         /// <param name="address">IP address to convert</param>
         /// <returns>32-bit unsigned integer holding the IP address bits</returns>
-        public static uint IPToUInt(System.Net.IPAddress address)
+        public static uint IPToUInt(IPAddress address)
         {
             byte[] bytes = address.GetAddressBytes();
             return (uint)((bytes[3] << 24) + (bytes[2] << 16) + (bytes[1] << 8) + bytes[0]);
         }
 
         /// <summary>
-        ///     Gets a unix timestamp for the current time
+        /// Gets a unix timestamp for the current time
         /// </summary>
         /// <returns>An unsigned integer representing a unix timestamp for now</returns>
         public static uint GetUnixTime()
@@ -1165,7 +1168,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert a UNIX timestamp to a native DateTime object
+        /// Convert a UNIX timestamp to a native DateTime object
         /// </summary>
         /// <param name="timestamp">An unsigned integer representing a UNIX
         /// timestamp</param>
@@ -1182,7 +1185,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert a UNIX timestamp to a native DateTime object
+        /// Convert a UNIX timestamp to a native DateTime object
         /// </summary>
         /// <param name="timestamp">A signed integer representing a UNIX
         /// timestamp</param>
@@ -1194,7 +1197,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Convert a native DateTime object to a UNIX timestamp
+        /// Convert a native DateTime object to a UNIX timestamp
         /// </summary>
         /// <param name="time">A DateTime object you want to convert to a 
         /// timestamp</param>
@@ -1206,7 +1209,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Swap two values
+        /// Swap two values
         /// </summary>
         /// <typeparam name="T">Type of the values to swap</typeparam>
         /// <param name="lhs">First value</param>
@@ -1219,7 +1222,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Try to parse an enumeration value from a string
+        /// Try to parse an enumeration value from a string
         /// </summary>
         /// <typeparam name="T">Enumeration type</typeparam>
         /// <param name="strType">String value to parse</param>
@@ -1234,24 +1237,21 @@ namespace OpenMetaverse
                 result = (T)Enum.Parse(t, strType, true);
                 return true;
             }
-            else
-            {
-                foreach (string value in Enum.GetNames(typeof(T)))
-                {
-                    if (value.Equals(strType, StringComparison.OrdinalIgnoreCase))
-                    {
-                        result = (T)Enum.Parse(typeof(T), value);
-                        return true;
-                    }
-                }
 
-                result = default(T);
-                return false;
+            foreach (string value in Enum.GetNames(typeof(T)))
+            {
+                if (value.Equals(strType, StringComparison.OrdinalIgnoreCase))
+                {
+                    result = (T)Enum.Parse(typeof(T), value);
+                    return true;
+                }
             }
+            result = default(T);
+            return false;
         }
 
         /// <summary>
-        ///     Swaps the high and low words in a byte. Converts aaaabbbb to bbbbaaaa
+        /// Swaps the high and low words in a byte. Converts aaaabbbb to bbbbaaaa
         /// </summary>
         /// <param name="value">Byte to swap the words in</param>
         /// <returns>Byte value with the words swapped</returns>
@@ -1261,8 +1261,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Attempts to convert a string representation of a hostname or IP
-        ///     address to a <seealso cref="System.Net.IPAddress"/>
+        /// Attempts to convert a string representation of a hostname or IP
+        /// address to a <seealso cref="IPAddress"/>
         /// </summary>
         /// <param name="hostname">Hostname to convert to an IPAddress</param>
         /// <returns>Converted IP address object, or null if the conversion

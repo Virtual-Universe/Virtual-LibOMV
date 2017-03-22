@@ -22,13 +22,13 @@ namespace CSJ2K.Color
 	/// </author>
 	
 	[Serializable]
-	public class ColorSpaceException:System.Exception
+	public class ColorSpaceException:Exception
 	{
 		
 		/// <summary> Contruct with message</summary>
 		/// <param name="msg">returned by getMessage()
 		/// </param>
-		public ColorSpaceException(System.String msg):base(msg)
+		public ColorSpaceException(string msg):base(msg)
 		{
 		}
 		

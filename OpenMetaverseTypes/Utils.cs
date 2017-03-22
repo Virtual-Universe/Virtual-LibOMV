@@ -31,45 +31,33 @@ namespace OpenMetaverse
 {
     public static partial class Utils
     {
+        const float EPSILON = 0.0000001f;   // floating point comparison equivelency
+
         /// <summary>
-        ///     Operating system
+        /// Operating system
         /// </summary>
         public enum Platform
         {
-            /// <summary>
-            ///     Unknown
-            /// </summary>
+            /// <summary>Unknown</summary>
             Unknown,
-            /// <summary>
-            ///     Microsoft Windows
-            /// </summary>
+            /// <summary>Microsoft Windows</summary>
             Windows,
-            /// <summary>
-            ///     Microsoft Windows CE
-            /// </summary>
+            /// <summary>Microsoft Windows CE</summary>
             WindowsCE,
-            /// <summary>
-            ///     Linux
-            /// </summary>
+            /// <summary>Linux</summary>
             Linux,
-            /// <summary>
-            ///     Apple OSX
-            /// </summary>
+            /// <summary>Apple OSX</summary>
             OSX
         }
 
         /// <summary>
-        ///     Runtime platform
+        /// Runtime platform
         /// </summary>
         public enum Runtime
         {
-            /// <summary>
-            ///     .NET runtime
-            /// </summary>
+            /// <summary>.NET runtime</summary>
             Windows,
-            /// <summary>
-            ///     Mono runtime: http://www.mono-project.com/
-            /// </summary>
+            /// <summary>Mono runtime: http://www.mono-project.com/</summary>
             Mono
         }
 
@@ -80,55 +68,43 @@ namespace OpenMetaverse
         public const float TWO_PI = (float)(Math.PI * 2.0d);
         public const float PI_OVER_TWO = (float)(Math.PI / 2.0d);
         public const float PI_OVER_FOUR = (float)(Math.PI / 4.0d);
-        
-        /// <summary>
-        ///     Used for converting degrees to radians
-        /// </summary>
+        /// <summary>Used for converting degrees to radians</summary>
         public const float DEG_TO_RAD = (float)(Math.PI / 180.0d);
-        
-        /// <summary>
-        ///     Used for converting radians to degrees
-        /// </summary>
+        /// <summary>Used for converting radians to degrees</summary>
         public const float RAD_TO_DEG = (float)(180.0d / Math.PI);
 
-        /// <summary>
-        ///     Provide a single instance of the CultureInfo class to
-        ///     help parsing in situations where the grid assumes an en-us 
-        ///     culture
-        /// </summary>
-        public static readonly System.Globalization.CultureInfo EnUsCulture = new System.Globalization.CultureInfo("en-us");
+        /// <summary>Provide a single instance of the CultureInfo class to
+        /// help parsing in situations where the grid assumes an en-us 
+        /// culture</summary>
+        public static readonly System.Globalization.CultureInfo EnUsCulture =
+            new System.Globalization.CultureInfo("en-us");
 
-        /// <summary>
-        ///     UNIX epoch in DateTime format
-        /// </summary>
+        /// <summary>UNIX epoch in DateTime format</summary>
         public static readonly DateTime Epoch = new DateTime(1970, 1, 1);
 
         public static readonly byte[] EmptyBytes = new byte[0];
 
-        /// <summary>
-        ///     Provide a single instance of the MD5 class to avoid making
-        ///     duplicate copies and handle thread safety
-        /// </summary>
-        private static readonly System.Security.Cryptography.MD5 MD5Builder = new System.Security.Cryptography.MD5CryptoServiceProvider();
+        /// <summary>Provide a single instance of the MD5 class to avoid making
+        /// duplicate copies and handle thread safety</summary>
+        static readonly System.Security.Cryptography.MD5 MD5Builder =
+            new System.Security.Cryptography.MD5CryptoServiceProvider();
 
-        /// <summary>
-        ///     Provide a single instance of the SHA-1 class to avoid
-        ///     making duplicate copies and handle thread safety
-        /// </summary>
-        private static readonly System.Security.Cryptography.SHA1 SHA1Builder = new System.Security.Cryptography.SHA1CryptoServiceProvider();
+        /// <summary>Provide a single instance of the SHA-1 class to avoid
+        /// making duplicate copies and handle thread safety</summary>
+        static readonly System.Security.Cryptography.SHA1 SHA1Builder =
+            new System.Security.Cryptography.SHA1CryptoServiceProvider();
 
-        private static readonly System.Security.Cryptography.SHA256 SHA256Builder = new System.Security.Cryptography.SHA256Managed();
+        static readonly System.Security.Cryptography.SHA256 SHA256Builder =
+            new System.Security.Cryptography.SHA256Managed();
 
-        /// <summary>
-        ///     Provide a single instance of a random number generator
-        ///     to avoid making duplicate copies and handle thread safety
-        /// </summary>
-        private static readonly Random RNG = new Random();
+        /// <summary>Provide a single instance of a random number generator
+        /// to avoid making duplicate copies and handle thread safety</summary>
+        static readonly Random RNG = new Random();
 
         #region Math
 
         /// <summary>
-        ///     Clamp a given value between a range
+        /// Clamp a given value between a range
         /// </summary>
         /// <param name="value">Value to clamp</param>
         /// <param name="min">Minimum allowable value</param>
@@ -147,7 +123,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Clamp a given value between a range
+        /// Clamp a given value between a range
         /// </summary>
         /// <param name="value">Value to clamp</param>
         /// <param name="min">Minimum allowable value</param>
@@ -166,7 +142,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Clamp a given value between a range
+        /// Clamp a given value between a range
         /// </summary>
         /// <param name="value">Value to clamp</param>
         /// <param name="min">Minimum allowable value</param>
@@ -185,7 +161,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Round a floating-point value to the nearest integer
+        /// Round a floating-point value to the nearest integer
         /// </summary>
         /// <param name="val">Floating point number to round</param>
         /// <returns>Integer</returns>
@@ -195,23 +171,23 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Test if a single precision float is a finite number
+        /// Test if a single precision float is a finite number
         /// </summary>
         public static bool IsFinite(float value)
         {
-            return !(Single.IsNaN(value) || Single.IsInfinity(value));
+            return !(float.IsNaN(value) || float.IsInfinity(value));
         }
 
         /// <summary>
-        ///     Test if a double precision float is a finite number
+        /// Test if a double precision float is a finite number
         /// </summary>
         public static bool IsFinite(double value)
         {
-            return !(Double.IsNaN(value) || Double.IsInfinity(value));
+            return !(double.IsNaN(value) || double.IsInfinity(value));
         }
 
         /// <summary>
-        ///     Get the distance between two floating-point values
+        /// Get the distance between two floating-point values
         /// </summary>
         /// <param name="value1">First value</param>
         /// <param name="value2">Second value</param>
@@ -229,9 +205,9 @@ namespace OpenMetaverse
             double sCubed = s * s * s;
             double sSquared = s * s;
 
-            if (amount == 0f)
+            if (Math.Abs (amount) < EPSILON)
                 result = value1;
-            else if (amount == 1f)
+            else if (Math.Abs (amount - 1f) < EPSILON)
                 result = value2;
             else
                 result = (2d * v1 - 2d * v2 + t2 + t1) * sCubed +
@@ -248,9 +224,9 @@ namespace OpenMetaverse
             double sCubed = s * s * s;
             double sSquared = s * s;
 
-            if (amount == 0d)
+            if (Math.Abs (amount) < EPSILON)
                 result = value1;
-            else if (amount == 1f)
+            else if (Math.Abs (amount - 1f) < EPSILON)
                 result = value2;
             else
                 result = (2d * v1 - 2d * v2 + t2 + t1) * sCubed +
@@ -274,8 +250,8 @@ namespace OpenMetaverse
             // It is expected that 0 < amount < 1
             // If amount < 0, return value1
             // If amount > 1, return value2
-            float result = Utils.Clamp(amount, 0f, 1f);
-            return Utils.Hermite(value1, 0f, value2, 0f, result);
+            float result = Clamp (amount, 0f, 1f);
+            return Hermite (value1, 0f, value2, 0f, result);
         }
 
         public static double SmoothStep(double value1, double value2, double amount)
@@ -283,8 +259,8 @@ namespace OpenMetaverse
             // It is expected that 0 < amount < 1
             // If amount < 0, return value1
             // If amount > 1, return value2
-            double result = Utils.Clamp(amount, 0f, 1f);
-            return Utils.Hermite(value1, 0f, value2, 0f, result);
+            double result = Clamp(amount, 0f, 1f);
+            return Hermite(value1, 0f, value2, 0f, result);
         }
 
         public static float ToDegrees(float radians)
@@ -304,7 +280,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Compute the MD5 hash for a byte array
+        /// Compute the MD5 hash for a byte array
         /// </summary>
         /// <param name="data">Byte array to compute the hash for</param>
         /// <returns>MD5 hash of the input data</returns>
@@ -315,7 +291,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Compute the SHA1 hash for a byte array
+        /// Compute the SHA1 hash for a byte array
         /// </summary>
         /// <param name="data">Byte array to compute the hash for</param>
         /// <returns>SHA1 hash of the input data</returns>
@@ -326,24 +302,24 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Calculate the SHA1 hash of a given string
+        /// Calculate the SHA1 hash of a given string
         /// </summary>
         /// <param name="value">The string to hash</param>
         /// <returns>The SHA1 hash as a string</returns>
         public static string SHA1String(string value)
         {
-            StringBuilder digest = new StringBuilder(40);
+            var digest = new StringBuilder(40);
             byte[] hash = SHA1(Encoding.UTF8.GetBytes(value));
 
             // Convert the hash to a hex string
             foreach (byte b in hash)
-                digest.AppendFormat(Utils.EnUsCulture, "{0:x2}", b);
+                digest.AppendFormat(EnUsCulture, "{0:x2}", b);
 
             return digest.ToString();
         }
 
         /// <summary>
-        ///     Compute the SHA256 hash for a byte array
+        /// Compute the SHA256 hash for a byte array
         /// </summary>
         /// <param name="data">Byte array to compute the hash for</param>
         /// <returns>SHA256 hash of the input data</returns>
@@ -354,7 +330,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Calculate the SHA256 hash of a given string
+        /// Calculate the SHA256 hash of a given string
         /// </summary>
         /// <param name="value">The string to hash</param>
         /// <returns>The SHA256 hash as a string</returns>
@@ -365,47 +341,47 @@ namespace OpenMetaverse
 
             // Convert the hash to a hex string
             foreach (byte b in hash)
-                digest.AppendFormat(Utils.EnUsCulture, "{0:x2}", b);
+                digest.AppendFormat(EnUsCulture, "{0:x2}", b);
 
             return digest.ToString();
         }
 
         /// <summary>
-        ///     Calculate the MD5 hash of a given string
+        /// Calculate the MD5 hash of a given string
         /// </summary>
         /// <param name="password">The password to hash</param>
         /// <returns>An MD5 hash in string format, with $1$ prepended</returns>
         public static string MD5(string password)
         {
-            StringBuilder digest = new StringBuilder(32);
-            byte[] hash = MD5(ASCIIEncoding.Default.GetBytes(password));
+            var digest = new StringBuilder(32);
+            byte[] hash = MD5(Encoding.Default.GetBytes(password));
 
             // Convert the hash to a hex string
             foreach (byte b in hash)
-                digest.AppendFormat(Utils.EnUsCulture, "{0:x2}", b);
+                digest.AppendFormat(EnUsCulture, "{0:x2}", b);
 
-            return "$1$" + digest.ToString();
+            return "$1$" + digest;
         }
 
         /// <summary>
-        ///     Calculate the MD5 hash of a given string
+        /// Calculate the MD5 hash of a given string
         /// </summary>
         /// <param name="value">The string to hash</param>
         /// <returns>The MD5 hash as a string</returns>
         public static string MD5String(string value)
         {
-            StringBuilder digest = new StringBuilder(32);
+            var digest = new StringBuilder(32);
             byte[] hash = MD5(Encoding.UTF8.GetBytes(value));
 
             // Convert the hash to a hex string
             foreach (byte b in hash)
-                digest.AppendFormat(Utils.EnUsCulture, "{0:x2}", b);
+                digest.AppendFormat(EnUsCulture, "{0:x2}", b);
 
             return digest.ToString();
         }
 
         /// <summary>
-        ///     Generate a random double precision floating point value
+        /// Generate a random double precision floating point value
         /// </summary>
         /// <returns>Random value of type double</returns>
         public static double RandomDouble()
@@ -419,37 +395,29 @@ namespace OpenMetaverse
         #region Platform
 
         /// <summary>
-        ///     Get the current running platform
+        /// Get the current running platform
         /// </summary>
         /// <returns>Enumeration of the current platform we are running on</returns>
         public static Platform GetRunningPlatform()
         {
             const string OSX_CHECK_FILE = "/Library/Extensions.kextcache";
 
-            if (Environment.OSVersion.Platform == PlatformID.WinCE)
-            {
+            if (Environment.OSVersion.Platform == PlatformID.WinCE) {
                 return Platform.WindowsCE;
             }
-            else
-            {
-                int plat = (int)Environment.OSVersion.Platform;
+            var plat = (int)Environment.OSVersion.Platform;
 
-                if ((plat != 4) && (plat != 128))
-                {
-                    return Platform.Windows;
-                }
-                else
-                {
-                    if (System.IO.File.Exists(OSX_CHECK_FILE))
-                        return Platform.OSX;
-                    else
-                        return Platform.Linux;
-                }
+            if ((plat != 4) && (plat != 128)) {
+                return Platform.Windows;
             }
+            if (System.IO.File.Exists (OSX_CHECK_FILE))
+                return Platform.OSX;
+            else
+                return Platform.Linux;
         }
 
         /// <summary>
-        ///     Get the current running runtime
+        /// Get the current running runtime
         /// </summary>
         /// <returns>Enumeration of the current runtime we are running on</returns>
         public static Runtime GetRunningRuntime()
@@ -457,8 +425,7 @@ namespace OpenMetaverse
             Type t = Type.GetType("Mono.Runtime");
             if (t != null)
                 return Runtime.Mono;
-            else
-                return Runtime.Windows;
+            return Runtime.Windows;
         }
 
         #endregion Platform

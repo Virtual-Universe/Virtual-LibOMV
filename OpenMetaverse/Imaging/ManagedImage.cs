@@ -25,6 +25,7 @@
  */
 
 using System;
+using System.Drawing.Imaging;
 
 namespace OpenMetaverse.Imaging
 {
@@ -98,12 +99,9 @@ namespace OpenMetaverse.Imaging
 
             int n = width * height;
 
-            if ((channels & ImageChannels.Gray) != 0)
-            {
+            if ((channels & ImageChannels.Gray) != 0) {
                 Red = new byte[n];
-            }
-            else if ((channels & ImageChannels.Color) != 0)
-            {
+            } else if ((channels & ImageChannels.Color) != 0) {
                 Red = new byte[n];
                 Green = new byte[n];
                 Blue = new byte[n];
@@ -128,7 +126,7 @@ namespace OpenMetaverse.Imaging
 
             int pixelCount = Width * Height;
 
-            if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format32bppArgb)
+            if (bitmap.PixelFormat == PixelFormat.Format32bppArgb)
             {
                 Channels = ImageChannels.Alpha | ImageChannels.Color;
                 Red = new byte[pixelCount];
@@ -136,8 +134,8 @@ namespace OpenMetaverse.Imaging
                 Blue = new byte[pixelCount];
                 Alpha = new byte[pixelCount];
 
-                System.Drawing.Imaging.BitmapData bd = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, Width, Height),
-                    System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                BitmapData bd = bitmap.LockBits(
+                    new System.Drawing.Rectangle(0, 0, Width, Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
 
                 unsafe
                 {
@@ -155,22 +153,22 @@ namespace OpenMetaverse.Imaging
 
                 bitmap.UnlockBits(bd);
             }
-            else if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format16bppGrayScale)
+            else if (bitmap.PixelFormat == PixelFormat.Format16bppGrayScale)
             {
                 Channels = ImageChannels.Gray;
                 Red = new byte[pixelCount];
 
                 throw new NotImplementedException("16bpp grayscale image support is incomplete");
             }
-            else if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format24bppRgb)
+            else if (bitmap.PixelFormat == PixelFormat.Format24bppRgb)
             {
                 Channels = ImageChannels.Color;
                 Red = new byte[pixelCount];
                 Green = new byte[pixelCount];
                 Blue = new byte[pixelCount];
 
-                System.Drawing.Imaging.BitmapData bd = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, Width, Height),
-                        System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+                BitmapData bd = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, Width, Height),
+                        ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
 
                 unsafe
                 {
@@ -187,15 +185,15 @@ namespace OpenMetaverse.Imaging
 
                 bitmap.UnlockBits(bd);
             }
-			else if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format32bppRgb)
+			else if (bitmap.PixelFormat == PixelFormat.Format32bppRgb)
 			{
 				Channels = ImageChannels.Color;
 				Red = new byte[pixelCount];
 				Green = new byte[pixelCount];
 				Blue = new byte[pixelCount];
 
-				System.Drawing.Imaging.BitmapData bd = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, Width, Height),
-						System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+                BitmapData bd = bitmap.LockBits(
+                    new System.Drawing.Rectangle(0, 0, Width, Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb);
 
 				unsafe
 				{
@@ -215,7 +213,7 @@ namespace OpenMetaverse.Imaging
 			}
 			else
             {
-                throw new NotSupportedException("Unrecognized pixel format: " + bitmap.PixelFormat.ToString());
+                throw new NotSupportedException("Unrecognized pixel format: " + bitmap.PixelFormat);
             }
         }
 #endif
@@ -351,7 +349,7 @@ namespace OpenMetaverse.Imaging
                             raw[pos * 4 + 0] = Alpha[srcPos];
                             raw[pos * 4 + 1] = Alpha[srcPos];
                             raw[pos * 4 + 2] = Alpha[srcPos];
-                            raw[pos * 4 + 3] = Byte.MaxValue;
+                            raw[pos * 4 + 3] = byte.MaxValue;
                         }
                     }
                 }
@@ -369,7 +367,7 @@ namespace OpenMetaverse.Imaging
                         raw[pos * 4 + 0] = Red[srcPos];
                         raw[pos * 4 + 1] = Green[srcPos];
                         raw[pos * 4 + 2] = Blue[srcPos];
-                        raw[pos * 4 + 3] = Byte.MaxValue;
+                        raw[pos * 4 + 3] = byte.MaxValue;
                     }
                 }
             }
@@ -407,7 +405,7 @@ namespace OpenMetaverse.Imaging
                         raw[pos * 4 + 0] = Alpha[pos];
                         raw[pos * 4 + 1] = Alpha[pos];
                         raw[pos * 4 + 2] = Alpha[pos];
-                        raw[pos * 4 + 3] = Byte.MaxValue;
+                        raw[pos * 4 + 3] = byte.MaxValue;
                     }
                 }
             }
@@ -419,11 +417,11 @@ namespace OpenMetaverse.Imaging
                     raw[pos * 4 + 0] = Blue[pos];
                     raw[pos * 4 + 1] = Green[pos];
                     raw[pos * 4 + 2] = Red[pos];
-                    raw[pos * 4 + 3] = Byte.MaxValue;
+                    raw[pos * 4 + 3] = byte.MaxValue;
                 }
             }
 
-            System.Drawing.Bitmap b = new System.Drawing.Bitmap(
+            var b = new System.Drawing.Bitmap(
                         Width,
                         Height,
                         System.Drawing.Imaging.PixelFormat.Format32bppArgb);
@@ -485,7 +483,7 @@ namespace OpenMetaverse.Imaging
                         tga[di++] = Alpha[i];
                         tga[di++] = Alpha[i];
                         tga[di++] = Alpha[i];
-                        tga[di++] = Byte.MaxValue;
+                        tga[di++] = byte.MaxValue;
                     }
                 }
             }
@@ -503,10 +501,9 @@ namespace OpenMetaverse.Imaging
             return tga;
         }
 
-        private static void FillArray(byte[] array, byte value)
+        static void FillArray(byte[] array, byte value)
         {
-            if (array != null)
-            {
+            if (array != null) {
                 for (int i = 0; i < array.Length; i++)
                     array[i] = value;
             }
@@ -523,7 +520,7 @@ namespace OpenMetaverse.Imaging
 
         public ManagedImage Clone()
         {
-            ManagedImage image = new ManagedImage(Width, Height, Channels);
+            var image = new ManagedImage(Width, Height, Channels);
             if (Red != null) image.Red = (byte[])Red.Clone();
             if (Green != null) image.Green = (byte[])Green.Clone();
             if (Blue != null) image.Blue = (byte[])Blue.Clone();

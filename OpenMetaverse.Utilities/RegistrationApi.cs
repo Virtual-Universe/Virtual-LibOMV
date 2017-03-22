@@ -59,8 +59,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     See https://secure-web6.secondlife.com/developers/third_party_reg/#service_create_user or
-        ///     https://wiki.secondlife.com/wiki/RegAPIDoc for description
+        /// See https://secure-web6.secondlife.com/developers/third_party_reg/#service_create_user or
+        /// https://wiki.secondlife.com/wiki/RegAPIDoc for description
         /// </summary>
         public class CreateUserParam
         {
@@ -134,7 +134,8 @@ namespace OpenMetaverse
         {
             // build post data
             byte[] postData = Encoding.ASCII.GetBytes(
-                String.Format("first_name={0}&last_name={1}&password={2}", _userInfo.FirstName, _userInfo.LastName, _userInfo.Password));
+                String.Format("first_name={0}&last_name={1}&password={2}", _userInfo.FirstName, _userInfo.LastName, 
+                _userInfo.Password));
 
             CapsClient request = new CapsClient(RegistrationApiCaps);
             request.OnComplete += new CapsClient.CompleteCallback(GatherCapsResponse);
@@ -176,6 +177,23 @@ namespace OpenMetaverse
         {
             if (response is OSDMap)
             {
+                // parse
+
+                //FIXME: wtf?
+                //foreach (KeyValuePair<string, object> error in (Dictionary<string, object>)response)
+                //{
+                    //StringBuilder sb = new StringBuilder();
+
+                    //sb.Append(error[1]);
+                    //sb.Append(" (");
+                    //sb.Append(error[0]);
+                    //sb.Append("): ");
+                    //sb.Append(error[2]);
+
+                    //_errors.Add((int)error[0], sb.ToString());
+                //}
+
+                // finalize
                 _initializing++;
             }
         }
@@ -199,6 +217,22 @@ namespace OpenMetaverse
         {
             if (response is OSDMap)
             {
+                //LLSDMap respTable = (LLSDMap)response;
+
+                //FIXME:
+                //_lastNames = new List<LastName>(respTable.Count);
+
+                //for (Dictionary<string, object>.Enumerator it = respTable.GetEnumerator(); it.MoveNext(); )
+                //{
+                //    LastName ln = new LastName();
+
+                //    ln.ID = int.Parse(it.Current.Key.ToString());
+                //    ln.Name = it.Current.Value.ToString();
+
+                //    _lastNames.Add(ln);
+                //}
+
+                //_lastNames.Sort(new Comparison<LastName>(delegate(LastName a, LastName b) { return a.Name.CompareTo(b.Name); }));
             }
         }
 
@@ -214,6 +248,7 @@ namespace OpenMetaverse
             OSDMap query = new OSDMap();
             query.Add("username", OSD.FromString(firstName));
             query.Add("last_name_id", OSD.FromInteger(lastName.ID));
+            //byte[] postData = OSDParser.SerializeXmlBytes(query);
 
             CapsClient request = new CapsClient(_caps.CheckName);
             request.OnComplete += new CapsClient.CompleteCallback(CheckNameResponse);
@@ -227,6 +262,8 @@ namespace OpenMetaverse
         {
             if (response.Type == OSDType.Boolean)
             {
+                // FIXME:
+                //(bool)response;
             }
             else
             {
@@ -235,8 +272,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Returns the new user ID or throws an exception containing the error code
-        ///     The error codes can be found here: https://wiki.secondlife.com/wiki/RegAPIError
+        /// Returns the new user ID or throws an exception containing the error code
+        /// The error codes can be found here: https://wiki.secondlife.com/wiki/RegAPIError
         /// </summary>
         /// <param name="user">New user account to create</param>
         /// <returns>The UUID of the new user account</returns>
@@ -276,6 +313,8 @@ namespace OpenMetaverse
                 query.Add("start_look_at_z", OSD.FromReal(user.StartLookAt.Value.Z));
             }
 
+            //byte[] postData = OSDParser.SerializeXmlBytes(query);
+
             // Make the request
             CapsClient request = new CapsClient(_caps.CreateUser);
             request.OnComplete += new CapsClient.CompleteCallback(CreateUserResponse);
@@ -289,6 +328,9 @@ namespace OpenMetaverse
         {
             if (response is OSDMap)
             {
+                // everything is okay
+                // FIXME:
+                //return new UUID(((Dictionary<string, object>)response)["agent_id"].ToString());
             }
             else
             {
@@ -304,6 +346,9 @@ namespace OpenMetaverse
 
                     sb.Append(_errors[ec.AsInteger()]);
                 }
+
+                // FIXME:
+                //throw new Exception("failed to create user: " + sb.ToString());
             }
         }
     }

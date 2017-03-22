@@ -9,14 +9,13 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-// TODO: Review the values of the assembly attributes
-
-[assembly: AssemblyTitle("CSJ2K")]
-[assembly: AssemblyDescription("JPEG2000 decoding library")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CSJ2K")]
-[assembly: AssemblyCopyright("")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTitle("Universe.CSJ2K")]
+[assembly: AssemblyDescription("CSJ2K Support Library for .NET Desktop")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("Second Galaxy Development Team")]
+[assembly: AssemblyProduct("Universe.CSJ2K.Library")]
+[assembly: AssemblyCopyright("Copyright © 2017")]
+[assembly: AssemblyTrademark("Original Authors Anders Gustafsson, Jason S. Clary, JJ2000 Partners")]
 [assembly: AssemblyCulture("")]
 
 
@@ -30,7 +29,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.9.4.6")]
+[assembly: AssemblyFileVersion("1.9.4.6")]
 
 //
 // In order to sign your assembly you must specify a key to use. Refer to the 
@@ -58,7 +58,6 @@ using System.Runtime.InteropServices;
 //       documentation for more information on this.
 //
 
-[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]
 [assembly: AssemblyKeyName("")]

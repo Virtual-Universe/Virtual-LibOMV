@@ -38,7 +38,6 @@
 
 using System;
 using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -49,29 +48,29 @@ namespace OpenMetaverse.StructuredData
     /// </summary>
     public static partial class OSDParser
     {
-        private const int initialBufferSize = 128;
-        private const int int32Length = 4;
-        private const int doubleLength = 8;
+        const int initialBufferSize = 128;
+        const int int32Length = 4;
+        const int doubleLength = 8;
 
-        private const string llsdBinaryHead = "<? llsd/binary ?>";
-        private const string llsdBinaryHead2 = "<?llsd/binary?>";
-        private const byte undefBinaryValue = (byte)'!';
-        private const byte trueBinaryValue = (byte)'1';
-        private const byte falseBinaryValue = (byte)'0';
-        private const byte integerBinaryMarker = (byte)'i';
-        private const byte realBinaryMarker = (byte)'r';
-        private const byte uuidBinaryMarker = (byte)'u';
-        private const byte binaryBinaryMarker = (byte)'b';
-        private const byte stringBinaryMarker = (byte)'s';
-        private const byte uriBinaryMarker = (byte)'l';
-        private const byte dateBinaryMarker = (byte)'d';
-        private const byte arrayBeginBinaryMarker = (byte)'[';
-        private const byte arrayEndBinaryMarker = (byte)']';
-        private const byte mapBeginBinaryMarker = (byte)'{';
-        private const byte mapEndBinaryMarker = (byte)'}';
-        private const byte keyBinaryMarker = (byte)'k';
+        const string llsdBinaryHead = "<? llsd/binary ?>";
+        const string llsdBinaryHead2 = "<?llsd/binary?>";
+        const byte undefBinaryValue = (byte)'!';
+        const byte trueBinaryValue = (byte)'1';
+        const byte falseBinaryValue = (byte)'0';
+        const byte integerBinaryMarker = (byte)'i';
+        const byte realBinaryMarker = (byte)'r';
+        const byte uuidBinaryMarker = (byte)'u';
+        const byte binaryBinaryMarker = (byte)'b';
+        const byte stringBinaryMarker = (byte)'s';
+        const byte uriBinaryMarker = (byte)'l';
+        const byte dateBinaryMarker = (byte)'d';
+        const byte arrayBeginBinaryMarker = (byte)'[';
+        const byte arrayEndBinaryMarker = (byte)']';
+        const byte mapBeginBinaryMarker = (byte)'{';
+        const byte mapEndBinaryMarker = (byte)'}';
+        const byte keyBinaryMarker = (byte)'k';
 
-        private static readonly byte[] llsdBinaryHeadBytes = Encoding.ASCII.GetBytes(llsdBinaryHead2);
+        static readonly byte[] llsdBinaryHeadBytes = Encoding.ASCII.GetBytes(llsdBinaryHead2);
 
         /// <summary>
         /// Deserializes binary LLSD
@@ -81,7 +80,7 @@ namespace OpenMetaverse.StructuredData
         public static OSD DeserializeLLSDBinary(byte[] binaryData)
         {
 
-            MemoryStream stream = new MemoryStream(binaryData);
+            var stream = new MemoryStream(binaryData);
             OSD osd = DeserializeLLSDBinary(stream);
             stream.Close();
             return osd;
@@ -127,7 +126,7 @@ namespace OpenMetaverse.StructuredData
         /// <returns>Serialized data</returns>
         public static byte[] SerializeLLSDBinary(OSD osd, bool prependHeader)
         {
-            MemoryStream stream = SerializeLLSDBinaryStream(osd, prependHeader);
+            var stream = SerializeLLSDBinaryStream(osd, prependHeader);
             byte[] binaryData = stream.ToArray();
 
             stream.Close();
@@ -163,7 +162,7 @@ namespace OpenMetaverse.StructuredData
             return stream;
         }
 
-        private static void SerializeLLSDBinaryElement(MemoryStream stream, OSD osd)
+        static void SerializeLLSDBinaryElement(MemoryStream stream, OSD osd)
         {
             switch (osd.Type)
             {
@@ -222,7 +221,7 @@ namespace OpenMetaverse.StructuredData
             }
         }
 
-        private static void SerializeLLSDBinaryArray(MemoryStream stream, OSDArray osdArray)
+        static void SerializeLLSDBinaryArray(MemoryStream stream, OSDArray osdArray)
         {
             stream.WriteByte(arrayBeginBinaryMarker);
             byte[] binaryNumElementsHostEnd = HostToNetworkIntBytes(osdArray.Count);
@@ -235,7 +234,7 @@ namespace OpenMetaverse.StructuredData
             stream.WriteByte(arrayEndBinaryMarker);
         }
 
-        private static void SerializeLLSDBinaryMap(MemoryStream stream, OSDMap osdMap)
+        static void SerializeLLSDBinaryMap(MemoryStream stream, OSDMap osdMap)
         {
             stream.WriteByte(mapBeginBinaryMarker);
             byte[] binaryNumElementsNetEnd = HostToNetworkIntBytes(osdMap.Count);
@@ -253,7 +252,7 @@ namespace OpenMetaverse.StructuredData
             stream.WriteByte(mapEndBinaryMarker);
         }
 
-        private static OSD ParseLLSDBinaryElement(Stream stream)
+        static OSD ParseLLSDBinaryElement(Stream stream)
         {
             SkipWhiteSpace(stream);
             OSD osd;
@@ -329,7 +328,7 @@ namespace OpenMetaverse.StructuredData
             return osd;
         }
 
-        private static OSD ParseLLSDBinaryArray(Stream stream)
+        static OSD ParseLLSDBinaryArray(Stream stream)
         {
             int numElements = NetworkToHostInt(ConsumeBytes(stream, int32Length));
             int crrElement = 0;
@@ -343,14 +342,14 @@ namespace OpenMetaverse.StructuredData
             if (!FindByte(stream, arrayEndBinaryMarker))
                 throw new OSDException("Binary LLSD parsing: Missing end marker in array.");
 
-            return (OSD)osdArray;
+            return osdArray;
         }
 
-        private static OSD ParseLLSDBinaryMap(Stream stream)
+        static OSD ParseLLSDBinaryMap(Stream stream)
         {
             int numElements = NetworkToHostInt(ConsumeBytes(stream, int32Length));
             int crrElement = 0;
-            OSDMap osdMap = new OSDMap();
+            var osdMap = new OSDMap();
             while (crrElement < numElements)
             {
                 if (!FindByte(stream, keyBinaryMarker))
@@ -364,7 +363,7 @@ namespace OpenMetaverse.StructuredData
             if (!FindByte(stream, mapEndBinaryMarker))
                 throw new OSDException("Binary LLSD parsing: Missing end marker in map.");
 
-            return (OSD)osdMap;
+            return osdMap;
         }
 
         /// <summary>

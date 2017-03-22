@@ -25,24 +25,25 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using System.Collections;
 using OpenMetaverse.StructuredData;
 
 namespace OpenMetaverse.Tests
 {
     /// <summary>
-    ///     XmlSDTests is a suite of tests for libsl implementation of the SD XML format.
+    /// XmlSDTests is a suite of tests for libsl implementation of the SD XML format.
+    /// 
     /// </summary>
     [TestFixture]
     public class XmlSDTests
     {
         /// <summary>
-        ///     Test that the sample LLSD supplied by Linden Lab is properly deserialized.
-        ///     The LLSD string in the test is a pared down version of the sample on the blog.
-        ///     http://wiki.secondlife.com/wiki/LLSD
+        /// Test that the sample LLSD supplied by Linden Lab is properly deserialized.
+        /// The LLSD string in the test is a pared down version of the sample on the blog.
+        /// http://wiki.secondlife.com/wiki/LLSD
         /// </summary>
         [Test]
         public void DeserializeLLSDSample()
@@ -151,10 +152,11 @@ namespace OpenMetaverse.Tests
             Assert.IsTrue(tempSD.Type == OSDType.Real);
             tempReal = (OSDReal)tempSD;
             Assert.AreEqual(0.0001096525d, tempReal.AsReal());
+
         }
 
         /// <summary>
-        ///     Test that various Real representations are parsed correctly.
+        /// Test that various Real representations are parsed correctly.
         /// </summary>
         [Test]
         public void DeserializeReals()
@@ -202,7 +204,7 @@ namespace OpenMetaverse.Tests
         }
 
         /// <summary>
-        ///     Test that various String representations are parsed correctly.
+        /// Test that various String representations are parsed correctly.
         /// </summary>
         [Test]
         public void DeserializeStrings()
@@ -242,15 +244,16 @@ namespace OpenMetaverse.Tests
             Assert.AreEqual(OSDType.String, array[3].Type);
             tempStr = (OSDString)array[3];
             Assert.AreEqual("", tempStr.AsString());
+
         }
 
         /// <summary>
-        ///     Test that various Integer representations are parsed correctly.
-        ///     These tests currently only test for values within the range of a
-        ///     32 bit signed integer, even though the SD specification says
-        ///     the type is a 64 bit signed integer, because LLSInteger is currently
-        ///     implemented using int, a.k.a. Int32.  Not testing Int64 range until
-        ///     it's understood if there was a design reason for the Int32.
+        /// Test that various Integer representations are parsed correctly.
+        /// These tests currently only test for values within the range of a
+        /// 32 bit signed integer, even though the SD specification says
+        /// the type is a 64 bit signed integer, because LLSInteger is currently
+        /// implemented using int, a.k.a. Int32.  Not testing Int64 range until
+        /// it's understood if there was a design reason for the Int32.
         /// </summary>
         [Test]
         public void DeserializeIntegers()
@@ -269,7 +272,6 @@ namespace OpenMetaverse.Tests
                     <integer/>
                 </array>
             </llsd>";
-
             //Deserialize the string
             byte[] bytes = Encoding.UTF8.GetBytes(testSD);
             theSD = OSDParser.DeserializeLLSDXml(bytes);
@@ -299,7 +301,7 @@ namespace OpenMetaverse.Tests
         }
 
         /// <summary>
-        ///     Test that various UUID representations are parsed correctly.
+        /// Test that various UUID representations are parsed correctly.
         /// </summary>
         [Test]
         public void DeserializeUUID()
@@ -315,7 +317,6 @@ namespace OpenMetaverse.Tests
                     <uuid/>
                 </array>
             </llsd>";
-
             //Deserialize the string
             byte[] bytes = Encoding.UTF8.GetBytes(testSD);
             theSD = OSDParser.DeserializeLLSDXml(bytes);
@@ -333,7 +334,7 @@ namespace OpenMetaverse.Tests
         }
 
         /// <summary>
-        ///     Test that various date representations are parsed correctly.
+        /// Test that various date representations are parsed correctly.
         /// </summary>
         [Test]
         public void DeserializeDates()
@@ -351,7 +352,6 @@ namespace OpenMetaverse.Tests
                     <date/>
                 </array>
             </llsd>";
-
             //Deserialize the string
             byte[] bytes = Encoding.UTF8.GetBytes(testSD);
             theSD = OSDParser.DeserializeLLSDXml(bytes);
@@ -375,7 +375,7 @@ namespace OpenMetaverse.Tests
         }
 
         /// <summary>
-        ///     Test that various Boolean representations are parsed correctly.
+        /// Test that various Boolean representations are parsed correctly.
         /// </summary>
         [Test]
         public void DeserializeBoolean()
@@ -394,7 +394,6 @@ namespace OpenMetaverse.Tests
                     <boolean/>
                 </array>
             </llsd>";
-
             //Deserialize the string
             byte[] bytes = Encoding.UTF8.GetBytes(testSD);
             theSD = OSDParser.DeserializeLLSDXml(bytes);
@@ -424,7 +423,7 @@ namespace OpenMetaverse.Tests
         }
 
         /// <summary>
-        ///     Test that binary elements are parsed correctly.
+        /// Test that binary elements are parsed correctly.
         /// </summary>
         [Test]
         public void DeserializeBinary()
@@ -456,7 +455,8 @@ namespace OpenMetaverse.Tests
 
             Assert.AreEqual(OSDType.Binary, array[1].Type);
             tempBinary = (OSDBinary)array[1];
-            byte[] testData2 = {116, 104, 101, 32, 113, 117, 105, 99, 107, 32, 98, 114, 111, 119, 110, 32, 102, 111, 120};
+            byte[] testData2 = {116, 104, 101, 32, 113, 117, 105, 99, 107, 32, 98, 
+                                114, 111, 119, 110, 32, 102, 111, 120};
             TestHelper.TestBinary(tempBinary, testData2);
 
             Assert.AreEqual(OSDType.Binary, array[1].Type);
@@ -465,10 +465,10 @@ namespace OpenMetaverse.Tests
         }
 
         /// <summary>
-        ///     Test that undefened elements are parsed correctly.
-        ///     Currently this just checks that there is no error since undefined has no
-        ///     value and there is no SD child class for Undefined elements - the
-        ///     current implementation generates an instance of SD
+        /// Test that undefened elements are parsed correctly.
+        /// Currently this just checks that there is no error since undefined has no
+        /// value and there is no SD child class for Undefined elements - the
+        /// current implementation generates an instance of SD
         /// </summary>
         [Test]
         public void DeserializeUndef()
@@ -479,7 +479,6 @@ namespace OpenMetaverse.Tests
             <llsd>
                 <undef/>
             </llsd>";
-
             //Deserialize the string
             byte[] bytes = Encoding.UTF8.GetBytes(testSD);
             theSD = OSDParser.DeserializeLLSDXml(bytes);
@@ -488,7 +487,7 @@ namespace OpenMetaverse.Tests
         }
 
         /// <summary>
-        ///     Test that various URI representations are parsed correctly.
+        /// Test that various URI representations are parsed correctly.
         /// </summary>
         [Test]
         public void DeserializeURI()
@@ -504,7 +503,6 @@ namespace OpenMetaverse.Tests
                     <uri/>
                 </array>
             </llsd>";
-
             //Deserialize the string
             byte[] bytes = Encoding.UTF8.GetBytes(testSD);
             theSD = OSDParser.DeserializeLLSDXml(bytes);
@@ -523,8 +521,8 @@ namespace OpenMetaverse.Tests
         }
 
         /// <summary>
-        ///     Test some nested containers.  This is not a very deep or complicated SD graph
-        ///     but it should reveal basic nesting issues.
+        /// Test some nested containers.  This is not a very deep or complicated SD graph
+        /// but it should reveal basic nesting issues.
         /// </summary>
         [Test]
         public void DeserializeNestedContainers()
@@ -558,7 +556,6 @@ namespace OpenMetaverse.Tests
                     </array>
                 </array>
             </llsd>";
-
             //Deserialize the string
             byte[] bytes = Encoding.UTF8.GetBytes(testSD);
             theSD = OSDParser.DeserializeLLSDXml(bytes);
@@ -570,13 +567,11 @@ namespace OpenMetaverse.Tests
             //The first element of top level array, a map
             Assert.AreEqual(OSDType.Map, array[0].Type);
             map = (OSDMap)array[0];
-            
             //First nested map
             tempSD = map["Map One"];
             Assert.IsNotNull(tempSD);
             Assert.AreEqual(OSDType.Map, tempSD.Type);
             map = (OSDMap)tempSD;
-            
             //First nested array
             tempSD = map["Array One"];
             Assert.IsNotNull(tempSD);
@@ -585,13 +580,11 @@ namespace OpenMetaverse.Tests
             Assert.AreEqual(2, array.Count);
 
             array = (OSDArray)theSD;
-            
             //Second element of top level array, an array
             tempSD = array[1];
             Assert.AreEqual(OSDType.Array, tempSD.Type);
             array = (OSDArray)tempSD;
             Assert.AreEqual(3, array.Count);
-            
             //Nested array
             tempSD = array[2];
             Assert.AreEqual(OSDType.Array, tempSD.Type);
@@ -603,8 +596,8 @@ namespace OpenMetaverse.Tests
     internal static class TestHelper
     {
         /// <summary>
-        ///     Asserts that the contents of the SDBinary match the values and length
-        ///     of the supplied byte array
+        /// Asserts that the contents of the SDBinary match the values and length
+        /// of the supplied byte array
         /// </summary>
         /// <param name="inBinary"></param>
         /// <param name="inExpected"></param>
@@ -616,7 +609,8 @@ namespace OpenMetaverse.Tests
             {
                 if (inExpected[i] != binary[i])
                 {
-                    Assert.Fail("Expected " + inExpected[i].ToString() + " at position " + i.ToString() + " but saw " + binary[i].ToString());
+                    Assert.Fail("Expected " + inExpected[i].ToString() + " at position " + i.ToString() +
+                        " but saw " + binary[i].ToString());
                 }
             }
         }

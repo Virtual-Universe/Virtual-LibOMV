@@ -122,23 +122,23 @@ namespace OpenMetaverse
             {
                 // Sane initial values
                 Resend = (value * 0.1f);
-                Land = (float)(value * 0.52f / 3f);
-                Wind = (float)(value * 0.05f);
-                Cloud = (float)(value * 0.05f);
-                Task = (float)(value * 0.704f / 3f);
-                Texture = (float)(value * 0.704f / 3f);
-                Asset = (float)(value * 0.484f / 3f);
+                Land = value * 0.52f / 3f;
+                Wind = (value * 0.05f);
+                Cloud = (value * 0.05f);
+                Task = (value * 0.704f / 3f);
+                Texture = (value * 0.704f / 3f);
+                Asset = (value * 0.484f / 3f);
             }
         }
 
-        private GridClient Client;
-        private float resend;
-        private float land;
-        private float wind;
-        private float cloud;
-        private float task;
-        private float texture;
-        private float asset;
+        GridClient Client;
+        float resend;
+        float land;
+        float wind;
+        float cloud;
+        float task;
+        float texture;
+        float asset;
 
         /// <summary>
         /// Default constructor, uses a default high total of 1500 KBps (1536000)
@@ -207,7 +207,7 @@ namespace OpenMetaverse
             throttle.AgentData.SessionID = Client.Self.SessionID;
             throttle.AgentData.CircuitCode = Client.Network.CircuitCode;
             throttle.Throttle.GenCounter = 0;
-            throttle.Throttle.Throttles = this.ToBytes();
+            throttle.Throttle.Throttles = ToBytes();
 
             Client.Network.SendPacket(throttle, simulator);
         }

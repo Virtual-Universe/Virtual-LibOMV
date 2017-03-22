@@ -19,19 +19,19 @@ using System.Reflection;
 
 namespace LitJson
 {
-    internal struct PropertyMetadata
+    struct PropertyMetadata
     {
         public MemberInfo Info;
-        public bool       IsField;
-        public Type       Type;
+        public bool IsField;
+        public Type Type;
     }
 
 
-    internal struct ArrayMetadata
+    struct ArrayMetadata
     {
-        private Type element_type;
-        private bool is_array;
-        private bool is_list;
+        Type element_type;
+        bool is_array;
+        bool is_list;
 
 
         public Type ElementType {
@@ -57,12 +57,12 @@ namespace LitJson
     }
 
 
-    internal struct ObjectMetadata
+    struct ObjectMetadata
     {
-        private Type element_type;
-        private bool is_dictionary;
+        Type element_type;
+        bool is_dictionary;
 
-        private IDictionary<string, PropertyMetadata> properties;
+        IDictionary<string, PropertyMetadata> properties;
 
 
         public Type ElementType {
@@ -88,46 +88,42 @@ namespace LitJson
     }
 
 
-    internal delegate void ExporterFunc    (object obj, JsonWriter writer);
-    public   delegate void ExporterFunc<T> (T obj, JsonWriter writer);
+    internal delegate void ExporterFunc (object obj, JsonWriter writer);
+    public delegate void ExporterFunc<T> (T obj, JsonWriter writer);
 
-    internal delegate object ImporterFunc                (object input);
-    public   delegate TValue ImporterFunc<TJson, TValue> (TJson input);
+    internal delegate object ImporterFunc (object input);
+    public delegate TValue ImporterFunc<TJson, TValue> (TJson input);
 
     public delegate IJsonWrapper WrapperFactory ();
 
 
-    public class JsonMapper
+    public static class JsonMapper
     {
         #region Fields
-        private static int max_nesting_depth;
+        static int max_nesting_depth;
 
-        private static IFormatProvider datetime_format;
+        static IFormatProvider datetime_format;
 
-        private static IDictionary<Type, ExporterFunc> base_exporters_table;
-        private static IDictionary<Type, ExporterFunc> custom_exporters_table;
+        static IDictionary<Type, ExporterFunc> base_exporters_table;
+        static IDictionary<Type, ExporterFunc> custom_exporters_table;
 
-        private static IDictionary<Type,
-                IDictionary<Type, ImporterFunc>> base_importers_table;
-        private static IDictionary<Type,
-                IDictionary<Type, ImporterFunc>> custom_importers_table;
+        static IDictionary<Type, IDictionary<Type, ImporterFunc>> base_importers_table;
+        static IDictionary<Type, IDictionary<Type, ImporterFunc>> custom_importers_table;
 
-        private static IDictionary<Type, ArrayMetadata> array_metadata;
-        private static readonly object array_metadata_lock = new Object ();
+        static IDictionary<Type, ArrayMetadata> array_metadata;
+        static readonly object array_metadata_lock = new object ();
 
-        private static IDictionary<Type,
-                IDictionary<Type, MethodInfo>> conv_ops;
-        private static readonly object conv_ops_lock = new Object ();
+        static IDictionary<Type, IDictionary<Type, MethodInfo>> conv_ops;
+        static readonly object conv_ops_lock = new object ();
 
-        private static IDictionary<Type, ObjectMetadata> object_metadata;
-        private static readonly object object_metadata_lock = new Object ();
+        static IDictionary<Type, ObjectMetadata> object_metadata;
+        static readonly object object_metadata_lock = new object ();
 
-        private static IDictionary<Type,
-                IList<PropertyMetadata>> type_properties;
-        private static readonly object type_properties_lock = new Object ();
+        static IDictionary<Type, IList<PropertyMetadata>> type_properties;
+        static readonly object type_properties_lock = new object ();
 
-        private static JsonWriter      static_writer;
-        private static readonly object static_writer_lock = new Object ();
+        static JsonWriter static_writer;
+        static readonly object static_writer_lock = new object ();
         #endregion
 
 
@@ -139,20 +135,17 @@ namespace LitJson
             array_metadata = new Dictionary<Type, ArrayMetadata> ();
             conv_ops = new Dictionary<Type, IDictionary<Type, MethodInfo>> ();
             object_metadata = new Dictionary<Type, ObjectMetadata> ();
-            type_properties = new Dictionary<Type,
-                            IList<PropertyMetadata>> ();
+            type_properties = new Dictionary<Type, IList<PropertyMetadata>> ();
 
             static_writer = new JsonWriter ();
 
             datetime_format = DateTimeFormatInfo.InvariantInfo;
 
-            base_exporters_table   = new Dictionary<Type, ExporterFunc> ();
+            base_exporters_table = new Dictionary<Type, ExporterFunc> ();
             custom_exporters_table = new Dictionary<Type, ExporterFunc> ();
 
-            base_importers_table = new Dictionary<Type,
-                                 IDictionary<Type, ImporterFunc>> ();
-            custom_importers_table = new Dictionary<Type,
-                                   IDictionary<Type, ImporterFunc>> ();
+            base_importers_table = new Dictionary<Type, IDictionary<Type, ImporterFunc>> ();
+            custom_importers_table = new Dictionary<Type, IDictionary<Type, ImporterFunc>> ();
 
             RegisterBaseExporters ();
             RegisterBaseImporters ();
@@ -161,12 +154,12 @@ namespace LitJson
 
 
         #region Private Methods
-        private static void AddArrayMetadata (Type type)
+        static void AddArrayMetadata (Type type)
         {
             if (array_metadata.ContainsKey (type))
                 return;
 
-            ArrayMetadata data = new ArrayMetadata ();
+            var data = new ArrayMetadata ();
 
             data.IsArray = type.IsArray;
 
@@ -177,12 +170,12 @@ namespace LitJson
                 if (p_info.Name != "Item")
                     continue;
 
-                ParameterInfo[] parameters = p_info.GetIndexParameters ();
+                ParameterInfo [] parameters = p_info.GetIndexParameters ();
 
                 if (parameters.Length != 1)
                     continue;
 
-                if (parameters[0].ParameterType == typeof (int))
+                if (parameters [0].ParameterType == typeof (int))
                     data.ElementType = p_info.PropertyType;
             }
 
@@ -195,12 +188,12 @@ namespace LitJson
             }
         }
 
-        private static void AddObjectMetadata (Type type)
+        static void AddObjectMetadata (Type type)
         {
             if (object_metadata.ContainsKey (type))
                 return;
 
-            ObjectMetadata data = new ObjectMetadata ();
+            var data = new ObjectMetadata ();
 
             if (type.GetInterface ("System.Collections.IDictionary") != null)
                 data.IsDictionary = true;
@@ -209,18 +202,18 @@ namespace LitJson
 
             foreach (PropertyInfo p_info in type.GetProperties ()) {
                 if (p_info.Name == "Item") {
-                    ParameterInfo[] parameters = p_info.GetIndexParameters ();
+                    ParameterInfo [] parameters = p_info.GetIndexParameters ();
 
                     if (parameters.Length != 1)
                         continue;
 
-                    if (parameters[0].ParameterType == typeof (string))
+                    if (parameters [0].ParameterType == typeof (string))
                         data.ElementType = p_info.PropertyType;
 
                     continue;
                 }
 
-                PropertyMetadata p_data = new PropertyMetadata ();
+                var p_data = new PropertyMetadata ();
                 p_data.Info = p_info;
                 p_data.Type = p_info.PropertyType;
 
@@ -228,7 +221,7 @@ namespace LitJson
             }
 
             foreach (FieldInfo f_info in type.GetFields ()) {
-                PropertyMetadata p_data = new PropertyMetadata ();
+                var p_data = new PropertyMetadata ();
                 p_data.Info = f_info;
                 p_data.IsField = true;
                 p_data.Type = f_info.FieldType;
@@ -245,7 +238,7 @@ namespace LitJson
             }
         }
 
-        private static void AddTypeProperties (Type type)
+        static void AddTypeProperties (Type type)
         {
             if (type_properties.ContainsKey (type))
                 return;
@@ -256,14 +249,14 @@ namespace LitJson
                 if (p_info.Name == "Item")
                     continue;
 
-                PropertyMetadata p_data = new PropertyMetadata ();
+                var p_data = new PropertyMetadata ();
                 p_data.Info = p_info;
                 p_data.IsField = false;
                 props.Add (p_data);
             }
 
             foreach (FieldInfo f_info in type.GetFields ()) {
-                PropertyMetadata p_data = new PropertyMetadata ();
+                var p_data = new PropertyMetadata ();
                 p_data.Info = f_info;
                 p_data.IsField = true;
 
@@ -279,31 +272,31 @@ namespace LitJson
             }
         }
 
-        private static MethodInfo GetConvOp (Type t1, Type t2)
+        static MethodInfo GetConvOp (Type t1, Type t2)
         {
             lock (conv_ops_lock) {
-                if (! conv_ops.ContainsKey (t1))
+                if (!conv_ops.ContainsKey (t1))
                     conv_ops.Add (t1, new Dictionary<Type, MethodInfo> ());
             }
 
-            if (conv_ops[t1].ContainsKey (t2))
-                return conv_ops[t1][t2];
+            if (conv_ops [t1].ContainsKey (t2))
+                return conv_ops [t1] [t2];
 
             MethodInfo op = t1.GetMethod (
-                "op_Implicit", new Type[] { t2 });
+                "op_Implicit", new Type [] { t2 });
 
             lock (conv_ops_lock) {
                 try {
-                    conv_ops[t1].Add (t2, op);
+                    conv_ops [t1].Add (t2, op);
                 } catch (ArgumentException) {
-                    return conv_ops[t1][t2];
+                    return conv_ops [t1] [t2];
                 }
             }
 
             return op;
         }
 
-        private static object ReadValue (Type inst_type, JsonReader reader)
+        static object ReadValue (Type inst_type, JsonReader reader)
         {
             reader.Read ();
 
@@ -312,10 +305,8 @@ namespace LitJson
 
             if (reader.Token == JsonToken.Null) {
 
-                if (! inst_type.IsClass)
-                    throw new JsonException (String.Format (
-                            "Can't assign null to an instance of type {0}",
-                            inst_type));
+                if (!inst_type.IsClass)
+                    throw new JsonException (string.Format ("Can't assign null to an instance of type {0}", inst_type));
 
                 return null;
             }
@@ -333,22 +324,20 @@ namespace LitJson
 
                 // If there's a custom importer that fits, use it
                 if (custom_importers_table.ContainsKey (json_type) &&
-                    custom_importers_table[json_type].ContainsKey (
+                    custom_importers_table [json_type].ContainsKey (
                         inst_type)) {
 
                     ImporterFunc importer =
-                        custom_importers_table[json_type][inst_type];
+                        custom_importers_table [json_type] [inst_type];
 
                     return importer (reader.Value);
                 }
 
                 // Maybe there's a base importer that works
                 if (base_importers_table.ContainsKey (json_type) &&
-                    base_importers_table[json_type].ContainsKey (
-                        inst_type)) {
+                    base_importers_table [json_type].ContainsKey (inst_type)) {
 
-                    ImporterFunc importer =
-                        base_importers_table[json_type][inst_type];
+                    ImporterFunc importer = base_importers_table [json_type] [inst_type];
 
                     return importer (reader.Value);
                 }
@@ -361,13 +350,12 @@ namespace LitJson
                 MethodInfo conv_op = GetConvOp (inst_type, json_type);
 
                 if (conv_op != null)
-                    return conv_op.Invoke (null,
-                                           new object[] { reader.Value });
+                    return conv_op.Invoke (null, new object [] { reader.Value });
 
                 // No luck
-                throw new JsonException (String.Format (
-                        "Can't assign value '{0}' (type {1}) to type {2}",
-                        reader.Value, json_type, inst_type));
+                throw new JsonException (
+                    string.Format ("Can't assign value '{0}' (type {1}) to type {2}",
+                                   reader.Value, json_type, inst_type));
             }
 
             object instance = null;
@@ -375,18 +363,17 @@ namespace LitJson
             if (reader.Token == JsonToken.ArrayStart) {
 
                 AddArrayMetadata (inst_type);
-                ArrayMetadata t_data = array_metadata[inst_type];
+                ArrayMetadata t_data = array_metadata [inst_type];
 
-                if (! t_data.IsArray && ! t_data.IsList)
-                    throw new JsonException (String.Format (
-                            "Type {0} can't act as an array",
-                            inst_type));
+                if (!t_data.IsArray && !t_data.IsList)
+                    throw new JsonException (
+                        string.Format ("Type {0} can't act as an array", inst_type));
 
                 IList list;
                 Type elem_type;
 
-                if (! t_data.IsArray) {
-                    list = (IList) Activator.CreateInstance (inst_type);
+                if (!t_data.IsArray) {
+                    list = (IList)Activator.CreateInstance (inst_type);
                     elem_type = t_data.ElementType;
                 } else {
                     list = new ArrayList ();
@@ -406,14 +393,14 @@ namespace LitJson
                     instance = Array.CreateInstance (elem_type, n);
 
                     for (int i = 0; i < n; i++)
-                        ((Array) instance).SetValue (list[i], i);
+                        ((Array)instance).SetValue (list [i], i);
                 } else
                     instance = list;
 
             } else if (reader.Token == JsonToken.ObjectStart) {
 
                 AddObjectMetadata (inst_type);
-                ObjectMetadata t_data = object_metadata[inst_type];
+                ObjectMetadata t_data = object_metadata [inst_type];
 
                 instance = Activator.CreateInstance (inst_type);
 
@@ -423,37 +410,29 @@ namespace LitJson
                     if (reader.Token == JsonToken.ObjectEnd)
                         break;
 
-                    string property = (string) reader.Value;
+                    var property = (string)reader.Value;
 
                     if (t_data.Properties.ContainsKey (property)) {
-                        PropertyMetadata prop_data =
-                            t_data.Properties[property];
+                        PropertyMetadata prop_data = t_data.Properties [property];
 
                         if (prop_data.IsField) {
-                            ((FieldInfo) prop_data.Info).SetValue (
+                            ((FieldInfo)prop_data.Info).SetValue (
                                 instance, ReadValue (prop_data.Type, reader));
                         } else {
-                            PropertyInfo p_info =
-                                (PropertyInfo) prop_data.Info;
+                            var p_info = (PropertyInfo)prop_data.Info;
 
                             if (p_info.CanWrite)
-                                p_info.SetValue (
-                                    instance,
-                                    ReadValue (prop_data.Type, reader),
-                                    null);
+                                p_info.SetValue (instance, ReadValue (prop_data.Type, reader), null);
                             else
                                 ReadValue (prop_data.Type, reader);
                         }
 
                     } else {
-                        if (! t_data.IsDictionary)
-                            throw new JsonException (String.Format (
-                                    "The type {0} doesn't have the " +
-                                    "property '{1}'", inst_type, property));
+                        if (!t_data.IsDictionary)
+                            throw new JsonException (
+                                string.Format ("The type {0} doesn't have the " + "property '{1}'", inst_type, property));
 
-                        ((IDictionary) instance).Add (
-                            property, ReadValue (
-                                t_data.ElementType, reader));
+                        ((IDictionary)instance).Add (property, ReadValue (t_data.ElementType, reader));
                     }
 
                 }
@@ -463,8 +442,7 @@ namespace LitJson
             return instance;
         }
 
-        private static IJsonWrapper ReadValue (WrapperFactory factory,
-                                               JsonReader reader)
+        static IJsonWrapper ReadValue (WrapperFactory factory, JsonReader reader)
         {
             reader.Read ();
 
@@ -474,196 +452,179 @@ namespace LitJson
 
             IJsonWrapper instance = factory ();
 
-            switch (reader.Token)
-            {
-                case JsonToken.String:
-                    instance.SetString ((string) reader.Value);
-                    break;
-                case JsonToken.Double:
-                    instance.SetDouble ((double) reader.Value);
-                    break;
-                case JsonToken.Int:
-                    instance.SetInt ((int) reader.Value);
-                    break;
-                case JsonToken.Long:
-                    instance.SetLong ((long) reader.Value);
-                    break;
-                case JsonToken.Boolean:
-                    instance.SetBoolean ((bool) reader.Value);
-                    break;
-                case JsonToken.ArrayStart:
-                    instance.SetJsonType (JsonType.Array);
+            switch (reader.Token) {
+            case JsonToken.String:
+                instance.SetString ((string)reader.Value);
+                break;
+            case JsonToken.Double:
+                instance.SetDouble ((double)reader.Value);
+                break;
+            case JsonToken.Int:
+                instance.SetInt ((int)reader.Value);
+                break;
+            case JsonToken.Long:
+                instance.SetLong ((long)reader.Value);
+                break;
+            case JsonToken.Boolean:
+                instance.SetBoolean ((bool)reader.Value);
+                break;
+            case JsonToken.ArrayStart:
+                instance.SetJsonType (JsonType.Array);
 
-                    while (true) {
-                        IJsonWrapper item = ReadValue (factory, reader);
-                        if (item == null && reader.Token == JsonToken.ArrayEnd)
-                            break;
+                while (true) {
+                    IJsonWrapper item = ReadValue (factory, reader);
+                    if (item == null && reader.Token == JsonToken.ArrayEnd)
+                        break;
 
-                        ((IList) instance).Add (item);
-                    }
-                    break;
-                case JsonToken.ObjectStart:
-                    instance.SetJsonType (JsonType.Object);
+                    instance.Add (item);
+                }
+                break;
+            case JsonToken.ObjectStart:
+                instance.SetJsonType (JsonType.Object);
 
-                    while (true) {
-                        reader.Read ();
-                        if (reader.Token == JsonToken.ObjectEnd)
-                            break;
+                while (true) {
+                    reader.Read ();
+                    if (reader.Token == JsonToken.ObjectEnd)
+                        break;
 
-                        string property = (string) reader.Value;
-                        ((IDictionary) instance)[property] = ReadValue (
-                            factory, reader);
-                    }
-                    break;
+                    var property = (string)reader.Value;
+                    (instance) [property] = ReadValue (factory, reader);
+                }
+                break;
             }
 
             return instance;
         }
 
-        private static void RegisterBaseExporters ()
+        static void RegisterBaseExporters ()
         {
-            base_exporters_table[typeof (byte)] =
+            base_exporters_table [typeof (byte)] =
                 delegate (object obj, JsonWriter writer) {
-                    writer.Write (Convert.ToInt32 ((byte) obj));
+                    writer.Write (Convert.ToInt32 ((byte)obj));
                 };
 
-            base_exporters_table[typeof (char)] =
+            base_exporters_table [typeof (char)] =
                 delegate (object obj, JsonWriter writer) {
-                    writer.Write (Convert.ToString ((char) obj));
+                    writer.Write (Convert.ToString ((char)obj));
                 };
 
-            base_exporters_table[typeof (DateTime)] =
+            base_exporters_table [typeof (DateTime)] =
                 delegate (object obj, JsonWriter writer) {
-                    writer.Write (Convert.ToString ((DateTime) obj,
-                                                    datetime_format));
+                    writer.Write (Convert.ToString ((DateTime)obj, datetime_format));
                 };
 
-            base_exporters_table[typeof (decimal)] =
+            base_exporters_table [typeof (decimal)] =
                 delegate (object obj, JsonWriter writer) {
-                    writer.Write ((decimal) obj);
+                    writer.Write ((decimal)obj);
                 };
 
-            base_exporters_table[typeof (sbyte)] =
+            base_exporters_table [typeof (sbyte)] =
                 delegate (object obj, JsonWriter writer) {
-                    writer.Write (Convert.ToInt32 ((sbyte) obj));
+                    writer.Write (Convert.ToInt32 ((sbyte)obj));
                 };
 
-            base_exporters_table[typeof (short)] =
+            base_exporters_table [typeof (short)] =
                 delegate (object obj, JsonWriter writer) {
-                    writer.Write (Convert.ToInt32 ((short) obj));
+                    writer.Write (Convert.ToInt32 ((short)obj));
                 };
 
-            base_exporters_table[typeof (ushort)] =
+            base_exporters_table [typeof (ushort)] =
                 delegate (object obj, JsonWriter writer) {
-                    writer.Write (Convert.ToInt32 ((ushort) obj));
+                    writer.Write (Convert.ToInt32 ((ushort)obj));
                 };
 
-            base_exporters_table[typeof (uint)] =
+            base_exporters_table [typeof (uint)] =
                 delegate (object obj, JsonWriter writer) {
-                    writer.Write (Convert.ToUInt64 ((uint) obj));
+                    writer.Write (Convert.ToUInt64 ((uint)obj));
                 };
 
-            base_exporters_table[typeof (ulong)] =
+            base_exporters_table [typeof (ulong)] =
                 delegate (object obj, JsonWriter writer) {
-                    writer.Write ((ulong) obj);
+                    writer.Write ((ulong)obj);
                 };
         }
 
-        private static void RegisterBaseImporters ()
+        static void RegisterBaseImporters ()
         {
             ImporterFunc importer;
 
             importer = delegate (object input) {
-                return Convert.ToByte ((int) input);
+                return Convert.ToByte ((int)input);
             };
-            RegisterImporter (base_importers_table, typeof (int),
-                              typeof (byte), importer);
+            RegisterImporter (base_importers_table, typeof (int), typeof (byte), importer);
 
             importer = delegate (object input) {
-                return Convert.ToUInt64 ((int) input);
+                return Convert.ToUInt64 ((int)input);
             };
-            RegisterImporter (base_importers_table, typeof (int),
-                              typeof (ulong), importer);
+            RegisterImporter (base_importers_table, typeof (int), typeof (ulong), importer);
 
             importer = delegate (object input) {
-                return Convert.ToSByte ((int) input);
+                return Convert.ToSByte ((int)input);
             };
-            RegisterImporter (base_importers_table, typeof (int),
-                              typeof (sbyte), importer);
+            RegisterImporter (base_importers_table, typeof (int), typeof (sbyte), importer);
 
             importer = delegate (object input) {
-                return Convert.ToInt16 ((int) input);
+                return Convert.ToInt16 ((int)input);
             };
-            RegisterImporter (base_importers_table, typeof (int),
-                              typeof (short), importer);
+            RegisterImporter (base_importers_table, typeof (int), typeof (short), importer);
 
             importer = delegate (object input) {
-                return Convert.ToUInt16 ((int) input);
+                return Convert.ToUInt16 ((int)input);
             };
-            RegisterImporter (base_importers_table, typeof (int),
-                              typeof (ushort), importer);
+            RegisterImporter (base_importers_table, typeof (int), typeof (ushort), importer);
 
             importer = delegate (object input) {
-                return Convert.ToUInt32 ((int) input);
+                return Convert.ToUInt32 ((int)input);
             };
-            RegisterImporter (base_importers_table, typeof (int),
-                              typeof (uint), importer);
+            RegisterImporter (base_importers_table, typeof (int), typeof (uint), importer);
 
             importer = delegate (object input) {
-                return Convert.ToSingle ((int) input);
+                return Convert.ToSingle ((int)input);
             };
-            RegisterImporter (base_importers_table, typeof (int),
-                              typeof (float), importer);
+            RegisterImporter (base_importers_table, typeof (int), typeof (float), importer);
 
             importer = delegate (object input) {
-                return Convert.ToDouble ((int) input);
+                return Convert.ToDouble ((int)input);
             };
-            RegisterImporter (base_importers_table, typeof (int),
-                              typeof (double), importer);
+            RegisterImporter (base_importers_table, typeof (int), typeof (double), importer);
 
             importer = delegate (object input) {
-                return Convert.ToDecimal ((double) input);
+                return Convert.ToDecimal ((double)input);
             };
-            RegisterImporter (base_importers_table, typeof (double),
-                              typeof (decimal), importer);
+            RegisterImporter (base_importers_table, typeof (double), typeof (decimal), importer);
 
 
             importer = delegate (object input) {
-                return Convert.ToUInt32 ((long) input);
+                return Convert.ToUInt32 ((long)input);
             };
-            RegisterImporter (base_importers_table, typeof (long),
-                              typeof (uint), importer);
+            RegisterImporter (base_importers_table, typeof (long), typeof (uint), importer);
 
             importer = delegate (object input) {
-                return Convert.ToChar ((string) input);
+                return Convert.ToChar ((string)input);
             };
-            RegisterImporter (base_importers_table, typeof (string),
-                              typeof (char), importer);
+            RegisterImporter (base_importers_table, typeof (string), typeof (char), importer);
 
             importer = delegate (object input) {
-                return Convert.ToDateTime ((string) input, datetime_format);
+                return Convert.ToDateTime ((string)input, datetime_format);
             };
-            RegisterImporter (base_importers_table, typeof (string),
-                              typeof (DateTime), importer);
+            RegisterImporter (base_importers_table, typeof (string), typeof (DateTime), importer);
         }
 
-        private static void RegisterImporter (
+        static void RegisterImporter (
             IDictionary<Type, IDictionary<Type, ImporterFunc>> table,
             Type json_type, Type value_type, ImporterFunc importer)
         {
-            if (! table.ContainsKey (json_type))
+            if (!table.ContainsKey (json_type))
                 table.Add (json_type, new Dictionary<Type, ImporterFunc> ());
 
-            table[json_type][value_type] = importer;
+            table [json_type] [value_type] = importer;
         }
 
-        private static void WriteValue (object obj, JsonWriter writer,
-                                        bool writer_is_private,
-                                        int depth)
+        static void WriteValue (object obj, JsonWriter writer, bool writer_is_private, int depth)
         {
             if (depth > max_nesting_depth)
                 throw new JsonException (
-                    String.Format ("Max allowed object depth reached while " +
+                    string.Format ("Max allowed object depth reached while " +
                                    "trying to export from type {0}",
                                    obj.GetType ()));
 
@@ -674,42 +635,42 @@ namespace LitJson
 
             if (obj is IJsonWrapper) {
                 if (writer_is_private)
-                    writer.TextWriter.Write (((IJsonWrapper) obj).ToJson ());
+                    writer.TextWriter.Write (((IJsonWrapper)obj).ToJson ());
                 else
-                    ((IJsonWrapper) obj).ToJson (writer);
+                    ((IJsonWrapper)obj).ToJson (writer);
 
                 return;
             }
 
-            if (obj is String) {
-                writer.Write ((string) obj);
+            if (obj is string) {
+                writer.Write ((string)obj);
                 return;
             }
 
-            if (obj is Double) {
-                writer.Write ((double) obj);
+            if (obj is double) {
+                writer.Write ((double)obj);
                 return;
             }
 
-            if (obj is Int32) {
-                writer.Write ((int) obj);
+            if (obj is int) {
+                writer.Write ((int)obj);
                 return;
             }
 
-            if (obj is Boolean) {
-                writer.Write ((bool) obj);
+            if (obj is bool) {
+                writer.Write ((bool)obj);
                 return;
             }
 
-            if (obj is Int64) {
-                writer.Write ((long) obj);
+            if (obj is long) {
+                writer.Write ((long)obj);
                 return;
             }
 
             if (obj is Array) {
                 writer.WriteArrayStart ();
 
-                foreach (object elem in (Array) obj)
+                foreach (object elem in (Array)obj)
                     WriteValue (elem, writer, writer_is_private, depth + 1);
 
                 writer.WriteArrayEnd ();
@@ -719,7 +680,7 @@ namespace LitJson
 
             if (obj is IList) {
                 writer.WriteArrayStart ();
-                foreach (object elem in (IList) obj)
+                foreach (object elem in (IList)obj)
                     WriteValue (elem, writer, writer_is_private, depth + 1);
                 writer.WriteArrayEnd ();
 
@@ -728,10 +689,9 @@ namespace LitJson
 
             if (obj is IDictionary) {
                 writer.WriteObjectStart ();
-                foreach (DictionaryEntry entry in (IDictionary) obj) {
-                    writer.WritePropertyName ((string) entry.Key);
-                    WriteValue (entry.Value, writer, writer_is_private,
-                                depth + 1);
+                foreach (DictionaryEntry entry in (IDictionary)obj) {
+                    writer.WritePropertyName ((string)entry.Key);
+                    WriteValue (entry.Value, writer, writer_is_private, depth + 1);
                 }
                 writer.WriteObjectEnd ();
 
@@ -742,7 +702,7 @@ namespace LitJson
 
             // See if there's a custom exporter for the object
             if (custom_exporters_table.ContainsKey (obj_type)) {
-                ExporterFunc exporter = custom_exporters_table[obj_type];
+                ExporterFunc exporter = custom_exporters_table [obj_type];
                 exporter (obj, writer);
 
                 return;
@@ -750,7 +710,7 @@ namespace LitJson
 
             // If not, maybe there's a base exporter
             if (base_exporters_table.ContainsKey (obj_type)) {
-                ExporterFunc exporter = base_exporters_table[obj_type];
+                ExporterFunc exporter = base_exporters_table [obj_type];
                 exporter (obj, writer);
 
                 return;
@@ -763,9 +723,9 @@ namespace LitJson
                 if (e_type == typeof (long)
                     || e_type == typeof (uint)
                     || e_type == typeof (ulong))
-                    writer.Write ((ulong) obj);
+                    writer.Write ((ulong)obj);
                 else
-                    writer.Write ((int) obj);
+                    writer.Write ((int)obj);
 
                 return;
             }
@@ -773,22 +733,19 @@ namespace LitJson
             // Okay, so it looks like the input should be exported as an
             // object
             AddTypeProperties (obj_type);
-            IList<PropertyMetadata> props = type_properties[obj_type];
+            IList<PropertyMetadata> props = type_properties [obj_type];
 
             writer.WriteObjectStart ();
             foreach (PropertyMetadata p_data in props) {
                 if (p_data.IsField) {
                     writer.WritePropertyName (p_data.Info.Name);
-                    WriteValue (((FieldInfo) p_data.Info).GetValue (obj),
-                                writer, writer_is_private, depth + 1);
-                }
-                else {
-                    PropertyInfo p_info = (PropertyInfo) p_data.Info;
+                    WriteValue (((FieldInfo)p_data.Info).GetValue (obj), writer, writer_is_private, depth + 1);
+                } else {
+                    var p_info = (PropertyInfo)p_data.Info;
 
                     if (p_info.CanRead) {
                         writer.WritePropertyName (p_data.Info.Name);
-                        WriteValue (p_info.GetValue (obj, null),
-                                    writer, writer_is_private, depth + 1);
+                        WriteValue (p_info.GetValue (obj, null), writer, writer_is_private, depth + 1);
                     }
                 }
             }
@@ -815,53 +772,51 @@ namespace LitJson
 
         public static JsonData ToObject (JsonReader reader)
         {
-            return (JsonData) ToWrapper (
+            return (JsonData)ToWrapper (
                 delegate { return new JsonData (); }, reader);
         }
 
         public static JsonData ToObject (TextReader reader)
         {
-            JsonReader json_reader = new JsonReader (reader);
+            var json_reader = new JsonReader (reader);
 
-            return (JsonData) ToWrapper (
+            return (JsonData)ToWrapper (
                 delegate { return new JsonData (); }, json_reader);
         }
 
         public static JsonData ToObject (string json)
         {
-            return (JsonData) ToWrapper (
+            return (JsonData)ToWrapper (
                 delegate { return new JsonData (); }, json);
         }
 
         public static T ToObject<T> (JsonReader reader)
         {
-            return (T) ReadValue (typeof (T), reader);
+            return (T)ReadValue (typeof (T), reader);
         }
 
         public static T ToObject<T> (TextReader reader)
         {
-            JsonReader json_reader = new JsonReader (reader);
+            var json_reader = new JsonReader (reader);
 
-            return (T) ReadValue (typeof (T), json_reader);
+            return (T)ReadValue (typeof (T), json_reader);
         }
 
         public static T ToObject<T> (string json)
         {
-            JsonReader reader = new JsonReader (json);
+            var reader = new JsonReader (json);
 
-            return (T) ReadValue (typeof (T), reader);
+            return (T)ReadValue (typeof (T), reader);
         }
 
-        public static IJsonWrapper ToWrapper (WrapperFactory factory,
-                                              JsonReader reader)
+        public static IJsonWrapper ToWrapper (WrapperFactory factory, JsonReader reader)
         {
             return ReadValue (factory, reader);
         }
 
-        public static IJsonWrapper ToWrapper (WrapperFactory factory,
-                                              string json)
+        public static IJsonWrapper ToWrapper (WrapperFactory factory, string json)
         {
-            JsonReader reader = new JsonReader (json);
+            var reader = new JsonReader (json);
 
             return ReadValue (factory, reader);
         }
@@ -870,10 +825,10 @@ namespace LitJson
         {
             ExporterFunc exporter_wrapper =
                 delegate (object obj, JsonWriter writer) {
-                    exporter ((T) obj, writer);
+                    exporter ((T)obj, writer);
                 };
 
-            custom_exporters_table[typeof (T)] = exporter_wrapper;
+            custom_exporters_table [typeof (T)] = exporter_wrapper;
         }
 
         public static void RegisterImporter<TJson, TValue> (
@@ -881,11 +836,10 @@ namespace LitJson
         {
             ImporterFunc importer_wrapper =
                 delegate (object input) {
-                    return importer ((TJson) input);
+                    return importer ((TJson)input);
                 };
 
-            RegisterImporter (custom_importers_table, typeof (TJson),
-                              typeof (TValue), importer_wrapper);
+            RegisterImporter (custom_importers_table, typeof (TJson), typeof (TValue), importer_wrapper);
         }
 
         public static void UnregisterExporters ()

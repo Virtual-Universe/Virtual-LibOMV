@@ -137,34 +137,30 @@ namespace CSJ2K.j2k.entropy.decoder
 		public virtual void  setByteArray(byte[] buf, int offset, int length)
 		{
 			// In same buffer?
-			if (buf == null)
-			{
-				if (length < 0 || count + length > this.buf.Length)
-				{
-					throw new System.ArgumentException();
-				}
-				if (offset < 0)
-				{
-					pos = count;
-					count += length;
-				}
-				else
-				{
-					count = offset + length;
-					pos = offset;
-				}
-			}
-			else
-			{
-				// New input buffer
-				if (offset < 0 || length < 0 || offset + length > buf.Length)
-				{
-					throw new System.ArgumentException();
-				}
-				this.buf = buf;
-				count = offset + length;
-				pos = offset;
-			}
+            lock (this) {
+                if (buf == null) {
+                    if (length < 0 || count + length > this.buf.Length) {
+                        throw new System.ArgumentException ();
+                    }
+                    if (offset < 0) {
+                        pos = count;
+                        count += length;
+                    } else {
+                        count = offset + length;
+                        pos = offset;
+                    }
+
+                } else {
+                    // New input buffer
+                    if (offset < 0 || length < 0 || offset + length > buf.Length) {
+                        throw new System.ArgumentException ();
+                    }
+                    lock (this)
+                    this.buf = buf;
+				    count = offset + length;
+				    pos = offset;
+			    }
+            }
 		}
 		
 		/// <summary> Adds the specified data to the end of the byte array stream. This
@@ -240,14 +236,13 @@ namespace CSJ2K.j2k.entropy.decoder
 		/// </exception>
 		public virtual int readChecked()
 		{
-			if (pos < count)
-			{
-				return (int) buf[pos++] & 0xFF;
-			}
-			else
-			{
-				throw new System.IO.EndOfStreamException();
-			}
+            lock (this) {
+                if (pos < count)
+                    return buf [pos++] & 0xFF;
+                
+                throw new System.IO.EndOfStreamException ();
+            }
+			
 		}
 		
 		/// <summary> Reads the next byte of data from this input stream. The value byte is
@@ -263,13 +258,11 @@ namespace CSJ2K.j2k.entropy.decoder
 		/// </returns>
 		public virtual int read()
 		{
-			if (pos < count)
-			{
-				return (int) buf[pos++] & 0xFF;
-			}
-			else
-			{
-				return - 1;
+            lock (this) {
+                if (pos < count)
+                    return (int) buf[pos++] & 0xFF;
+			
+			    return - 1;
 			}
 		}
 	}

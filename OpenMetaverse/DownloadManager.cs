@@ -25,8 +25,6 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using OpenMetaverse.Http;
@@ -64,15 +62,15 @@ namespace OpenMetaverse
             CapsBase.DownloadProgressEventHandler downloadProgressCallback,
             CapsBase.RequestCompletedEventHandler completedCallback)
         {
-            this.Address = address;
-            this.MillisecondsTimeout = millisecondsTimeout;
-            this.DownloadProgressCallback = downloadProgressCallback;
-            this.CompletedCallback = completedCallback;
-            this.ContentType = contentType;
+            Address = address;
+            MillisecondsTimeout = millisecondsTimeout;
+            DownloadProgressCallback = downloadProgressCallback;
+            CompletedCallback = completedCallback;
+            ContentType = contentType;
         }
     }
 
-    internal class ActiveDownload
+    class ActiveDownload
     {
         public List<CapsBase.DownloadProgressEventHandler> ProgresHadlers = new List<CapsBase.DownloadProgressEventHandler>();
         public List<CapsBase.RequestCompletedEventHandler> CompletedHandlers = new List<CapsBase.RequestCompletedEventHandler>();
@@ -85,8 +83,8 @@ namespace OpenMetaverse
     /// </summary>
     public class DownloadManager
     {
-        Queue<DownloadRequest> queue = new Queue<DownloadRequest>();
-        Dictionary<string, ActiveDownload> activeDownloads = new Dictionary<string, ActiveDownload>();
+        readonly Queue<DownloadRequest> queue = new Queue<DownloadRequest> ();
+        readonly Dictionary<string, ActiveDownload> activeDownloads = new Dictionary<string, ActiveDownload> ();
 
         X509Certificate2 m_ClientCert;
 
@@ -129,7 +127,7 @@ namespace OpenMetaverse
         /// <summary>Setup http download request</summary>
         protected virtual HttpWebRequest SetupRequest(Uri address, string acceptHeader)
         {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(address);
+            var request = (HttpWebRequest)WebRequest.Create (address);
             request.Method = "GET";
 
             if (!string.IsNullOrEmpty(acceptHeader))
@@ -154,7 +152,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Check the queue for pending work</summary>
-        private void EnqueuePending()
+        void EnqueuePending()
         {
             lock (queue)
             {
@@ -184,14 +182,14 @@ namespace OpenMetaverse
                             }
                             else
                             {
-                                ActiveDownload activeDownload = new ActiveDownload();
+                                var activeDownload = new ActiveDownload();
                                 activeDownload.CompletedHandlers.Add(item.CompletedCallback);
                                 if (item.DownloadProgressCallback != null)
                                 {
                                     activeDownload.ProgresHadlers.Add(item.DownloadProgressCallback);
                                 }
 
-                                Logger.DebugLog("Requesting " + item.Address.ToString());
+                                Logger.DebugLog("Requesting " + item.Address);
                                 activeDownload.Request = SetupRequest(item.Address, item.ContentType);
                                 CapsBase.DownloadDataAsync(
                                     activeDownload.Request,
@@ -205,7 +203,8 @@ namespace OpenMetaverse
                                     },
                                     (HttpWebRequest request, HttpWebResponse response, byte[] responseData, Exception error) =>
                                     {
-                                        lock (activeDownloads) activeDownloads.Remove(addr);
+                                        lock (activeDownloads)
+                                            activeDownloads.Remove(addr);
                                         if (error == null || item.Attempt >= item.Retries || (error != null && error.Message.Contains("404")))
                                         {
                                             foreach (CapsBase.RequestCompletedEventHandler handler in activeDownload.CompletedHandlers)

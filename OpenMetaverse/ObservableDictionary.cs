@@ -84,7 +84,7 @@ namespace OpenMetaverse
             }
             else
             {
-                List<DictionaryChangeCallback> callbacks = new List<DictionaryChangeCallback>(1);
+                var callbacks = new List<DictionaryChangeCallback>(1);
                 callbacks.Add(callback);
                 Delegates.Add(action, callbacks);
             }
@@ -109,7 +109,7 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="action"></param>
         /// <param name="entry"></param>
-        private void FireChangeEvent(DictionaryEventAction action, DictionaryEntry entry)
+        void FireChangeEvent(DictionaryEventAction action, DictionaryEntry entry)
         {
             
             if(Delegates.ContainsKey(action))
@@ -125,7 +125,7 @@ namespace OpenMetaverse
 
         /// <summary>Internal dictionary that this class wraps around. Do not
         /// modify or enumerate the contents of this dictionary without locking</summary>
-        private Dictionary<TKey, TValue> Dictionary;
+        readonly Dictionary<TKey, TValue> Dictionary;
 
         /// <summary>
         /// Gets the number of Key/Value pairs contained in the <seealso cref="T:ObservableDictionary"/>
@@ -227,7 +227,7 @@ namespace OpenMetaverse
         ///</example>
         public List<TValue> FindAll(Predicate<TValue> match)
         {
-            List<TValue> found = new List<TValue>();
+            var found = new List<TValue>();
          
                 foreach (KeyValuePair<TKey, TValue> kvp in Dictionary)
                 {
@@ -252,7 +252,7 @@ namespace OpenMetaverse
         ///</example>
         public List<TKey> FindAll(Predicate<TKey> match)
         {
-            List<TKey> found = new List<TKey>();
+            var found = new List<TKey>();
          
                 foreach (KeyValuePair<TKey, TValue> kvp in Dictionary)
                 {
@@ -329,7 +329,7 @@ namespace OpenMetaverse
         /// Enumerator for iterating dictionary entries
         /// </summary>
         /// <returns></returns>
-        public System.Collections.IEnumerator GetEnumerator()
+        public IEnumerator GetEnumerator()
         {
             return Dictionary.GetEnumerator();
         }

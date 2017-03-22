@@ -53,14 +53,13 @@ namespace OpenMetaverse
         /// <summary></summary>
         public int BitPos { get { return bitPos; } }
 
+        const int MAX_BITS = 8;
+        static readonly byte[] ON = { 1 };
+        static readonly byte[] OFF =  { 0 };
 
-        private const int MAX_BITS = 8;
-        private static readonly byte[] ON = new byte[] { 1 };
-        private static readonly byte[] OFF = new byte[] { 0 };
-
-        private int bytePos;
-        private int bitPos;
-        private bool weAreBigEndian = !BitConverter.IsLittleEndian;
+        int bytePos;
+        int bitPos;
+        bool weAreBigEndian = !BitConverter.IsLittleEndian;
 
 
         /// <summary>
@@ -148,7 +147,7 @@ namespace OpenMetaverse
 
             max = 1 << intBits;
 
-            float fixedVal = Utils.Clamp(data, (float)min, (float)max);
+            float fixedVal = Utils.Clamp(data, min, max);
             if (isSigned) fixedVal += max;
             fixedVal *= 1 << fracBits;
 
@@ -287,17 +286,17 @@ namespace OpenMetaverse
             maxVal = 1 << intBits;
 
             if (totalBits <= 8)
-                fixedVal = (float)UnpackByte();
+                fixedVal = UnpackByte();
             else if (totalBits <= 16)
-                fixedVal = (float)UnpackUBits(16);
+                fixedVal = UnpackUBits(16);
             else if (totalBits <= 31)
-                fixedVal = (float)UnpackUBits(32);
+                fixedVal = UnpackUBits(32);
             else
                 return 0.0f;
 
-            fixedVal /= (float)(1 << fracBits);
+            fixedVal /= (1 << fracBits);
 
-            if (signed) fixedVal -= (float)maxVal;
+            if (signed) fixedVal -= maxVal;
 
             return fixedVal;
         }
@@ -306,7 +305,7 @@ namespace OpenMetaverse
         {
             if (bitPos != 0 || bytePos + size > Data.Length) throw new IndexOutOfRangeException();
 
-            string str = System.Text.UTF8Encoding.UTF8.GetString(Data, bytePos, size);
+            string str = System.Text.Encoding.UTF8.GetString(Data, bytePos, size);
             bytePos += size;
             return str;
         }
@@ -315,12 +314,12 @@ namespace OpenMetaverse
         {
             if (bitPos != 0) throw new IndexOutOfRangeException();
 
-            UUID val = new UUID(Data, bytePos);
+            var val = new UUID(Data, bytePos);
             bytePos += 16;
             return val;
         }
 
-        private void PackBitArray(byte[] data, int totalCount)
+        void PackBitArray(byte[] data, int totalCount)
         {
             int count = 0;
             int curBytePos = 0;
@@ -341,7 +340,7 @@ namespace OpenMetaverse
 
                 while (count > 0)
                 {
-                    byte curBit = (byte)(0x80 >> bitPos);
+                    var curBit = (byte)(0x80 >> bitPos);
 
                     if ((data[curBytePos] & (0x01 << (count - 1))) != 0)
                         Data[bytePos] |= curBit;
@@ -366,7 +365,7 @@ namespace OpenMetaverse
             }
         }
 
-        private byte[] UnpackBitsArray(int totalCount)
+        byte[] UnpackBitsArray(int totalCount)
         {
             int count = 0;
             byte[] output = new byte[4];

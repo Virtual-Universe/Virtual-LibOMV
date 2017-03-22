@@ -25,7 +25,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using OpenMetaverse.Packets;
 
 namespace OpenMetaverse
@@ -34,7 +33,7 @@ namespace OpenMetaverse
     {
         #region EventHandling
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<LandPatchReceivedEventArgs> m_LandPatchReceivedEvent;
+        EventHandler<LandPatchReceivedEventArgs> m_LandPatchReceivedEvent;
 
         /// <summary>Raises the LandPatchReceived event</summary>
         /// <param name="e">A LandPatchReceivedEventArgs object containing the
@@ -47,7 +46,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_LandPatchReceivedLock = new object();
+        readonly object m_LandPatchReceivedLock = new object();
 
         /// <summary>Raised when the simulator responds sends </summary>
         public event EventHandler<LandPatchReceivedEventArgs> LandPatchReceived
@@ -55,9 +54,10 @@ namespace OpenMetaverse
             add { lock (m_LandPatchReceivedLock) { m_LandPatchReceivedEvent += value; } }
             remove { lock (m_LandPatchReceivedLock) { m_LandPatchReceivedEvent -= value; } }
         }
+
         #endregion
 
-        private GridClient Client;
+        readonly GridClient Client;
 
         /// <summary>
         /// Default constructor
@@ -69,7 +69,7 @@ namespace OpenMetaverse
             Client.Network.RegisterCallback(PacketType.LayerData, LayerDataHandler);
         }
 
-        private void DecompressLand(Simulator simulator, BitPack bitpack, TerrainPatch.GroupHeader group)
+        void DecompressLand(Simulator simulator, BitPack bitpack, TerrainPatch.GroupHeader group)
         {
             int x;
             int y;
@@ -88,7 +88,7 @@ namespace OpenMetaverse
 
                 if (x >= TerrainCompressor.PATCHES_PER_EDGE || y >= TerrainCompressor.PATCHES_PER_EDGE)
                 {
-                    Logger.Log(String.Format(
+                    Logger.Log(string.Format(
                         "Invalid LayerData land packet, x={0}, y={1}, dc_offset={2}, range={3}, quant_wbits={4}, patchids={5}, count={6}",
                         x, y, header.DCOffset, header.Range, header.QuantWBits, header.PatchIDs, count),
                         Helpers.LogLevel.Warning, Client);
@@ -108,7 +108,7 @@ namespace OpenMetaverse
 
                 if (Client.Settings.STORE_LAND_PATCHES)
                 {
-                    TerrainPatch patch = new TerrainPatch();
+                    var patch = new TerrainPatch();
                     patch.Data = heightmap;
                     patch.X = x;
                     patch.Y = y;
@@ -117,7 +117,7 @@ namespace OpenMetaverse
             }
         }
 
-        private void DecompressWind(Simulator simulator, BitPack bitpack, TerrainPatch.GroupHeader group)
+        void DecompressWind(Simulator simulator, BitPack bitpack, TerrainPatch.GroupHeader group)
         {
             int[] patches = new int[32 * 32];
 
@@ -147,17 +147,17 @@ namespace OpenMetaverse
             }
         }
 
-        private void DecompressCloud(Simulator simulator, BitPack bitpack, TerrainPatch.GroupHeader group)
+        void DecompressCloud(Simulator simulator, BitPack bitpack, TerrainPatch.GroupHeader group)
         {
             // FIXME:
         }
 
-        private void LayerDataHandler(object sender, PacketReceivedEventArgs e)
+        void LayerDataHandler(object sender, PacketReceivedEventArgs e)
         {
-            LayerDataPacket layer = (LayerDataPacket)e.Packet;
-            BitPack bitpack = new BitPack(layer.LayerData.Data, 0);
-            TerrainPatch.GroupHeader header = new TerrainPatch.GroupHeader();
-            TerrainPatch.LayerType type = (TerrainPatch.LayerType)layer.LayerID.Type;
+            var layer = (LayerDataPacket)e.Packet;
+            var bitpack = new BitPack(layer.LayerData.Data, 0);
+            var header = new TerrainPatch.GroupHeader();
+            var type = (TerrainPatch.LayerType)layer.LayerID.Type;
 
             // Stride
             header.Stride = bitpack.UnpackBits(16);
@@ -182,7 +182,7 @@ namespace OpenMetaverse
                     DecompressCloud(e.Simulator, bitpack, header);
                     break;
                 default:
-                    Logger.Log("Unrecognized LayerData type " + type.ToString(), Helpers.LogLevel.Warning, Client);
+                    Logger.Log("Unrecognized LayerData type " + type, Helpers.LogLevel.Warning, Client);
                     break;
             }
         }
@@ -192,11 +192,11 @@ namespace OpenMetaverse
     // <summary>Provides data for LandPatchReceived</summary>
     public class LandPatchReceivedEventArgs : EventArgs
     {
-        private readonly Simulator m_Simulator;
-        private readonly int m_X;
-        private readonly int m_Y;
-        private readonly int m_PatchSize;
-        private readonly float[] m_HeightMap;
+        readonly Simulator m_Simulator;
+        readonly int m_X;
+        readonly int m_Y;
+        readonly int m_PatchSize;
+        readonly float[] m_HeightMap;
 
         /// <summary>Simulator from that sent tha data</summary>
         public Simulator Simulator { get { return m_Simulator; } }
@@ -211,11 +211,11 @@ namespace OpenMetaverse
 
         public LandPatchReceivedEventArgs(Simulator simulator, int x, int y, int patchSize, float[] heightMap)
         {
-            this.m_Simulator = simulator;
-            this.m_X = x;
-            this.m_Y = y;
-            this.m_PatchSize = patchSize;
-            this.m_HeightMap = heightMap;
+            m_Simulator = simulator;
+            m_X = x;
+            m_Y = y;
+            m_PatchSize = patchSize;
+            m_HeightMap = heightMap;
         }
     }
     #endregion

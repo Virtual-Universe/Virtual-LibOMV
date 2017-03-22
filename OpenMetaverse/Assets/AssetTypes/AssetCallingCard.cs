@@ -24,8 +24,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System;
-using OpenMetaverse;
 
 namespace OpenMetaverse.Assets
 {
@@ -51,7 +49,7 @@ namespace OpenMetaverse.Assets
         public AssetCallingCard(UUID assetID, byte[] assetData)
             : base(assetID, assetData)
         {
-            Decode();
+            DecodeCard();
         }
 
         /// <summary>
@@ -61,7 +59,7 @@ namespace OpenMetaverse.Assets
         public AssetCallingCard(UUID avatarID)
         {
             AvatarID = avatarID;
-            Encode();
+            EncodeCard();
         }
 
         /// <summary>
@@ -69,9 +67,7 @@ namespace OpenMetaverse.Assets
         /// </summary>
         public override void Encode()
         {
-            string temp = "Callingcard version 2\n";
-            temp += "avatar_id " + AvatarID + "\n";
-            AssetData = Utils.StringToBytes(temp);
+            EncodeCard ();
         }
 
         /// <summary>
@@ -80,13 +76,34 @@ namespace OpenMetaverse.Assets
         /// <returns>true if the AssetData was successfully decoded to a UUID and Vector</returns>
         public override bool Decode()
         {
-            String text = Utils.BytesToString(AssetData);
-            if (text.ToLower().Contains("callingcard version 2"))
-            {
-                AvatarID = new UUID(text.Substring(text.IndexOf("avatar_id") + 10, 36));
-                return true;
+            return DecodeCard ();
+        }
+
+        /// <summary>
+        /// Encode the raw contents of a string with the specific Callingcard format
+        /// </summary>
+        void EncodeCard ()
+        {
+            string temp = "Callingcard version 2\n";
+            temp += "avatar_id " + AvatarID + "\n";
+            AssetData = Utils.StringToBytes (temp);
+        }
+
+        /// <summary>
+        /// Decode the raw asset data, populating the AvatarID and Position
+        /// </summary>
+        /// <returns>true if the AssetData was successfully decoded to a UUID and Vector</returns>
+        bool DecodeCard ()
+        {
+            if (AssetData.Length > 0) {
+                string text = Utils.BytesToString (AssetData);
+                if (text.ToLower ().Contains ("callingcard version 2")) {
+                    AvatarID = new UUID (text.Substring (text.IndexOf ("avatar_id", System.StringComparison.Ordinal) + 10, 36));
+                    return true;
+                }
             }
             return false;
         }
+
     }
 }

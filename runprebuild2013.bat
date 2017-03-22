@@ -58,10 +58,16 @@ if(.%3)==(.dist) echo IF ERRORLEVEL 1 GOTO FAIL >> compile.bat
 
 echo :SUCCESS >> compile.bat
 echo echo Build Successful! >> compile.bat
+echo set /p nothing= Enter to continue >> compile.bat
 echo exit /B 0 >> compile.bat
 echo :FAIL >> compile.bat
 echo echo Build Failed, check log for reason >> compile.bat
+echo set /p nothing= Enter to continue >> compile.bat
 echo exit /B 1 >> compile.bat
+
+echo Solution and compile created
+set /p nothing= Enter to continue
+
 
 :: perform the appropriate action
 if(.%1)==(.msbuild) compile.bat

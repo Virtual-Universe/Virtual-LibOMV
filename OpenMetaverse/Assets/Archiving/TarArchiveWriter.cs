@@ -25,7 +25,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -55,7 +54,7 @@ namespace OpenMetaverse.Assets
         public void WriteDir(string dirName)
         {
             // Directories are signalled by a final /
-            if (!dirName.EndsWith("/"))
+            if (!dirName.EndsWith ("/", StringComparison.Ordinal))
                 dirName += "/";
 
             WriteFile(dirName, new byte[0]);
@@ -83,7 +82,7 @@ namespace OpenMetaverse.Assets
 
             char fileType;
 
-            if (filePath.EndsWith("/"))
+            if (filePath.EndsWith ("/", StringComparison.Ordinal))
             {
                 fileType = '5';
             }

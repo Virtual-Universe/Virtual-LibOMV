@@ -35,15 +35,15 @@ namespace OpenMetaverse
         /// <summary>
         /// Rotation Keyframe count (used internally)
         /// </summary>
-        private int rotationkeys;
+        int rotationkeys;
         
         /// <summary>
         /// Position Keyframe count (used internally)
         /// </summary>
-        private int positionkeys;
+        int positionkeys;
 
-        public UInt16 unknown0; // Always 1
-        public UInt16 unknown1; // Always 0
+        public ushort unknown0; // Always 1
+        public ushort unknown1; // Always 0
 
         /// <summary>
         /// Animation Priority
@@ -53,7 +53,7 @@ namespace OpenMetaverse
         /// <summary>
         /// The animation length in seconds.
         /// </summary>
-        public Single Length;
+        public float Length;
 
         /// <summary>
         /// Expression set in the client.  Null if [None] is selected
@@ -63,12 +63,12 @@ namespace OpenMetaverse
         /// <summary>
         /// The time in seconds to start the animation
         /// </summary>
-        public Single InPoint;
+        public float InPoint;
 
         /// <summary>
         /// The time in seconds to end the animation
         /// </summary>
-        public Single OutPoint;
+        public float OutPoint;
 
         /// <summary>
         /// Loop the animation
@@ -78,12 +78,12 @@ namespace OpenMetaverse
         /// <summary>
         /// Meta data. Ease in Seconds.
         /// </summary>
-        public Single EaseInTime;
+        public float EaseInTime;
 
         /// <summary>
         /// Meta data. Ease out seconds.
         /// </summary>
-        public Single EaseOutTime;
+        public float EaseOutTime;
 
         /// <summary>
         /// Meta Data for the Hand Pose
@@ -156,7 +156,7 @@ namespace OpenMetaverse
             }
         }
 
-        private byte[] EndianSwap(byte[] arr, int offset, int len)
+        byte[] EndianSwap(byte[] arr, int offset, int len)
         {
             byte[] bendian = new byte[offset + len];
             Buffer.BlockCopy(arr, offset, bendian, 0, len);
@@ -356,11 +356,27 @@ namespace OpenMetaverse
             return m_keys;
         }
 
+        const float EPSILON = 0.0000001f;   // floating point comparison equality
         public bool Equals(BinBVHAnimationReader other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return other.Loop.Equals(Loop) && other.OutPoint == OutPoint && other.InPoint == InPoint && other.Length == Length && other.HandPose == HandPose && other.JointCount == JointCount && Equals(other.joints, joints) && other.EaseInTime == EaseInTime && other.EaseOutTime == EaseOutTime && other.Priority == Priority && other.unknown1 == unknown1 && other.unknown0 == unknown0 && other.positionkeys == positionkeys && other.rotationkeys == rotationkeys;
+            if (! other.Loop.Equals(Loop))
+                return false;
+            
+            return Math.Abs (other.OutPoint - OutPoint) < EPSILON &&
+                       Math.Abs (other.InPoint - InPoint) < EPSILON &&
+                       Math.Abs (other.Length - Length) < EPSILON &&
+                       other.HandPose == HandPose &&
+                       other.JointCount == JointCount &&
+                       Equals(other.joints, joints) &&
+                       Math.Abs (other.EaseInTime - EaseInTime) < EPSILON &&
+                       Math.Abs (other.EaseOutTime - EaseOutTime) < EPSILON &&
+                       other.Priority == Priority &&
+                       other.unknown1 == unknown1 &&
+                       other.unknown0 == unknown0 && 
+                       other.positionkeys == positionkeys &&
+                       other.rotationkeys == rotationkeys;
         }
 
         /// <summary> 
@@ -378,9 +394,9 @@ namespace OpenMetaverse
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != typeof(BinBVHAnimationReader)) return false;
             return Equals((BinBVHAnimationReader)obj);
-    }
+        }
 
-    /// <summary>
+        /// <summary>
         /// Serves as a hash function for a particular type.  
         /// </summary> 
         /// <returns> 
@@ -430,6 +446,8 @@ namespace OpenMetaverse
     /// </summary>
     public struct binBVHJoint
     {
+        const float EPSILON = 0.0000001f;   // floating point comparison equality
+
         public static bool Equals(binBVHJointKey[] arr1, binBVHJointKey[] arr2)
         {
             if (arr1.Length == arr2.Length)
@@ -444,7 +462,7 @@ namespace OpenMetaverse
         }
         public static bool Equals(binBVHJointKey arr1, binBVHJointKey arr2)
         {
-            return (arr1.time == arr2.time && arr1.key_element == arr2.key_element);
+            return (Math.Abs (arr1.time - arr2.time) < EPSILON && arr1.key_element == arr2.key_element);
         }
 
         public bool Equals(binBVHJoint other)

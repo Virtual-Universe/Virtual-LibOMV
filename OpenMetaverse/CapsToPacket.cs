@@ -26,7 +26,6 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
 using OpenMetaverse.StructuredData;
 
@@ -159,7 +158,7 @@ namespace OpenMetaverse.Packets
             return packet;
         }
 
-        private static object ParseLLSDBlock(OSDMap blockData, Type blockType)
+        static object ParseLLSDBlock(OSDMap blockData, Type blockType)
         {
             object block = Activator.CreateInstance(blockType);
 
@@ -268,7 +267,7 @@ namespace OpenMetaverse.Packets
             return block;
         }
 
-        private static OSD BuildLLSDBlock(object block)
+        static OSD BuildLLSDBlock(object block)
         {
             OSDMap map = new OSDMap();
             Type blockType = block.GetType();

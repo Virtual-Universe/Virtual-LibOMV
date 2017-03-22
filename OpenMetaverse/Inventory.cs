@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
 
 namespace OpenMetaverse
 {
@@ -53,7 +52,7 @@ namespace OpenMetaverse
     {
       
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<InventoryObjectUpdatedEventArgs> m_InventoryObjectUpdated;
+        EventHandler<InventoryObjectUpdatedEventArgs> m_InventoryObjectUpdated;
 
         ///<summary>Raises the InventoryObjectUpdated Event</summary>
         /// <param name="e">A InventoryObjectUpdatedEventArgs object containing
@@ -66,7 +65,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_InventoryObjectUpdatedLock = new object();
+        readonly object m_InventoryObjectUpdatedLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// ...</summary>
@@ -77,7 +76,7 @@ namespace OpenMetaverse
         }
        
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<InventoryObjectRemovedEventArgs> m_InventoryObjectRemoved;
+        EventHandler<InventoryObjectRemovedEventArgs> m_InventoryObjectRemoved;
 
         ///<summary>Raises the InventoryObjectRemoved Event</summary>
         /// <param name="e">A InventoryObjectRemovedEventArgs object containing
@@ -90,7 +89,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_InventoryObjectRemovedLock = new object();
+        readonly object m_InventoryObjectRemovedLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// ...</summary>
@@ -101,7 +100,7 @@ namespace OpenMetaverse
         }
         
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<InventoryObjectAddedEventArgs> m_InventoryObjectAdded;
+        EventHandler<InventoryObjectAddedEventArgs> m_InventoryObjectAdded;
 
         ///<summary>Raises the InventoryObjectAdded Event</summary>
         /// <param name="e">A InventoryObjectAddedEventArgs object containing
@@ -114,7 +113,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_InventoryObjectAddedLock = new object();
+        readonly object m_InventoryObjectAddedLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// ...</summary>
@@ -150,8 +149,8 @@ namespace OpenMetaverse
             }
         }
 
-        private InventoryNode _LibraryRootNode;
-        private InventoryNode _RootNode;
+        InventoryNode _LibraryRootNode;
+        InventoryNode _RootNode;
         
         /// <summary>
         /// The root node of the avatars inventory
@@ -173,10 +172,9 @@ namespace OpenMetaverse
             get { return _Owner; }
         }
 
-        private UUID _Owner;
-
-        private GridClient Client;
-        //private InventoryManager Manager;
+        UUID _Owner;
+        readonly GridClient Client;
+        //InventoryManager Manager;
         public Dictionary<UUID, InventoryNode> Items = new Dictionary<UUID, InventoryNode>();
 
         public Inventory(GridClient client, InventoryManager manager)
@@ -360,7 +358,7 @@ namespace OpenMetaverse
                     BinaryFormatter bformatter = new BinaryFormatter();
                     lock (Items)
                     {
-                        Logger.Log("Caching " + Items.Count.ToString() + " inventory items to " + filename, Helpers.LogLevel.Info);
+                        Logger.Log("Caching " + Items.Count + " inventory items to " + filename, Helpers.LogLevel.Info);
                         foreach (KeyValuePair<UUID, InventoryNode> kvp in Items)
                         {
                             bformatter.Serialize(stream, kvp.Value);
@@ -395,7 +393,7 @@ namespace OpenMetaverse
 
                     while (stream.Position < stream.Length)
                     {
-                        OpenMetaverse.InventoryNode node = (InventoryNode)bformatter.Deserialize(stream);
+                        InventoryNode node = (InventoryNode)bformatter.Deserialize(stream);
                         nodes.Add(node);
                         item_count++;
                     }
@@ -407,7 +405,7 @@ namespace OpenMetaverse
                 return -1;
             }
 
-            Logger.Log("Read " + item_count.ToString() + " items from inventory cache file", Helpers.LogLevel.Info);
+            Logger.Log("Read " + item_count + " items from inventory cache file", Helpers.LogLevel.Info);
 
             item_count = 0;
             List<InventoryNode> del_nodes = new List<InventoryNode>(); //nodes that we have processed and will delete
@@ -440,7 +438,7 @@ namespace OpenMetaverse
 
                             if (cache_folder.Version != server_folder.Version)
                             {
-                                Logger.DebugLog("Inventory Cache/Server version mismatch on " + node.Data.Name + " " + cache_folder.Version.ToString() + " vs " + server_folder.Version.ToString());
+                                Logger.DebugLog("Inventory Cache/Server version mismatch on " + node.Data.Name + " " + cache_folder.Version + " vs " + server_folder.Version);
                                 pnode.NeedsUpdate = true;
                                 dirty_folders.Add(node.Data.UUID);
                             }
@@ -490,7 +488,7 @@ namespace OpenMetaverse
                 del_nodes.Clear();
             }
 
-            Logger.Log("Reassembled " + item_count.ToString() + " items from inventory cache file", Helpers.LogLevel.Info);
+            Logger.Log("Reassembled " + item_count + " items from inventory cache file", Helpers.LogLevel.Info);
             return item_count;
         }
 
@@ -518,8 +516,8 @@ namespace OpenMetaverse
                 {
                     // Log a warning if there is a UUID mismatch, this will cause problems
                     if (value.UUID != uuid)
-                        Logger.Log("Inventory[uuid]: uuid " + uuid.ToString() + " is not equal to value.UUID " +
-                            value.UUID.ToString(), Helpers.LogLevel.Warning, Client);
+                        Logger.Log("Inventory[uuid]: uuid " + uuid + " is not equal to value.UUID " +
+                            value.UUID, Helpers.LogLevel.Warning, Client);
 
                     UpdateNodeFor(value);
                 }
@@ -541,39 +539,39 @@ namespace OpenMetaverse
     
     public class InventoryObjectUpdatedEventArgs : EventArgs
     {
-        private readonly InventoryBase m_OldObject;
-        private readonly InventoryBase m_NewObject;
+        readonly InventoryBase m_OldObject;
+        readonly InventoryBase m_NewObject;
 
         public InventoryBase OldObject { get { return m_OldObject; } }        
         public InventoryBase NewObject { get { return m_NewObject; } } 
 
         public InventoryObjectUpdatedEventArgs(InventoryBase oldObject, InventoryBase newObject)
         {
-            this.m_OldObject = oldObject;
-            this.m_NewObject = newObject;
+            m_OldObject = oldObject;
+            m_NewObject = newObject;
         }
     }
 
     public class InventoryObjectRemovedEventArgs : EventArgs
     {
-        private readonly InventoryBase m_Obj;
+        readonly InventoryBase m_Obj;
 
         public InventoryBase Obj { get { return m_Obj; } }
         public InventoryObjectRemovedEventArgs(InventoryBase obj)
         {
-            this.m_Obj = obj;
+            m_Obj = obj;
         }
     }
 
     public class InventoryObjectAddedEventArgs : EventArgs
     {
-        private readonly InventoryBase m_Obj;
+        readonly InventoryBase m_Obj;
 
         public InventoryBase Obj { get { return m_Obj; } }
 
         public InventoryObjectAddedEventArgs(InventoryBase obj)
         {
-            this.m_Obj = obj;
+            m_Obj = obj;
         }
     }
     #endregion EventArgs

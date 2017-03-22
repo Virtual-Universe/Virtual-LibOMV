@@ -24,8 +24,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System;
-using OpenMetaverse;
 using OpenMetaverse.Imaging;
 
 namespace OpenMetaverse.Assets
@@ -76,7 +74,7 @@ namespace OpenMetaverse.Assets
         }
 
         /// <summary>
-        /// Populates the <seealso cref="AssetData"/> byte array with a JPEG2000
+        /// Populates the <seealso cref="this.AssetData"/> byte array with a JPEG2000
         /// encoded image created from the data in <seealso cref="Image"/>
         /// </summary>
         public override void Encode()
@@ -93,7 +91,7 @@ namespace OpenMetaverse.Assets
         {
             if (AssetData != null && AssetData.Length > 0)
             {
-                this.Components = 0;
+                Components = 0;
 
                 if (OpenJPEG.DecodeToImage(AssetData, out Image))
                 {

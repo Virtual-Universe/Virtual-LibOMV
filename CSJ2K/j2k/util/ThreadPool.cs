@@ -137,9 +137,9 @@ namespace CSJ2K.j2k.util
 		/// </returns>
 		virtual public int Size
 		{
-			get
-			{
-				return idle.Length;
+            get {
+                lock (idle)
+                    return idle.Length;
 			}
 			
 		}

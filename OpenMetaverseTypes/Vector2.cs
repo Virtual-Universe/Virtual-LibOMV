@@ -30,21 +30,19 @@ using System.Globalization;
 
 namespace OpenMetaverse
 {
+
     /// <summary>
-    ///     A two-dimensional vector with floating-point values
+    /// A two-dimensional vector with floating-point values
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Vector2 : IComparable<Vector2>, IEquatable<Vector2>
     {
-        /// <summary>
-        ///     X value
-        /// </summary>
+        const float EPSILON = 0.0000001f;   // foalting point comparision equality
+       
+        /// <summary>X value</summary>
         public float X;
-
-        /// <summary>
-        ///     Y value
-        /// </summary>
+        /// <summary>Y value</summary>
         public float Y;
 
         #region Constructors
@@ -72,8 +70,8 @@ namespace OpenMetaverse
         #region Public Methods
 
         /// <summary>
-        ///     Test if this vector is equal to another vector, within a given
-        ///     tolerance range
+        /// Test if this vector is equal to another vector, within a given
+        /// tolerance range
         /// </summary>
         /// <param name="vec">Vector to test against</param>
         /// <param name="tolerance">The acceptable magnitude of difference
@@ -87,7 +85,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Test if this vector is composed of all finite numbers
+        /// Test if this vector is composed of all finite numbers
         /// </summary>
         public bool IsFinite()
         {
@@ -95,7 +93,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     IComparable.CompareTo implementation
+        /// IComparable.CompareTo implementation
         /// </summary>
         public int CompareTo(Vector2 vector)
         {
@@ -103,7 +101,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Builds a vector from a byte array
+        /// Builds a vector from a byte array
         /// </summary>
         /// <param name="byteArray">Byte array containing two four-byte floats</param>
         /// <param name="pos">Beginning position in the byte array</param>
@@ -131,7 +129,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Returns the raw bytes for this vector
+        /// Returns the raw bytes for this vector
         /// </summary>
         /// <returns>An eight-byte array containing X and Y</returns>
         public byte[] GetBytes()
@@ -142,7 +140,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Writes the raw bytes for this vector to a byte array
+        /// Writes the raw bytes for this vector to a byte array
         /// </summary>
         /// <param name="dest">Destination byte array</param>
         /// <param name="pos">Position in the destination array to start
@@ -281,19 +279,18 @@ namespace OpenMetaverse
                 value.X = 0f;
                 value.Y = 0f;
             }
-
             return value;
         }
 
         /// <summary>
-        ///     Parse a vector from a string
+        /// Parse a vector from a string
         /// </summary>
         /// <param name="val">A string representation of a 2D vector, enclosed 
         /// in arrow brackets and separated by commas</param>
         public static Vector3 Parse(string val)
         {
             char[] splitChar = { ',' };
-            string[] split = val.Replace("<", String.Empty).Replace(">", String.Empty).Split(splitChar);
+            string[] split = val.Replace("<", string.Empty).Replace(">", string.Empty).Split(splitChar);
             return new Vector3(
                 float.Parse(split[0].Trim(), Utils.EnUsCulture),
                 float.Parse(split[1].Trim(), Utils.EnUsCulture),
@@ -315,7 +312,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Interpolates between two vectors using a cubic equation
+        /// Interpolates between two vectors using a cubic equation
         /// </summary>
         public static Vector2 SmoothStep(Vector2 value1, Vector2 value2, float amount)
         {
@@ -367,25 +364,25 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Get a formatted string representation of the vector
+        /// Get a formatted string representation of the vector
         /// </summary>
         /// <returns>A string representation of the vector</returns>
         public override string ToString()
         {
-            return String.Format(Utils.EnUsCulture, "<{0}, {1}>", X, Y);
+            return string.Format(Utils.EnUsCulture, "<{0}, {1}>", X, Y);
         }
 
         /// <summary>
-        ///     Get a string representation of the vector elements with up to three
-        ///     decimal digits and separated by spaces only
+        /// Get a string representation of the vector elements with up to three
+        /// decimal digits and separated by spaces only
         /// </summary>
         /// <returns>Raw string representation of the vector</returns>
         public string ToRawString()
         {
-            CultureInfo enUs = new CultureInfo("en-us");
+            var enUs = new CultureInfo("en-us");
             enUs.NumberFormat.NumberDecimalDigits = 3;
 
-            return String.Format(enUs, "{0} {1}", X, Y);
+            return string.Format(enUs, "{0} {1}", X, Y);
         }
 
         #endregion Overrides
@@ -394,12 +391,12 @@ namespace OpenMetaverse
 
         public static bool operator ==(Vector2 value1, Vector2 value2)
         {
-            return value1.X == value2.X && value1.Y == value2.Y;
+            return Math.Abs (value1.X - value2.X) < EPSILON && Math.Abs (value1.Y - value2.Y) < EPSILON;
         }
 
         public static bool operator !=(Vector2 value1, Vector2 value2)
         {
-            return value1.X != value2.X || value1.Y != value2.Y;
+            return Math.Abs (value1.X - value2.X) > EPSILON || Math.Abs (value1.Y - value2.Y) > EPSILON;
         }
 
         public static Vector2 operator +(Vector2 value1, Vector2 value2)
@@ -456,24 +453,13 @@ namespace OpenMetaverse
 
         #endregion Operators
 
-        /// <summary>
-        ///     A vector with a value of 0,0
-        /// </summary>
+        /// <summary>A vector with a value of 0,0</summary>
         public readonly static Vector2 Zero = new Vector2();
-        
-        /// <summary>
-        ///     A vector with a value of 1,1
-        /// </summary>
+        /// <summary>A vector with a value of 1,1</summary>
         public readonly static Vector2 One = new Vector2(1f, 1f);
-        
-        /// <summary>
-        ///     A vector with a value of 1,0
-        /// </summary>
+        /// <summary>A vector with a value of 1,0</summary>
         public readonly static Vector2 UnitX = new Vector2(1f, 0f);
-        
-        /// <summary>
-        ///     A vector with a value of 0,1
-        /// </summary>
+        /// <summary>A vector with a value of 0,1</summary>
         public readonly static Vector2 UnitY = new Vector2(0f, 1f);
     }
 }

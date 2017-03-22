@@ -161,10 +161,12 @@ namespace CSJ2K.j2k.entropy
 						// If progression were previously found, store them
 						if (progression.Count > 0)
 						{
-							// Ensure that all information has been taken
-							curProg.ce = nc;
-							curProg.lye = nl;
+                        // Ensure that all information has been taken
+                        if (curProg != null) {      // something out of ordere here if null - g -
+                            curProg.ce = nc;
+                            curProg.lye = nl;
 							curProg.re = dls.Max + 1;
+                        }
 							prog = new Progression[progression.Count];
 							progression.CopyTo(prog);
 							if (curSpecType == SPEC_DEF)
@@ -278,14 +280,15 @@ namespace CSJ2K.j2k.entropy
 							}
 							needInteger = true;
 							intType = 0;
-							if (progression.Count == 0)
+							/* this does not really check for anything - g-
+                            if (progression.Count == 0)
 							{
 								curProg = new Progression(mode, 0, nc, 0, dls.Max + 1, nl);
 							}
 							else
-							{
+							{*/
 								curProg = new Progression(mode, 0, nc, 0, dls.Max + 1, nl);
-							}
+							//}
 							progression.Add(curProg);
 						}
 						break;

@@ -24,9 +24,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System;
 using System.IO;
-using System.Reflection;
 using System.Text;
 
 namespace OpenMetaverse.Assets
@@ -59,12 +57,12 @@ namespace OpenMetaverse.Assets
         /// <summary>
         /// Used to trim off null chars
         /// </summary>
-        protected static readonly char[] m_nullCharArray = new char[] { '\0' };
+        protected static readonly char[] m_nullCharArray = { '\0' };
 
         /// <summary>
         /// Used to trim off space chars
         /// </summary>
-        protected static readonly char[] m_spaceCharArray = new char[] { ' ' };
+        protected static readonly char[] m_spaceCharArray = { ' ' };
 
         /// <summary>
         /// Generate a tar reader which reads from the given stream.
@@ -83,7 +81,7 @@ namespace OpenMetaverse.Assets
         /// <returns>the data for the entry.  Returns null if there are no more entries</returns>
         public byte[] ReadEntry(out string filePath, out TarEntryType entryType)
         {
-            filePath = String.Empty;
+            filePath = string.Empty;
             entryType = TarEntryType.TYPE_UNKNOWN;
             TarHeader header = ReadHeader();
 
@@ -108,7 +106,7 @@ namespace OpenMetaverse.Assets
             if (header[0] == 0)
                 return null;
 
-            TarHeader tarHeader = new TarHeader();
+            var tarHeader = new TarHeader();
 
             // If we're looking at a GNU tar long link then extract the long name and pull up the next header
             if (header[156] == (byte)'L')

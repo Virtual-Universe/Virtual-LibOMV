@@ -2,32 +2,31 @@
 // http://www.eggheadcafe.com/articles/20060727.asp
 
 using System;
-using System.Threading;
 
 /// <summary>
 /// 
 /// </summary>
-public class ThreadUtil
+public static class ThreadUtil
 {
     /// <summary>
     /// Delegate to wrap another delegate and its arguments
     /// </summary>
     /// <param name="d"></param>
     /// <param name="args"></param>
-    delegate void DelegateWrapper(Delegate d, object[] args);
+    delegate void DelegateWrapper (Delegate d, object [] args);
 
     /// <summary>
     /// An instance of DelegateWrapper which calls InvokeWrappedDelegate,
     /// which in turn calls the DynamicInvoke method of the wrapped
     /// delegate
     /// </summary>
-    static DelegateWrapper wrapperInstance = new DelegateWrapper(InvokeWrappedDelegate);
+    static readonly DelegateWrapper wrapperInstance = new DelegateWrapper (InvokeWrappedDelegate);
 
     /// <summary>
     /// Callback used to call EndInvoke on the asynchronously
     /// invoked DelegateWrapper
     /// </summary>
-    static AsyncCallback callback = new AsyncCallback(EndWrapperInvoke);
+    static AsyncCallback callback = new AsyncCallback (EndWrapperInvoke);
 
     /// <summary>
     /// Executes the specified delegate with the specified arguments
@@ -35,12 +34,12 @@ public class ThreadUtil
     /// </summary>
     /// <param name="d"></param>
     /// <param name="args"></param>
-    public static void FireAndForget(Delegate d, params object[] args)
+    public static void FireAndForget (Delegate d, params object [] args)
     {
         // Invoke the wrapper asynchronously, which will then
         // execute the wrapped delegate synchronously (in the
         // thread pool thread)
-        if (d != null) wrapperInstance.BeginInvoke(d, args, callback, null);
+        if (d != null) wrapperInstance.BeginInvoke (d, args, callback, null);
     }
 
     /// <summary>
@@ -48,9 +47,9 @@ public class ThreadUtil
     /// </summary>
     /// <param name="d"></param>
     /// <param name="args"></param>
-    static void InvokeWrappedDelegate(Delegate d, object[] args)
+    static void InvokeWrappedDelegate (Delegate d, object [] args)
     {
-        d.DynamicInvoke(args);
+        d.DynamicInvoke (args);
     }
 
     /// <summary>
@@ -58,9 +57,11 @@ public class ThreadUtil
     /// to prevent resource leaks
     /// </summary>
     /// <param name="ar"></param>
-    static void EndWrapperInvoke(IAsyncResult ar)
+    static void EndWrapperInvoke (IAsyncResult ar)
     {
-        wrapperInstance.EndInvoke(ar);
-        ar.AsyncWaitHandle.Close();
+        if (wrapperInstance != null) {
+            wrapperInstance.EndInvoke (ar);
+        }
+        ar.AsyncWaitHandle.Close ();
     }
 }

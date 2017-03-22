@@ -25,7 +25,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using OpenMetaverse.Packets;
 
 namespace OpenMetaverse
@@ -36,12 +35,12 @@ namespace OpenMetaverse
     public class SoundManager
     {
         #region Private Members
-        private readonly GridClient Client;
+        readonly GridClient Client;
         #endregion
 
         #region Event Handling
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<AttachedSoundEventArgs> m_AttachedSound;
+        EventHandler<AttachedSoundEventArgs> m_AttachedSound;
 
         ///<summary>Raises the AttachedSound Event</summary>
         /// <param name="e">A AttachedSoundEventArgs object containing
@@ -54,7 +53,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_AttachedSoundLock = new object();
+        readonly object m_AttachedSoundLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// sound</summary>
@@ -65,7 +64,7 @@ namespace OpenMetaverse
         }
                 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<AttachedSoundGainChangeEventArgs> m_AttachedSoundGainChange;
+        EventHandler<AttachedSoundGainChangeEventArgs> m_AttachedSoundGainChange;
 
         ///<summary>Raises the AttachedSoundGainChange Event</summary>
         /// <param name="e">A AttachedSoundGainChangeEventArgs object containing
@@ -78,7 +77,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_AttachedSoundGainChangeLock = new object();
+        readonly object m_AttachedSoundGainChangeLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// ...</summary>
@@ -89,7 +88,7 @@ namespace OpenMetaverse
         }
         
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<SoundTriggerEventArgs> m_SoundTrigger;
+        EventHandler<SoundTriggerEventArgs> m_SoundTrigger;
 
         ///<summary>Raises the SoundTrigger Event</summary>
         /// <param name="e">A SoundTriggerEventArgs object containing
@@ -102,7 +101,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_SoundTriggerLock = new object();
+        readonly object m_SoundTriggerLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// ...</summary>
@@ -113,7 +112,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<PreloadSoundEventArgs> m_PreloadSound;
+        EventHandler<PreloadSoundEventArgs> m_PreloadSound;
 
         ///<summary>Raises the PreloadSound Event</summary>
         /// <param name="e">A PreloadSoundEventArgs object containing
@@ -126,7 +125,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_PreloadSoundLock = new object();
+        readonly object m_PreloadSoundLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// ...</summary>
@@ -205,7 +204,7 @@ namespace OpenMetaverse
         /// <param name="gain">volume of the sound, from 0.0 to 1.0</param>
         public void SendSoundTrigger(UUID soundID, ulong handle, Vector3 position, float gain)
         {
-            SoundTriggerPacket soundtrigger = new SoundTriggerPacket();
+            var soundtrigger = new SoundTriggerPacket();
             soundtrigger.SoundData = new SoundTriggerPacket.SoundDataBlock();
             soundtrigger.SoundData.SoundID = soundID;
             soundtrigger.SoundData.ObjectID = UUID.Zero;
@@ -229,7 +228,7 @@ namespace OpenMetaverse
         {            
             if (m_AttachedSound != null)
             {
-                AttachedSoundPacket sound = (AttachedSoundPacket)e.Packet;
+                var sound = (AttachedSoundPacket)e.Packet;
 
                 OnAttachedSound(new AttachedSoundEventArgs(e.Simulator, sound.DataBlock.SoundID, sound.DataBlock.OwnerID, sound.DataBlock.ObjectID, 
                     sound.DataBlock.Gain, (SoundFlags)sound.DataBlock.Flags));                
@@ -243,7 +242,7 @@ namespace OpenMetaverse
         {            
             if (m_AttachedSoundGainChange != null)
             {
-                AttachedSoundGainChangePacket change = (AttachedSoundGainChangePacket)e.Packet;
+                var change = (AttachedSoundGainChangePacket)e.Packet;
                 OnAttachedSoundGainChange(new AttachedSoundGainChangeEventArgs(e.Simulator, change.DataBlock.ObjectID, change.DataBlock.Gain));                
             }
         }
@@ -255,7 +254,7 @@ namespace OpenMetaverse
         {            
             if (m_PreloadSound != null)
             {
-                PreloadSoundPacket preload = (PreloadSoundPacket)e.Packet;
+                var preload = (PreloadSoundPacket)e.Packet;
 
                 foreach (PreloadSoundPacket.DataBlockBlock data in preload.DataBlock)
                 {
@@ -271,7 +270,7 @@ namespace OpenMetaverse
         {            
             if (m_SoundTrigger != null)
             {
-                SoundTriggerPacket trigger = (SoundTriggerPacket)e.Packet;
+                var trigger = (SoundTriggerPacket)e.Packet;
                 OnSoundTrigger(new SoundTriggerEventArgs(e.Simulator,
                         trigger.SoundData.SoundID,
                         trigger.SoundData.OwnerID,
@@ -306,12 +305,12 @@ namespace OpenMetaverse
     /// </example>
     public class AttachedSoundEventArgs : EventArgs
     {
-        private readonly Simulator m_Simulator;
-        private readonly UUID m_SoundID;
-        private readonly UUID m_OwnerID;
-        private readonly UUID m_ObjectID;
-        private readonly float m_Gain;
-        private readonly SoundFlags m_Flags;
+        readonly Simulator m_Simulator;
+        readonly UUID m_SoundID;
+        readonly UUID m_OwnerID;
+        readonly UUID m_ObjectID;
+        readonly float m_Gain;
+        readonly SoundFlags m_Flags;
 
         /// <summary>Simulator where the event originated</summary>
         public Simulator Simulator { get { return m_Simulator; } }
@@ -337,12 +336,12 @@ namespace OpenMetaverse
         /// <param name="flags">The <see cref="SoundFlags"/></param>
         public AttachedSoundEventArgs(Simulator sim, UUID soundID, UUID ownerID, UUID objectID, float gain, SoundFlags flags)
         {
-            this.m_Simulator = sim;
-            this.m_SoundID = soundID;
-            this.m_OwnerID = ownerID;
-            this.m_ObjectID = objectID;
-            this.m_Gain = gain;
-            this.m_Flags = flags;
+            m_Simulator = sim;
+            m_SoundID = soundID;
+            m_OwnerID = ownerID;
+            m_ObjectID = objectID;
+            m_Gain = gain;
+            m_Flags = flags;
         }
     }
 
@@ -351,9 +350,9 @@ namespace OpenMetaverse
     /// changes its volume level</remarks>
     public class AttachedSoundGainChangeEventArgs : EventArgs
     {
-        private readonly Simulator m_Simulator;
-        private readonly UUID m_ObjectID;
-        private readonly float m_Gain;
+        readonly Simulator m_Simulator;
+        readonly UUID m_ObjectID;
+        readonly float m_Gain;
 
         /// <summary>Simulator where the event originated</summary>
         public Simulator Simulator { get { return m_Simulator; } }
@@ -370,9 +369,9 @@ namespace OpenMetaverse
         /// <param name="gain">The new volume level</param>
         public AttachedSoundGainChangeEventArgs(Simulator sim, UUID objectID, float gain)
         {
-            this.m_Simulator = sim;
-            this.m_ObjectID = objectID;
-            this.m_Gain = gain;
+            m_Simulator = sim;
+            m_ObjectID = objectID;
+            m_Gain = gain;
         }
     }
 
@@ -380,12 +379,12 @@ namespace OpenMetaverse
     /// <remarks><para>The <see cref="SoundManager.SoundTrigger"/> event occurs when the simulator forwards
     /// a request made by yourself or another agent to play either an asset sound or a built in sound</para>
     /// 
-    /// <para>Requests to play sounds where the <see cref="SoundTriggerEventArgs.SoundID"/> is not one of the built-in
+    /// <para>Requests to play sounds where the <see cref="SoundID"/> is not one of the built-in
     /// <see cref="Sounds"/> will require sending a request to download the sound asset before it can be played</para>
     /// </remarks>
     /// <example>
-    /// The following code example uses the <see cref="SoundTriggerEventArgs.OwnerID"/>, <see cref="SoundTriggerEventArgs.SoundID"/> 
-    /// and <see cref="SoundTriggerEventArgs.Gain"/>
+    /// The following code example uses the <see cref="OwnerID"/>, <see cref="SoundID"/> 
+    /// and <see cref="Gain"/>
     /// properties to display some information on a sound request on the <see cref="Console"/> window.
     /// <code>
     ///     // subscribe to the event
@@ -404,14 +403,14 @@ namespace OpenMetaverse
     /// </example>
     public class SoundTriggerEventArgs : EventArgs
     {
-        private readonly Simulator m_Simulator;
-        private readonly UUID m_SoundID;
-        private readonly UUID m_OwnerID;
-        private readonly UUID m_ObjectID;
-        private readonly UUID m_ParentID;
-        private readonly float m_Gain;
-        private readonly ulong m_RegionHandle;
-        private readonly Vector3 m_Position;
+        readonly Simulator m_Simulator;
+        readonly UUID m_SoundID;
+        readonly UUID m_OwnerID;
+        readonly UUID m_ObjectID;
+        readonly UUID m_ParentID;
+        readonly float m_Gain;
+        readonly ulong m_RegionHandle;
+        readonly Vector3 m_Position;
 
         /// <summary>Simulator where the event originated</summary>
         public Simulator Simulator { get { return m_Simulator; } }
@@ -443,14 +442,14 @@ namespace OpenMetaverse
         /// <param name="position">The source position</param>
         public SoundTriggerEventArgs(Simulator sim, UUID soundID, UUID ownerID, UUID objectID, UUID parentID, float gain, ulong regionHandle, Vector3 position)
         {
-            this.m_Simulator = sim;
-            this.m_SoundID = soundID;
-            this.m_OwnerID = ownerID;
-            this.m_ObjectID = objectID;
-            this.m_ParentID = parentID;
-            this.m_Gain = gain;
-            this.m_RegionHandle = regionHandle;
-            this.m_Position = position;
+            m_Simulator = sim;
+            m_SoundID = soundID;
+            m_OwnerID = ownerID;
+            m_ObjectID = objectID;
+            m_ParentID = parentID;
+            m_Gain = gain;
+            m_RegionHandle = regionHandle;
+            m_Position = position;
         }
     }
 
@@ -473,10 +472,10 @@ namespace OpenMetaverse
     /// </example>
     public class PreloadSoundEventArgs : EventArgs
     {
-        private readonly Simulator m_Simulator;
-        private readonly UUID m_SoundID;
-        private readonly UUID m_OwnerID;
-        private readonly UUID m_ObjectID;
+        readonly Simulator m_Simulator;
+        readonly UUID m_SoundID;
+        readonly UUID m_OwnerID;
+        readonly UUID m_ObjectID;
 
         /// <summary>Simulator where the event originated</summary>
         public Simulator Simulator { get { return m_Simulator; } }
@@ -496,10 +495,10 @@ namespace OpenMetaverse
         /// <param name="objectID">The ID of the object</param>
         public PreloadSoundEventArgs(Simulator sim, UUID soundID, UUID ownerID, UUID objectID)
         {
-            this.m_Simulator = sim;
-            this.m_SoundID = soundID;
-            this.m_OwnerID = ownerID;
-            this.m_ObjectID = objectID;
+            m_Simulator = sim;
+            m_SoundID = soundID;
+            m_OwnerID = ownerID;
+            m_ObjectID = objectID;
         }
     }
     #endregion

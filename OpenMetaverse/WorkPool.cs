@@ -100,13 +100,13 @@ namespace OpenMetaverse
     // Fallback to System.Threading.ThreadPool if that fails
     public static class WorkPoolDynamic
     {
-        internal static object Pool = null;
+        internal static object Pool;
 
-        private static Type SmartThreadPoolType;
-        private static Type WorkItemCallbackType;
-        private static MethodInfo QueueWorkItemFunc, QueueWorkItemFunc2;
-        private static MethodInfo ShutdownFunc;
-        private static Func<System.Threading.WaitCallback, object, object> Invoker;
+        static Type SmartThreadPoolType;
+        static Type WorkItemCallbackType;
+        static MethodInfo QueueWorkItemFunc, QueueWorkItemFunc2;
+        static MethodInfo ShutdownFunc;
+        static Func<WaitCallback, object, object> Invoker;
 
         public static bool Init()
         {
@@ -153,7 +153,7 @@ namespace OpenMetaverse
         }
 
 
-        public static void QueueUserWorkItem(System.Threading.WaitCallback callback)
+        public static void QueueUserWorkItem(WaitCallback callback)
         {
             if (Pool != null)
             {
@@ -161,11 +161,11 @@ namespace OpenMetaverse
             }
             else
             {
-                System.Threading.ThreadPool.QueueUserWorkItem(state => callback.Invoke(state));
+                ThreadPool.QueueUserWorkItem(state => callback.Invoke(state));
             }
         }
 
-        public static void QueueUserWorkItem(System.Threading.WaitCallback callback, object state)
+        public static void QueueUserWorkItem(WaitCallback callback, object state)
         {
             if (Pool != null)
             {
@@ -173,7 +173,7 @@ namespace OpenMetaverse
             }
             else
             {
-                System.Threading.ThreadPool.QueueUserWorkItem(sync => callback.Invoke(sync), state);
+                ThreadPool.QueueUserWorkItem(sync => callback.Invoke(sync), state);
             }
         }
     }
@@ -181,7 +181,7 @@ namespace OpenMetaverse
 
     public static class WorkPool
     {
-        private static bool UseSmartThreadPool = false;
+        static bool UseSmartThreadPool = false;
 
         public static bool Init(bool useSmartThredPool)
         {
@@ -206,7 +206,7 @@ namespace OpenMetaverse
             }
         }
 
-        public static void QueueUserWorkItem(System.Threading.WaitCallback callback)
+        public static void QueueUserWorkItem(WaitCallback callback)
         {
             if (UseSmartThreadPool)
             {
@@ -218,7 +218,7 @@ namespace OpenMetaverse
             }
         }
 
-        public static void QueueUserWorkItem(System.Threading.WaitCallback callback, object state)
+        public static void QueueUserWorkItem(WaitCallback callback, object state)
         {
             if (UseSmartThreadPool)
             {

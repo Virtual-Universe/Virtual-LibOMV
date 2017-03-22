@@ -81,7 +81,7 @@ namespace OpenMetaverse.Http
                     postData = OSDParser.SerializeLLSDBinary(data);
                     contentType = "application/llsd+binary";
                     break;
-                case OSDFormat.Json:
+                //case OSDFormat.Json:
                 default:
                     postData = System.Text.Encoding.UTF8.GetBytes(OSDParser.SerializeJsonString(data));
                     contentType = "application/llsd+json";
@@ -164,14 +164,17 @@ namespace OpenMetaverse.Http
 
             if (responseData != null)
             {
-                try { result = OSDParser.Deserialize(responseData); }
-                catch (Exception ex) { error = ex; }
+                try {
+                    result = OSDParser.Deserialize(responseData); 
+                    FireCompleteCallback(result, error);
+                } catch (Exception ex) {
+                    error = ex; 
+                }
             }
 
-            FireCompleteCallback(result, error);
         }
 
-        private void FireCompleteCallback(OSD result, Exception error)
+        void FireCompleteCallback(OSD result, Exception error)
         {
             CompleteCallback callback = OnComplete;
             if (callback != null)

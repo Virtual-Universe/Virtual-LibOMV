@@ -81,6 +81,11 @@ namespace CSJ2K.j2k.decoder
 				{
 					throw new System.ApplicationException("Cannot clone the DecoderSpecs instance");
 				}
+        if (decSpec2 == null)
+				{
+					throw new System.ApplicationException("Cannot clone the DecoderSpecs instance");
+				}
+
 				// Quantization
 				decSpec2.qts = (QuantTypeSpec) qts.Copy;
 				decSpec2.qsss = (QuantStepSizeSpec) qsss.Copy;

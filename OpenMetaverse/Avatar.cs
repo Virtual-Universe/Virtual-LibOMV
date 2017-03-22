@@ -25,10 +25,7 @@
  */
 
 using System;
-using System.Net;
 using System.Collections.Generic;
-using System.Threading;
-using OpenMetaverse.Packets;
 using OpenMetaverse.StructuredData;
 using System.Reflection;
 
@@ -148,7 +145,7 @@ namespace OpenMetaverse
                 get { return ((Flags & ProfileFlags.AllowPublish) != 0); }
                 set
                 {
-                    if (value == true)
+                    if (value)
                         Flags |= ProfileFlags.AllowPublish;
                     else
                         Flags &= ~ProfileFlags.AllowPublish;
@@ -160,7 +157,7 @@ namespace OpenMetaverse
                 get { return ((Flags & ProfileFlags.Online) != 0); }
                 set
                 {
-                    if (value == true)
+                    if (value)
                         Flags |= ProfileFlags.Online;
                     else
                         Flags &= ~ProfileFlags.Online;
@@ -172,7 +169,7 @@ namespace OpenMetaverse
                 get { return ((Flags & ProfileFlags.MaturePublish) != 0); }
                 set
                 {
-                    if (value == true)
+                    if (value)
                         Flags |= ProfileFlags.MaturePublish;
                     else
                         Flags &= ~ProfileFlags.MaturePublish;
@@ -184,7 +181,7 @@ namespace OpenMetaverse
                 get { return ((Flags & ProfileFlags.Identified) != 0); }
                 set
                 {
-                    if (value == true)
+                    if (value)
                         Flags |= ProfileFlags.Identified;
                     else
                         Flags &= ~ProfileFlags.Identified;
@@ -196,7 +193,7 @@ namespace OpenMetaverse
                 get { return ((Flags & ProfileFlags.Transacted) != 0); }
                 set
                 {
-                    if (value == true)
+                    if (value)
                         Flags |= ProfileFlags.Transacted;
                     else
                         Flags &= ~ProfileFlags.Transacted;
@@ -347,7 +344,7 @@ namespace OpenMetaverse
                         return (string)NameValues[i].Value;
                 }
 
-                return String.Empty;
+                return string.Empty;
             }
         }
 
@@ -362,7 +359,7 @@ namespace OpenMetaverse
                         return (string)NameValues[i].Value;
                 }
 
-                return String.Empty;
+                return string.Empty;
             }
         }
 
@@ -371,40 +368,29 @@ namespace OpenMetaverse
         {
             get
             {
-                if (!String.IsNullOrEmpty(name))
-                {
+                if (!string.IsNullOrEmpty (name)) {
                     return name;
                 }
-                else if (NameValues != null && NameValues.Length > 0)
-                {
-                    lock (NameValues)
-                    {
-                        string firstName = String.Empty;
-                        string lastName = String.Empty;
+                if (NameValues != null && NameValues.Length > 0) {
+                    lock (NameValues) {
+                        string firstName = string.Empty;
+                        string lastName = string.Empty;
 
-                        for (int i = 0; i < NameValues.Length; i++)
-                        {
-                            if (NameValues[i].Name == "FirstName" && NameValues[i].Type == NameValue.ValueType.String)
-                                firstName = (string)NameValues[i].Value;
-                            else if (NameValues[i].Name == "LastName" && NameValues[i].Type == NameValue.ValueType.String)
-                                lastName = (string)NameValues[i].Value;
+                        for (int i = 0; i < NameValues.Length; i++) {
+                            if (NameValues [i].Name == "FirstName" && NameValues [i].Type == NameValue.ValueType.String)
+                                firstName = (string)NameValues [i].Value;
+                            else if (NameValues [i].Name == "LastName" && NameValues [i].Type == NameValue.ValueType.String)
+                                lastName = (string)NameValues [i].Value;
                         }
 
-                        if (firstName != String.Empty && lastName != String.Empty)
-                        {
-                            name = String.Format("{0} {1}", firstName, lastName);
+                        if (firstName != string.Empty && lastName != string.Empty) {
+                            name = string.Format ("{0} {1}", firstName, lastName);
                             return name;
                         }
-                        else
-                        {
-                            return String.Empty;
-                        }
+                        return string.Empty;
                     }
                 }
-                else
-                {
-                    return String.Empty;
-                }
+                return string.Empty;
             }
         }
 
@@ -413,32 +399,21 @@ namespace OpenMetaverse
         {
             get
             {
-                if (!String.IsNullOrEmpty(groupName))
-                {
+                if (!string.IsNullOrEmpty (groupName)) {
                     return groupName;
                 }
-                else
-                {
-                    if (NameValues == null || NameValues.Length == 0)
-                    {
-                        return String.Empty;
-                    }
-                    else
-                    {
-                        lock (NameValues)
-                        {
-                            for (int i = 0; i < NameValues.Length; i++)
-                            {
-                                if (NameValues[i].Name == "Title" && NameValues[i].Type == NameValue.ValueType.String)
-                                {
-                                    groupName = (string)NameValues[i].Value;
-                                    return groupName;
-                                }
-                            }
+                if (NameValues == null || NameValues.Length == 0) {
+                    return string.Empty;
+                }
+                lock (NameValues) {
+                    for (int i = 0; i < NameValues.Length; i++) {
+                        if (NameValues [i].Name == "Title" && NameValues [i].Type == NameValue.ValueType.String) {
+                            groupName = (string)NameValues [i].Value;
+                            return groupName;
                         }
-                        return String.Empty;
                     }
                 }
+                return string.Empty;
             }
         }
 
@@ -451,9 +426,9 @@ namespace OpenMetaverse
 
             OSDArray vp = new OSDArray();
 
-            for (int i = 0; i < VisualParameters.Length; i++)
+            foreach (var vpByte in VisualParameters)
             {
-                vp.Add(OSD.FromInteger(VisualParameters[i]));
+                vp.Add(OSD.FromInteger(vpByte));
             }
 
             Avi["groups"] = grp;
@@ -483,10 +458,10 @@ namespace OpenMetaverse
 
             FieldInfo[] Fields = Prim.GetFields();
 
-            for (int x = 0; x < Fields.Length; x++)
+            foreach (var info in Fields)
             {
-                Logger.Log("Field Matched in FromOSD: "+Fields[x].Name, Helpers.LogLevel.Debug);
-                Fields[x].SetValue(A, Fields[x].GetValue(P));
+                Logger.Log("Field Matched in FromOSD: "+ info.Name, Helpers.LogLevel.Debug);
+                info.SetValue(A, info.GetValue(P));
             }            
 
             A.Groups = new List<UUID>();

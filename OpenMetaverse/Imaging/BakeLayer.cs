@@ -25,7 +25,6 @@
  */
 
 using System;
-using System.Reflection;
 using System.Collections.Generic;
 using System.IO;
 using System.Drawing;
@@ -202,20 +201,20 @@ namespace OpenMetaverse.Imaging
                 {
                     if (texture.Alpha != null)
                     {
-                        for (int j = 0; j < texture.Alpha.Length; j++) texture.Alpha[j] = (byte)255;
+                        for (int j = 0; j < texture.Alpha.Length; j++) texture.Alpha[j] = 255;
                     }
                     MultiplyLayerFromAlpha(texture, LoadResourceLayer("head_hair.tga"));
                 }
 
-                bool processingSkin = true;
+                //bool processingSkin = true;
 
-                // Aply tint and alpha masks except for skin that has a texture
+                // Apply tint and alpha masks except for skin that has a texture
                 // on layer 0 which always overrides other skin settings
                 if (!(textures[i].TextureIndex == AvatarTextureIndex.HeadBodypaint ||
                         textures[i].TextureIndex == AvatarTextureIndex.UpperBodypaint ||
                         textures[i].TextureIndex == AvatarTextureIndex.LowerBodypaint))
                 {
-                    processingSkin = false;
+                    // processingSkin = false;
 
                     ApplyTint(texture, textures[i].Color);
 
@@ -237,7 +236,7 @@ namespace OpenMetaverse.Imaging
                     else if (textures[i].AlphaMasks != null && textures[i].AlphaMasks.Count > 0)
                     {
                         // Combined mask for the layer, fully transparent to begin with
-                        ManagedImage combinedMask = new ManagedImage(bakeWidth, bakeHeight, ManagedImage.ImageChannels.Alpha);
+                        var combinedMask = new ManagedImage(bakeWidth, bakeHeight, ManagedImage.ImageChannels.Alpha);
 
                         int addedMasks = 0;
 
@@ -347,17 +346,16 @@ namespace OpenMetaverse.Imaging
                 }
                 if (bitmap == null)
                 {
-                    Logger.Log(String.Format("Failed loading resource file: {0}", fileName), Helpers.LogLevel.Error);
+                    Logger.Log(string.Format("Failed loading resource file: {0}", fileName), Helpers.LogLevel.Error);
                     return null;
                 }
-                else
-                {
-                    return new ManagedImage(bitmap);
-                }
+                var retbmp = new ManagedImage(bitmap);
+                bitmap.Dispose ();
+                return retbmp;
             }
             catch (Exception e)
             {
-                Logger.Log(String.Format("Failed loading resource file: {0} ({1})", fileName, e.Message),
+                Logger.Log(string.Format("Failed loading resource file: {0} ({1})", fileName, e.Message),
                     Helpers.LogLevel.Error, e);
                 return null;
             }
@@ -437,8 +435,8 @@ namespace OpenMetaverse.Imaging
 
             addSourceAlpha = (addSourceAlpha && sourceHasAlpha);
 
-            byte alpha = Byte.MaxValue;
-            byte alphaInv = (byte)(Byte.MaxValue - alpha);
+            byte alpha = byte.MaxValue;
+            byte alphaInv = (byte)(byte.MaxValue - alpha);
 
             byte[] bakedRed = bakedTexture.Image.Red;
             byte[] bakedGreen = bakedTexture.Image.Green;
@@ -459,7 +457,7 @@ namespace OpenMetaverse.Imaging
                     if (sourceHasAlpha)
                     {
                         alpha = sourceAlpha[i];
-                        alphaInv = (byte)(Byte.MaxValue - alpha);
+                        alphaInv = (byte)(byte.MaxValue - alpha);
                     }
 
                     if (sourceHasColor)
@@ -617,15 +615,15 @@ namespace OpenMetaverse.Imaging
             gAlt = gByte;
             bAlt = bByte;
 
-            if (rByte < Byte.MaxValue)
+            if (rByte < byte.MaxValue)
                 rAlt++;
             else rAlt--;
 
-            if (gByte < Byte.MaxValue)
+            if (gByte < byte.MaxValue)
                 gAlt++;
             else gAlt--;
 
-            if (bByte < Byte.MaxValue)
+            if (bByte < byte.MaxValue)
                 bAlt++;
             else bAlt--;
 
@@ -646,7 +644,7 @@ namespace OpenMetaverse.Imaging
                         red[i] = rAlt;
                         green[i] = gByte;
                         blue[i] = bByte;
-                        alpha[i] = Byte.MaxValue;
+                        alpha[i] = byte.MaxValue;
                         bump[i] = 0;
                     }
                     else
@@ -654,7 +652,7 @@ namespace OpenMetaverse.Imaging
                         red[i] = rByte;
                         green[i] = gAlt;
                         blue[i] = bAlt;
-                        alpha[i] = Byte.MaxValue;
+                        alpha[i] = byte.MaxValue;
                         bump[i] = 0;
                     }
 

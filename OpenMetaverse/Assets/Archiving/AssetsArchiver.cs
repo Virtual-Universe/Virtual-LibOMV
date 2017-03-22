@@ -24,12 +24,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Xml;
-using OpenMetaverse;
 
 namespace OpenMetaverse.Assets
 {
@@ -92,10 +89,10 @@ namespace OpenMetaverse.Assets
                             extension = ArchiveConstants.ASSET_TYPE_TO_EXTENSION[asset.AssetType];
                         }
 
-                        xtw.WriteElementString("filename", uuid.ToString() + extension);
+                        xtw.WriteElementString("filename", uuid + extension);
 
                         xtw.WriteElementString("name", uuid.ToString());
-                        xtw.WriteElementString("description", String.Empty);
+                        xtw.WriteElementString("description", string.Empty);
                         xtw.WriteElementString("asset-type", asset.AssetType.ToString());
 
                         xtw.WriteEndElement();
@@ -131,7 +128,7 @@ namespace OpenMetaverse.Assets
                 }
                 else
                 {
-                    Logger.Log(String.Format(
+                    Logger.Log(string.Format(
                         "Unrecognized asset type {0} with uuid {1}.  This asset will be saved but not reloaded",
                         asset.AssetType, asset.AssetID), Helpers.LogLevel.Warning);
                 }
@@ -139,7 +136,7 @@ namespace OpenMetaverse.Assets
                 asset.Encode();
 
                 archive.WriteFile(
-                    ArchiveConstants.ASSETS_PATH + uuid.ToString() + extension,
+                    ArchiveConstants.ASSETS_PATH + uuid + extension,
                     asset.AssetData);
 
                 assetsAdded++;

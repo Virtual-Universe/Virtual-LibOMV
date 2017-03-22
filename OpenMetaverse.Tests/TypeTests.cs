@@ -27,10 +27,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework;
 using OpenMetaverse;
 using OpenMetaverse.Packets;
 using OpenMetaverse.StructuredData;
+using NUnit.Framework;
 
 namespace OpenMetaverse.Tests
 {
@@ -47,17 +47,22 @@ namespace OpenMetaverse.Tests
                 Assert.IsTrue(bytes[i] == 0x00);
 
             // Comparison
-            a = new UUID(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0xFF, 0xFF }, 0);
-            UUID b = new UUID(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F }, 0);
+            a = new UUID(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A,
+                0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0xFF, 0xFF }, 0);
+            UUID b = new UUID(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A,
+                0x0B, 0x0C, 0x0D, 0x0E, 0x0F }, 0);
 
-            Assert.IsTrue(a == b, "UUID comparison operator failed, " + a.ToString() + " should equal " +  b.ToString());
+            Assert.IsTrue(a == b, "UUID comparison operator failed, " + a.ToString() + " should equal " + 
+                b.ToString());
 
             // From string
-            a = new UUID(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F }, 0);
+            a = new UUID(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A,
+                0x0B, 0x0C, 0x0D, 0x0E, 0x0F }, 0);
             string zeroonetwo = "00010203-0405-0607-0809-0a0b0c0d0e0f";
             b = new UUID(zeroonetwo);
 
-            Assert.IsTrue(a == b, "UUID hyphenated string constructor failed, should have " + a.ToString() + " but we got " + b.ToString());
+            Assert.IsTrue(a == b, "UUID hyphenated string constructor failed, should have " + a.ToString() + 
+                " but we got " + b.ToString());
 
             // ToString()            
             Assert.IsTrue(a == b);                        
@@ -135,7 +140,6 @@ namespace OpenMetaverse.Tests
                             "Vector casting failed, precision loss should" +
                             " have occurred. " +
                             "{0}: {1}, {2}", kvp.Key, a.X, b.X));
-
                     Assert.IsFalse(b == d, string.Format(
                             "Vector casting failed, explicit cast of double" +
                             " to float should result in precision loss" +
@@ -143,13 +147,11 @@ namespace OpenMetaverse.Tests
                             " Vector3 is implicitly cast to Vector3d." +
                             " {0}: {1}, {2}", kvp.Key, b.X, d.X));
                 }
-
                 Assert.IsTrue(a == c, string.Format(
                         "Vector casting failed, Vector3 compared to" +
                         " explicit cast of Vector3d to Vector3 should" +
                         " result in identical precision loss." +
                         " {0}: {1}, {2}", kvp.Key, a.X, c.X));
-
                 Assert.IsTrue(a == d, string.Format(
                         "Vector casting failed, implicit cast of Vector3" +
                         " to Vector3d should not result in precision loss." +
@@ -168,21 +170,24 @@ namespace OpenMetaverse.Tests
             Quaternion expected = new Quaternion(0, 0, 0, -1);
             Quaternion result = a * b;
 
-            Assert.IsTrue(result == expected, a.ToString() + " * " + b.ToString() + " produced " + result.ToString() + " instead of " + expected.ToString());
+            Assert.IsTrue(result == expected, a.ToString() + " * " + b.ToString() + " produced " + result.ToString() +
+                " instead of " + expected.ToString());
 
             a = new Quaternion(1, 0, 0, 0);
             b = new Quaternion(0, 1, 0, 0);
             expected = new Quaternion(0, 0, 1, 0);
             result = a * b;
 
-            Assert.IsTrue(result == expected, a.ToString() + " * " + b.ToString() + " produced " + result.ToString() + " instead of " + expected.ToString());
+            Assert.IsTrue(result == expected, a.ToString() + " * " + b.ToString() + " produced " + result.ToString() +
+                " instead of " + expected.ToString());
 
             a = new Quaternion(0, 0, 1, 0);
             b = new Quaternion(0, 1, 0, 0);
             expected = new Quaternion(-1, 0, 0, 0);
             result = a * b;
 
-            Assert.IsTrue(result == expected, a.ToString() + " * " + b.ToString() + " produced " + result.ToString() + " instead of " + expected.ToString());
+            Assert.IsTrue(result == expected, a.ToString() + " * " + b.ToString() + " produced " + result.ToString() +
+                " instead of " + expected.ToString());
         }
         
         [Test]
@@ -210,6 +215,18 @@ namespace OpenMetaverse.Tests
     						                      0, 0, 0, 1);
     	    Assert.AreEqual(expectedInverse, Matrix4.Inverse(matrix));
         }
+
+        //[Test]
+        //public void VectorQuaternionMath()
+        //{
+        //    // Convert a vector to a quaternion and back
+        //    Vector3 a = new Vector3(1f, 0.5f, 0.75f);
+        //    Quaternion b = a.ToQuaternion();
+        //    Vector3 c;
+        //    b.GetEulerAngles(out c.X, out c.Y, out c.Z);
+
+        //    Assert.IsTrue(a == c, c.ToString() + " does not equal " + a.ToString());
+        //}
 
         [Test]
         public void FloatsToTerseStrings()
@@ -333,7 +350,8 @@ namespace OpenMetaverse.Tests
             Assert.IsInstanceOfType(typeof(OSDArray), obj, "Expected ArrayList, got " + obj.GetType().ToString());
             array = (OSDArray)obj;
             Assert.IsTrue(array[0].AsReal() == 1.0d && array[1].AsReal() == 1.0d && array[2].AsReal() == 1.0d,
-                "Unexpected value(s) for nested array: " + array[0].AsReal() + ", " + array[1].AsReal() + ", " + array[2].AsReal());
+                "Unexpected value(s) for nested array: " + array[0].AsReal() + ", " + array[1].AsReal() + ", " +
+                array[2].AsReal());
 
             obj = OSDParser.DeserializeLLSDNotation(testThree);
             Assert.IsInstanceOfType(typeof(OSDMap), obj, "Expected LLSDMap, got " + obj.GetType().ToString());

@@ -46,8 +46,7 @@ namespace OpenMetaverse.ImportExport
         public List<uint> Indices = new List<uint>();
         public string MaterialID = string.Empty;
         public ModelMaterial Material = new ModelMaterial();
-
-        Dictionary<Vertex, int> LookUp = new Dictionary<Vertex, int>();
+        readonly Dictionary<Vertex, int> LookUp = new Dictionary<Vertex, int> ();
 
         public void AddVertex(Vertex v)
         {
@@ -83,19 +82,19 @@ namespace OpenMetaverse.ImportExport
 
         public void CreateAsset(UUID creator)
         {
-            OSDMap header = new OSDMap();
+            var header = new OSDMap();
             header["version"] = 1;
             header["creator"] = creator;
             header["date"] = DateTime.Now;
 
-            OSDArray faces = new OSDArray();
+            var faces = new OSDArray();
             foreach (var face in Faces)
             {
-                OSDMap faceMap = new OSDMap();
+                var faceMap = new OSDMap();
 
                 // Find UV min/max
-                Vector2 uvMin = new Vector2(float.MaxValue, float.MaxValue);
-                Vector2 uvMax = new Vector2(float.MinValue, float.MinValue);
+                var uvMin = new Vector2(float.MaxValue, float.MaxValue);
+                var uvMax = new Vector2(float.MinValue, float.MinValue);
                 foreach (var v in face.Vertices)
                 {
                     if (v.TexCoord.X < uvMin.X) uvMin.X = v.TexCoord.X;
@@ -104,20 +103,20 @@ namespace OpenMetaverse.ImportExport
                     if (v.TexCoord.X > uvMax.X) uvMax.X = v.TexCoord.X;
                     if (v.TexCoord.Y > uvMax.Y) uvMax.Y = v.TexCoord.Y;
                 }
-                OSDMap uvDomain = new OSDMap();
+                var uvDomain = new OSDMap();
                 uvDomain["Min"] = uvMin;
                 uvDomain["Max"] = uvMax;
                 faceMap["TexCoord0Domain"] = uvDomain;
 
 
-                OSDMap positionDomain = new OSDMap();
+                var positionDomain = new OSDMap();
                 positionDomain["Min"] = new Vector3(-0.5f, -0.5f, -0.5f);
                 positionDomain["Max"] = new Vector3(0.5f, 0.5f, 0.5f);
                 faceMap["PositionDomain"] = positionDomain;
 
-                List<byte> posBytes = new List<byte>(face.Vertices.Count * sizeof(UInt16) * 3);
-                List<byte> norBytes = new List<byte>(face.Vertices.Count * sizeof(UInt16) * 3);
-                List<byte> uvBytes = new List<byte>(face.Vertices.Count * sizeof(UInt16) * 2);
+                var posBytes = new List<byte>(face.Vertices.Count * sizeof(ushort) * 3);
+                var norBytes = new List<byte>(face.Vertices.Count * sizeof(ushort) * 3);
+                var uvBytes = new List<byte>(face.Vertices.Count * sizeof(ushort) * 2);
 
                 foreach (var v in face.Vertices)
                 {
@@ -137,7 +136,7 @@ namespace OpenMetaverse.ImportExport
                 faceMap["Normal"] = norBytes.ToArray();
                 faceMap["TexCoord0"] = uvBytes.ToArray();
 
-                List<byte> indexBytes = new List<byte>(face.Indices.Count * sizeof(UInt16));
+                var indexBytes = new List<byte>(face.Indices.Count * sizeof(ushort));
                 foreach (var t in face.Indices)
                 {
                     indexBytes.AddRange(Utils.UInt16ToBytes((ushort)t));
@@ -152,16 +151,16 @@ namespace OpenMetaverse.ImportExport
             byte[] meshBytes = Helpers.ZCompressOSD(faces);
             int n = 0;
 
-            OSDMap lodParms = new OSDMap();
+            var lodParms = new OSDMap();
             lodParms["offset"] = n;
             lodParms["size"] = meshBytes.Length;
             header["high_lod"] = lodParms;
             n += meshBytes.Length;
 
-            lodParms = new OSDMap();
-            lodParms["offset"] = n;
-            lodParms["size"] = physicStubBytes.Length;
-            header["physics_convex"] = lodParms;
+            var physicsParms = new OSDMap();
+            physicsParms["offset"] = n;
+            physicsParms["size"] = physicStubBytes.Length;
+            header["physics_convex"] = physicsParms;
             n += physicStubBytes.Length;
 
             byte[] headerBytes = OSDParser.SerializeLLSDBinary(header, false);
@@ -183,7 +182,7 @@ namespace OpenMetaverse.ImportExport
 
         public static OSD PhysicsStub()
         {
-            OSDMap ret = new OSDMap();
+            var ret = new OSDMap();
             ret["Max"] = new Vector3(0.5f, 0.5f, 0.5f);
             ret["Min"] = new Vector3(-0.5f, -0.5f, -0.5f);
             ret["BoundingVerts"] = new byte[] { 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 255, 255, 255, 127, 0, 0, 255, 255, 255, 127, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 127, 255, 255, 255, 255, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255 };

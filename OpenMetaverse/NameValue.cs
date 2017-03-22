@@ -25,7 +25,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace OpenMetaverse
@@ -109,8 +108,7 @@ namespace OpenMetaverse
         public object Value;
 
 
-        private static readonly string[] TypeStrings = new string[]
-        {
+        static readonly string[] TypeStrings = {
             "STRING",
             "F32",
             "S32",
@@ -119,21 +117,18 @@ namespace OpenMetaverse
             "ASSET",
             "U64"
         };
-        private static readonly string[] ClassStrings = new string[]
-        {
+        static readonly string[] ClassStrings = {
             "R",    // Read-only
             "RW",   // Read-write
             "CB"    // Callback
         };
-        private static readonly string[] SendtoStrings = new string[]
-        {
+        static readonly string[] SendtoStrings = {
             "S",    // Sim
             "DS",   // Data Sim
             "SV",   // Sim Viewer
             "DSV"   // Data Sim Viewer
         };
-        private static readonly char[] Separators = new char[]
-        {
+        static readonly char[] Separators = {
             ' ',
             '\n',
             '\t',
@@ -169,7 +164,7 @@ namespace OpenMetaverse
             i = data.IndexOfAny(Separators);
             if (i < 1)
             {
-                Name = String.Empty;
+                Name = string.Empty;
                 Type = ValueType.Unknown;
                 Class = ClassType.Unknown;
                 Sendto = SendtoType.Unknown;
@@ -214,7 +209,7 @@ namespace OpenMetaverse
         public static string NameValuesToString(NameValue[] values)
         {
             if (values == null || values.Length == 0)
-                return String.Empty;
+                return string.Empty;
 
             StringBuilder output = new StringBuilder();
 
@@ -224,7 +219,7 @@ namespace OpenMetaverse
 
                 if (value.Value != null)
                 {
-                    string newLine = (i < values.Length - 1) ? "\n" : String.Empty;
+                    string newLine = (i < values.Length - 1) ? "\n" : string.Empty;
                     output.AppendFormat("{0} {1} {2} {3} {4}{5}", value.Name, TypeStrings[(int)value.Type],
                         ClassStrings[(int)value.Class], SendtoStrings[(int)value.Sendto], value.Value.ToString(), newLine);
                 }
@@ -233,7 +228,7 @@ namespace OpenMetaverse
             return output.ToString();
         }
 
-        private void SetValue(string value)
+        void SetValue(string value)
         {
             switch (Type)
             {
@@ -251,21 +246,21 @@ namespace OpenMetaverse
                 case ValueType.S32:
                 {
                     int temp;
-                    Int32.TryParse(value, out temp);
+                    int.TryParse(value, out temp);
                     Value = temp;
                     break;
                 }
                 case ValueType.U32:
                 {
                     uint temp;
-                    UInt32.TryParse(value, out temp);
+                    uint.TryParse(value, out temp);
                     Value = temp;
                     break;
                 }
                 case ValueType.U64:
                 {
                     ulong temp;
-                    UInt64.TryParse(value, out temp);
+                    ulong.TryParse(value, out temp);
                     Value = temp;
                     break;
                 }
@@ -282,7 +277,7 @@ namespace OpenMetaverse
             }
         }
 
-        private static ValueType GetValueType(string value)
+        static ValueType GetValueType(string value)
         {
             ValueType type = ValueType.Unknown;
 
@@ -301,7 +296,7 @@ namespace OpenMetaverse
             return type;
         }
 
-        private static ClassType GetClassType(string value)
+        static ClassType GetClassType(string value)
         {
             ClassType type = ClassType.Unknown;
 
@@ -320,7 +315,7 @@ namespace OpenMetaverse
             return type;
         }
 
-        private static SendtoType GetSendtoType(string value)
+        static SendtoType GetSendtoType(string value)
         {
             SendtoType type = SendtoType.Unknown;
 

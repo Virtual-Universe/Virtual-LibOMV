@@ -38,16 +38,14 @@ namespace OpenMetaverse.Messages
             byte[] binary = osd.AsBinary();
             if (binary != null && binary.Length == 4)
                 return new IPAddress(binary);
-            else
-                return IPAddress.Any;
+            return IPAddress.Any;
         }
 
         public static OSD FromIP(IPAddress address)
         {
             if (address != null && address != IPAddress.Any)
                 return OSD.FromBinary(address.GetAddressBytes());
-            else
-                return new OSD();
+            return new OSD();
         }
 
         public static Dictionary<string, string> ToDictionaryString(OSD osd)

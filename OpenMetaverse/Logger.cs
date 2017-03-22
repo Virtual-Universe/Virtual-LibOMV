@@ -25,10 +25,6 @@
  */
 
 using System;
-using log4net;
-using log4net.Config;
-
-[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 namespace OpenMetaverse
 {
@@ -37,6 +33,8 @@ namespace OpenMetaverse
     /// </summary>
     public static class Logger
     {
+
+
         /// <summary>
         /// Callback used for client apps to receive log messages from
         /// the library
@@ -50,26 +48,31 @@ namespace OpenMetaverse
         public static event LogCallback OnLogMessage;
 
         /// <summary>log4net logging engine</summary>
-        public static ILog LogInstance;
+        //public ILog LogInstance;
+        public static ConsoleLogger LogInstance;
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        static Logger()
+        static Logger ()
         {
-            LogInstance = LogManager.GetLogger("OpenMetaverse");
 
+            //LogInstance = LogManager.GetLogger("OpenMetaverse");
+            LogInstance = new ConsoleLogger ();
+
+            LogInstance.Threshold = Helpers.LogLevel.Info;  //Settings.LOG_LEVEL
             // If error level reporting isn't enabled we assume no logger is configured and initialize a default
             // ConsoleAppender
-            if (!LogInstance.Logger.IsEnabledFor(log4net.Core.Level.Error))
-            {
-                log4net.Appender.ConsoleAppender appender = new log4net.Appender.ConsoleAppender();
-                appender.Layout = new log4net.Layout.PatternLayout("%timestamp [%thread] %-5level - %message%newline");
-                BasicConfigurator.Configure(appender);
+            /*           if (!LogInstance.Logger.IsEnabledFor(log4net.Core.Level.Error))
+                       {
+                           log4net.Appender.ConsoleAppender appender = new log4net.Appender.ConsoleAppender();
+                           appender.Layout = new log4net.Layout.PatternLayout("%timestamp [%thread] %-5level - %message%newline");
+                           BasicConfigurator.Configure(appender);
 
-                if(Settings.LOG_LEVEL != Helpers.LogLevel.None)
-                    LogInstance.Info("No log configuration found, defaulting to console logging");
-            }
+                           if(Settings.LOG_LEVEL != Helpers.LogLevel.None)
+                               LogInstance.Info("No log configuration found, defaulting to console logging");
+                       }
+           */
         }
 
         /// <summary>
@@ -77,9 +80,9 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="message">The log message</param>
         /// <param name="level">The severity of the log entry</param>
-        public static void Log(object message, Helpers.LogLevel level)
+        public static void Log (object message, Helpers.LogLevel level)
         {
-            Log(message, level, null, null);
+            Log (message, level, null, null);
         }
 
         /// <summary>
@@ -88,9 +91,9 @@ namespace OpenMetaverse
         /// <param name="message">The log message</param>
         /// <param name="level">The severity of the log entry</param>
         /// <param name="client">Instance of the client</param>
-        public static void Log(object message, Helpers.LogLevel level, GridClient client)
+        public static void Log (object message, Helpers.LogLevel level, GridClient client)
         {
-            Log(message, level, client, null);
+            Log (message, level, client, null);
         }
 
         /// <summary>
@@ -99,9 +102,9 @@ namespace OpenMetaverse
         /// <param name="message">The log message</param>
         /// <param name="level">The severity of the log entry</param>
         /// <param name="exception">Exception that was raised</param>
-        public static void Log(object message, Helpers.LogLevel level, Exception exception)
+        public static void Log (object message, Helpers.LogLevel level, Exception exception)
         {
-            Log(message, level, null, exception);
+            Log (message, level, null, exception);
         }
 
         /// <summary>
@@ -111,41 +114,62 @@ namespace OpenMetaverse
         /// <param name="level">The severity of the log entry</param>
         /// <param name="client">Instance of the client</param>
         /// <param name="exception">Exception that was raised</param>
-        public static void Log(object message, Helpers.LogLevel level, GridClient client, Exception exception)
+        public static void Log (object message, Helpers.LogLevel level, GridClient client, Exception exception)
         {
             if (client != null && client.Settings.LOG_NAMES)
-                message = String.Format("<{0}>: {1}", client.Self.Name, message);
+                message = string.Format ("<{0}>: {1}", client.Self.Name, message);
 
-            if (OnLogMessage != null)
-                OnLogMessage(message, level);
+            LogInstance.Log (message, level);
+            if (exception != null)
+                LogInstance.Log (exception, level);
 
-            switch (level)
-            {
-                case Helpers.LogLevel.Debug:
-                    if (Settings.LOG_LEVEL == Helpers.LogLevel.Debug)
-                        LogInstance.Debug(message, exception);
-                    break;
-                case Helpers.LogLevel.Info:
-                    if (Settings.LOG_LEVEL == Helpers.LogLevel.Debug
-                        || Settings.LOG_LEVEL == Helpers.LogLevel.Info)
-                        LogInstance.Info(message, exception);
-                    break;
-                case Helpers.LogLevel.Warning:
-                    if (Settings.LOG_LEVEL == Helpers.LogLevel.Debug
-                        || Settings.LOG_LEVEL == Helpers.LogLevel.Info
-                        || Settings.LOG_LEVEL == Helpers.LogLevel.Warning)
-                        LogInstance.Warn(message, exception);
-                    break;
-                case Helpers.LogLevel.Error:
-                    if (Settings.LOG_LEVEL == Helpers.LogLevel.Debug
-                        || Settings.LOG_LEVEL == Helpers.LogLevel.Info
-                        || Settings.LOG_LEVEL == Helpers.LogLevel.Warning
-                        || Settings.LOG_LEVEL == Helpers.LogLevel.Error)
-                        LogInstance.Error(message, exception);
-                    break;
-                default:
-                    break;
-            } 
+            /*
+            //if (OnLogMessage != null)
+            //    OnLogMessage(message, level);
+
+            switch (level) {
+            case Helpers.LogLevel.Debug:
+                if (Settings.LOG_LEVEL == Helpers.LogLevel.Debug) {
+                    //LogInstance.Debug(message, exception);
+                    LogInstance.Debug (message);
+                    if (exception != null)
+                        LogInstance.Debug (exception);
+                }
+                break;
+            case Helpers.LogLevel.Info:
+                if (Settings.LOG_LEVEL == Helpers.LogLevel.Debug
+                    || Settings.LOG_LEVEL == Helpers.LogLevel.Info) {
+                    //LogInstance.Info(message, exception);
+                    LogInstance.Info (message);
+                    if (exception != null)
+                        LogInstance.Info (exception);
+                }
+                break;
+            case Helpers.LogLevel.Warning:
+                if (Settings.LOG_LEVEL == Helpers.LogLevel.Debug
+                    || Settings.LOG_LEVEL == Helpers.LogLevel.Info
+                    || Settings.LOG_LEVEL == Helpers.LogLevel.Warning) {
+                    //LogInstance.Warn(message, exception);
+                    LogInstance.Warn (message);
+                    if (exception != null)
+                        LogInstance.Warn (exception);
+                }
+                break;
+            case Helpers.LogLevel.Error:
+                if (Settings.LOG_LEVEL == Helpers.LogLevel.Debug
+                    || Settings.LOG_LEVEL == Helpers.LogLevel.Info
+                    || Settings.LOG_LEVEL == Helpers.LogLevel.Warning
+                    || Settings.LOG_LEVEL == Helpers.LogLevel.Error) {
+                    //LogInstance.Error(message, exception);
+                    LogInstance.Error (message);
+                    if (exception != null)
+                        LogInstance.Error (exception);
+                }
+                break;
+            default:
+                break;
+            }
+            */
         }
 
         /// <summary>
@@ -155,9 +179,9 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="message">The message to log at the DEBUG level to the
         /// current logging engine</param>
-        public static void DebugLog(object message)
+        public static void DebugLog (object message)
         {
-            DebugLog(message, null);
+            DebugLog (message, null);
         }
 
         /// <summary>
@@ -169,19 +193,19 @@ namespace OpenMetaverse
         /// <param name="message">The message to log at the DEBUG level to the
         /// current logging engine</param>
         /// <param name="client">Instance of the client</param>
-        [System.Diagnostics.Conditional("DEBUG")]
-        public static void DebugLog(object message, GridClient client)
+        [System.Diagnostics.Conditional ("DEBUG")]
+        public static void DebugLog (object message, GridClient client)
         {
-            if (Settings.LOG_LEVEL == Helpers.LogLevel.Debug)
-            {
+            if (Settings.LOG_LEVEL == Helpers.LogLevel.Debug) {
                 if (client != null && client.Settings.LOG_NAMES)
-                    message = String.Format("<{0}>: {1}", client.Self.Name, message);
+                    message = string.Format ("<{0}>: {1}", client.Self.Name, message);
 
-                if (OnLogMessage != null)
-                    OnLogMessage(message, Helpers.LogLevel.Debug);
+                //if (OnLogMessage != null)
+                //    OnLogMessage(message, Helpers.LogLevel.Debug);
 
-                LogInstance.Debug(message);
+                LogInstance.Debug (message);
             }
         }
     }
+
 }

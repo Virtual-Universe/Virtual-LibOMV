@@ -24,9 +24,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OpenMetaverse.Voice
 {
@@ -36,37 +33,37 @@ namespace OpenMetaverse.Voice
         /// This is used to get a list of audio devices that can be used for capture (input) of voice.
         /// </summary>
         /// <returns></returns>
-        public int AuxGetCaptureDevices()
+        public int AuxGetCaptureDevices ()
         {
-            return Request("Aux.GetCaptureDevices.1");
+            return Request ("Aux.GetCaptureDevices.1");
         }
 
         /// <summary>
         /// This is used to get a list of audio devices that can be used for render (playback) of voice.
         /// </summary>
-        public int AuxGetRenderDevices()
+        public int AuxGetRenderDevices ()
         {
-            return Request("Aux.GetRenderDevices.1");
+            return Request ("Aux.GetRenderDevices.1");
         }
 
         /// <summary>
         /// This command is used to select the render device.
         /// </summary>
-        /// <param name="RenderDeviceSpecifier">The name of the device as returned by the Aux.GetRenderDevices command.</param>
-        public int AuxSetRenderDevice(string RenderDeviceSpecifier)
+        /// <param name="renderDeviceSpecifier">The name of the device as returned by the Aux.GetRenderDevices command.</param>
+        public int AuxSetRenderDevice (string renderDeviceSpecifier)
         {
-            string RequestXML = VoiceGateway.MakeXML("RenderDeviceSpecifier", RenderDeviceSpecifier);
-            return Request("Aux.SetRenderDevice.1", RequestXML);
+            string RequestXML = MakeXML ("RenderDeviceSpecifier", renderDeviceSpecifier);
+            return Request ("Aux.SetRenderDevice.1", RequestXML);
         }
 
         /// <summary>
         /// This command is used to select the capture device.
         /// </summary>
-        /// <param name="CaptureDeviceSpecifier">The name of the device as returned by the Aux.GetCaptureDevices command.</param>
-        public int AuxSetCaptureDevice(string CaptureDeviceSpecifier)
+        /// <param name="captureDeviceSpecifier">The name of the device as returned by the Aux.GetCaptureDevices command.</param>
+        public int AuxSetCaptureDevice (string captureDeviceSpecifier)
         {
-            string RequestXML = VoiceGateway.MakeXML("CaptureDeviceSpecifier", CaptureDeviceSpecifier);
-            return Request("Aux.SetCaptureDevice.1", RequestXML);
+            string RequestXML = MakeXML ("CaptureDeviceSpecifier", captureDeviceSpecifier);
+            return Request ("Aux.SetCaptureDevice.1", RequestXML);
         }
 
         /// <summary>
@@ -75,21 +72,21 @@ namespace OpenMetaverse.Voice
         /// microphone VU meter for the currently selected capture device. This command
         /// should not be issued if the user is on a call.
         /// </summary>
-        /// <param name="Duration">(unused but required)</param>
+        /// <param name="duration">(unused but required)</param>
         /// <returns></returns>
-        public int AuxCaptureAudioStart(int Duration)
+        public int AuxCaptureAudioStart (int duration)
         {
-            string RequestXML = VoiceGateway.MakeXML("Duration", Duration.ToString());
-            return Request("Aux.CaptureAudioStart.1", RequestXML);
+            string RequestXML = MakeXML ("Duration", duration.ToString ());
+            return Request ("Aux.CaptureAudioStart.1", RequestXML);
         }
 
         /// <summary>
         /// This command is used to stop the audio capture process.
         /// </summary>
         /// <returns></returns>
-        public int AuxCaptureAudioStop()
+        public int AuxCaptureAudioStop ()
         {
-            return Request("Aux.CaptureAudioStop.1");
+            return Request ("Aux.CaptureAudioStop.1");
         }
 
         /// <summary>
@@ -98,12 +95,12 @@ namespace OpenMetaverse.Voice
         /// connector set mic volume command to have that level be used while on voice
         /// calls.
         /// </summary>
-        /// <param name="Level">the microphone volume (-100 to 100 inclusive)</param>
+        /// <param name="level">the microphone volume (-100 to 100 inclusive)</param>
         /// <returns></returns>
-        public int AuxSetMicLevel(int Level)
+        public int AuxSetMicLevel (int level)
         {
-            string RequestXML = VoiceGateway.MakeXML("Level", Level.ToString());
-            return Request("Aux.SetMicLevel.1", RequestXML);
+            string RequestXML = MakeXML ("Level", level.ToString ());
+            return Request ("Aux.SetMicLevel.1", RequestXML);
         }
 
         /// <summary>
@@ -112,12 +109,12 @@ namespace OpenMetaverse.Voice
         /// issue a connector set speaker volume command to have that level be used while
         /// on voice calls.
         /// </summary>
-        /// <param name="Level">the speaker volume (-100 to 100 inclusive)</param>
+        /// <param name="level">the speaker volume (-100 to 100 inclusive)</param>
         /// <returns></returns>
-        public int AuxSetSpeakerLevel(int Level)
+        public int AuxSetSpeakerLevel (int level)
         {
-            string RequestXML = VoiceGateway.MakeXML("Level", Level.ToString());
-            return Request("Aux.SetSpeakerLevel.1", RequestXML);
+            string RequestXML = MakeXML ("Level", level.ToString ());
+            return Request ("Aux.SetSpeakerLevel.1", RequestXML);
         }
     }
 }

@@ -70,7 +70,7 @@ namespace OpenMetaverse
     /// <summary>
     /// 
     /// </summary>
-    [Serializable()]
+    [Serializable]
     public struct Permissions
     {
         public PermissionMask BaseMask;
@@ -90,7 +90,7 @@ namespace OpenMetaverse
 
         public Permissions GetNextPermissions()
         {
-            uint nextMask = (uint)NextOwnerMask;
+            var nextMask = (uint)NextOwnerMask;
 
             return new Permissions(
                 (uint)BaseMask & nextMask,
@@ -103,7 +103,7 @@ namespace OpenMetaverse
 
         public OSD GetOSD()
         {
-            OSDMap permissions = new OSDMap(5);
+            var permissions = new OSDMap(5);
             permissions["base_mask"] = OSD.FromInteger((uint)BaseMask);
             permissions["everyone_mask"] = OSD.FromInteger((uint)EveryoneMask);
             permissions["group_mask"] = OSD.FromInteger((uint)GroupMask);
@@ -114,8 +114,8 @@ namespace OpenMetaverse
 
         public static Permissions FromOSD(OSD llsd)
         {
-            Permissions permissions = new Permissions();
-            OSDMap map = llsd as OSDMap;
+            var permissions = new Permissions();
+            var map = llsd as OSDMap;
 
             if (map != null)
             {
@@ -131,7 +131,7 @@ namespace OpenMetaverse
 
         public override string ToString()
         {
-            return String.Format("Base: {0}, Everyone: {1}, Group: {2}, NextOwner: {3}, Owner: {4}",
+            return string.Format("Base: {0}, Everyone: {1}, Group: {2}, NextOwner: {3}, Owner: {4}",
                 BaseMask, EveryoneMask, GroupMask, NextOwnerMask, OwnerMask);
         }
 

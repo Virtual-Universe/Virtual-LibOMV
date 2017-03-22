@@ -25,8 +25,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using OpenMetaverse.StructuredData;
 
 namespace OpenMetaverse
@@ -262,7 +260,7 @@ namespace OpenMetaverse
                     int sysSize = pack.UnpackBits(32);
                     if (sysSize != SysDataSize) return; // unkown particle system data size
                     UnpackSystem(ref pack);
-                    int dataSize = pack.UnpackBits(32);
+                    //not used??// int dataSize = pack.UnpackBits(32);
                     UnpackLegacyData(ref pack);
 
 
@@ -382,7 +380,7 @@ namespace OpenMetaverse
             void PackSystemBytes(ref BitPack pack)
             {
                 pack.PackBits(CRC, 32);
-                pack.PackBits((uint)PartFlags, 32);
+                pack.PackBits(PartFlags, 32);
                 pack.PackBits((uint)Pattern, 8);
                 pack.PackFixed(MaxAge, false, 8, 8);
                 pack.PackFixed(StartAge, false, 8, 8);

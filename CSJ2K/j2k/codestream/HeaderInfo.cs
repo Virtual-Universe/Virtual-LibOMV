@@ -1343,6 +1343,11 @@ namespace CSJ2K.j2k.codestream
 			{
 				throw new System.ApplicationException("Cannot clone HeaderInfo instance");
 			}
+      if (nhi == null)
+			{
+				throw new System.ApplicationException("Cannot clone HeaderInfo instance");
+			}
+
 			nhi.sizValue = sizValue.Copy;
 			// COD
 			if (codValue["main"] != null)

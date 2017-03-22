@@ -91,7 +91,7 @@ namespace OpenMetaverse.Rendering
 
         public override string ToString()
         {
-            return String.Format("P: {0} N: {1} T: {2}", Position, Normal, TexCoord);
+            return string.Format("P: {0} N: {1} T: {2}", Position, Normal, TexCoord);
         }
 
         public override int GetHashCode()
@@ -219,14 +219,10 @@ namespace OpenMetaverse.Rendering
 
         public override string ToString()
         {
-            if (Prim.Properties != null && !String.IsNullOrEmpty(Prim.Properties.Name))
-            {
+            if (Prim.Properties != null && !string.IsNullOrEmpty (Prim.Properties.Name)) {
                 return Prim.Properties.Name;
             }
-            else
-            {
-                return String.Format("{0} ({1})", Prim.LocalID, Prim.PrimData);
-            }
+            return string.Format ("{0} ({1})", Prim.LocalID, Prim.PrimData);
         }
     }
 
@@ -252,8 +248,7 @@ namespace OpenMetaverse.Rendering
 
             try
             {
-                if (!meshAsset.Decode())
-                {
+                if (!meshAsset.Decode()) {
                     return false;
                 }
 
@@ -269,13 +264,7 @@ namespace OpenMetaverse.Rendering
 
                 OSD facesOSD = null;
 
-                switch (LOD)
-                {
-                    default:
-                    case DetailLevel.Highest:
-                        facesOSD = MeshData["high_lod"];
-                        break;
-
+                switch (LOD) {
                     case DetailLevel.High:
                         facesOSD = MeshData["medium_lod"];
                         break;
@@ -287,22 +276,23 @@ namespace OpenMetaverse.Rendering
                     case DetailLevel.Low:
                         facesOSD = MeshData["lowest_lod"];
                         break;
+                    default:
+                    //case DetailLevel.Highest:
+                        facesOSD = MeshData ["high_lod"];
+                        break;
                 }
 
-                if (facesOSD == null || !(facesOSD is OSDArray))
-                {
+                if (facesOSD == null || !(facesOSD is OSDArray)) {
                     return false;
                 }
 
                 OSDArray decodedMeshOsdArray = (OSDArray)facesOSD;
 
-                for (int faceNr = 0; faceNr < decodedMeshOsdArray.Count; faceNr++)
-                {
+                for (int faceNr = 0; faceNr < decodedMeshOsdArray.Count; faceNr++) {
                     OSD subMeshOsd = decodedMeshOsdArray[faceNr];
 
                     // Decode each individual face
-                    if (subMeshOsd is OSDMap)
-                    {
+                    if (subMeshOsd is OSDMap) {
                         Face oface = new Face();
                         oface.ID = faceNr;
                         oface.Vertices = new List<Vertex>();
@@ -315,13 +305,10 @@ namespace OpenMetaverse.Rendering
                         Vector3 posMin;
 
                         // If PositionDomain is not specified, the default is from -0.5 to 0.5
-                        if (subMeshMap.ContainsKey("PositionDomain"))
-                        {
+                        if (subMeshMap.ContainsKey("PositionDomain")) {
                             posMax = ((OSDMap)subMeshMap["PositionDomain"])["Max"];
                             posMin = ((OSDMap)subMeshMap["PositionDomain"])["Min"];
-                        }
-                        else
-                        {
+                        } else {
                             posMax = new Vector3(0.5f, 0.5f, 0.5f);
                             posMin = new Vector3(-0.5f, -0.5f, -0.5f);
                         }
@@ -331,8 +318,7 @@ namespace OpenMetaverse.Rendering
 
                         // Normals
                         byte[] norBytes = null;
-                        if (subMeshMap.ContainsKey("Normal"))
-                        {
+                        if (subMeshMap.ContainsKey("Normal")) {
                             norBytes = subMeshMap["Normal"];
                         }
 
@@ -340,8 +326,7 @@ namespace OpenMetaverse.Rendering
                         Vector2 texPosMax = Vector2.Zero;
                         Vector2 texPosMin = Vector2.Zero;
                         byte[] texBytes = null;
-                        if (subMeshMap.ContainsKey("TexCoord0"))
-                        {
+                        if (subMeshMap.ContainsKey("TexCoord0")) {
                             texBytes = subMeshMap["TexCoord0"];
                             texPosMax = ((OSDMap)subMeshMap["TexCoord0Domain"])["Max"];
                             texPosMin = ((OSDMap)subMeshMap["TexCoord0Domain"])["Min"];
@@ -349,8 +334,7 @@ namespace OpenMetaverse.Rendering
 
                         // Extract the vertex position data
                         // If present normals and texture coordinates too
-                        for (int i = 0; i < posBytes.Length; i += 6)
-                        {
+                        for (int i = 0; i < posBytes.Length; i += 6) {
                             ushort uX = Utils.BytesToUInt16(posBytes, i);
                             ushort uY = Utils.BytesToUInt16(posBytes, i + 2);
                             ushort uZ = Utils.BytesToUInt16(posBytes, i + 4);
@@ -362,8 +346,7 @@ namespace OpenMetaverse.Rendering
                                 Utils.UInt16ToFloat(uY, posMin.Y, posMax.Y),
                                 Utils.UInt16ToFloat(uZ, posMin.Z, posMax.Z));
 
-                            if (norBytes != null && norBytes.Length >= i + 4)
-                            {
+                            if (norBytes != null && norBytes.Length >= i + 4) {
                                 ushort nX = Utils.BytesToUInt16(norBytes, i);
                                 ushort nY = Utils.BytesToUInt16(norBytes, i + 2);
                                 ushort nZ = Utils.BytesToUInt16(norBytes, i + 4);
@@ -376,8 +359,7 @@ namespace OpenMetaverse.Rendering
 
                             var vertexIndexOffset = oface.Vertices.Count * 4;
 
-                            if (texBytes != null && texBytes.Length >= vertexIndexOffset + 4)
-                            {
+                            if (texBytes != null && texBytes.Length >= vertexIndexOffset + 4) {
                                 ushort tX = Utils.BytesToUInt16(texBytes, vertexIndexOffset);
                                 ushort tY = Utils.BytesToUInt16(texBytes, vertexIndexOffset + 2);
 
@@ -390,13 +372,12 @@ namespace OpenMetaverse.Rendering
                         }
 
                         byte[] triangleBytes = subMeshMap["TriangleList"];
-                        for (int i = 0; i < triangleBytes.Length; i += 6)
-                        {
-                            ushort v1 = (ushort)(Utils.BytesToUInt16(triangleBytes, i));
+                        for (int i = 0; i < triangleBytes.Length; i += 6) {
+                            ushort v1 = (Utils.BytesToUInt16(triangleBytes, i));
                             oface.Indices.Add(v1);
-                            ushort v2 = (ushort)(Utils.BytesToUInt16(triangleBytes, i + 2));
+                            ushort v2 = (Utils.BytesToUInt16(triangleBytes, i + 2));
                             oface.Indices.Add(v2);
-                            ushort v3 = (ushort)(Utils.BytesToUInt16(triangleBytes, i + 4));
+                            ushort v3 = (Utils.BytesToUInt16(triangleBytes, i + 4));
                             oface.Indices.Add(v3);
                         }
 
@@ -404,9 +385,7 @@ namespace OpenMetaverse.Rendering
                     }
                 }
 
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Logger.Log("Failed to decode mesh asset: " + ex.Message, Helpers.LogLevel.Warning);
                 return false;
             }
@@ -426,18 +405,18 @@ namespace OpenMetaverse.Rendering
 
         public SimpleMesh(SimpleMesh mesh)
         {
-            this.Indices = new List<ushort>(mesh.Indices);
-            this.Path.Open = mesh.Path.Open;
-            this.Path.Points = new List<PathPoint>(mesh.Path.Points);
-            this.Prim = mesh.Prim;
-            this.Profile.Concave = mesh.Profile.Concave;
-            this.Profile.Faces = new List<ProfileFace>(mesh.Profile.Faces);
-            this.Profile.MaxX = mesh.Profile.MaxX;
-            this.Profile.MinX = mesh.Profile.MinX;
-            this.Profile.Open = mesh.Profile.Open;
-            this.Profile.Positions = new List<Vector3>(mesh.Profile.Positions);
-            this.Profile.TotalOutsidePoints = mesh.Profile.TotalOutsidePoints;
-            this.Vertices = new List<Vertex>(mesh.Vertices);
+            Indices = new List<ushort>(mesh.Indices);
+            Path.Open = mesh.Path.Open;
+            Path.Points = new List<PathPoint>(mesh.Path.Points);
+            Prim = mesh.Prim;
+            Profile.Concave = mesh.Profile.Concave;
+            Profile.Faces = new List<ProfileFace>(mesh.Profile.Faces);
+            Profile.MaxX = mesh.Profile.MaxX;
+            Profile.MinX = mesh.Profile.MinX;
+            Profile.Open = mesh.Profile.Open;
+            Profile.Positions = new List<Vector3>(mesh.Profile.Positions);
+            Profile.TotalOutsidePoints = mesh.Profile.TotalOutsidePoints;
+            Vertices = new List<Vertex>(mesh.Vertices);
         }
     }
 
@@ -452,22 +431,15 @@ namespace OpenMetaverse.Rendering
             List<string> plugins = new List<string>();
             string[] files = Directory.GetFiles(path, "OpenMetaverse.Rendering.*.dll");
 
-            foreach (string f in files)
-            {
-                try
-                {
+            foreach (string f in files) {
+                try {
                     Assembly a = Assembly.LoadFrom(f);
-                    System.Type[] types = a.GetTypes();
-                    foreach (System.Type type in types)
-                    {
-                        if (type.GetInterface("IRendering") != null)
-                        {
-                            if (type.GetCustomAttributes(typeof(RendererNameAttribute), false).Length == 1)
-                            {
+                    Type [] types = a.GetTypes();
+                    foreach (Type type in types) {
+                        if (type.GetInterface("IRendering") != null) {
+                            if (type.GetCustomAttributes(typeof(RendererNameAttribute), false).Length == 1) {
                                 plugins.Add(f);
-                            }
-                            else
-                            {
+                            } else {
                                 Logger.Log("Rendering plugin does not support the [RendererName] attribute: " + f,
                                     Helpers.LogLevel.Warning);
                             }
@@ -475,10 +447,8 @@ namespace OpenMetaverse.Rendering
                             break;
                         }
                     }
-                }
-                catch (Exception e)
-                {
-                    Logger.Log(String.Format("Unrecognized rendering plugin {0}: {1}", f, e.Message),
+                } catch (Exception e) {
+                    Logger.Log(string.Format("Unrecognized rendering plugin {0}: {1}", f, e.Message),
                         Helpers.LogLevel.Warning, e);
                 }
             }
@@ -488,31 +458,22 @@ namespace OpenMetaverse.Rendering
 
         public static IRendering LoadRenderer(string filename)
         {
-            try
-            {
+            try {
                 Assembly a = Assembly.LoadFrom(filename);
-                System.Type[] types = a.GetTypes();
-                foreach (System.Type type in types)
-                {
-                    if (type.GetInterface("IRendering") != null)
-                    {
-                        if (type.GetCustomAttributes(typeof(RendererNameAttribute), false).Length == 1)
-                        {
-                            return (IRendering)Activator.CreateInstance(type);
+                Type [] types = a.GetTypes();
+                foreach (Type type in types) {
+                    if (type.GetInterface("IRendering") != null) {
+                        if (type.GetCustomAttributes (typeof (RendererNameAttribute), false).Length == 1) {
+                            return (IRendering)Activator.CreateInstance (type);
                         }
-                        else
-                        {
-                            throw new RenderingException(
-                                "Rendering plugin does not support the [RendererName] attribute");
-                        }
+                        throw new RenderingException (
+                            "Rendering plugin does not support the [RendererName] attribute");
                     }
                 }
 
                 throw new RenderingException(
                     "Rendering plugin does not support the IRendering interface");
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 throw new RenderingException("Failed loading rendering plugin: " + e.Message, e);
             }
         }

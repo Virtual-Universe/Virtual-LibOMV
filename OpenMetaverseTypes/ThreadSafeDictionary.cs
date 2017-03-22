@@ -31,7 +31,7 @@ namespace OpenMetaverse
 {
     public class ThreadSafeDictionary<TKey, TValue>
     {
-        Dictionary<TKey, TValue> Dictionary;
+        readonly Dictionary<TKey, TValue> Dictionary;
         object syncObject = new object();
 
         public ThreadSafeDictionary()

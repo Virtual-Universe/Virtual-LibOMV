@@ -24,10 +24,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System;
 using System.Collections.Generic;
 using System.Text;
-using OpenMetaverse;
 
 namespace OpenMetaverse.Voice
 {
@@ -36,13 +34,13 @@ namespace OpenMetaverse.Voice
     /// </summary>
     public class VoiceSession
     {
-        private string m_Handle;
-        private static Dictionary<string, VoiceParticipant> knownParticipants;
-        public string RegionName;
-        private bool m_spatial;
-        public bool IsSpatial { get { return m_spatial; } }
-        private VoiceGateway connector;
+        readonly string m_Handle;
+        readonly VoiceGateway connector;
+        static Dictionary<string, VoiceParticipant> knownParticipants;
+        bool m_spatial;
 
+        public string RegionName;
+        public bool IsSpatial { get { return m_spatial; } }
         public VoiceGateway Connector { get { return connector; } }
         public string Handle { get { return m_Handle; } }
 
@@ -50,61 +48,54 @@ namespace OpenMetaverse.Voice
         public event System.EventHandler OnParticipantUpdate;
         public event System.EventHandler OnParticipantRemoved;
 
-        public VoiceSession(VoiceGateway conn, string handle)
+        public VoiceSession (VoiceGateway conn, string handle)
         {
             m_Handle = handle;
             connector = conn;
 
             m_spatial = true;
-            knownParticipants = new Dictionary<string, VoiceParticipant>();
+            knownParticipants = new Dictionary<string, VoiceParticipant> ();
         }
 
         /// <summary>
         /// Close this session.
         /// </summary>
-        internal void Close()
+        internal void Close ()
         {
 
-            knownParticipants.Clear();
+            knownParticipants.Clear ();
         }
 
-        internal void ParticipantUpdate(string URI,
-            bool isMuted,
-            bool isSpeaking,
-            int volume,
-            float energy)
+        internal void ParticipantUpdate (string uri, bool isMuted, bool isSpeaking, int volume, float energy)
         {
-            lock (knownParticipants)
-            {
+            lock (knownParticipants) {
                 // Locate in this session
-                VoiceParticipant p = FindParticipant(URI);
+                VoiceParticipant p = FindParticipant (uri);
                 if (p == null) return;
 
                 // Set properties
-                p.SetProperties(isSpeaking, isMuted, energy);
+                p.SetProperties (isSpeaking, isMuted, energy);
 
                 // Inform interested parties.
                 if (OnParticipantUpdate != null)
-                    OnParticipantUpdate(p, null);
+                    OnParticipantUpdate (p, null);
             }
         }
 
-        internal void AddParticipant(string URI)
+        internal void AddParticipant (string uri)
         {
-            lock (knownParticipants)
-            {
-                VoiceParticipant p = FindParticipant(URI);
+            lock (knownParticipants) {
+                VoiceParticipant p = FindParticipant (uri);
 
                 // We expect that to come back null.  If it is not
                 // null, this is a duplicate
-                if (p != null)
-                {
+                if (p != null) {
                     return;
                 }
 
                 // It was not found, so add it.
-                p = new VoiceParticipant(URI, this);
-                knownParticipants.Add(URI, p);
+                p = new VoiceParticipant (uri, this);
+                knownParticipants.Add (uri, p);
 
                 /* TODO
                            // Fill in the name.
@@ -115,23 +106,22 @@ namespace OpenMetaverse.Voice
 
                 // Inform interested parties.
                 if (OnParticipantAdded != null)
-                    OnParticipantAdded(p, null);
+                    OnParticipantAdded (p, null);
             }
         }
 
-        internal void RemoveParticipant(string URI)
+        internal void RemoveParticipant (string uri)
         {
-            lock (knownParticipants)
-            {
-                VoiceParticipant p = FindParticipant(URI);
+            lock (knownParticipants) {
+                VoiceParticipant p = FindParticipant (uri);
                 if (p == null) return;
 
                 // Remove from list for this session.
-                knownParticipants.Remove(URI);
+                knownParticipants.Remove (uri);
 
                 // Inform interested parties.
                 if (OnParticipantRemoved != null)
-                    OnParticipantRemoved(p, null);
+                    OnParticipantRemoved (p, null);
             }
         }
 
@@ -140,17 +130,17 @@ namespace OpenMetaverse.Voice
         /// </summary>
         /// <param name="puri"></param>
         /// <returns></returns>
-        private VoiceParticipant FindParticipant(string puri)
+        private VoiceParticipant FindParticipant (string puri)
         {
-            if (knownParticipants.ContainsKey(puri))
-                return knownParticipants[puri];
+            if (knownParticipants.ContainsKey (puri))
+                return knownParticipants [puri];
 
             return null;
         }
 
-        public void Set3DPosition(VoicePosition SpeakerPosition, VoicePosition ListenerPosition)
+        public void Set3DPosition (VoicePosition speakerPosition, VoicePosition listenerPosition)
         {
-            connector.SessionSet3DPosition(m_Handle, SpeakerPosition, ListenerPosition);
+            connector.SessionSet3DPosition (m_Handle, speakerPosition, listenerPosition);
         }
     }
 
@@ -166,50 +156,49 @@ namespace OpenMetaverse.Voice
         /// session automatically connects to the audio media, there is no need to call
         /// Session.Connect at this time, this is reserved for future use.
         /// </summary>
-        /// <param name="AccountHandle">Handle returned from successful Connector ‘create’ request</param>
-        /// <param name="URI">This is the URI of the terminating point of the session (ie who/what is being called)</param>
-        /// <param name="Name">This is the display name of the entity being called (user or channel)</param>
-        /// <param name="Password">Only needs to be supplied when the target URI is password protected</param>
-        /// <param name="PasswordHashAlgorithm">This indicates the format of the password as passed in. This can either be
+        /// <param name="accountHandle">Handle returned from successful Connector ‘create’ request</param>
+        /// <param name="uri">This is the URI of the terminating point of the session (ie who/what is being called)</param>
+        /// <param name="name">This is the display name of the entity being called (user or channel)</param>
+        /// <param name="password">Only needs to be supplied when the target URI is password protected</param>
+        /// <param name="passwordHashAlgorithm">This indicates the format of the password as passed in. This can either be
         /// “ClearText” or “SHA1UserName”. If this element does not exist, it is assumed to be “ClearText”. If it is
         /// “SHA1UserName”, the password as passed in is the SHA1 hash of the password and username concatenated together,
         /// then base64 encoded, with the final “=” character stripped off.</param>
-        /// <param name="JoinAudio"></param>
-        /// <param name="JoinText"></param>
+        /// <param name="joinAudio"></param>
+        /// <param name="joinText"></param>
         /// <returns></returns>
-        public int SessionCreate(string AccountHandle, string URI, string Name, string Password,
-            bool JoinAudio, bool JoinText, string PasswordHashAlgorithm)
+        public int SessionCreate (string accountHandle, string uri, string name, string password,
+                                 bool joinAudio, bool joinText, string passwordHashAlgorithm)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(VoiceGateway.MakeXML("AccountHandle", AccountHandle));
-            sb.Append(VoiceGateway.MakeXML("URI", URI));
-            sb.Append(VoiceGateway.MakeXML("Name", Name));
-            if (Password != null && Password != "")
-            {
-                sb.Append(VoiceGateway.MakeXML("Password", Password));
-                sb.Append(VoiceGateway.MakeXML("PasswordHashAlgorithm", PasswordHashAlgorithm));
+            StringBuilder sb = new StringBuilder ();
+            sb.Append (MakeXML ("AccountHandle", accountHandle));
+            sb.Append (MakeXML ("URI", uri));
+            sb.Append (MakeXML ("Name", name));
+            if (!string.IsNullOrEmpty (password)) {
+                sb.Append (MakeXML ("Password", password));
+                sb.Append (MakeXML ("PasswordHashAlgorithm", passwordHashAlgorithm));
             }
-            sb.Append(VoiceGateway.MakeXML("ConnectAudio", JoinAudio ? "true" : "false"));
-            sb.Append(VoiceGateway.MakeXML("ConnectText", JoinText ? "true" : "false"));
-            sb.Append(VoiceGateway.MakeXML("JoinAudio", JoinAudio ? "true" : "false"));
-            sb.Append(VoiceGateway.MakeXML("JoinText", JoinText ? "true" : "false"));
-            sb.Append(VoiceGateway.MakeXML("VoiceFontID", "0"));
+            sb.Append (MakeXML ("ConnectAudio", joinAudio ? "true" : "false"));
+            sb.Append (MakeXML ("ConnectText", joinText ? "true" : "false"));
+            sb.Append (MakeXML ("JoinAudio", joinAudio ? "true" : "false"));
+            sb.Append (MakeXML ("JoinText", joinText ? "true" : "false"));
+            sb.Append (MakeXML ("VoiceFontID", "0"));
 
-            return Request("Session.Create.1", sb.ToString());
+            return Request ("Session.Create.1", sb.ToString ());
         }
 
         /// <summary>
         /// Used to accept a call
         /// </summary>
-        /// <param name="SessionHandle">SessionHandle such as received from SessionNewEvent</param>
-        /// <param name="AudioMedia">"default"</param>
+        /// <param name="sessionHandle">SessionHandle such as received from SessionNewEvent</param>
+        /// <param name="audioMedia">"default"</param>
         /// <returns></returns>
-        public int SessionConnect(string SessionHandle, string AudioMedia)
+        public int SessionConnect (string sessionHandle, string audioMedia)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(VoiceGateway.MakeXML("SessionHandle", SessionHandle));
-            sb.Append(VoiceGateway.MakeXML("AudioMedia", AudioMedia));
-            return Request("Session.Connect.1", sb.ToString());
+            StringBuilder sb = new StringBuilder ();
+            sb.Append (MakeXML ("SessionHandle", sessionHandle));
+            sb.Append (MakeXML ("AudioMedia", audioMedia));
+            return Request ("Session.Connect.1", sb.ToString ());
         }
 
         /// <summary>
@@ -217,121 +206,135 @@ namespace OpenMetaverse.Voice
         /// the passed in file through the selected audio render device. This command
         /// should not be issued if the user is on a call.
         /// </summary>
-        /// <param name="SoundFilePath">The fully qualified path to the sound file.</param>
-        /// <param name="Loop">True if the file is to be played continuously and false if it is should be played once.</param>
+        /// <param name="soundFilePath">The fully qualified path to the sound file.</param>
+        /// <param name="loop">True if the file is to be played continuously and false if it is should be played once.</param>
         /// <returns></returns>
-        public int SessionRenderAudioStart(string SoundFilePath, bool Loop)
+        public int SessionRenderAudioStart (string soundFilePath, bool loop)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(VoiceGateway.MakeXML("SoundFilePath", SoundFilePath));
-            sb.Append(VoiceGateway.MakeXML("Loop", Loop ? "1" : "0"));
-            return Request("Session.RenderAudioStart.1", sb.ToString());
+            StringBuilder sb = new StringBuilder ();
+            sb.Append (MakeXML ("SoundFilePath", soundFilePath));
+            sb.Append (MakeXML ("Loop", loop ? "1" : "0"));
+            return Request ("Session.RenderAudioStart.1", sb.ToString ());
         }
 
         /// <summary>
         /// This command is used to stop the audio render process.
         /// </summary>
-        /// <param name="SoundFilePath">The fully qualified path to the sound file issued in the start render command.</param>
+        /// <param name="soundFilePath">The fully qualified path to the sound file issued in the start render command.</param>
         /// <returns></returns>
-        public int SessionRenderAudioStop(string SoundFilePath)
+        public int SessionRenderAudioStop (string soundFilePath)
         {
-            string RequestXML = VoiceGateway.MakeXML("SoundFilePath", SoundFilePath);
-            return Request("Session.RenderAudioStop.1", RequestXML);
+            string RequestXML = MakeXML ("SoundFilePath", soundFilePath);
+            return Request ("Session.RenderAudioStop.1", RequestXML);
         }
 
         /// <summary>
         /// This is used to ‘end’ an established session (i.e. hang-up or disconnect).
         /// </summary>
-        /// <param name="SessionHandle">Handle returned from successful Session ‘create’ request or a SessionNewEvent</param>
+        /// <param name="sessionHandle">Handle returned from successful Session ‘create’ request or a SessionNewEvent</param>
         /// <returns></returns>
-        public int SessionTerminate(string SessionHandle)
+        public int SessionTerminate (string sessionHandle)
         {
-            string RequestXML = VoiceGateway.MakeXML("SessionHandle", SessionHandle);
-            return Request("Session.Terminate.1", RequestXML);
+            string RequestXML = MakeXML ("SessionHandle", sessionHandle);
+            return Request ("Session.Terminate.1", RequestXML);
         }
 
         /// <summary>
         /// Set the combined speaking and listening position in 3D space.
         /// </summary>
-        /// <param name="SessionHandle">Handle returned from successful Session ‘create’ request or a SessionNewEvent</param>
-        /// <param name="SpeakerPosition">Speaking position</param>
-        /// <param name="ListenerPosition">Listening position</param>
+        /// <param name="sessionHandle">Handle returned from successful Session ‘create’ request or a SessionNewEvent</param>
+        /// <param name="speakerPosition">Speaking position</param>
+        /// <param name="listenerPosition">Listening position</param>
         /// <returns></returns>
-        public int SessionSet3DPosition(string SessionHandle, VoicePosition SpeakerPosition, VoicePosition ListenerPosition)
+        public int SessionSet3DPosition (string sessionHandle, VoicePosition speakerPosition, VoicePosition listenerPosition)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(VoiceGateway.MakeXML("SessionHandle", SessionHandle));
-            sb.Append("<SpeakerPosition>");
-            sb.Append("<Position>");
-            sb.Append(VoiceGateway.MakeXML("X", SpeakerPosition.Position.X.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Y", SpeakerPosition.Position.Y.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Z", SpeakerPosition.Position.Z.ToString()));
-            sb.Append("</Position>");
-            sb.Append("<Velocity>");
-            sb.Append(VoiceGateway.MakeXML("X", SpeakerPosition.Velocity.X.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Y", SpeakerPosition.Velocity.Y.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Z", SpeakerPosition.Velocity.Z.ToString()));
-            sb.Append("</Velocity>");
-            sb.Append("<AtOrientation>");
-            sb.Append(VoiceGateway.MakeXML("X", SpeakerPosition.AtOrientation.X.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Y", SpeakerPosition.AtOrientation.Y.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Z", SpeakerPosition.AtOrientation.Z.ToString()));
-            sb.Append("</AtOrientation>");
-            sb.Append("<UpOrientation>");
-            sb.Append(VoiceGateway.MakeXML("X", SpeakerPosition.UpOrientation.X.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Y", SpeakerPosition.UpOrientation.Y.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Z", SpeakerPosition.UpOrientation.Z.ToString()));
-            sb.Append("</UpOrientation>");
-            sb.Append("<LeftOrientation>");
-            sb.Append(VoiceGateway.MakeXML("X", SpeakerPosition.LeftOrientation.X.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Y", SpeakerPosition.LeftOrientation.Y.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Z", SpeakerPosition.LeftOrientation.Z.ToString()));
-            sb.Append("</LeftOrientation>");
-            sb.Append("</SpeakerPosition>");
-            sb.Append("<ListenerPosition>");
-            sb.Append("<Position>");
-            sb.Append(VoiceGateway.MakeXML("X", ListenerPosition.Position.X.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Y", ListenerPosition.Position.Y.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Z", ListenerPosition.Position.Z.ToString()));
-            sb.Append("</Position>");
-            sb.Append("<Velocity>");
-            sb.Append(VoiceGateway.MakeXML("X", ListenerPosition.Velocity.X.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Y", ListenerPosition.Velocity.Y.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Z", ListenerPosition.Velocity.Z.ToString()));
-            sb.Append("</Velocity>");
-            sb.Append("<AtOrientation>");
-            sb.Append(VoiceGateway.MakeXML("X", ListenerPosition.AtOrientation.X.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Y", ListenerPosition.AtOrientation.Y.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Z", ListenerPosition.AtOrientation.Z.ToString()));
-            sb.Append("</AtOrientation>");
-            sb.Append("<UpOrientation>");
-            sb.Append(VoiceGateway.MakeXML("X", ListenerPosition.UpOrientation.X.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Y", ListenerPosition.UpOrientation.Y.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Z", ListenerPosition.UpOrientation.Z.ToString()));
-            sb.Append("</UpOrientation>");
-            sb.Append("<LeftOrientation>");
-            sb.Append(VoiceGateway.MakeXML("X", ListenerPosition.LeftOrientation.X.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Y", ListenerPosition.LeftOrientation.Y.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Z", ListenerPosition.LeftOrientation.Z.ToString()));
-            sb.Append("</LeftOrientation>");
-            sb.Append("</ListenerPosition>");
-            return Request("Session.Set3DPosition.1", sb.ToString());
+            StringBuilder sb = new StringBuilder ();
+            sb.Append (MakeXML ("SessionHandle", sessionHandle));
+            sb.Append ("<SpeakerPosition>");
+
+            sb.Append ("<Position>");
+            sb.Append (MakeXML ("X", speakerPosition.Position.X.ToString ()));
+            sb.Append (MakeXML ("Y", speakerPosition.Position.Y.ToString ()));
+            sb.Append (MakeXML ("Z", speakerPosition.Position.Z.ToString ()));
+            sb.Append ("</Position>");
+
+            sb.Append ("<Velocity>");
+            sb.Append (MakeXML ("X", speakerPosition.Velocity.X.ToString ()));
+            sb.Append (MakeXML ("Y", speakerPosition.Velocity.Y.ToString ()));
+            sb.Append (MakeXML ("Z", speakerPosition.Velocity.Z.ToString ()));
+            sb.Append ("</Velocity>");
+
+            sb.Append ("<AtOrientation>");
+            sb.Append (MakeXML ("X", speakerPosition.AtOrientation.X.ToString ()));
+            sb.Append (MakeXML ("Y", speakerPosition.AtOrientation.Y.ToString ()));
+            sb.Append (MakeXML ("Z", speakerPosition.AtOrientation.Z.ToString ()));
+            sb.Append ("</AtOrientation>");
+
+            sb.Append ("<UpOrientation>");
+            sb.Append (MakeXML ("X", speakerPosition.UpOrientation.X.ToString ()));
+            sb.Append (MakeXML ("Y", speakerPosition.UpOrientation.Y.ToString ()));
+            sb.Append (MakeXML ("Z", speakerPosition.UpOrientation.Z.ToString ()));
+            sb.Append ("</UpOrientation>");
+
+            sb.Append ("<LeftOrientation>");
+            sb.Append (MakeXML ("X", speakerPosition.LeftOrientation.X.ToString ()));
+            sb.Append (MakeXML ("Y", speakerPosition.LeftOrientation.Y.ToString ()));
+            sb.Append (MakeXML ("Z", speakerPosition.LeftOrientation.Z.ToString ()));
+            sb.Append ("</LeftOrientation>");
+
+            sb.Append ("</SpeakerPosition>");
+
+            sb.Append ("<ListenerPosition>");
+
+            sb.Append ("<Position>");
+            sb.Append (MakeXML ("X", listenerPosition.Position.X.ToString ()));
+            sb.Append (MakeXML ("Y", listenerPosition.Position.Y.ToString ()));
+            sb.Append (MakeXML ("Z", listenerPosition.Position.Z.ToString ()));
+            sb.Append ("</Position>");
+
+            sb.Append ("<Velocity>");
+            sb.Append (MakeXML ("X", listenerPosition.Velocity.X.ToString ()));
+            sb.Append (MakeXML ("Y", listenerPosition.Velocity.Y.ToString ()));
+            sb.Append (MakeXML ("Z", listenerPosition.Velocity.Z.ToString ()));
+            sb.Append ("</Velocity>");
+
+            sb.Append ("<AtOrientation>");
+            sb.Append (MakeXML ("X", listenerPosition.AtOrientation.X.ToString ()));
+            sb.Append (MakeXML ("Y", listenerPosition.AtOrientation.Y.ToString ()));
+            sb.Append (MakeXML ("Z", listenerPosition.AtOrientation.Z.ToString ()));
+            sb.Append ("</AtOrientation>");
+
+            sb.Append ("<UpOrientation>");
+            sb.Append (MakeXML ("X", listenerPosition.UpOrientation.X.ToString ()));
+            sb.Append (MakeXML ("Y", listenerPosition.UpOrientation.Y.ToString ()));
+            sb.Append (MakeXML ("Z", listenerPosition.UpOrientation.Z.ToString ()));
+            sb.Append ("</UpOrientation>");
+
+            sb.Append ("<LeftOrientation>");
+            sb.Append (MakeXML ("X", listenerPosition.LeftOrientation.X.ToString ()));
+            sb.Append (MakeXML ("Y", listenerPosition.LeftOrientation.Y.ToString ()));
+            sb.Append (MakeXML ("Z", listenerPosition.LeftOrientation.Z.ToString ()));
+            sb.Append ("</LeftOrientation>");
+
+            sb.Append ("</ListenerPosition>");
+
+            return Request ("Session.Set3DPosition.1", sb.ToString ());
         }
 
         /// <summary>
         /// Set User Volume for a particular user. Does not affect how other users hear that user.
         /// </summary>
-        /// <param name="SessionHandle">Handle returned from successful Session ‘create’ request or a SessionNewEvent</param>
-        /// <param name="ParticipantURI"></param>
-        /// <param name="Volume">The level of the audio, a number between -100 and 100 where 0 represents ‘normal’ speaking volume</param>
+        /// <param name="sessionHandle">Handle returned from successful Session ‘create’ request or a SessionNewEvent</param>
+        /// <param name="participantURI"></param>
+        /// <param name="volume">The level of the audio, a number between -100 and 100 where 0 represents ‘normal’ speaking volume</param>
         /// <returns></returns>
-        public int SessionSetParticipantVolumeForMe(string SessionHandle, string ParticipantURI, int Volume)
+        public int SessionSetParticipantVolumeForMe (string sessionHandle, string participantURI, int volume)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(VoiceGateway.MakeXML("SessionHandle", SessionHandle));
-            sb.Append(VoiceGateway.MakeXML("ParticipantURI", ParticipantURI));
-            sb.Append(VoiceGateway.MakeXML("Volume", Volume.ToString()));
-            return Request("Session.SetParticipantVolumeForMe.1", sb.ToString());
+            StringBuilder sb = new StringBuilder ();
+            sb.Append (MakeXML ("SessionHandle", sessionHandle));
+            sb.Append (MakeXML ("ParticipantURI", participantURI));
+            sb.Append (MakeXML ("Volume", volume.ToString ()));
+            return Request ("Session.SetParticipantVolumeForMe.1", sb.ToString ());
         }
     }
 }

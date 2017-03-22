@@ -187,20 +187,22 @@ namespace OpenMetaverse
 
         #region Events
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<AvatarAnimationEventArgs> m_AvatarAnimation;
+        EventHandler<AvatarAnimationEventArgs> m_AvatarAnimation;
 
         ///<summary>Raises the AvatarAnimation Event</summary>
         /// <param name="e">An AvatarAnimationEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnAvatarAnimation(AvatarAnimationEventArgs e)
         {
-            EventHandler<AvatarAnimationEventArgs> handler = m_AvatarAnimation;
-            if (handler != null)
-                handler(this, e);
+            lock (m_AvatarAnimationLock) {
+                EventHandler<AvatarAnimationEventArgs> handler = m_AvatarAnimation;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_AvatarAnimationLock = new object();
+        readonly object m_AvatarAnimationLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// an agents animation playlist</summary>
@@ -211,20 +213,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<AvatarAppearanceEventArgs> m_AvatarAppearance;
+        EventHandler<AvatarAppearanceEventArgs> m_AvatarAppearance;
 
         ///<summary>Raises the AvatarAppearance Event</summary>
         /// <param name="e">A AvatarAppearanceEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnAvatarAppearance(AvatarAppearanceEventArgs e)
         {
-            EventHandler<AvatarAppearanceEventArgs> handler = m_AvatarAppearance;
-            if (handler != null)
-                handler(this, e);
+            lock (m_AvatarAppearanceLock) {
+                EventHandler<AvatarAppearanceEventArgs> handler = m_AvatarAppearance;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_AvatarAppearanceLock = new object();
+        readonly object m_AvatarAppearanceLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// the appearance information for an agent</summary>
@@ -235,20 +239,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<UUIDNameReplyEventArgs> m_UUIDNameReply;
+        EventHandler<UUIDNameReplyEventArgs> m_UUIDNameReply;
 
         ///<summary>Raises the UUIDNameReply Event</summary>
         /// <param name="e">A UUIDNameReplyEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnUUIDNameReply(UUIDNameReplyEventArgs e)
         {
-            EventHandler<UUIDNameReplyEventArgs> handler = m_UUIDNameReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_UUIDNameReplyLock) {
+                EventHandler<UUIDNameReplyEventArgs> handler = m_UUIDNameReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_UUIDNameReplyLock = new object();
+        readonly object m_UUIDNameReplyLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// agent names/id values</summary>
@@ -259,20 +265,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<AvatarInterestsReplyEventArgs> m_AvatarInterestsReply;
+        EventHandler<AvatarInterestsReplyEventArgs> m_AvatarInterestsReply;
 
         ///<summary>Raises the AvatarInterestsReply Event</summary>
         /// <param name="e">A AvatarInterestsReplyEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnAvatarInterestsReply(AvatarInterestsReplyEventArgs e)
         {
-            EventHandler<AvatarInterestsReplyEventArgs> handler = m_AvatarInterestsReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_AvatarInterestsReplyLock) {
+                EventHandler<AvatarInterestsReplyEventArgs> handler = m_AvatarInterestsReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_AvatarInterestsReplyLock = new object();
+        readonly object m_AvatarInterestsReplyLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// the interests listed in an agents profile</summary>
@@ -283,20 +291,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<AvatarPropertiesReplyEventArgs> m_AvatarPropertiesReply;
+        EventHandler<AvatarPropertiesReplyEventArgs> m_AvatarPropertiesReply;
 
         ///<summary>Raises the AvatarPropertiesReply Event</summary>
         /// <param name="e">A AvatarPropertiesReplyEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnAvatarPropertiesReply(AvatarPropertiesReplyEventArgs e)
         {
-            EventHandler<AvatarPropertiesReplyEventArgs> handler = m_AvatarPropertiesReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_AvatarPropertiesReplyLock) {
+                EventHandler<AvatarPropertiesReplyEventArgs> handler = m_AvatarPropertiesReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_AvatarPropertiesReplyLock = new object();
+        readonly object m_AvatarPropertiesReplyLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// profile property information for an agent</summary>
@@ -307,20 +317,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<AvatarGroupsReplyEventArgs> m_AvatarGroupsReply;
+        EventHandler<AvatarGroupsReplyEventArgs> m_AvatarGroupsReply;
 
         ///<summary>Raises the AvatarGroupsReply Event</summary>
         /// <param name="e">A AvatarGroupsReplyEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnAvatarGroupsReply(AvatarGroupsReplyEventArgs e)
         {
-            EventHandler<AvatarGroupsReplyEventArgs> handler = m_AvatarGroupsReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_AvatarGroupsReplyLock) {
+                EventHandler<AvatarGroupsReplyEventArgs> handler = m_AvatarGroupsReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_AvatarGroupsReplyLock = new object();
+        readonly object m_AvatarGroupsReplyLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// the group membership an agent is a member of</summary>
@@ -331,20 +343,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<AvatarPickerReplyEventArgs> m_AvatarPickerReply;
+         EventHandler<AvatarPickerReplyEventArgs> m_AvatarPickerReply;
 
         ///<summary>Raises the AvatarPickerReply Event</summary>
         /// <param name="e">A AvatarPickerReplyEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnAvatarPickerReply(AvatarPickerReplyEventArgs e)
         {
-            EventHandler<AvatarPickerReplyEventArgs> handler = m_AvatarPickerReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_AvatarPickerReplyLock) {
+                EventHandler<AvatarPickerReplyEventArgs> handler = m_AvatarPickerReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_AvatarPickerReplyLock = new object();
+        readonly object m_AvatarPickerReplyLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// name/id pair</summary>
@@ -355,20 +369,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<ViewerEffectPointAtEventArgs> m_ViewerEffectPointAt;
+        EventHandler<ViewerEffectPointAtEventArgs> m_ViewerEffectPointAt;
 
         ///<summary>Raises the ViewerEffectPointAt Event</summary>
         /// <param name="e">A ViewerEffectPointAtEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnViewerEffectPointAt(ViewerEffectPointAtEventArgs e)
         {
-            EventHandler<ViewerEffectPointAtEventArgs> handler = m_ViewerEffectPointAt;
-            if (handler != null)
-                handler(this, e);
+            lock (m_ViewerEffectPointAtLock) {
+                EventHandler<ViewerEffectPointAtEventArgs> handler = m_ViewerEffectPointAt;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_ViewerEffectPointAtLock = new object();
+        readonly object m_ViewerEffectPointAtLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// the objects and effect when an agent is pointing at</summary>
@@ -379,20 +395,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<ViewerEffectLookAtEventArgs> m_ViewerEffectLookAt;
+        EventHandler<ViewerEffectLookAtEventArgs> m_ViewerEffectLookAt;
 
         ///<summary>Raises the ViewerEffectLookAt Event</summary>
         /// <param name="e">A ViewerEffectLookAtEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnViewerEffectLookAt(ViewerEffectLookAtEventArgs e)
         {
-            EventHandler<ViewerEffectLookAtEventArgs> handler = m_ViewerEffectLookAt;
-            if (handler != null)
-                handler(this, e);
+            lock (m_ViewerEffectLookAtLock) {
+                EventHandler<ViewerEffectLookAtEventArgs> handler = m_ViewerEffectLookAt;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_ViewerEffectLookAtLock = new object();
+        readonly object m_ViewerEffectLookAtLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// the objects and effect when an agent is looking at</summary>
@@ -403,20 +421,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<ViewerEffectEventArgs> m_ViewerEffect;
+        EventHandler<ViewerEffectEventArgs> m_ViewerEffect;
 
         ///<summary>Raises the ViewerEffect Event</summary>
         /// <param name="e">A ViewerEffectEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnViewerEffect(ViewerEffectEventArgs e)
         {
-            EventHandler<ViewerEffectEventArgs> handler = m_ViewerEffect;
-            if (handler != null)
-                handler(this, e);
+            lock (m_ViewerEffectLock) {
+                EventHandler<ViewerEffectEventArgs> handler = m_ViewerEffect;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_ViewerEffectLock = new object();
+        readonly object m_ViewerEffectLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// an agents viewer effect information</summary>
@@ -427,20 +447,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<AvatarPicksReplyEventArgs> m_AvatarPicksReply;
+        EventHandler<AvatarPicksReplyEventArgs> m_AvatarPicksReply;
 
         ///<summary>Raises the AvatarPicksReply Event</summary>
         /// <param name="e">A AvatarPicksReplyEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnAvatarPicksReply(AvatarPicksReplyEventArgs e)
         {
-            EventHandler<AvatarPicksReplyEventArgs> handler = m_AvatarPicksReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_AvatarPicksReplyLock) {
+                EventHandler<AvatarPicksReplyEventArgs> handler = m_AvatarPicksReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_AvatarPicksReplyLock = new object();
+        readonly object m_AvatarPicksReplyLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// the top picks from an agents profile</summary>
@@ -451,20 +473,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<PickInfoReplyEventArgs> m_PickInfoReply;
+        EventHandler<PickInfoReplyEventArgs> m_PickInfoReply;
 
         ///<summary>Raises the PickInfoReply Event</summary>
         /// <param name="e">A PickInfoReplyEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnPickInfoReply(PickInfoReplyEventArgs e)
         {
-            EventHandler<PickInfoReplyEventArgs> handler = m_PickInfoReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_PickInfoReplyLock) {
+                EventHandler<PickInfoReplyEventArgs> handler = m_PickInfoReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_PickInfoReplyLock = new object();
+        readonly object m_PickInfoReplyLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// the Pick details</summary>
@@ -475,20 +499,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<AvatarClassifiedReplyEventArgs> m_AvatarClassifiedReply;
+        EventHandler<AvatarClassifiedReplyEventArgs> m_AvatarClassifiedReply;
 
         ///<summary>Raises the AvatarClassifiedReply Event</summary>
         /// <param name="e">A AvatarClassifiedReplyEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnAvatarClassifiedReply(AvatarClassifiedReplyEventArgs e)
         {
-            EventHandler<AvatarClassifiedReplyEventArgs> handler = m_AvatarClassifiedReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_AvatarClassifiedReplyLock) {
+                EventHandler<AvatarClassifiedReplyEventArgs> handler = m_AvatarClassifiedReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_AvatarClassifiedReplyLock = new object();
+        readonly object m_AvatarClassifiedReplyLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// the classified ads an agent has placed</summary>
@@ -499,20 +525,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<ClassifiedInfoReplyEventArgs> m_ClassifiedInfoReply;
+        EventHandler<ClassifiedInfoReplyEventArgs> m_ClassifiedInfoReply;
 
         ///<summary>Raises the ClassifiedInfoReply Event</summary>
         /// <param name="e">A ClassifiedInfoReplyEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnClassifiedInfoReply(ClassifiedInfoReplyEventArgs e)
         {
-            EventHandler<ClassifiedInfoReplyEventArgs> handler = m_ClassifiedInfoReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_ClassifiedInfoReplyLock) {
+                EventHandler<ClassifiedInfoReplyEventArgs> handler = m_ClassifiedInfoReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_ClassifiedInfoReplyLock = new object();
+        readonly object m_ClassifiedInfoReplyLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// the details of a classified ad</summary>
@@ -523,20 +551,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers, null of no subscribers</summary>
-        private EventHandler<DisplayNameUpdateEventArgs> m_DisplayNameUpdate;
+        EventHandler<DisplayNameUpdateEventArgs> m_DisplayNameUpdate;
 
         ///<summary>Raises the DisplayNameUpdate Event</summary>
         /// <param name="e">A DisplayNameUpdateEventArgs object containing
         /// the data sent from the simulator</param>
         protected virtual void OnDisplayNameUpdate(DisplayNameUpdateEventArgs e)
         {
-            EventHandler<DisplayNameUpdateEventArgs> handler = m_DisplayNameUpdate;
-            if (handler != null)
-                handler(this, e);
+            lock (m_DisplayNameUpdateLock) {
+                EventHandler<DisplayNameUpdateEventArgs> handler = m_DisplayNameUpdate;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_DisplayNameUpdateLock = new object();
+        readonly object m_DisplayNameUpdateLock = new object();
 
         /// <summary>Raised when the simulator sends us data containing
         /// the details of display name change</summary>
@@ -718,7 +748,7 @@ namespace OpenMetaverse
                                           callback(false, null, null);
                                       }
                                   };
-            cap.BeginGetResponse(null, String.Empty, Client.Settings.CAPS_TIMEOUT);
+            cap.BeginGetResponse(null, string.Empty, Client.Settings.CAPS_TIMEOUT);
         }
 
         /// <summary>
@@ -850,8 +880,10 @@ namespace OpenMetaverse
         /// <param name="e">The EventArgs object containing the packet data</param>
         protected void UUIDNameReplyHandler(object sender, PacketReceivedEventArgs e)
         {
-            if (m_UUIDNameReply != null)
-            {
+            bool update;
+            lock (m_UUIDNameReplyLock)
+                update = (m_UUIDNameReply != null);
+            if (update) {
                 Packet packet = e.Packet;
                 Dictionary<UUID, string> names = new Dictionary<UUID, string>();
                 UUIDNameReplyPacket reply = (UUIDNameReplyPacket)packet;
@@ -869,34 +901,36 @@ namespace OpenMetaverse
         /// <summary>Process an incoming packet and raise the appropriate events</summary>
         /// <param name="sender">The sender</param>
         /// <param name="e">The EventArgs object containing the packet data</param>
-        protected void AvatarAnimationHandler(object sender, PacketReceivedEventArgs e)
+        protected void AvatarAnimationHandler (object sender, PacketReceivedEventArgs e)
         {
-            Packet packet = e.Packet;
+            bool update;
+            lock (m_AvatarAnimationLock)
+                update = (m_AvatarAnimation != null);
+            if (update) {
+                Packet packet = e.Packet;
 
-            AvatarAnimationPacket data = (AvatarAnimationPacket)packet;
+                AvatarAnimationPacket data = (AvatarAnimationPacket)packet;
 
-            List<Animation> signaledAnimations = new List<Animation>(data.AnimationList.Length);
+                List<Animation> signaledAnimations = new List<Animation> (data.AnimationList.Length);
 
-            for (int i = 0; i < data.AnimationList.Length; i++)
-            {
-                Animation animation = new Animation();
-                animation.AnimationID = data.AnimationList[i].AnimID;
-                animation.AnimationSequence = data.AnimationList[i].AnimSequenceID;
-                if (i < data.AnimationSourceList.Length)
-                {
-                    animation.AnimationSourceObjectID = data.AnimationSourceList[i].ObjectID;
+                for (int i = 0; i < data.AnimationList.Length; i++) {
+                    Animation animation = new Animation ();
+                    animation.AnimationID = data.AnimationList [i].AnimID;
+                    animation.AnimationSequence = data.AnimationList [i].AnimSequenceID;
+                    if (i < data.AnimationSourceList.Length) {
+                        animation.AnimationSourceObjectID = data.AnimationSourceList [i].ObjectID;
+                    }
+
+                    signaledAnimations.Add (animation);
                 }
 
-                signaledAnimations.Add(animation);
-            }
+                Avatar avatar = e.Simulator.ObjectsAvatars.Find (avi => avi.ID == data.Sender.ID);
+                if (avatar != null) {
+                    avatar.Animations = signaledAnimations;
+                }
 
-            Avatar avatar = e.Simulator.ObjectsAvatars.Find(avi => avi.ID == data.Sender.ID);
-            if (avatar != null)
-            {
-                avatar.Animations = signaledAnimations;
+                OnAvatarAnimation (new AvatarAnimationEventArgs (data.Sender.ID, signaledAnimations));
             }
-
-            OnAvatarAnimation(new AvatarAnimationEventArgs(data.Sender.ID, signaledAnimations));
         }
 
         /// <summary>Process an incoming packet and raise the appropriate events</summary>
@@ -904,8 +938,11 @@ namespace OpenMetaverse
         /// <param name="e">The EventArgs object containing the packet data</param>
         protected void AvatarAppearanceHandler(object sender, PacketReceivedEventArgs e)
         {
-            if (m_AvatarAppearance != null || Client.Settings.AVATAR_TRACKING)
-            {
+            bool update;
+            lock(m_AvatarAppearanceLock)
+                update = (m_AvatarAppearance != null || Client.Settings.AVATAR_TRACKING);
+            
+            if (update) {
                 Packet packet = e.Packet;
                 Simulator simulator = e.Simulator;
 
@@ -954,8 +991,10 @@ namespace OpenMetaverse
         /// <param name="e">The EventArgs object containing the packet data</param>
         protected void AvatarPropertiesHandler(object sender, PacketReceivedEventArgs e)
         {
-            if (m_AvatarPropertiesReply != null)
-            {
+            bool update;
+            lock (m_AvatarPropertiesReplyLock)
+                update = (m_AvatarPropertiesReply != null);
+            if (update) {
                 Packet packet = e.Packet;
                 AvatarPropertiesReplyPacket reply = (AvatarPropertiesReplyPacket)packet;
                 Avatar.AvatarProperties properties = new Avatar.AvatarProperties();
@@ -996,8 +1035,10 @@ namespace OpenMetaverse
         /// <param name="e">The EventArgs object containing the packet data</param>
         protected void AvatarInterestsHandler(object sender, PacketReceivedEventArgs e)
         {
-            if (m_AvatarInterestsReply != null)
-            {
+            bool update;
+            lock(m_AvatarInterestsReplyLock)
+                update = (m_AvatarInterestsReply != null);
+            if (update) {
                 Packet packet = e.Packet;
 
                 AvatarInterestsReplyPacket airp = (AvatarInterestsReplyPacket)packet;
@@ -1021,8 +1062,10 @@ namespace OpenMetaverse
         /// <param name="simulator">The <see cref="Simulator"/> which originated the packet</param>
         protected void DisplayNameUpdateMessageHandler(string capsKey, IMessage message, Simulator simulator)
         {
-            if (m_DisplayNameUpdate != null)
-            {
+            bool update;
+            lock (m_DisplayNameUpdateLock)
+                update = (m_DisplayNameUpdate != null);
+            if (update) {
                 DisplayNameUpdateMessage msg = (DisplayNameUpdateMessage)message;
                 OnDisplayNameUpdate(new DisplayNameUpdateEventArgs(msg.OldDisplayName, msg.DisplayName));
             }
@@ -1037,51 +1080,55 @@ namespace OpenMetaverse
         /// <param name="simulator">The <see cref="Simulator"/> which originated the packet</param>
         protected void AvatarGroupsReplyMessageHandler(string capsKey, IMessage message, Simulator simulator)
         {
-            AgentGroupDataUpdateMessage msg = (AgentGroupDataUpdateMessage)message;
-            List<AvatarGroup> avatarGroups = new List<AvatarGroup>(msg.GroupDataBlock.Length);
-            for (int i = 0; i < msg.GroupDataBlock.Length; i++)
-            {
-                AvatarGroup avatarGroup = new AvatarGroup();
-                avatarGroup.AcceptNotices = msg.GroupDataBlock[i].AcceptNotices;
-                avatarGroup.GroupID = msg.GroupDataBlock[i].GroupID;
-                avatarGroup.GroupInsigniaID = msg.GroupDataBlock[i].GroupInsigniaID;
-                avatarGroup.GroupName = msg.GroupDataBlock[i].GroupName;
-                avatarGroup.GroupPowers = msg.GroupDataBlock[i].GroupPowers;
-                avatarGroup.ListInProfile = msg.NewGroupDataBlock[i].ListInProfile;
+            bool update;
+            lock (m_AvatarGroupsReplyLock)
+                update = (m_AvatarGroupsReply != null);
+            if (update) {
+                AgentGroupDataUpdateMessage msg = (AgentGroupDataUpdateMessage)message;
+                List<AvatarGroup> avatarGroups = new List<AvatarGroup> (msg.GroupDataBlock.Length);
+                for (int i = 0; i < msg.GroupDataBlock.Length; i++) {
+                    AvatarGroup avatarGroup = new AvatarGroup ();
+                    avatarGroup.AcceptNotices = msg.GroupDataBlock [i].AcceptNotices;
+                    avatarGroup.GroupID = msg.GroupDataBlock [i].GroupID;
+                    avatarGroup.GroupInsigniaID = msg.GroupDataBlock [i].GroupInsigniaID;
+                    avatarGroup.GroupName = msg.GroupDataBlock [i].GroupName;
+                    avatarGroup.GroupPowers = msg.GroupDataBlock [i].GroupPowers;
+                    avatarGroup.ListInProfile = msg.NewGroupDataBlock [i].ListInProfile;
 
-                avatarGroups.Add(avatarGroup);
+                    avatarGroups.Add (avatarGroup);
+                }
+
+                OnAvatarGroupsReply (new AvatarGroupsReplyEventArgs(msg.AgentID, avatarGroups));
             }
-
-            OnAvatarGroupsReply(new AvatarGroupsReplyEventArgs(msg.AgentID, avatarGroups));
         }
 
         /// <summary>Process an incoming packet and raise the appropriate events</summary>
         /// <param name="sender">The sender</param>
         /// <param name="e">The EventArgs object containing the packet data</param>
-        protected void AvatarGroupsReplyHandler(object sender, PacketReceivedEventArgs e)
+        protected void AvatarGroupsReplyHandler (object sender, PacketReceivedEventArgs e)
         {
-            if (m_AvatarGroupsReply != null)
-            {
+            bool update;
+            lock (m_AvatarGroupsReplyLock)
+                update = (m_AvatarGroupsReply != null);
+            if (update) {
                 Packet packet = e.Packet;
                 AvatarGroupsReplyPacket groups = (AvatarGroupsReplyPacket)packet;
-                List<AvatarGroup> avatarGroups = new List<AvatarGroup>(groups.GroupData.Length);
+                List<AvatarGroup> avatarGroups = new List<AvatarGroup> (groups.GroupData.Length);
 
-                for (int i = 0; i < groups.GroupData.Length; i++)
-                {
-                    AvatarGroup avatarGroup = new AvatarGroup();
-
-                    avatarGroup.AcceptNotices = groups.GroupData[i].AcceptNotices;
-                    avatarGroup.GroupID = groups.GroupData[i].GroupID;
-                    avatarGroup.GroupInsigniaID = groups.GroupData[i].GroupInsigniaID;
-                    avatarGroup.GroupName = Utils.BytesToString(groups.GroupData[i].GroupName);
-                    avatarGroup.GroupPowers = (GroupPowers)groups.GroupData[i].GroupPowers;
-                    avatarGroup.GroupTitle = Utils.BytesToString(groups.GroupData[i].GroupTitle);
+                for (int i = 0; i < groups.GroupData.Length; i++) {
+                    AvatarGroup avatarGroup = new AvatarGroup ();
+                    avatarGroup.AcceptNotices = groups.GroupData [i].AcceptNotices;
+                    avatarGroup.GroupID = groups.GroupData [i].GroupID;
+                    avatarGroup.GroupInsigniaID = groups.GroupData [i].GroupInsigniaID;
+                    avatarGroup.GroupName = Utils.BytesToString (groups.GroupData [i].GroupName);
+                    avatarGroup.GroupPowers = (GroupPowers)groups.GroupData [i].GroupPowers;
+                    avatarGroup.GroupTitle = Utils.BytesToString (groups.GroupData [i].GroupTitle);
                     avatarGroup.ListInProfile = groups.NewGroupData.ListInProfile;
 
-                    avatarGroups.Add(avatarGroup);
+                    avatarGroups.Add (avatarGroup);
                 }
 
-                OnAvatarGroupsReply(new AvatarGroupsReplyEventArgs(groups.AgentData.AvatarID, avatarGroups));
+                OnAvatarGroupsReply (new AvatarGroupsReplyEventArgs (groups.AgentData.AvatarID, avatarGroups));
             }
         }
 
@@ -1090,8 +1137,10 @@ namespace OpenMetaverse
         /// <param name="e">The EventArgs object containing the packet data</param>
         protected void AvatarPickerReplyHandler(object sender, PacketReceivedEventArgs e)
         {
-            if (m_AvatarPickerReply != null)
-            {
+            bool update;
+            lock (m_AvatarPickerReplyLock)
+                update = (m_AvatarPickerReply != null);
+            if (update) {
                 Packet packet = e.Packet;
                 AvatarPickerReplyPacket reply = (AvatarPickerReplyPacket)packet;
                 Dictionary<UUID, string> avatars = new Dictionary<UUID, string>();
@@ -1110,6 +1159,7 @@ namespace OpenMetaverse
         /// <param name="e">The EventArgs object containing the packet data</param>
         protected void ViewerEffectHandler(object sender, PacketReceivedEventArgs e)
         {
+            bool update;
             Packet packet = e.Packet;
             ViewerEffectPacket effect = (ViewerEffectPacket)packet;
 
@@ -1121,31 +1171,31 @@ namespace OpenMetaverse
                 switch (type)
                 {
                     case EffectType.Text:
-                        Logger.Log("Received a ViewerEffect of type " + type.ToString() + ", implement me!",
+                        Logger.Log("Received a ViewerEffect of type " + type + ", implement me!",
                             Helpers.LogLevel.Warning, Client);
                         break;
                     case EffectType.Icon:
-                        Logger.Log("Received a ViewerEffect of type " + type.ToString() + ", implement me!",
+                        Logger.Log("Received a ViewerEffect of type " + type + ", implement me!",
                             Helpers.LogLevel.Warning, Client);
                         break;
                     case EffectType.Connector:
-                        Logger.Log("Received a ViewerEffect of type " + type.ToString() + ", implement me!",
+                        Logger.Log("Received a ViewerEffect of type " + type + ", implement me!",
                             Helpers.LogLevel.Warning, Client);
                         break;
                     case EffectType.FlexibleObject:
-                        Logger.Log("Received a ViewerEffect of type " + type.ToString() + ", implement me!",
+                        Logger.Log("Received a ViewerEffect of type " + type + ", implement me!",
                             Helpers.LogLevel.Warning, Client);
                         break;
                     case EffectType.AnimalControls:
-                        Logger.Log("Received a ViewerEffect of type " + type.ToString() + ", implement me!",
+                        Logger.Log("Received a ViewerEffect of type " + type + ", implement me!",
                             Helpers.LogLevel.Warning, Client);
                         break;
                     case EffectType.AnimationObject:
-                        Logger.Log("Received a ViewerEffect of type " + type.ToString() + ", implement me!",
+                        Logger.Log("Received a ViewerEffect of type " + type + ", implement me!",
                             Helpers.LogLevel.Warning, Client);
                         break;
                     case EffectType.Cloth:
-                        Logger.Log("Received a ViewerEffect of type " + type.ToString() + ", implement me!",
+                        Logger.Log("Received a ViewerEffect of type " + type + ", implement me!",
                             Helpers.LogLevel.Warning, Client);
                         break;
                     case EffectType.Glow:
@@ -1158,8 +1208,9 @@ namespace OpenMetaverse
                     case EffectType.Sphere:
                     case EffectType.Spiral:
                     case EffectType.Edit:
-                        if (m_ViewerEffect != null)
-                        {
+                    lock (m_ViewerEffectLock)
+                        update = (m_ViewerEffect != null);
+                    if(update) {
                             if (block.TypeData.Length == 56)
                             {
                                 UUID sourceAvatar = new UUID(block.TypeData, 0);
@@ -1169,15 +1220,16 @@ namespace OpenMetaverse
                             }
                             else
                             {
-                                Logger.Log("Received a " + type.ToString() +
+                                Logger.Log("Received a " + type +
                                     " ViewerEffect with an incorrect TypeData size of " +
                                     block.TypeData.Length + " bytes", Helpers.LogLevel.Warning, Client);
                             }
                         }
                         break;
                     case EffectType.LookAt:
-                        if (m_ViewerEffectLookAt != null)
-                        {
+                    lock (m_ViewerEffectLookAtLock)
+                        update = (m_ViewerEffectLookAt != null);
+                    if (update) {
                             if (block.TypeData.Length == 57)
                             {
                                 UUID sourceAvatar = new UUID(block.TypeData, 0);
@@ -1196,8 +1248,9 @@ namespace OpenMetaverse
                         }
                         break;
                     case EffectType.PointAt:
-                        if (m_ViewerEffectPointAt != null)
-                        {
+                    lock (m_ViewerEffectPointAtLock)
+                        update = (m_ViewerEffectPointAt != null);
+                    if (update) {
                             if (block.TypeData.Length == 57)
                             {
                                 UUID sourceAvatar = new UUID(block.TypeData, 0);
@@ -1227,21 +1280,21 @@ namespace OpenMetaverse
         /// <param name="e">The EventArgs object containing the packet data</param>
         protected void AvatarPicksReplyHandler(object sender, PacketReceivedEventArgs e)
         {
-            if (m_AvatarPicksReply == null)
-            {
-                return;
+            bool update;
+            lock (m_AvatarPicksReplyLock)
+                update = (m_AvatarPicksReply == null);
+            if (update) {
+                Packet packet = e.Packet;
+
+                AvatarPicksReplyPacket p = (AvatarPicksReplyPacket)packet;
+                Dictionary<UUID, string> picks = new Dictionary<UUID, string> ();
+
+                foreach (AvatarPicksReplyPacket.DataBlock b in p.Data) {
+                    picks.Add (b.PickID, Utils.BytesToString (b.PickName));
+                }
+
+                OnAvatarPicksReply (new AvatarPicksReplyEventArgs (p.AgentData.TargetID, picks));
             }
-            Packet packet = e.Packet;
-
-            AvatarPicksReplyPacket p = (AvatarPicksReplyPacket)packet;
-            Dictionary<UUID, string> picks = new Dictionary<UUID, string>();
-
-            foreach (AvatarPicksReplyPacket.DataBlock b in p.Data)
-            {
-                picks.Add(b.PickID, Utils.BytesToString(b.PickName));
-            }
-
-            OnAvatarPicksReply(new AvatarPicksReplyEventArgs(p.AgentData.TargetID, picks));
         }
 
         /// <summary>Process an incoming packet and raise the appropriate events</summary>
@@ -1249,8 +1302,10 @@ namespace OpenMetaverse
         /// <param name="e">The EventArgs object containing the packet data</param>
         protected void PickInfoReplyHandler(object sender, PacketReceivedEventArgs e)
         {
-            if (m_PickInfoReply != null)
-            {
+            bool update;
+            lock(m_PickInfoReplyLock)
+                update = (m_PickInfoReply != null);
+            if (update) {
                 Packet packet = e.Packet;
                 PickInfoReplyPacket p = (PickInfoReplyPacket)packet;
                 ProfilePick ret = new ProfilePick();
@@ -1277,8 +1332,10 @@ namespace OpenMetaverse
         /// <param name="e">The EventArgs object containing the packet data</param>
         protected void AvatarClassifiedReplyHandler(object sender, PacketReceivedEventArgs e)
         {
-            if (m_AvatarClassifiedReply != null)
-            {
+            bool update;
+            lock (m_AvatarClassifiedReplyLock)
+                update = (m_AvatarClassifiedReply != null);
+            if (update) {
                 Packet packet = e.Packet;
                 AvatarClassifiedReplyPacket p = (AvatarClassifiedReplyPacket)packet;
                 Dictionary<UUID, string> classifieds = new Dictionary<UUID, string>();
@@ -1297,8 +1354,10 @@ namespace OpenMetaverse
         /// <param name="e">The EventArgs object containing the packet data</param>
         protected void ClassifiedInfoReplyHandler(object sender, PacketReceivedEventArgs e)
         {
-            if (m_AvatarClassifiedReply != null)
-            {
+            bool update;
+            lock (m_ClassifiedInfoReplyLock)
+                update = (m_ClassifiedInfoReply != null);
+            if (update) {
                 Packet packet = e.Packet;
                 ClassifiedInfoReplyPacket p = (ClassifiedInfoReplyPacket)packet;
                 ClassifiedAd ret = new ClassifiedAd();
@@ -1326,7 +1385,7 @@ namespace OpenMetaverse
     /// <remarks>The <see cref="AvatarManager.AvatarAnimation"/> event occurs when the simulator sends
     /// the animation playlist for an agent</remarks>
     /// <example>
-    /// The following code example uses the <see cref="AvatarAnimationEventArgs.AvatarID"/> and <see cref="AvatarAnimationEventArgs.Animations"/>
+    /// The following code example uses the <see cref="AvatarID"/> and <see cref="Animations"/>
     /// properties to display the animation playlist of an avatar on the <see cref="Console"/> window.
     /// <code>
     ///     // subscribe to the event
@@ -1362,8 +1421,8 @@ namespace OpenMetaverse
     /// </example>
     public class AvatarAnimationEventArgs : EventArgs
     {
-        private readonly UUID m_AvatarID;
-        private readonly List<Animation> m_Animations;
+        readonly UUID m_AvatarID;
+        readonly List<Animation> m_Animations;
 
         /// <summary>Get the ID of the agent</summary>
         public UUID AvatarID { get { return m_AvatarID; } }
@@ -1377,8 +1436,8 @@ namespace OpenMetaverse
         /// <param name="anims">The list of animations to start</param>
         public AvatarAnimationEventArgs(UUID avatarID, List<Animation> anims)
         {
-            this.m_AvatarID = avatarID;
-            this.m_Animations = anims;
+            m_AvatarID = avatarID;
+            m_Animations = anims;
         }
     }
 
@@ -1386,7 +1445,7 @@ namespace OpenMetaverse
     /// <remarks>The <see cref="AvatarManager.AvatarAppearance"/> event occurs when the simulator sends
     /// the appearance data for an avatar</remarks>
     /// <example>
-    /// The following code example uses the <see cref="AvatarAppearanceEventArgs.AvatarID"/> and <see cref="AvatarAppearanceEventArgs.VisualParams"/>
+    /// The following code example uses the <see cref="AvatarID"/> and <see cref="VisualParams"/>
     /// properties to display the selected shape of an avatar on the <see cref="Console"/> window.
     /// <code>
     ///     // subscribe to the event
@@ -1402,15 +1461,15 @@ namespace OpenMetaverse
     public class AvatarAppearanceEventArgs : EventArgs
     {
 
-        private readonly Simulator m_Simulator;
-        private readonly UUID m_AvatarID;
-        private readonly bool m_IsTrial;
-        private readonly Primitive.TextureEntryFace m_DefaultTexture;
-        private readonly Primitive.TextureEntryFace[] m_FaceTextures;
-        private readonly List<byte> m_VisualParams;
-        private readonly byte m_AppearanceVersion;
-        private readonly int m_COFVersion;
-        private readonly AppearanceFlags m_AppearanceFlags;
+        readonly Simulator m_Simulator;
+        readonly UUID m_AvatarID;
+        readonly bool m_IsTrial;
+        readonly Primitive.TextureEntryFace m_DefaultTexture;
+        readonly Primitive.TextureEntryFace[] m_FaceTextures;
+        readonly List<byte> m_VisualParams;
+        readonly byte m_AppearanceVersion;
+        readonly int m_COFVersion;
+        readonly AppearanceFlags m_AppearanceFlags;
 
         /// <summary>Get the Simulator this request is from of the agent</summary>
         public Simulator Simulator { get { return m_Simulator; } }
@@ -1445,23 +1504,23 @@ namespace OpenMetaverse
             Primitive.TextureEntryFace[] faceTextures, List<byte> visualParams,
             byte appearanceVersion, int COFVersion, AppearanceFlags appearanceFlags)
         {
-            this.m_Simulator = sim;
-            this.m_AvatarID = avatarID;
-            this.m_IsTrial = isTrial;
-            this.m_DefaultTexture = defaultTexture;
-            this.m_FaceTextures = faceTextures;
-            this.m_VisualParams = visualParams;
-            this.m_AppearanceVersion = appearanceVersion;
-            this.m_COFVersion = COFVersion;
-            this.m_AppearanceFlags = appearanceFlags;
+            m_Simulator = sim;
+            m_AvatarID = avatarID;
+            m_IsTrial = isTrial;
+            m_DefaultTexture = defaultTexture;
+            m_FaceTextures = faceTextures;
+            m_VisualParams = visualParams;
+            m_AppearanceVersion = appearanceVersion;
+            m_COFVersion = COFVersion;
+            m_AppearanceFlags = appearanceFlags;
         }
     }
 
     /// <summary>Represents the interests from the profile of an agent</summary>
     public class AvatarInterestsReplyEventArgs : EventArgs
     {
-        private readonly UUID m_AvatarID;
-        private readonly Avatar.Interests m_Interests;
+        readonly UUID m_AvatarID;
+        readonly Avatar.Interests m_Interests;
 
         /// <summary>Get the ID of the agent</summary>
         public UUID AvatarID { get { return m_AvatarID; } }
@@ -1469,16 +1528,16 @@ namespace OpenMetaverse
 
         public AvatarInterestsReplyEventArgs(UUID avatarID, Avatar.Interests interests)
         {
-            this.m_AvatarID = avatarID;
-            this.m_Interests = interests;
+            m_AvatarID = avatarID;
+            m_Interests = interests;
         }
     }
 
     /// <summary>The properties of an agent</summary>
     public class AvatarPropertiesReplyEventArgs : EventArgs
     {
-        private readonly UUID m_AvatarID;
-        private readonly Avatar.AvatarProperties m_Properties;
+        readonly UUID m_AvatarID;
+        readonly Avatar.AvatarProperties m_Properties;
 
         /// <summary>Get the ID of the agent</summary>
         public UUID AvatarID { get { return m_AvatarID; } }
@@ -1486,16 +1545,16 @@ namespace OpenMetaverse
 
         public AvatarPropertiesReplyEventArgs(UUID avatarID, Avatar.AvatarProperties properties)
         {
-            this.m_AvatarID = avatarID;
-            this.m_Properties = properties;
+            m_AvatarID = avatarID;
+            m_Properties = properties;
         }
     }
 
 
     public class AvatarGroupsReplyEventArgs : EventArgs
     {
-        private readonly UUID m_AvatarID;
-        private readonly List<AvatarGroup> m_Groups;
+        readonly UUID m_AvatarID;
+        readonly List<AvatarGroup> m_Groups;
 
         /// <summary>Get the ID of the agent</summary>
         public UUID AvatarID { get { return m_AvatarID; } }
@@ -1503,15 +1562,15 @@ namespace OpenMetaverse
 
         public AvatarGroupsReplyEventArgs(UUID avatarID, List<AvatarGroup> avatarGroups)
         {
-            this.m_AvatarID = avatarID;
-            this.m_Groups = avatarGroups;
+            m_AvatarID = avatarID;
+            m_Groups = avatarGroups;
         }
     }
 
     public class AvatarPicksReplyEventArgs : EventArgs
     {
-        private readonly UUID m_AvatarID;
-        private readonly Dictionary<UUID, string> m_Picks;
+        readonly UUID m_AvatarID;
+        readonly Dictionary<UUID, string> m_Picks;
 
         /// <summary>Get the ID of the agent</summary>
         public UUID AvatarID { get { return m_AvatarID; } }
@@ -1519,15 +1578,15 @@ namespace OpenMetaverse
 
         public AvatarPicksReplyEventArgs(UUID avatarid, Dictionary<UUID, string> picks)
         {
-            this.m_AvatarID = avatarid;
-            this.m_Picks = picks;
+            m_AvatarID = avatarid;
+            m_Picks = picks;
         }
     }
 
     public class PickInfoReplyEventArgs : EventArgs
     {
-        private readonly UUID m_PickID;
-        private readonly ProfilePick m_Pick;
+        readonly UUID m_PickID;
+        readonly ProfilePick m_Pick;
 
         public UUID PickID { get { return m_PickID; } }
         public ProfilePick Pick { get { return m_Pick; } }
@@ -1535,15 +1594,15 @@ namespace OpenMetaverse
 
         public PickInfoReplyEventArgs(UUID pickid, ProfilePick pick)
         {
-            this.m_PickID = pickid;
-            this.m_Pick = pick;
+            m_PickID = pickid;
+            m_Pick = pick;
         }
     }
 
     public class AvatarClassifiedReplyEventArgs : EventArgs
     {
-        private readonly UUID m_AvatarID;
-        private readonly Dictionary<UUID, string> m_Classifieds;
+        readonly UUID m_AvatarID;
+        readonly Dictionary<UUID, string> m_Classifieds;
 
         /// <summary>Get the ID of the avatar</summary>
         public UUID AvatarID { get { return m_AvatarID; } }
@@ -1551,15 +1610,15 @@ namespace OpenMetaverse
 
         public AvatarClassifiedReplyEventArgs(UUID avatarid, Dictionary<UUID, string> classifieds)
         {
-            this.m_AvatarID = avatarid;
-            this.m_Classifieds = classifieds;
+            m_AvatarID = avatarid;
+            m_Classifieds = classifieds;
         }
     }
 
     public class ClassifiedInfoReplyEventArgs : EventArgs
     {
-        private readonly UUID m_ClassifiedID;
-        private readonly ClassifiedAd m_Classified;
+        readonly UUID m_ClassifiedID;
+        readonly ClassifiedAd m_Classified;
 
         public UUID ClassifiedID { get { return m_ClassifiedID; } }
         public ClassifiedAd Classified { get { return m_Classified; } }
@@ -1567,46 +1626,46 @@ namespace OpenMetaverse
 
         public ClassifiedInfoReplyEventArgs(UUID classifiedID, ClassifiedAd Classified)
         {
-            this.m_ClassifiedID = classifiedID;
-            this.m_Classified = Classified;
+            m_ClassifiedID = classifiedID;
+            m_Classified = Classified;
         }
     }
 
     public class UUIDNameReplyEventArgs : EventArgs
     {
-        private readonly Dictionary<UUID, string> m_Names;
+        readonly Dictionary<UUID, string> m_Names;
 
         public Dictionary<UUID, string> Names { get { return m_Names; } }
 
         public UUIDNameReplyEventArgs(Dictionary<UUID, string> names)
         {
-            this.m_Names = names;
+            m_Names = names;
         }
     }
 
     public class AvatarPickerReplyEventArgs : EventArgs
     {
-        private readonly UUID m_QueryID;
-        private readonly Dictionary<UUID, string> m_Avatars;
+        readonly UUID m_QueryID;
+        readonly Dictionary<UUID, string> m_Avatars;
 
         public UUID QueryID { get { return m_QueryID; } }
         public Dictionary<UUID, string> Avatars { get { return m_Avatars; } }
 
         public AvatarPickerReplyEventArgs(UUID queryID, Dictionary<UUID, string> avatars)
         {
-            this.m_QueryID = queryID;
-            this.m_Avatars = avatars;
+            m_QueryID = queryID;
+            m_Avatars = avatars;
         }
     }
 
     public class ViewerEffectEventArgs : EventArgs
     {
-        private readonly EffectType m_Type;
-        private readonly UUID m_SourceID;
-        private readonly UUID m_TargetID;
-        private readonly Vector3d m_TargetPosition;
-        private readonly float m_Duration;
-        private readonly UUID m_EffectID;
+        readonly EffectType m_Type;
+        readonly UUID m_SourceID;
+        readonly UUID m_TargetID;
+        readonly Vector3d m_TargetPosition;
+        readonly float m_Duration;
+        readonly UUID m_EffectID;
 
         public EffectType Type { get { return m_Type; } }
         public UUID SourceID { get { return m_SourceID; } }
@@ -1617,24 +1676,24 @@ namespace OpenMetaverse
 
         public ViewerEffectEventArgs(EffectType type, UUID sourceID, UUID targetID, Vector3d targetPos, float duration, UUID id)
         {
-            this.m_Type = type;
-            this.m_SourceID = sourceID;
-            this.m_TargetID = targetID;
-            this.m_TargetPosition = targetPos;
-            this.m_Duration = duration;
-            this.m_EffectID = id;
+            m_Type = type;
+            m_SourceID = sourceID;
+            m_TargetID = targetID;
+            m_TargetPosition = targetPos;
+            m_Duration = duration;
+            m_EffectID = id;
         }
     }
 
     public class ViewerEffectPointAtEventArgs : EventArgs
     {
-        private readonly Simulator m_Simulator;
-        private readonly UUID m_SourceID;
-        private readonly UUID m_TargetID;
-        private readonly Vector3d m_TargetPosition;
-        private readonly PointAtType m_PointType;
-        private readonly float m_Duration;
-        private readonly UUID m_EffectID;
+        readonly Simulator m_Simulator;
+        readonly UUID m_SourceID;
+        readonly UUID m_TargetID;
+        readonly Vector3d m_TargetPosition;
+        readonly PointAtType m_PointType;
+        readonly float m_Duration;
+        readonly UUID m_EffectID;
 
         public Simulator Simulator { get { return m_Simulator; } }
         public UUID SourceID { get { return m_SourceID; } }
@@ -1646,24 +1705,24 @@ namespace OpenMetaverse
 
         public ViewerEffectPointAtEventArgs(Simulator simulator, UUID sourceID, UUID targetID, Vector3d targetPos, PointAtType pointType, float duration, UUID id)
         {
-            this.m_Simulator = simulator;
-            this.m_SourceID = sourceID;
-            this.m_TargetID = targetID;
-            this.m_TargetPosition = targetPos;
-            this.m_PointType = pointType;
-            this.m_Duration = duration;
-            this.m_EffectID = id;
+            m_Simulator = simulator;
+            m_SourceID = sourceID;
+            m_TargetID = targetID;
+            m_TargetPosition = targetPos;
+            m_PointType = pointType;
+            m_Duration = duration;
+            m_EffectID = id;
         }
     }
 
     public class ViewerEffectLookAtEventArgs : EventArgs
     {
-        private readonly UUID m_SourceID;
-        private readonly UUID m_TargetID;
-        private readonly Vector3d m_TargetPosition;
-        private readonly LookAtType m_LookType;
-        private readonly float m_Duration;
-        private readonly UUID m_EffectID;
+        readonly UUID m_SourceID;
+        readonly UUID m_TargetID;
+        readonly Vector3d m_TargetPosition;
+        readonly LookAtType m_LookType;
+        readonly float m_Duration;
+        readonly UUID m_EffectID;
 
 
         public UUID SourceID { get { return m_SourceID; } }
@@ -1675,12 +1734,12 @@ namespace OpenMetaverse
 
         public ViewerEffectLookAtEventArgs(UUID sourceID, UUID targetID, Vector3d targetPos, LookAtType lookType, float duration, UUID id)
         {
-            this.m_SourceID = sourceID;
-            this.m_TargetID = targetID;
-            this.m_TargetPosition = targetPos;
-            this.m_LookType = lookType;
-            this.m_Duration = duration;
-            this.m_EffectID = id;
+            m_SourceID = sourceID;
+            m_TargetID = targetID;
+            m_TargetPosition = targetPos;
+            m_LookType = lookType;
+            m_Duration = duration;
+            m_EffectID = id;
         }
     }
 
@@ -1689,16 +1748,16 @@ namespace OpenMetaverse
     /// </summary>
     public class DisplayNameUpdateEventArgs : EventArgs
     {
-        private string oldDisplayName;
-        private AgentDisplayName displayName;
+        string m_oldDisplayName;
+        readonly AgentDisplayName m_displayName;
 
-        public string OldDisplayName { get { return oldDisplayName; } }
-        public AgentDisplayName DisplayName { get { return displayName; } }
+        public string OldDisplayName { get { return m_oldDisplayName; } }
+        public AgentDisplayName DisplayName { get { return m_displayName; } }
 
         public DisplayNameUpdateEventArgs(string oldDisplayName, AgentDisplayName displayName)
         {
-            this.oldDisplayName = oldDisplayName;
-            this.displayName = displayName;
+            m_oldDisplayName = oldDisplayName;
+            m_displayName = displayName;
         }
     }
     #endregion

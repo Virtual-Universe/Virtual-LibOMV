@@ -6,7 +6,7 @@
 /// $Date $
 /// ***************************************************************************
 /// </summary>
-using System;
+
 using CSJ2K.j2k.image;
 using CSJ2K.j2k.util;
 using CSJ2K.Icc;
@@ -29,7 +29,7 @@ namespace CSJ2K.Color
 	/// </author>
 	public abstract class ColorSpaceMapper:ImgDataAdapter, BlkImgDataSrc
 	{
-		private void  InitBlock()
+		void  InitBlock()
 		{
 			computed = new ComputedComponents(this);
 		}
@@ -47,7 +47,7 @@ namespace CSJ2K.Color
 		/// if no options are supported.
 		/// 
 		/// </returns>
-		public static System.String[][] ParameterInfo
+		public static string[][] ParameterInfo
 		{
 			get
 			{
@@ -68,8 +68,6 @@ namespace CSJ2K.Color
 			{
 				switch (value.DataType)
 				{
-					
-					
 					case DataBlk.TYPE_INT: 
 						if (value.Data == null || ((int[]) value.Data).Length < value.w * value.h)
 							value.Data = new int[value.w * value.h];
@@ -117,7 +115,7 @@ namespace CSJ2K.Color
 		
 		/// <summary>The list of parameters that are accepted for ICC profiling.</summary>
 		//UPGRADE_NOTE: Final was removed from the declaration of 'pinfo'. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private static readonly System.String[][] pinfo = new System.String[][]{new System.String[]{"IcolorSpacedebug", null, "Print debugging messages during colorspace mapping.", "off"}};
+		static readonly string[][] pinfo = {new string[]{"IcolorSpacedebug", null, "Print debugging messages during colorspace mapping.", "off"}};
 		
 		/// <summary>Parameter Specs </summary>
 		protected internal ParameterList pl = null;
@@ -138,11 +136,11 @@ namespace CSJ2K.Color
 		//UPGRADE_NOTE: Field 'EnclosingInstance' was added to class 'ComputedComponents' to access its enclosing instance. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1019'"
 		protected internal class ComputedComponents
 		{
-			private void  InitBlock(ColorSpaceMapper enclosingInstance)
+			void  InitBlock(ColorSpaceMapper enclosingInstance)
 			{
 				this.enclosingInstance = enclosingInstance;
 			}
-			private ColorSpaceMapper enclosingInstance;
+			ColorSpaceMapper enclosingInstance;
 			public ColorSpaceMapper Enclosing_Instance
 			{
 				get
@@ -151,13 +149,13 @@ namespace CSJ2K.Color
 				}
 				
 			}
-			//private int tIdx = - 1;
-			private int h = - 1;
-			private int w = - 1;
-			private int ulx = - 1;
-			private int uly = - 1;
-			private int offset = - 1;
-			private int scanw = - 1;
+			//int tIdx = - 1;
+			int h = - 1;
+			int w = - 1;
+			int ulx = - 1;
+			int uly = - 1;
+			int offset = - 1;
+			int scanw = - 1;
 			
 			public ComputedComponents(ColorSpaceMapper enclosingInstance)
 			{
@@ -234,42 +232,30 @@ namespace CSJ2K.Color
 			
 			// Check parameters
 			csMap.pl.checkList(OPT_PREFIX, CSJ2K.j2k.util.ParameterList.toNameArray(pinfo));
-			
-			// Perform ICCProfiling or ColorSpace tranfsormation.
-			if (csMap.Method == ColorSpace.MethodEnum.ICC_PROFILED)
-			{
-				return ICCProfiler.createInstance(src, csMap);
-			}
-			else
-			{
-				ColorSpace.CSEnum colorspace = csMap.getColorSpace();
-				
-				if (colorspace == ColorSpace.CSEnum.sRGB)
-				{
-					return EnumeratedColorSpaceMapper.createInstance(src, csMap);
-				}
-				else if (colorspace == ColorSpace.CSEnum.GreyScale)
-				{
-					return EnumeratedColorSpaceMapper.createInstance(src, csMap);
-				}
-				else if (colorspace == ColorSpace.CSEnum.sYCC)
-				{
-					return SYccColorSpaceMapper.createInstance(src, csMap);
-				}
-                if (colorspace == ColorSpace.CSEnum.esRGB)
-                {
-                    return EsRgbColorSpaceMapper.createInstance(src, csMap);
-                }
-                else if (colorspace == ColorSpace.CSEnum.Unknown)
-                {
-                    return null;
-                }
-                else
-                {
-                    throw new ColorSpaceException("Bad color space specification in image");
-                }
-			}
-		}
+
+            // Perform ICCProfiling or ColorSpace tranfsormation.
+            if (csMap.Method == ColorSpace.MethodEnum.ICC_PROFILED) {
+                return ICCProfiler.createInstance (src, csMap);
+            }
+            ColorSpace.CSEnum colorspace = csMap.getColorSpace ();
+
+            if (colorspace == ColorSpace.CSEnum.sRGB) {
+                return EnumeratedColorSpaceMapper.createInstance (src, csMap);
+            }
+            if (colorspace == ColorSpace.CSEnum.GreyScale) {
+                return EnumeratedColorSpaceMapper.createInstance (src, csMap);
+            }
+            if (colorspace == ColorSpace.CSEnum.sYCC) {
+                return SYccColorSpaceMapper.createInstance (src, csMap);
+            }
+            if (colorspace == ColorSpace.CSEnum.esRGB) {
+                return EsRgbColorSpaceMapper.createInstance (src, csMap);
+            }
+            if (colorspace == ColorSpace.CSEnum.Unknown) {
+                return null;
+            }
+            throw new ColorSpaceException ("Bad color space specification in image");
+        }
 		
 		/// <summary> Ctor which creates an ICCProfile for the image and initializes
 		/// all data objects (input, working, and output).
@@ -290,7 +276,7 @@ namespace CSJ2K.Color
 		}
 		
 		/// <summary>General utility used by ctors </summary>
-		private void  initialize()
+		void  initialize()
 		{
 			
 			this.pl = csMap.pl;

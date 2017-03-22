@@ -26,7 +26,6 @@
 
 using System;
 using System.IO;
-using OpenMetaverse;
 using OpenMetaverse.StructuredData;
 
 namespace OpenMetaverse.Assets
@@ -61,7 +60,7 @@ namespace OpenMetaverse.Assets
         public override void Encode() { }
 
         /// <summary>
-        /// Decodes mesh asset. See <see cref="OpenMetaverse.Rendering.FacetedMesh.TryDecodeFromAsset"/>
+        /// Decodes mesh asset. See <see cref="Rendering.FacetedMesh.TryDecodeFromAsset"/>
         /// to furter decode it for rendering</summary>
         /// <returns>true</returns>
         public override bool Decode()
@@ -72,21 +71,18 @@ namespace OpenMetaverse.Assets
 
                 using (MemoryStream data = new MemoryStream(AssetData))
                 {
-                    OSDMap header = (OSDMap)OSDParser.DeserializeLLSDBinary(data);
+                    var header = (OSDMap)OSDParser.DeserializeLLSDBinary(data);
                     MeshData["asset_header"] = header;
                     long start = data.Position;
 
-                    foreach(string partName in header.Keys)
-                    {
-                        if (header[partName].Type != OSDType.Map)
-                        {
+                    foreach(string partName in header.Keys) {
+                        if (header[partName].Type != OSDType.Map) {
                             MeshData[partName] = header[partName];
                             continue;
                         }
 
-                        OSDMap partInfo = (OSDMap)header[partName];
-                        if (partInfo["offset"] < 0 || partInfo["size"] == 0)
-                        {
+                        var partInfo = (OSDMap)header[partName];
+                        if (partInfo["offset"] < 0 || partInfo["size"] == 0) {
                             MeshData[partName] = partInfo;
                             continue;
                         }

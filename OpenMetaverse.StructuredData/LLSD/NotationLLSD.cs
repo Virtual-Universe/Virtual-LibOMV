@@ -36,42 +36,42 @@ namespace OpenMetaverse.StructuredData
     /// </summary>
     public static partial class OSDParser
     {
-        private const string baseIndent = "  ";
+        const string baseIndent = "  ";
 
-        private const char undefNotationValue = '!';
+        const char undefNotationValue = '!';
 
-        private const char trueNotationValueOne = '1';
-        private const char trueNotationValueTwo = 't';
-        private static readonly char[] trueNotationValueTwoFull = { 't', 'r', 'u', 'e' };
-        private const char trueNotationValueThree = 'T';
-        private static readonly char[] trueNotationValueThreeFull = { 'T', 'R', 'U', 'E' };
+        const char trueNotationValueOne = '1';
+        const char trueNotationValueTwo = 't';
+        static readonly char[] trueNotationValueTwoFull = { 't', 'r', 'u', 'e' };
+        const char trueNotationValueThree = 'T';
+        static readonly char[] trueNotationValueThreeFull = { 'T', 'R', 'U', 'E' };
 
-        private const char falseNotationValueOne = '0';
-        private const char falseNotationValueTwo = 'f';
-        private static readonly char[] falseNotationValueTwoFull = { 'f', 'a', 'l', 's', 'e' };
-        private const char falseNotationValueThree = 'F';
-        private static readonly char[] falseNotationValueThreeFull = { 'F', 'A', 'L', 'S', 'E' };
+        const char falseNotationValueOne = '0';
+        const char falseNotationValueTwo = 'f';
+        static readonly char[] falseNotationValueTwoFull = { 'f', 'a', 'l', 's', 'e' };
+        const char falseNotationValueThree = 'F';
+        static readonly char[] falseNotationValueThreeFull = { 'F', 'A', 'L', 'S', 'E' };
 
-        private const char integerNotationMarker = 'i';
-        private const char realNotationMarker = 'r';
-        private const char uuidNotationMarker = 'u';
-        private const char binaryNotationMarker = 'b';
-        private const char stringNotationMarker = 's';
-        private const char uriNotationMarker = 'l';
-        private const char dateNotationMarker = 'd';
+        const char integerNotationMarker = 'i';
+        const char realNotationMarker = 'r';
+        const char uuidNotationMarker = 'u';
+        const char binaryNotationMarker = 'b';
+        const char stringNotationMarker = 's';
+        const char uriNotationMarker = 'l';
+        const char dateNotationMarker = 'd';
 
-        private const char arrayBeginNotationMarker = '[';
-        private const char arrayEndNotationMarker = ']';
+        const char arrayBeginNotationMarker = '[';
+        const char arrayEndNotationMarker = ']';
 
-        private const char mapBeginNotationMarker = '{';
-        private const char mapEndNotationMarker = '}';
-        private const char kommaNotationDelimiter = ',';
-        private const char keyNotationDelimiter = ':';
+        const char mapBeginNotationMarker = '{';
+        const char mapEndNotationMarker = '}';
+        const char kommaNotationDelimiter = ',';
+        const char keyNotationDelimiter = ':';
 
-        private const char sizeBeginNotationMarker = '(';
-        private const char sizeEndNotationMarker = ')';
-        private const char doubleQuotesNotationMarker = '"';
-        private const char singleQuotesNotationMarker = '\'';
+        const char sizeBeginNotationMarker = '(';
+        const char sizeEndNotationMarker = ')';
+        const char doubleQuotesNotationMarker = '"';
+        const char singleQuotesNotationMarker = '\'';
 
         public static OSD DeserializeLLSDNotation(string notationData)
         {
@@ -117,7 +117,7 @@ namespace OpenMetaverse.StructuredData
         {
             StringWriter writer = new StringWriter();
 
-            string indent = String.Empty;
+            string indent = string.Empty;
             SerializeLLSDNotationElementFormatted(writer, indent, osd);
             return writer;
         }
@@ -127,7 +127,7 @@ namespace OpenMetaverse.StructuredData
         /// </summary>
         /// <param name="reader"></param>
         /// <returns></returns>
-        private static OSD DeserializeLLSDNotationElement(StringReader reader)
+        static OSD DeserializeLLSDNotationElement(StringReader reader)
         {
             int character = ReadAndSkipWhitespace(reader);
             if (character < 0)
@@ -181,7 +181,7 @@ namespace OpenMetaverse.StructuredData
                     if (reader.Read(uuidBuf, 0, 36) < 36)
                         throw new OSDException("Notation LLSD parsing: Unexpected end of stream in UUID.");
                     UUID lluuid;
-                    if (!UUID.TryParse(new String(uuidBuf), out lluuid))
+                    if (!UUID.TryParse(new string(uuidBuf), out lluuid))
                         throw new OSDException("Notation LLSD parsing: Invalid UUID discovered.");
                     osd = OSD.FromUUID(lluuid);
                     break;
@@ -194,13 +194,13 @@ namespace OpenMetaverse.StructuredData
                     {
                         throw new OSDException("Notation LLSD parsing: Raw binary encoding not supported.");
                     }
-                    else if (Char.IsDigit((char)bChar))
+                    else if (char.IsDigit((char)bChar))
                     {
                         char[] charsBaseEncoding = new char[2];
                         if (reader.Read(charsBaseEncoding, 0, 2) < 2)
                             throw new OSDException("Notation LLSD parsing: Unexpected end of stream in binary.");
                         int baseEncoding;
-                        if (!Int32.TryParse(new String(charsBaseEncoding), out baseEncoding))
+                        if (!int.TryParse(new string(charsBaseEncoding), out baseEncoding))
                             throw new OSDException("Notation LLSD parsing: Invalid binary encoding base.");
                         if (baseEncoding == 64)
                         {
@@ -225,7 +225,7 @@ namespace OpenMetaverse.StructuredData
                         throw new OSDException("Notation LLSD parsing: Unexpected end of stream in string.");
                     if (reader.Read() < 0)
                         throw new OSDException("Notation LLSD parsing: Unexpected end of stream in string.");
-                    osd = OSD.FromString(new String(chars));
+                    osd = OSD.FromString(new string(chars));
                     break;
                 case singleQuotesNotationMarker:
                     string sOne = GetStringDelimitedBy(reader, singleQuotesNotationMarker);
@@ -272,7 +272,7 @@ namespace OpenMetaverse.StructuredData
             return osd;
         }
 
-        private static OSD DeserializeLLSDNotationInteger(StringReader reader)
+        static OSD DeserializeLLSDNotationInteger(StringReader reader)
         {
             int character;
             StringBuilder s = new StringBuilder();
@@ -283,30 +283,30 @@ namespace OpenMetaverse.StructuredData
             }
 
             while ((character = reader.Peek()) > 0 &&
-                           Char.IsDigit((char)character))
+                           char.IsDigit((char)character))
             {
                 s.Append((char)character);
                 reader.Read();
             }
             int integer;
-            if (!Int32.TryParse(s.ToString(), out integer))
+            if (!int.TryParse(s.ToString(), out integer))
                 throw new OSDException("Notation LLSD parsing: Can't parse integer value." + s.ToString());
 
             return OSD.FromInteger(integer);
         }
 
-        private static OSD DeserializeLLSDNotationReal(StringReader reader)
+        static OSD DeserializeLLSDNotationReal(StringReader reader)
         {
             int character;
             StringBuilder s = new StringBuilder();
             if (((character = reader.Peek()) > 0) &&
-                ((char)character == '-' && (char)character == '+'))
+                ((char)character == '-' || (char)character == '+'))
             {
                 s.Append((char)character);
                 reader.Read();
             }
             while (((character = reader.Peek()) > 0) &&
-                   (Char.IsDigit((char)character) || (char)character == '.' ||
+                   (char.IsDigit((char)character) || (char)character == '.' ||
                     (char)character == 'e' || (char)character == 'E' ||
                     (char)character == '+' || (char)character == '-'))
             {
@@ -320,7 +320,7 @@ namespace OpenMetaverse.StructuredData
             return OSD.FromReal(dbl);
         }
 
-        private static OSD DeserializeLLSDNotationArray(StringReader reader)
+        static OSD DeserializeLLSDNotationArray(StringReader reader)
         {
             int character;
             OSDArray osdArray = new OSDArray();
@@ -340,10 +340,10 @@ namespace OpenMetaverse.StructuredData
             if (character < 0)
                 throw new OSDException("Notation LLSD parsing: Unexpected end of array discovered.");
 
-            return (OSD)osdArray;
+            return osdArray;
         }
 
-        private static OSD DeserializeLLSDNotationMap(StringReader reader)
+        static OSD DeserializeLLSDNotationMap(StringReader reader)
         {
             int character;
             OSDMap osdMap = new OSDMap();
@@ -373,10 +373,10 @@ namespace OpenMetaverse.StructuredData
             if (character < 0)
                 throw new OSDException("Notation LLSD parsing: Unexpected end of map discovered.");
 
-            return (OSD)osdMap;
+            return osdMap;
         }
 
-        private static void SerializeLLSDNotationElement(StringWriter writer, OSD osd)
+        static void SerializeLLSDNotationElement(StringWriter writer, OSD osd)
         {
 
             switch (osd.Type)
@@ -438,7 +438,7 @@ namespace OpenMetaverse.StructuredData
             }
         }
 
-        private static void SerializeLLSDNotationArray(StringWriter writer, OSDArray osdArray)
+        static void SerializeLLSDNotationArray(StringWriter writer, OSDArray osdArray)
         {
             writer.Write(arrayBeginNotationMarker);
             int lastIndex = osdArray.Count - 1;
@@ -452,7 +452,7 @@ namespace OpenMetaverse.StructuredData
             writer.Write(arrayEndNotationMarker);
         }
 
-        private static void SerializeLLSDNotationMap(StringWriter writer, OSDMap osdMap)
+        static void SerializeLLSDNotationMap(StringWriter writer, OSDMap osdMap)
         {
             writer.Write(mapBeginNotationMarker);
             int lastIndex = osdMap.Count - 1;
@@ -473,7 +473,7 @@ namespace OpenMetaverse.StructuredData
             writer.Write(mapEndNotationMarker);
         }
 
-        private static void SerializeLLSDNotationElementFormatted(StringWriter writer, string indent, OSD osd)
+        static void SerializeLLSDNotationElementFormatted(StringWriter writer, string indent, OSD osd)
         {
             switch (osd.Type)
             {
@@ -534,7 +534,7 @@ namespace OpenMetaverse.StructuredData
             }
         }
 
-        private static void SerializeLLSDNotationArrayFormatted(StringWriter writer, string intend, OSDArray osdArray)
+        static void SerializeLLSDNotationArrayFormatted(StringWriter writer, string intend, OSDArray osdArray)
         {
             writer.WriteLine();
             writer.Write(intend);
@@ -557,7 +557,7 @@ namespace OpenMetaverse.StructuredData
             writer.Write(arrayEndNotationMarker);
         }
 
-        private static void SerializeLLSDNotationMapFormatted(StringWriter writer, string intend, OSDMap osdMap)
+        static void SerializeLLSDNotationMapFormatted(StringWriter writer, string intend, OSDMap osdMap)
         {
             writer.WriteLine();
             writer.Write(intend);
@@ -636,7 +636,7 @@ namespace OpenMetaverse.StructuredData
                 reader.Read();
             }
             while (((character = reader.Read()) > 0) &&
-                    Char.IsDigit((char)character) &&
+                    char.IsDigit((char)character) &&
                   ((char)character != sizeEndNotationMarker))
             {
                 s.Append((char)character);
@@ -644,7 +644,7 @@ namespace OpenMetaverse.StructuredData
             if (character < 0)
                 throw new OSDException("Notation LLSD parsing: Can't parse length value cause unexpected end of stream.");
             int length;
-            if (!Int32.TryParse(s.ToString(), out length))
+            if (!int.TryParse(s.ToString(), out length))
                 throw new OSDException("Notation LLSD parsing: Can't parse length value.");
 
             return length;
@@ -747,12 +747,12 @@ namespace OpenMetaverse.StructuredData
         /// <param name="s"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static string UnescapeCharacter(String s, char c)
+        public static string UnescapeCharacter(string s, char c)
         {
             string oldOne = "\\" + c;
-            string newOne = new String(c, 1);
+            string newOne = new string(c, 1);
 
-            String sOne = s.Replace("\\\\", "\\").Replace(oldOne, newOne);
+            string sOne = s.Replace("\\\\", "\\").Replace(oldOne, newOne);
             return sOne;
         }
 
@@ -762,12 +762,12 @@ namespace OpenMetaverse.StructuredData
         /// <param name="s"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static string EscapeCharacter(String s, char c)
+        public static string EscapeCharacter(string s, char c)
         {
-            string oldOne = new String(c, 1);
+            string oldOne = new string(c, 1);
             string newOne = "\\" + c;
 
-            String sOne = s.Replace("\\", "\\\\").Replace(oldOne, newOne);
+            string sOne = s.Replace("\\", "\\\\").Replace(oldOne, newOne);
             return sOne;
         }
     }

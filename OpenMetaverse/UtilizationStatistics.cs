@@ -24,12 +24,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-using System;
-using System.Text;
 using System.Threading;
 using System.Collections.Generic;
-using OpenMetaverse.Packets;
 
 namespace OpenMetaverse.Stats
 {
@@ -51,22 +47,22 @@ namespace OpenMetaverse.Stats
 
             public Stat(Type type, long txCount, long rxCount, long txBytes, long rxBytes)
             {
-                this.Type = type;
-                this.TxCount = txCount;
-                this.RxCount = rxCount;
-                this.TxBytes = txBytes;
-                this.RxBytes = rxBytes;
+                Type = type;
+                TxCount = txCount;
+                RxCount = rxCount;
+                TxBytes = txBytes;
+                RxBytes = rxBytes;
             }
         }
-                
-        private Dictionary<string, Stat> m_StatsCollection;
+
+        readonly Dictionary<string, Stat> m_StatsCollection;
 
         public UtilizationStatistics()
         {
             m_StatsCollection = new Dictionary<string, Stat>();
         }
 
-        internal void Update(string key, Type Type, long txBytes, long rxBytes)
+        internal void Update(string key, Type type, long txBytes, long rxBytes)
         {            
             lock (m_StatsCollection)
             {
@@ -88,9 +84,9 @@ namespace OpenMetaverse.Stats
                 } else {
                     Stat stat;
                     if (txBytes > 0)
-                        stat = new Stat(Type, 1, 0, txBytes, 0);
+                        stat = new Stat(type, 1, 0, txBytes, 0);
                     else
-                        stat = new Stat(Type, 0, 1, 0, rxBytes);
+                        stat = new Stat(type, 0, 1, 0, rxBytes);
 
                     m_StatsCollection.Add(key, stat);
                 }

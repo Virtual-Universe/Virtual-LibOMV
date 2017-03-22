@@ -24,112 +24,109 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System;
 
 namespace OpenMetaverse
 {
     public class CircularQueue<T>
     {
-        public readonly T[] Items;
+        public readonly T [] Items;
 
-        int first;
-        int next;
-        int capacity;
-        object syncRoot;
+        int _first;
+        int _next;
+        readonly int _capacity;
+        readonly object syncRoot;
 
-        public int First { get { return first; } }
-        public int Next { get { return next; } }
+        public int First {
+            get {
+                lock (syncRoot) { return _first; }
+            }
+        }
+        public int Next {
+            get {
+                lock (syncRoot) { return _next; }
+            }
+        }
 
-        public CircularQueue(int capacity)
+        public CircularQueue (int capacity)
         {
-            this.capacity = capacity;
-            Items = new T[capacity];
-            syncRoot = new object();
+            _capacity = capacity;
+            Items = new T [capacity];
+            syncRoot = new object ();
         }
 
         /// <summary>
         /// Copy constructor
         /// </summary>
         /// <param name="queue">Circular queue to copy</param>
-        public CircularQueue(CircularQueue<T> queue)
+        public CircularQueue (CircularQueue<T> queue)
         {
-            lock (queue.syncRoot)
-            {
-                capacity = queue.capacity;
-                Items = new T[capacity];
-                syncRoot = new object();
+            lock (queue.syncRoot) {
+                _capacity = queue._capacity;
+                Items = new T [_capacity];
+                syncRoot = new object ();
 
-                for (int i = 0; i < capacity; i++)
-                    Items[i] = queue.Items[i];
+                for (var i = 0; i < _capacity; i++)
+                    Items [i] = queue.Items [i];
 
-                first = queue.first;
-                next = queue.next;
+                _first = queue._first;
+                _next = queue._next;
             }
         }
 
-        public void Clear()
+        public void Clear ()
         {
-            lock (syncRoot)
-            {
+            lock (syncRoot) {
                 // Explicitly remove references to help garbage collection
-                for (int i = 0; i < capacity; i++)
-                    Items[i] = default(T);
+                for (var i = 0; i < _capacity; i++)
+                    Items [i] = default (T);
 
-                first = next;
+                _first = _next;
             }
         }
 
-        public void Enqueue(T value)
+        public void Enqueue (T value)
         {
-            lock (syncRoot)
-            {
-                Items[next] = value;
-                next = (next + 1) % capacity;
-
-                if (next == first) first = (first + 1) % capacity;
+            lock (syncRoot) {
+                Items [_next] = value;
+                _next = (_next + 1) % _capacity;
+                if (_next == _first) _first = (_first + 1) % _capacity;
             }
         }
 
-        public T Dequeue()
+        public T Dequeue ()
         {
-            lock (syncRoot)
-            {
-                T value = Items[first];
-                Items[first] = default(T);
+            lock (syncRoot) {
+                var value = Items [_first];
+                Items [_first] = default (T);
 
-                if (first != next)
-                    first = (first + 1) % capacity;
+                if (_first != _next)
+                    _first = (_first + 1) % _capacity;
 
                 return value;
             }
         }
 
-        public T DequeueLast()
+        public T DequeueLast ()
         {
-            lock (syncRoot)
-            {
+            lock (syncRoot) {
                 // If the next element is right behind the first element (queue is full),
                 // back up the first element by one
-                int firstTest = first - 1;
-                if (firstTest < 0) firstTest = capacity - 1;
+                var firstTest = _first - 1;
+                if (firstTest < 0) firstTest = _capacity - 1;
 
-                if (firstTest == next)
-                {
-                    --next;
-                    if (next < 0) next = capacity - 1;
+                if (firstTest == _next) {
+                    --_next;
+                    if (_next < 0) _next = _capacity - 1;
 
-                    --first;
-                    if (first < 0) first = capacity - 1;
-                }
-                else if (first != next)
-                {
-                    --next;
-
-                    if (next < 0) next = capacity - 1;
+                    --_first;
+                    if (_first < 0) _first = _capacity - 1;
+                } else if (_first != _next) {
+                    --_next;
+                    if (_next < 0) _next = _capacity - 1;
                 }
 
-                T value = Items[next];
-                Items[next] = default(T);
+                var value = Items [_next];
+                Items [_next] = default (T);
 
                 return value;
             }

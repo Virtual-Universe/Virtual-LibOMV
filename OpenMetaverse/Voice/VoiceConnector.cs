@@ -38,93 +38,93 @@ namespace OpenMetaverse.Voice
         /// (typically during application initialization). The shutdown should be called
         /// when the application is shutting down to gracefully release resources
         /// </summary>
-        /// <param name="ClientName">A string value indicting the Application name</param>
-        /// <param name="AccountManagementServer">URL for the management server</param>
-        /// <param name="Logging">LoggingSettings</param>
-        /// <param name="MaximumPort"></param>
-        /// <param name="MinimumPort"></param>
-        public int ConnectorCreate(string ClientName, string AccountManagementServer, ushort MinimumPort,
-            ushort MaximumPort, VoiceLoggingSettings Logging)
+        /// <param name="clientName">A string value indicting the Application name</param>
+        /// <param name="accountManagementServer">URL for the management server</param>
+        /// <param name="logging">LoggingSettings</param>
+        /// <param name="maximumPort"></param>
+        /// <param name="minimumPort"></param>
+        public int ConnectorCreate (string clientName, string accountManagementServer, ushort minimumPort,
+                                    ushort maximumPort, VoiceLoggingSettings logging)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(VoiceGateway.MakeXML("ClientName", ClientName));
-            sb.Append(VoiceGateway.MakeXML("AccountManagementServer", AccountManagementServer));
-            sb.Append(VoiceGateway.MakeXML("MinimumPort", MinimumPort.ToString()));
-            sb.Append(VoiceGateway.MakeXML("MaximumPort", MaximumPort.ToString()));
-            sb.Append(VoiceGateway.MakeXML("Mode", "Normal"));
-            sb.Append("<Logging>");
-            sb.Append(VoiceGateway.MakeXML("Enabled", Logging.Enabled ? "true" : "false"));
-            sb.Append(VoiceGateway.MakeXML("Folder", Logging.Folder));
-            sb.Append(VoiceGateway.MakeXML("FileNamePrefix", Logging.FileNamePrefix));
-            sb.Append(VoiceGateway.MakeXML("FileNameSuffix", Logging.FileNameSuffix));
-            sb.Append(VoiceGateway.MakeXML("LogLevel", Logging.LogLevel.ToString()));
-            sb.Append("</Logging>");
-            return Request("Connector.Create.1", sb.ToString());
+            StringBuilder sb = new StringBuilder ();
+            sb.Append (MakeXML ("ClientName", clientName));
+            sb.Append (MakeXML ("AccountManagementServer", accountManagementServer));
+            sb.Append (MakeXML ("MinimumPort", minimumPort.ToString ()));
+            sb.Append (MakeXML ("MaximumPort", maximumPort.ToString ()));
+            sb.Append (MakeXML ("Mode", "Normal"));
+            sb.Append ("<Logging>");
+            sb.Append (MakeXML ("Enabled", logging.Enabled ? "true" : "false"));
+            sb.Append (MakeXML ("Folder", logging.Folder));
+            sb.Append (MakeXML ("FileNamePrefix", logging.FileNamePrefix));
+            sb.Append (MakeXML ("FileNameSuffix", logging.FileNameSuffix));
+            sb.Append (MakeXML ("LogLevel", logging.LogLevel.ToString ()));
+            sb.Append ("</Logging>");
+            return Request ("Connector.Create.1", sb.ToString ());
         }
 
         /// <summary>
         /// Shutdown Connector -- Should be called when the application is shutting down
         /// to gracefully release resources
         /// </summary>
-        /// <param name="ConnectorHandle">Handle returned from successful Connector ‘create’ request</param>
-        public int ConnectorInitiateShutdown(string ConnectorHandle)
+        /// <param name="connectorHandle">Handle returned from successful Connector ‘create’ request</param>
+        public int ConnectorInitiateShutdown (string connectorHandle)
         {
-            string RequestXML = VoiceGateway.MakeXML("ConnectorHandle", ConnectorHandle);
-            return Request("Connector.InitiateShutdown.1", RequestXML);
+            string RequestXML = MakeXML ("ConnectorHandle", connectorHandle);
+            return Request ("Connector.InitiateShutdown.1", RequestXML);
         }
 
         /// <summary>
         /// Mute or unmute the microphone
         /// </summary>
-        /// <param name="ConnectorHandle">Handle returned from successful Connector ‘create’ request</param>
-        /// <param name="Mute">true (mute) or false (unmute)</param>
-        public int ConnectorMuteLocalMic(string ConnectorHandle, bool Mute)
+        /// <param name="connectorHandle">Handle returned from successful Connector ‘create’ request</param>
+        /// <param name="mute">true (mute) or false (unmute)</param>
+        public int ConnectorMuteLocalMic (string connectorHandle, bool mute)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(VoiceGateway.MakeXML("ConnectorHandle", ConnectorHandle));
-            sb.Append(VoiceGateway.MakeXML("Value", Mute ? "true" : "false"));
-            return Request("Connector.MuteLocalMic.1", sb.ToString());
+            StringBuilder sb = new StringBuilder ();
+            sb.Append (MakeXML ("ConnectorHandle", connectorHandle));
+            sb.Append (MakeXML ("Value", mute ? "true" : "false"));
+            return Request ("Connector.MuteLocalMic.1", sb.ToString ());
         }
 
         /// <summary>
         /// Mute or unmute the speaker
         /// </summary>
-        /// <param name="ConnectorHandle">Handle returned from successful Connector ‘create’ request</param>
-        /// <param name="Mute">true (mute) or false (unmute)</param>
-        public int ConnectorMuteLocalSpeaker(string ConnectorHandle, bool Mute)
+        /// <param name="connectorHandle">Handle returned from successful Connector ‘create’ request</param>
+        /// <param name="mute">true (mute) or false (unmute)</param>
+        public int ConnectorMuteLocalSpeaker (string connectorHandle, bool mute)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(VoiceGateway.MakeXML("ConnectorHandle", ConnectorHandle));
-            sb.Append(VoiceGateway.MakeXML("Value", Mute ? "true" : "false"));
-            return Request("Connector.MuteLocalSpeaker.1", sb.ToString());
+            StringBuilder sb = new StringBuilder ();
+            sb.Append (MakeXML ("ConnectorHandle", connectorHandle));
+            sb.Append (MakeXML ("Value", mute ? "true" : "false"));
+            return Request ("Connector.MuteLocalSpeaker.1", sb.ToString ());
         }
 
         /// <summary>
         /// Set microphone volume
         /// </summary>
-        /// <param name="ConnectorHandle">Handle returned from successful Connector ‘create’ request</param>
-        /// <param name="Value">The level of the audio, a number between -100 and 100 where
+        /// <param name="connectorHandle">Handle returned from successful Connector ‘create’ request</param>
+        /// <param name="value">The level of the audio, a number between -100 and 100 where
         /// 0 represents ‘normal’ speaking volume</param>
-        public int ConnectorSetLocalMicVolume(string ConnectorHandle, int Value)
+        public int ConnectorSetLocalMicVolume (string connectorHandle, int value)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(VoiceGateway.MakeXML("ConnectorHandle", ConnectorHandle));
-            sb.Append(VoiceGateway.MakeXML("Value", Value.ToString()));
-            return Request("Connector.SetLocalMicVolume.1", sb.ToString());
+            StringBuilder sb = new StringBuilder ();
+            sb.Append (MakeXML ("ConnectorHandle", connectorHandle));
+            sb.Append (MakeXML ("Value", value.ToString ()));
+            return Request ("Connector.SetLocalMicVolume.1", sb.ToString ());
         }
 
         /// <summary>
         /// Set local speaker volume
         /// </summary>
-        /// <param name="ConnectorHandle">Handle returned from successful Connector ‘create’ request</param>
-        /// <param name="Value">The level of the audio, a number between -100 and 100 where
+        /// <param name="connectorHandle">Handle returned from successful Connector ‘create’ request</param>
+        /// <param name="value">The level of the audio, a number between -100 and 100 where
         /// 0 represents ‘normal’ speaking volume</param>
-        public int ConnectorSetLocalSpeakerVolume(string ConnectorHandle, int Value)
+        public int ConnectorSetLocalSpeakerVolume (string connectorHandle, int value)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(VoiceGateway.MakeXML("ConnectorHandle", ConnectorHandle));
-            sb.Append(VoiceGateway.MakeXML("Value", Value.ToString()));
-            return Request("Connector.SetLocalSpeakerVolume.1", sb.ToString());
+            StringBuilder sb = new StringBuilder ();
+            sb.Append (MakeXML ("ConnectorHandle", connectorHandle));
+            sb.Append (MakeXML ("Value", value.ToString ()));
+            return Request ("Connector.SetLocalSpeakerVolume.1", sb.ToString ());
         }
     }
 }

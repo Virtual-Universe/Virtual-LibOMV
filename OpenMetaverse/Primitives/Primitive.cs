@@ -25,7 +25,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using OpenMetaverse.StructuredData;
 
 namespace OpenMetaverse
@@ -47,8 +46,8 @@ namespace OpenMetaverse
         /// </summary>
         public struct ConstructionData
         {
-            private const byte PROFILE_MASK = 0x0F;
-            private const byte HOLE_MASK = 0xF0;
+            const byte PROFILE_MASK = 0x0F;
+            const byte HOLE_MASK = 0xF0;
 
             /// <summary></summary>
             public byte profileCurve;
@@ -100,7 +99,7 @@ namespace OpenMetaverse
             public AttachmentPoint AttachmentPoint
             {
                 get { return (AttachmentPoint)Utils.SwapWords(State); }
-                set { State = (byte)Utils.SwapWords((byte)value); }
+                set { State = Utils.SwapWords ((byte)value); }
             }
 
             /// <summary></summary>
@@ -221,10 +220,10 @@ namespace OpenMetaverse
                 {
                     Softness = ((data[pos] & 0x80) >> 6) | ((data[pos + 1] & 0x80) >> 7);
 
-                    Tension = (float)(data[pos++] & 0x7F) / 10.0f;
-                    Drag = (float)(data[pos++] & 0x7F) / 10.0f;
-                    Gravity = (float)(data[pos++] / 10.0f) - 10.0f;
-                    Wind = (float)data[pos++] / 10.0f;
+                    Tension = (data [pos++] & 0x7F) / 10.0f;
+                    Drag = (data[pos++] & 0x7F) / 10.0f;
+                    Gravity = (data[pos++] / 10.0f) - 10.0f;
+                    Wind = data[pos++] / 10.0f;
                     Force = new Vector3(data, pos);
                 }
                 else
@@ -520,7 +519,7 @@ namespace OpenMetaverse
             /// <returns></returns>
             public override string ToString()
             {
-                return String.Format("LightTexture: {0} Params; {1]", LightTexture, Params);
+                return string.Format("LightTexture: {0} Params; {1}", LightTexture, Params);
             }
         }
 
@@ -530,7 +529,7 @@ namespace OpenMetaverse
         public class SculptData
         {
             public UUID SculptTexture;
-            private byte type;
+            byte type;
 
             public SculptType Type
             {
@@ -678,10 +677,10 @@ namespace OpenMetaverse
             /// </summary>
             public ObjectProperties()
             {
-                Name = String.Empty;
-                Description = String.Empty;
-                TouchName = String.Empty;
-                SitName = String.Empty;
+                Name = string.Empty;
+                Description = string.Empty;
+                TouchName = string.Empty;
+                SitName = string.Empty;
             }
 
             /// <summary>
@@ -943,8 +942,8 @@ namespace OpenMetaverse
         public Primitive()
         {
             // Default a few null property values to String.Empty
-            Text = String.Empty;
-            MediaURL = String.Empty;
+            Text = string.Empty;
+            MediaURL = string.Empty;
         }
 
         public Primitive(Primitive prim)
@@ -1052,7 +1051,7 @@ namespace OpenMetaverse
             else
             {
                 prim["name"] = OSD.FromString("Object");
-                prim["description"] = OSD.FromString(String.Empty);
+                prim["description"] = OSD.FromString(string.Empty);
             }
 
             prim["phantom"] = OSD.FromBoolean(((Flags & PrimFlags.Phantom) != 0));
@@ -1095,7 +1094,7 @@ namespace OpenMetaverse
         public static Primitive FromOSD(OSD osd)
         {
             Primitive prim = new Primitive();
-            Primitive.ConstructionData data;
+            ConstructionData data;
 
             OSDMap map = (OSDMap)osd;
             OSDMap volume = (OSDMap)map["volume"];
@@ -1104,7 +1103,7 @@ namespace OpenMetaverse
 
             #region Path/Profile
 
-            data.profileCurve = (byte)0;
+            data.profileCurve = 0;
             data.Material = (Material)map["material"].AsInteger();
             data.PCode = (PCode)map["pcode"].AsInteger();
             data.State = (byte)map["state"].AsInteger();
@@ -1330,9 +1329,9 @@ namespace OpenMetaverse
             switch (PrimData.PCode)
             {
                 case PCode.Prim:
-                    return String.Format("{0} ({1})", Type, ID);
+                    return string.Format("{0} ({1})", Type, ID);
                 default:
-                    return String.Format("{0} ({1})", PrimData.PCode, ID);
+                    return string.Format("{0} ({1})", PrimData.PCode, ID);
             }
         }
 
@@ -1391,18 +1390,18 @@ namespace OpenMetaverse
 
         public static bool operator ==(Primitive lhs, Primitive rhs)
         {
-            if ((Object)lhs == null || (Object)rhs == null)
+            if ((object)lhs == null || (object)rhs == null)
             {
-                return (Object)rhs == (Object)lhs;
+                return rhs == lhs;
             }
             return (lhs.ID == rhs.ID);
         }
 
         public static bool operator !=(Primitive lhs, Primitive rhs)
         {
-            if ((Object)lhs == null || (Object)rhs == null)
+            if ((object)lhs == null || (object)rhs == null)
             {
-                return (Object)rhs != (Object)lhs;
+                return rhs != lhs;
             }
             return !(lhs.ID == rhs.ID);
         }
@@ -1463,22 +1462,22 @@ namespace OpenMetaverse
 
         public static float UnpackBeginCut(ushort beginCut)
         {
-            return (float)beginCut * CUT_QUANTA;
+            return beginCut * CUT_QUANTA;
         }
 
         public static float UnpackEndCut(ushort endCut)
         {
-            return (float)(50000 - endCut) * CUT_QUANTA;
+            return (50000 - endCut) * CUT_QUANTA;
         }
 
         public static float UnpackPathScale(byte pathScale)
         {
-            return (float)(200 - pathScale) * SCALE_QUANTA;
+            return (200 - pathScale) * SCALE_QUANTA;
         }
 
         public static float UnpackPathShear(sbyte pathShear)
         {
-            return (float)pathShear * SHEAR_QUANTA;
+            return pathShear * SHEAR_QUANTA;
         }
 
         /// <summary>
@@ -1489,22 +1488,22 @@ namespace OpenMetaverse
         /// <returns>Unpacked floating point value</returns>
         public static float UnpackPathTwist(sbyte pathTwist)
         {
-            return (float)pathTwist * SCALE_QUANTA;
+            return pathTwist * SCALE_QUANTA;
         }
 
         public static float UnpackPathTaper(sbyte pathTaper)
         {
-            return (float)pathTaper * TAPER_QUANTA;
+            return pathTaper * TAPER_QUANTA;
         }
 
         public static float UnpackPathRevolutions(byte pathRevolutions)
         {
-            return (float)pathRevolutions * REV_QUANTA + 1f;
+            return pathRevolutions * REV_QUANTA + 1f;
         }
 
         public static float UnpackProfileHollow(ushort profileHollow)
         {
-            return (float)profileHollow * HOLLOW_QUANTA;
+            return profileHollow * HOLLOW_QUANTA;
         }
 
         #endregion Parameter Unpacking Methods

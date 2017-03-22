@@ -89,21 +89,21 @@ namespace OpenMetaverse
         public const int PATCHES_PER_EDGE = 16;
         public const int END_OF_PATCHES = 97;
 
-        private const float OO_SQRT2 = 0.7071067811865475244008443621049f;
-        private const int STRIDE = 264;
+        const float OO_SQRT2 = 0.7071067811865475244008443621049f;
+        const int STRIDE = 264;
 
-        private const int ZERO_CODE = 0x0;
-        private const int ZERO_EOB = 0x2;
-        private const int POSITIVE_VALUE = 0x6;
-        private const int NEGATIVE_VALUE = 0x7;
+        const int ZERO_CODE = 0x0;
+        const int ZERO_EOB = 0x2;
+        const int POSITIVE_VALUE = 0x6;
+        const int NEGATIVE_VALUE = 0x7;
 
-        private static readonly float[] DequantizeTable16 = new float[16 * 16];
-        private static readonly float[] DequantizeTable32 = new float[16 * 16];
-        private static readonly float[] CosineTable16 = new float[16 * 16];
-        //private static readonly float[] CosineTable32 = new float[16 * 16];
-        private static readonly int[] CopyMatrix16 = new int[16 * 16];
-        private static readonly int[] CopyMatrix32 = new int[16 * 16];
-        private static readonly float[] QuantizeTable16 = new float[16 * 16];
+        static readonly float[] DequantizeTable16 = new float[16 * 16];
+        static readonly float[] DequantizeTable32 = new float[16 * 16];
+        static readonly float[] CosineTable16 = new float[16 * 16];
+        //static readonly float[] CosineTable32 = new float[16 * 16];
+        static readonly int[] CopyMatrix16 = new int[16 * 16];
+        static readonly int[] CopyMatrix32 = new int[16 * 16];
+        static readonly float[] QuantizeTable16 = new float[16 * 16];
 
         static TerrainCompressor()
         {
@@ -116,23 +116,23 @@ namespace OpenMetaverse
 
         public static LayerDataPacket CreateLayerDataPacket(TerrainPatch[] patches, TerrainPatch.LayerType type)
         {
-            LayerDataPacket layer = new LayerDataPacket();
+            var layer = new LayerDataPacket();
             layer.LayerID.Type = (byte)type;
 
-            TerrainPatch.GroupHeader header = new TerrainPatch.GroupHeader();
+            var header = new TerrainPatch.GroupHeader();
             header.Stride = STRIDE;
             header.PatchSize = 16;
             header.Type = type;
 
             // Should be enough to fit even the most poorly packed data
             byte[] data = new byte[patches.Length * 16 * 16 * 2];
-            BitPack bitpack = new BitPack(data, 0);
+            var bitpack = new BitPack(data, 0);
             bitpack.PackBits(header.Stride, 16);
             bitpack.PackBits(header.PatchSize, 8);
             bitpack.PackBits((int)header.Type, 8);
 
-            for (int i = 0; i < patches.Length; i++)
-                CreatePatch(bitpack, patches[i].Data, patches[i].X, patches[i].Y);
+            foreach (var patch in patches)
+                CreatePatch(bitpack, patch.Data, patch.X, patch.Y);
 
             bitpack.PackBits(END_OF_PATCHES, 8);
 
@@ -154,22 +154,22 @@ namespace OpenMetaverse
         /// <returns></returns>
         public static LayerDataPacket CreateLandPacket(float[] heightmap, int[] patches)
         {
-            LayerDataPacket layer = new LayerDataPacket();
+            var layer = new LayerDataPacket();
             layer.LayerID.Type = (byte)TerrainPatch.LayerType.Land;
 
-            TerrainPatch.GroupHeader header = new TerrainPatch.GroupHeader();
+            var header = new TerrainPatch.GroupHeader();
             header.Stride = STRIDE;
             header.PatchSize = 16;
             header.Type = TerrainPatch.LayerType.Land;
 
             byte[] data = new byte[1536];
-            BitPack bitpack = new BitPack(data, 0);
+            var bitpack = new BitPack(data, 0);
             bitpack.PackBits(header.Stride, 16);
             bitpack.PackBits(header.PatchSize, 8);
             bitpack.PackBits((int)header.Type, 8);
 
-            for (int i = 0; i < patches.Length; i++)
-                CreatePatchFromHeightmap(bitpack, heightmap, patches[i] % 16, (patches[i] - (patches[i] % 16)) / 16);
+            foreach (var patch in patches)
+                CreatePatchFromHeightmap(bitpack, heightmap, patch % 16, (patch - (patch % 16)) / 16);
 
             bitpack.PackBits(END_OF_PATCHES, 8);
 
@@ -181,16 +181,16 @@ namespace OpenMetaverse
 
         public static LayerDataPacket CreateLandPacket(float[] patchData, int x, int y)
         {
-            LayerDataPacket layer = new LayerDataPacket();
+            var layer = new LayerDataPacket();
             layer.LayerID.Type = (byte)TerrainPatch.LayerType.Land;
 
-            TerrainPatch.GroupHeader header = new TerrainPatch.GroupHeader();
+            var header = new TerrainPatch.GroupHeader();
             header.Stride = STRIDE;
             header.PatchSize = 16;
             header.Type = TerrainPatch.LayerType.Land;
 
             byte[] data = new byte[1536];
-            BitPack bitpack = new BitPack(data, 0);
+            var bitpack = new BitPack(data, 0);
             bitpack.PackBits(header.Stride, 16);
             bitpack.PackBits(header.PatchSize, 8);
             bitpack.PackBits((int)header.Type, 8);
@@ -207,16 +207,16 @@ namespace OpenMetaverse
 
         public static LayerDataPacket CreateLandPacket(float[,] patchData, int x, int y)
         {
-            LayerDataPacket layer = new LayerDataPacket();
+            var layer = new LayerDataPacket();
             layer.LayerID.Type = (byte)TerrainPatch.LayerType.Land;
 
-            TerrainPatch.GroupHeader header = new TerrainPatch.GroupHeader();
+            var header = new TerrainPatch.GroupHeader();
             header.Stride = STRIDE;
             header.PatchSize = 16;
             header.Type = TerrainPatch.LayerType.Land;
 
             byte[] data = new byte[1536];
-            BitPack bitpack = new BitPack(data, 0);
+            var bitpack = new BitPack(data, 0);
             bitpack.PackBits(header.Stride, 16);
             bitpack.PackBits(header.PatchSize, 8);
             bitpack.PackBits((int)header.Type, 8);
@@ -252,7 +252,7 @@ namespace OpenMetaverse
             if (patchData.Length != 16 * 16)
                 throw new ArgumentException("Patch data must be a 16x16 array");
 
-            TerrainPatch.Header header = PrescanPatch(patchData);
+            var header = PrescanPatch(patchData);
             header.QuantWBits = 136;
             header.PatchIDs = (y & 0x1F);
             header.PatchIDs += (x << 5);
@@ -281,7 +281,7 @@ namespace OpenMetaverse
             if (x < 0 || x > 15 || y < 0 || y > 15)
                 throw new ArgumentException("X and Y patch offsets must be from 0 to 15");
 
-            TerrainPatch.Header header = PrescanPatch(heightmap, x, y);
+            var header = PrescanPatch(heightmap, x, y);
             header.QuantWBits = 136;
             header.PatchIDs = (y & 0x1F);
             header.PatchIDs += (x << 5);
@@ -292,9 +292,9 @@ namespace OpenMetaverse
             EncodePatch(output, patch, 0, wbits);
         }
 
-        private static TerrainPatch.Header PrescanPatch(float[] patch)
+        static TerrainPatch.Header PrescanPatch(float[] patch)
         {
-            TerrainPatch.Header header = new TerrainPatch.Header();
+            var header = new TerrainPatch.Header();
             float zmax = -99999999.0f;
             float zmin = 99999999.0f;
 
@@ -314,9 +314,9 @@ namespace OpenMetaverse
             return header;
         }
 
-        private static TerrainPatch.Header PrescanPatch(float[,] patch)
+        static TerrainPatch.Header PrescanPatch(float[,] patch)
         {
-            TerrainPatch.Header header = new TerrainPatch.Header();
+            var header = new TerrainPatch.Header();
             float zmax = -99999999.0f;
             float zmin = 99999999.0f;
 
@@ -336,9 +336,9 @@ namespace OpenMetaverse
             return header;
         }
 
-        private static TerrainPatch.Header PrescanPatch(float[] heightmap, int patchX, int patchY)
+        static TerrainPatch.Header PrescanPatch(float[] heightmap, int patchX, int patchY)
         {
-            TerrainPatch.Header header = new TerrainPatch.Header();
+            var header = new TerrainPatch.Header();
             float zmax = -99999999.0f;
             float zmin = 99999999.0f;
 
@@ -360,7 +360,7 @@ namespace OpenMetaverse
 
         public static TerrainPatch.Header DecodePatchHeader(BitPack bitpack)
         {
-            TerrainPatch.Header header = new TerrainPatch.Header();
+            var header = new TerrainPatch.Header();
 
             // Quantized word bits
             header.QuantWBits = bitpack.UnpackBits(8);
@@ -382,7 +382,7 @@ namespace OpenMetaverse
             return header;
         }
 
-        private static int EncodePatchHeader(BitPack output, TerrainPatch.Header header, int[] patch)
+        static int EncodePatchHeader(BitPack output, TerrainPatch.Header header, int[] patch)
         {
             int temp;
             int wbits = (header.QuantWBits & 0x0f) + 2;
@@ -391,9 +391,9 @@ namespace OpenMetaverse
 
             wbits = (int)minWbits;
 
-            for (int i = 0; i < patch.Length; i++)
+            foreach (var pb in patch)
             {
-                temp = patch[i];
+                temp = pb;
 
                 if (temp != 0)
                 {
@@ -431,7 +431,7 @@ namespace OpenMetaverse
             return wbits;
         }
 
-        private static void IDCTColumn16(float[] linein, float[] lineout, int column)
+        static void IDCTColumn16(float[] linein, float[] lineout, int column)
         {
             float total;
             int usize;
@@ -450,7 +450,7 @@ namespace OpenMetaverse
             }
         }
 
-        private static void IDCTLine16(float[] linein, float[] lineout, int line)
+        static void IDCTLine16(float[] linein, float[] lineout, int line)
         {
             const float oosob = 2.0f / 16.0f;
             int lineSize = line * 16;
@@ -469,7 +469,7 @@ namespace OpenMetaverse
             }
         }
 
-        private static void DCTLine16(float[] linein, float[] lineout, int line)
+        static void DCTLine16(float[] linein, float[] lineout, int line)
         {
             float total = 0.0f;
             int lineSize = line * 16;
@@ -494,7 +494,7 @@ namespace OpenMetaverse
             }
         }
 
-        private static void DCTColumn16(float[] linein, int[] lineout, int column)
+        static void DCTColumn16(float[] linein, int[] lineout, int column)
         {
             float total = 0.0f;
             const float oosob = 2.0f / 16.0f;
@@ -565,7 +565,7 @@ namespace OpenMetaverse
             }
         }
 
-        private static void EncodePatch(BitPack output, int[] patch, int postquant, int wbits)
+        static void EncodePatch(BitPack output, int[] patch, int postquant, int wbits)
         {
             int temp;
             bool eob;
@@ -596,15 +596,11 @@ namespace OpenMetaverse
                         }
                     }
 
-                    if (eob)
-                    {
-                        output.PackBits(ZERO_EOB, 2);
+                    if (eob) {
+                        output.PackBits (ZERO_EOB, 2);
                         return;
                     }
-                    else
-                    {
-                        output.PackBits(ZERO_CODE, 1);
-                    }
+                    output.PackBits (ZERO_CODE, 1);
                 }
                 else
                 {
@@ -634,9 +630,9 @@ namespace OpenMetaverse
             float[] output = new float[group.PatchSize * group.PatchSize];
             int prequant = (header.QuantWBits >> 4) + 2;
             int quantize = 1 << prequant;
-            float ooq = 1.0f / (float)quantize;
-            float mult = ooq * (float)header.Range;
-            float addval = mult * (float)(1 << (prequant - 1)) + header.DCOffset;
+            float ooq = 1.0f / quantize;
+            float mult = ooq * header.Range;
+            float addval = mult * (1 << (prequant - 1)) + header.DCOffset;
 
             if (group.PatchSize == 16)
             {
@@ -670,14 +666,14 @@ namespace OpenMetaverse
             return output;
         }
 
-        private static int[] CompressPatch(float[] patchData, TerrainPatch.Header header, int prequant)
+        static int[] CompressPatch(float[] patchData, TerrainPatch.Header header, int prequant)
         {
             float[] block = new float[16 * 16];
             int wordsize = prequant;
-            float oozrange = 1.0f / (float)header.Range;
-            float range = (float)(1 << prequant);
+            float oozrange = 1.0f / header.Range;
+            float range = (1 << prequant);
             float premult = oozrange * range;
-            float sub = (float)(1 << (prequant - 1)) + header.DCOffset * premult;
+            float sub = (1 << (prequant - 1)) + header.DCOffset * premult;
 
             header.QuantWBits = wordsize - 2;
             header.QuantWBits |= (prequant - 2) << 4;
@@ -700,14 +696,14 @@ namespace OpenMetaverse
             return itemp;
         }
 
-        private static int[] CompressPatch(float[,] patchData, TerrainPatch.Header header, int prequant)
+        static int[] CompressPatch(float[,] patchData, TerrainPatch.Header header, int prequant)
         {
             float[] block = new float[16 * 16];
             int wordsize = prequant;
-            float oozrange = 1.0f / (float)header.Range;
-            float range = (float)(1 << prequant);
+            float oozrange = 1.0f / header.Range;
+            float range = (1 << prequant);
             float premult = oozrange * range;
-            float sub = (float)(1 << (prequant - 1)) + header.DCOffset * premult;
+            float sub = (1 << (prequant - 1)) + header.DCOffset * premult;
 
             header.QuantWBits = wordsize - 2;
             header.QuantWBits |= (prequant - 2) << 4;
@@ -730,14 +726,14 @@ namespace OpenMetaverse
             return itemp;
         }
 
-        private static int[] CompressPatch(float[] heightmap, int patchX, int patchY, TerrainPatch.Header header, int prequant)
+        static int[] CompressPatch(float[] heightmap, int patchX, int patchY, TerrainPatch.Header header, int prequant)
         {
             float[] block = new float[16 * 16];
             int wordsize = prequant;
-            float oozrange = 1.0f / (float)header.Range;
-            float range = (float)(1 << prequant);
+            float oozrange = 1.0f / header.Range;
+            float range = (1 << prequant);
             float premult = oozrange * range;
-            float sub = (float)(1 << (prequant - 1)) + header.DCOffset * premult;
+            float sub = (1 << (prequant - 1)) + header.DCOffset * premult;
 
             header.QuantWBits = wordsize - 2;
             header.QuantWBits |= (prequant - 2) << 4;
@@ -763,29 +759,29 @@ namespace OpenMetaverse
 
         #region Initialization
 
-        private static void BuildDequantizeTable16()
+        static void BuildDequantizeTable16()
         {
             for (int j = 0; j < 16; j++)
             {
                 for (int i = 0; i < 16; i++)
                 {
-                    DequantizeTable16[j * 16 + i] = 1.0f + 2.0f * (float)(i + j);
+                    DequantizeTable16[j * 16 + i] = 1.0f + 2.0f * (i + j);
                 }
             }
         }
 
-        private static void BuildQuantizeTable16()
+        static void BuildQuantizeTable16()
         {
             for (int j = 0; j < 16; j++)
             {
                 for (int i = 0; i < 16; i++)
                 {
-                    QuantizeTable16[j * 16 + i] = 1.0f / (1.0f + 2.0f * ((float)i + (float)j));
+                    QuantizeTable16[j * 16 + i] = 1.0f / (1.0f + 2.0f * (i + j));
                 }
             }
         }
 
-        private static void SetupCosines16()
+        static void SetupCosines16()
         {
             const float hposz = (float)Math.PI * 0.5f / 16.0f;
 
@@ -793,12 +789,12 @@ namespace OpenMetaverse
             {
                 for (int n = 0; n < 16; n++)
                 {
-                    CosineTable16[u * 16 + n] = (float)Math.Cos((2.0f * (float)n + 1.0f) * (float)u * hposz);
+                    CosineTable16[u * 16 + n] = (float)Math.Cos((2.0f * n + 1.0f) * u * hposz);
                 }
             }
         }
 
-        private static void BuildCopyMatrix16()
+        static void BuildCopyMatrix16()
         {
             bool diag = false;
             bool right = true;

@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Net;
-using System.Net.Sockets;
 using OpenMetaverse.Packets;
 
 namespace OpenMetaverse
@@ -126,6 +125,7 @@ namespace OpenMetaverse
     /// <summary>
     /// Access level for a simulator
     /// </summary>
+    [Flags]
     public enum SimAccess : byte
     {
         /// <summary>Unknown or invalid access level</summary>
@@ -260,9 +260,9 @@ namespace OpenMetaverse
         /// <summary></summary>
         public ulong Handle;
         /// <summary>The current version of software this simulator is running</summary>
-        public string SimVersion = String.Empty;
+        public string SimVersion = string.Empty;
         /// <summary></summary>
-        public string Name = String.Empty;
+        public string Name = string.Empty;
         /// <summary>A 64x64 grid of parcel coloring values. The values stored 
         /// in this array are of the <seealso cref="ParcelArrayType"/> type</summary>
         public byte[] ParcelOverlay = new byte[4096];
@@ -432,7 +432,7 @@ namespace OpenMetaverse
             {
                 for (int x = 0; x < 64; x++)
                 {
-                    if (this.ParcelMap[y, x] == 0)
+                    if (ParcelMap[y, x] == 0)
                         return false;
                 }
             }
@@ -480,21 +480,21 @@ namespace OpenMetaverse
         /// (for duplicate checking)</summary>
         internal IncomingPacketIDCollection PacketArchive;
         /// <summary>Packets we sent out that need ACKs from the simulator</summary>
-        internal SortedDictionary<uint, NetworkManager.OutgoingPacket> NeedAck = new SortedDictionary<uint, NetworkManager.OutgoingPacket>();
+        internal SortedDictionary<uint, OutgoingPacket> NeedAck = new SortedDictionary<uint, OutgoingPacket>();
         /// <summary>Sequence number for pause/resume</summary>
         internal int pauseSerial;
         /// <summary>Indicates if UDP connection to the sim is fully established</summary>
         internal bool handshakeComplete;
 
-        private NetworkManager Network;
-        private Queue<long> InBytes, OutBytes;
+        NetworkManager Network;
+        Queue<long> InBytes, OutBytes;
         // ACKs that are queued up to be sent to the simulator
-        private LocklessQueue<uint> PendingAcks = new LocklessQueue<uint>();
-        private Timer AckTimer;
-        private Timer PingTimer;
-        private Timer StatsTimer;
+        LocklessQueue<uint> PendingAcks = new LocklessQueue<uint>();
+        Timer AckTimer;
+        Timer PingTimer;
+        Timer StatsTimer;
         // simulator <> parcel LocalID Map
-        private int[,] _ParcelMap;
+        int[,] _ParcelMap;
         public readonly SimulatorDataPool DataPool;
         internal bool DownloadingParcelMap
         {
@@ -512,7 +512,7 @@ namespace OpenMetaverse
         internal bool _DownloadingParcelMap = false;
 
 
-        private ManualResetEvent GotUseCircuitCodeAck = new ManualResetEvent(false);
+        ManualResetEvent GotUseCircuitCodeAck = new ManualResetEvent(false);
         #endregion Internal/Private Members
 
         /// <summary>
@@ -605,7 +605,7 @@ namespace OpenMetaverse
 
             #endregion Start Timers
 
-            Logger.Log("Connecting to " + this.ToString(), Helpers.LogLevel.Info, Client);
+            Logger.Log("Connecting to " + this, Helpers.LogLevel.Info, Client);
 
             try
             {
@@ -625,7 +625,7 @@ namespace OpenMetaverse
 
                 if (!ConnectedEvent.WaitOne(Client.Settings.LOGIN_TIMEOUT, false))
                 {
-                    Logger.Log("Giving up on waiting for RegionHandshake for " + this.ToString(),
+                    Logger.Log("Giving up on waiting for RegionHandshake for " + this,
                         Helpers.LogLevel.Warning, Client);
                     //Remove the simulator from the list, not useful if we haven't recieved the RegionHandshake
                     lock (Client.Network.Simulators) {
@@ -656,7 +656,7 @@ namespace OpenMetaverse
         public void UseCircuitCode(bool waitForAck)
         {
             // Send the UseCircuitCode packet to initiate the connection
-            UseCircuitCodePacket use = new UseCircuitCodePacket();
+            var use = new UseCircuitCodePacket();
             use.CircuitCode.Code = Network.CircuitCode;
             use.CircuitCode.ID = Client.Self.AgentID;
             use.CircuitCode.SessionID = Client.Self.SessionID;
@@ -692,7 +692,7 @@ namespace OpenMetaverse
             if (Client.Settings.ENABLE_CAPS)
             {
                 // Connect to the new CAPS system
-                if (!String.IsNullOrEmpty(seedcaps))
+                if (!string.IsNullOrEmpty(seedcaps))
                     Caps = new Caps(this, seedcaps);
                 else
                     Logger.Log("Setting up a sim without a valid capabilities server!", Helpers.LogLevel.Error, Client);
@@ -728,8 +728,8 @@ namespace OpenMetaverse
                 if (sendCloseCircuit)
                 {
                     // Try to send the CloseCircuit notice
-                    CloseCircuitPacket close = new CloseCircuitPacket();
-                    UDPPacketBuffer buf = new UDPPacketBuffer(remoteEndPoint);
+                    var close = new CloseCircuitPacket();
+                    var buf = new UDPPacketBuffer(remoteEndPoint);
                     byte[] data = close.ToBytes();
                     Buffer.BlockCopy(data, 0, buf.Data, 0, data.Length);
                     buf.DataLength = data.Length;
@@ -752,7 +752,7 @@ namespace OpenMetaverse
         /// </summary>
         public void Pause()
         {
-            AgentPausePacket pause = new AgentPausePacket();
+            var pause = new AgentPausePacket();
             pause.AgentData.AgentID = Client.Self.AgentID;
             pause.AgentData.SessionID = Client.Self.SessionID;
             pause.AgentData.SerialNum = (uint)Interlocked.Exchange(ref pauseSerial, pauseSerial + 1);
@@ -765,7 +765,7 @@ namespace OpenMetaverse
         /// </summary>
         public void Resume()
         {
-            AgentResumePacket resume = new AgentResumePacket();
+            var resume = new AgentResumePacket();
             resume.AgentData.AgentID = Client.Self.AgentID;
             resume.AgentData.SessionID = Client.Self.SessionID;
             resume.AgentData.SerialNum = (uint)Interlocked.Exchange(ref pauseSerial, pauseSerial + 1);
@@ -844,7 +844,7 @@ namespace OpenMetaverse
 
         public void SendPacketData(byte[] data, int dataLength, PacketType type, bool doZerocode)
         {
-            UDPPacketBuffer buffer = new UDPPacketBuffer(remoteEndPoint, Packet.MTU);
+            var buffer = new UDPPacketBuffer(remoteEndPoint, Packet.MTU);
 
             // Zerocode if needed
             if (doZerocode)
@@ -856,18 +856,20 @@ namespace OpenMetaverse
                     // Remove the MSG_ZEROCODED flag and send the unencoded data
                     // instead
                     data[0] = (byte)(data[0] & ~Helpers.MSG_ZEROCODED);
-                    Buffer.BlockCopy(data, 0, buffer.Data, 0, dataLength);
+                    //Buffer.BlockCopy(data, 0, buffer.Data, 0, dataLength);
+                    buffer.CopyFrom(data, dataLength);
                 }
             }
             else
             {
-                Buffer.BlockCopy(data, 0, buffer.Data, 0, dataLength);
+                //Buffer.BlockCopy(data, 0, buffer.Data, 0, dataLength)
+                buffer.CopyFrom(data, dataLength);
             }
             buffer.DataLength = dataLength;
 
             #region Queue or Send
 
-            NetworkManager.OutgoingPacket outgoingPacket = new NetworkManager.OutgoingPacket(this, buffer, type);
+            var outgoingPacket = new OutgoingPacket(this, buffer, type);
 
             // Send ACK and logout packets directly, everything else goes through the queue
             if (Client.Settings.THROTTLE_OUTGOING_PACKETS == false ||
@@ -891,7 +893,7 @@ namespace OpenMetaverse
             #endregion
         }
 
-        internal void SendPacketFinal(NetworkManager.OutgoingPacket outgoingPacket)
+        internal void SendPacketFinal(OutgoingPacket outgoingPacket)
         {
             UDPPacketBuffer buffer = outgoingPacket.Buffer;
             byte flags = buffer.Data[0];
@@ -931,7 +933,7 @@ namespace OpenMetaverse
             if (!isResend)
             {
                 // Not a resend, assign a new sequence number
-                uint sequenceNumber = (uint)Interlocked.Increment(ref Sequence);
+                var sequenceNumber = (uint)Interlocked.Increment(ref Sequence);
                 Utils.UIntToBytesBig(sequenceNumber, buffer.Data, 1);
                 outgoingPacket.SequenceNumber = sequenceNumber;
 
@@ -958,7 +960,7 @@ namespace OpenMetaverse
             {
                 if (NeedAck.Count > 0)
                 {
-                    SortedDictionary<uint, NetworkManager.OutgoingPacket>.KeyCollection.Enumerator en = NeedAck.Keys.GetEnumerator();
+                    var en = NeedAck.Keys.GetEnumerator();
                     en.MoveNext();
                     oldestUnacked = en.Current;
                 }
@@ -967,7 +969,7 @@ namespace OpenMetaverse
             //if (oldestUnacked != 0)
             //    Logger.DebugLog("Sending ping with oldestUnacked=" + oldestUnacked);
 
-            StartPingCheckPacket ping = new StartPingCheckPacket();
+            var ping = new StartPingCheckPacket();
             ping.PingID.PingID = Stats.LastPingID++;
             ping.PingID.OldestUnacked = oldestUnacked;
             ping.Header.Reliable = false;
@@ -983,10 +985,9 @@ namespace OpenMetaverse
         /// <returns></returns>
         public override string ToString()
         {
-            if (!String.IsNullOrEmpty(Name))
-                return String.Format("{0} ({1})", Name, remoteEndPoint);
-            else
-                return String.Format("({0})", remoteEndPoint);
+            if (!string.IsNullOrEmpty (Name))
+                return string.Format ("{0} ({1})", Name, remoteEndPoint);
+            return string.Format ("({0})", remoteEndPoint);
         }
 
         /// <summary>
@@ -1005,7 +1006,7 @@ namespace OpenMetaverse
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            Simulator sim = obj as Simulator;
+            var sim = obj as Simulator;
             if (sim == null)
                 return false;
             return (remoteEndPoint.Equals(sim.remoteEndPoint));
@@ -1014,7 +1015,7 @@ namespace OpenMetaverse
         public static bool operator ==(Simulator lhs, Simulator rhs)
         {
             // If both are null, or both are same instance, return true
-            if (System.Object.ReferenceEquals(lhs, rhs))
+            if (ReferenceEquals (lhs, rhs))
             {
                 return true;
             }
@@ -1041,7 +1042,7 @@ namespace OpenMetaverse
             if (!remoteEndPoint.Address.Equals(((IPEndPoint)buffer.RemoteEndPoint).Address))
             {
                 Logger.Log("Received " + buffer.DataLength + " bytes of data from unrecognized source " +
-                    ((IPEndPoint)buffer.RemoteEndPoint).ToString(), Helpers.LogLevel.Warning, Client);
+                    ((IPEndPoint)buffer.RemoteEndPoint), Helpers.LogLevel.Warning, Client);
                 return;
             }
 
@@ -1060,7 +1061,7 @@ namespace OpenMetaverse
             }
             catch (MalformedDataException)
             {
-                Logger.Log(String.Format("Malformed data, cannot parse packet:\n{0}",
+                Logger.Log(string.Format("Malformed data, cannot parse packet:\n{0}",
                     Utils.BytesToHexString(buffer.Data, buffer.DataLength, null)), Helpers.LogLevel.Error);
             }
 
@@ -1100,7 +1101,7 @@ namespace OpenMetaverse
             // Handle PacketAck packets
             if (packet.Type == PacketType.PacketAck)
             {
-                PacketAckPacket ackPacket = (PacketAckPacket)packet;
+                var ackPacket = (PacketAckPacket)packet;
 
                 lock (NeedAck)
                 {
@@ -1122,7 +1123,7 @@ namespace OpenMetaverse
                 #region ACK Sending
 
                 // Add this packet to the list of ACKs that need to be sent out
-                uint sequence = (uint)packet.Header.Sequence;
+                var sequence = packet.Header.Sequence;
                 PendingAcks.Enqueue(sequence);
 
                 // Send out ACKs if we have a lot of them
@@ -1183,15 +1184,15 @@ namespace OpenMetaverse
         /// Sends out pending acknowledgements
         /// </summary>
         /// <returns>Number of ACKs sent</returns>
-        private int SendAcks()
+        int SendAcks()
         {
             uint ack;
             int ackCount = 0;
 
             if (PendingAcks.TryDequeue(out ack))
             {
-                List<PacketAckPacket.PacketsBlock> blocks = new List<PacketAckPacket.PacketsBlock>();
-                PacketAckPacket.PacketsBlock block = new PacketAckPacket.PacketsBlock();
+                var blocks = new List<PacketAckPacket.PacketsBlock>();
+                var block = new PacketAckPacket.PacketsBlock();
                 block.ID = ack;
                 blocks.Add(block);
 
@@ -1202,7 +1203,7 @@ namespace OpenMetaverse
                     blocks.Add(block);
                 }
 
-                PacketAckPacket packet = new PacketAckPacket();
+                var packet = new PacketAckPacket();
                 packet.Header.Reliable = false;
                 packet.Packets = blocks.ToArray();
 
@@ -1216,16 +1217,20 @@ namespace OpenMetaverse
         /// <summary>
         /// Resend unacknowledged packets
         /// </summary>
-        private void ResendUnacked()
+        void ResendUnacked()
         {
-            if (NeedAck.Count > 0)
+            int ackCount;
+            lock (NeedAck)
+                ackCount = NeedAck.Count;
+            
+            if(ackCount > 0)
             {
-                NetworkManager.OutgoingPacket[] array;
+                OutgoingPacket[] array;
 
                 lock (NeedAck)
                 {
                     // Create a temporary copy of the outgoing packets array to iterate over
-                    array = new NetworkManager.OutgoingPacket[NeedAck.Count];
+                    array = new OutgoingPacket[NeedAck.Count];
                     NeedAck.Values.CopyTo(array, 0);
                 }
 
@@ -1234,7 +1239,7 @@ namespace OpenMetaverse
                 // Resend packets
                 for (int i = 0; i < array.Length; i++)
                 {
-                    NetworkManager.OutgoingPacket outgoing = array[i];
+                    OutgoingPacket outgoing = array[i];
 
                     if (outgoing.TickCount != 0 && now - outgoing.TickCount > Client.Settings.RESEND_TIMEOUT)
                     {
@@ -1242,8 +1247,10 @@ namespace OpenMetaverse
                         {
                             if (Client.Settings.LOG_RESENDS)
                             {
-                                Logger.DebugLog(String.Format("Resending {2} packet #{0}, {1}ms have passed",
+                                lock (NeedAck) {
+                                    Logger.DebugLog (string.Format ("Resending {2} packet #{0}, {1}ms have passed",
                                     outgoing.SequenceNumber, now - outgoing.TickCount, outgoing.Type), Client);
+                                }
                             }
 
                             // The TickCount will be set to the current time when the packet
@@ -1261,7 +1268,7 @@ namespace OpenMetaverse
                         }
                         else
                         {
-                            Logger.DebugLog(String.Format("Dropping packet #{0} after {1} failed attempts",
+                            Logger.DebugLog(string.Format("Dropping packet #{0} after {1} failed attempts",
                                 outgoing.SequenceNumber, outgoing.ResendCount));
 
                             lock (NeedAck) NeedAck.Remove(outgoing.SequenceNumber);
@@ -1271,7 +1278,7 @@ namespace OpenMetaverse
             }
         }
 
-        private void AckTimer_Elapsed(object obj)
+        void AckTimer_Elapsed(object obj)
         {
             SendAcks();
             ResendUnacked();
@@ -1282,7 +1289,7 @@ namespace OpenMetaverse
             catch (Exception) { }
         }
 
-        private void StatsTimer_Elapsed(object obj)
+        void StatsTimer_Elapsed(object obj)
         {
             long old_in = 0, old_out = 0;
             long recv = Stats.RecvBytes;
@@ -1306,7 +1313,7 @@ namespace OpenMetaverse
             }
         }
 
-        private void PingTimer_Elapsed(object obj)
+        void PingTimer_Elapsed(object obj)
         {
             SendPing();
             Interlocked.Increment(ref Stats.SentPings);
@@ -1316,10 +1323,10 @@ namespace OpenMetaverse
     public sealed class IncomingPacketIDCollection
     {
         readonly uint[] Items;
-        HashSet<uint> hashSet;
+        readonly HashSet<uint> hashSet;
+        readonly int capacity;
         int first;
         int next;
-        int capacity;
 
         public IncomingPacketIDCollection(int capacity)
         {
@@ -1352,14 +1359,14 @@ namespace OpenMetaverse
 
     public class SimulatorDataPool
     {
-        private static Timer InactiveSimReaper;
+        static Timer InactiveSimReaper;
 
-        private static void RemoveOldSims(object state)
+        static void RemoveOldSims(object state)
         {
             lock (SimulatorDataPools)
             {
                 int SimTimeout = Settings.SIMULATOR_POOL_TIMEOUT;
-                List<ulong> reap = new List<ulong>();
+                var reap = new List<ulong>();
                 foreach (var pool in SimulatorDataPools.Values)
                 {
                     if (pool.InactiveSince != DateTime.MaxValue && pool.InactiveSince.AddMilliseconds(SimTimeout) < DateTime.Now)
@@ -1431,9 +1438,9 @@ namespace OpenMetaverse
 
         #endregion Pooled Items
 
-        private SimulatorDataPool(ulong hndl)
+        SimulatorDataPool(ulong hndl)
         {
-            this.Handle = hndl;
+            Handle = hndl;
         }
 
         public static SimulatorDataPool GetSimulatorData(ulong hndl)
@@ -1474,7 +1481,7 @@ namespace OpenMetaverse
         {
             lock (PrimCache)
             {
-                foreach (uint u in removePrims)
+                foreach (var u in removePrims)
                 {
                     Primitive prim;
                     if (PrimCache.TryGetValue(u, out prim)) prim.ActiveClients--;

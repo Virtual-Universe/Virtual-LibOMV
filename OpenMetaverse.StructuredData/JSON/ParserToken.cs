@@ -11,10 +11,10 @@
 
 namespace LitJson
 {
-    internal enum ParserToken
+    enum ParserToken
     {
         // Lexer tokens
-        None = System.Char.MaxValue + 1,
+        None = char.MaxValue + 1,
         Number,
         True,
         False,

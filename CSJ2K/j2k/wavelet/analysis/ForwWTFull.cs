@@ -749,14 +749,16 @@ namespace CSJ2K.j2k.wavelet.analysis
 			do 
 			{
 				//If the current subband is null then break
-				if (nextsb == null)
+				// always !null if we get here - greythane
+                /*if (nextsb == null)
 				{
 					break;
-				}
+				}*/
 				//If the current subband is a leaf then select the next leaf to
 				//send or go up in the decomposition tree if the leaf was a LL
 				//one.
-				else if (!nextsb.isNode)
+				//else
+                if (!nextsb.isNode)
 				{
 					switch (nextsb.orientation)
 					{

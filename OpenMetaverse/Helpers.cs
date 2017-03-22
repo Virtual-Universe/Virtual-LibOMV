@@ -93,7 +93,7 @@ namespace OpenMetaverse
         /// <returns></returns>
         public static float TEOffsetFloat(byte[] bytes, int pos)
         {
-            float offset = (float)BitConverter.ToInt16(bytes, pos);
+            float offset = BitConverter.ToInt16(bytes, pos);
             return offset / 32767.0f;
         }
 
@@ -117,7 +117,7 @@ namespace OpenMetaverse
         public static float TERotationFloat(byte[] bytes, int pos)
         {
             const float TWO_PI = 6.283185307179586476925286766559f;
-            return ((float)(bytes[pos] | (bytes[pos + 1] << 8)) / 32768.0f) * TWO_PI;
+            return ((bytes[pos] | (bytes[pos + 1] << 8)) / 32768.0f) * TWO_PI;
         }
 
         public static byte TEGlowByte(float glow)
@@ -127,7 +127,7 @@ namespace OpenMetaverse
 
         public static float TEGlowFloat(byte[] bytes, int pos)
         {
-            return (float)bytes[pos] / 255.0f;
+            return bytes[pos] / 255.0f;
         }
 
         /// <summary>
@@ -147,8 +147,8 @@ namespace OpenMetaverse
         {
             uint x = ((uint)globalX / 256) * 256;
             uint y = ((uint)globalY / 256) * 256;
-            localX = globalX - (float)x;
-            localY = globalY - (float)y;
+            localX = globalX - x;
+            localY = globalY - y;
             return Utils.UIntsToLong(x, y);
         }
 
@@ -162,7 +162,7 @@ namespace OpenMetaverse
         {
             string s = string.Format(Utils.EnUsCulture, "{0:.00}", val);
 
-            if (val == 0)
+            if (Math.Abs (val) < 0.0000001f)
                 return ".00";
 
             // Trim trailing zeroes
@@ -218,9 +218,9 @@ namespace OpenMetaverse
                 }
 
                 if (bytes[bytes.Length - 1] == 0x00)
-                    output.Append(UTF8Encoding.UTF8.GetString(bytes, 0, bytes.Length - 1));
+                    output.Append(Encoding.UTF8.GetString(bytes, 0, bytes.Length - 1));
                 else
-                    output.Append(UTF8Encoding.UTF8.GetString(bytes, 0, bytes.Length));
+                    output.Append(Encoding.UTF8.GetString(bytes, 0, bytes.Length));
             }
             else
             {
@@ -237,7 +237,7 @@ namespace OpenMetaverse
                     for (int j = 0; j < 16; j++)
                     {
                         if ((i + j) < bytes.Length)
-                            output.Append(String.Format("{0:X2} ", bytes[i + j]));
+                            output.Append(string.Format("{0:X2} ", bytes[i + j]));
                         else
                             output.Append("   ");
                     }
@@ -302,10 +302,10 @@ namespace OpenMetaverse
             }
             catch (Exception ex)
             {
-                Logger.Log(String.Format("Zerodecoding error: i={0}, srclen={1}, bodylen={2}, zerolen={3}\n{4}\n{5}",
+                Logger.Log(string.Format("Zerodecoding error: i={0}, srclen={1}, bodylen={2}, zerolen={3}\n{4}\n{5}",
                     i, srclen, bodylen, zerolen, Utils.BytesToHexString(src, srclen, null), ex), LogLevel.Error);
 
-                throw new IndexOutOfRangeException(String.Format("Zerodecoding error: i={0}, srclen={1}, bodylen={2}, zerolen={3}\n{4}\n{5}",
+                throw new IndexOutOfRangeException(string.Format("Zerodecoding error: i={0}, srclen={1}, bodylen={2}, zerolen={3}\n{4}\n{5}",
                     i, srclen, bodylen, zerolen, Utils.BytesToHexString(src, srclen, null), ex.InnerException));
             }
         }
@@ -359,7 +359,7 @@ namespace OpenMetaverse
                     if (zerocount != 0)
                     {
                         dest[zerolen++] = 0x00;
-                        dest[zerolen++] = (byte)zerocount;
+                        dest[zerolen++] = zerocount;
                         zerocount = 0;
                     }
 
@@ -370,7 +370,7 @@ namespace OpenMetaverse
             if (zerocount != 0)
             {
                 dest[zerolen++] = 0x00;
-                dest[zerolen++] = (byte)zerocount;
+                dest[zerolen++] = zerocount;
             }
 
             // copy appended ACKs
@@ -431,7 +431,7 @@ namespace OpenMetaverse
             CRC += (uint)type; // Type 
             CRC += (uint)creationDate; // CreationDate
             CRC += (uint)salePrice;    // SalePrice
-            CRC += (uint)((uint)saleType * 0x07073096); // SaleType
+            CRC += (uint)saleType * 0x07073096; // SaleType
 
             return CRC;
         }
@@ -442,7 +442,7 @@ namespace OpenMetaverse
         /// <param name="resourceName">The filename of the resource to load</param>
         /// <returns>A Stream for the requested file, or null if the resource
         /// was not successfully loaded</returns>
-        public static System.IO.Stream GetResourceStream(string resourceName)
+        public static Stream GetResourceStream (string resourceName)
         {
             return GetResourceStream(resourceName, "openmetaverse_data");
         }
@@ -456,7 +456,7 @@ namespace OpenMetaverse
         /// the asset is not found embedded in the assembly</param>
         /// <returns>A Stream for the requested file, or null if the resource
         /// was not successfully loaded</returns>
-        public static System.IO.Stream GetResourceStream(string resourceName, string searchPath)
+        public static Stream GetResourceStream(string resourceName, string searchPath)
         {
             if (searchPath != null)
             {
@@ -465,15 +465,15 @@ namespace OpenMetaverse
                 string dirname = ".";
                 if (gea != null && gea.Location != null)
                 {
-                    dirname = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(gea.Location), searchPath);
+                    dirname = Path.Combine(Path.GetDirectoryName(gea.Location), searchPath);
                 }
 
-                string filename = System.IO.Path.Combine(dirname, resourceName);
+                string filename = Path.Combine(dirname, resourceName);
                 try
                 {
-                    return new System.IO.FileStream(
+                    return new FileStream(
                         filename,
-                        System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
+                        FileMode.Open, FileAccess.Read, FileShare.Read);
                 }
                 catch (Exception ex)
                 {
@@ -484,8 +484,8 @@ namespace OpenMetaverse
             {
                 try
                 {
-                    System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-                    System.IO.Stream s = a.GetManifestResourceStream("OpenMetaverse.Resources." + resourceName);
+                    Assembly a = Assembly.GetExecutingAssembly();
+                    Stream s = a.GetManifestResourceStream("OpenMetaverse.Resources." + resourceName);
                     if (s != null) return s;
                 }
                 catch (Exception ex)
@@ -502,9 +502,9 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="prims">Primitives to convert to a serializable object</param>
         /// <returns>An object that can be serialized with LLSD</returns>
-        public static StructuredData.OSD PrimListToOSD(List<Primitive> prims)
+        public static OSD PrimListToOSD(List<Primitive> prims)
         {
-            StructuredData.OSDMap map = new OpenMetaverse.StructuredData.OSDMap(prims.Count);
+            OSDMap map = new OSDMap(prims.Count);
 
             for (int i = 0; i < prims.Count; i++)
                 map.Add(prims[i].LocalID.ToString(), prims[i].GetOSD());
@@ -518,18 +518,18 @@ namespace OpenMetaverse
         /// <param name="osd">Structure holding the serialized primitive list,
         /// must be of the SDMap type</param>
         /// <returns>A list of deserialized primitives</returns>
-        public static List<Primitive> OSDToPrimList(StructuredData.OSD osd)
+        public static List<Primitive> OSDToPrimList(OSD osd)
         {
-            if (osd.Type != StructuredData.OSDType.Map)
+            if (osd.Type != OSDType.Map)
                 throw new ArgumentException("LLSD must be in the Map structure");
 
-            StructuredData.OSDMap map = (StructuredData.OSDMap)osd;
+            OSDMap map = (OSDMap)osd;
             List<Primitive> prims = new List<Primitive>(map.Count);
 
             foreach (KeyValuePair<string, StructuredData.OSD> kvp in map)
             {
                 Primitive prim = Primitive.FromOSD(kvp.Value);
-                prim.LocalID = UInt32.Parse(kvp.Key);
+                prim.LocalID = uint.Parse(kvp.Key);
                 prims.Add(prim);
             }
 

@@ -201,14 +201,15 @@ namespace CSJ2K.j2k.image.forwcomptransf
 					
 					case 't':  // Tiles specification
 						tileSpec = parseIdx(word, nTiles);
-						if (curSpecType == SPEC_COMP_DEF)
+						/* Cannot set as SPEC_COMP_DEF anyway
+                        if (curSpecType == SPEC_COMP_DEF)
 						{
 							curSpecType = SPEC_TILE_COMP;
 						}
 						else
-						{
+						{*/
 							curSpecType = SPEC_TILE_DEF;
-						}
+						//}
 						break;
 					
 					case 'c':  // Components specification

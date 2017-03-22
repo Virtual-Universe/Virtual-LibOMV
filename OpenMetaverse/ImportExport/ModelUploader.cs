@@ -26,10 +26,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
 using OpenMetaverse.StructuredData;
 using OpenMetaverse.Http;
 
@@ -71,10 +67,10 @@ namespace OpenMetaverse.ImportExport
         /// <param name="newInvDesc">Inventory description for newly upload object</param>
         public ModelUploader(GridClient client, List<ModelPrim> prims, string newInvName, string newInvDesc)
         {
-            this.Client = client;
-            this.Prims = prims;
-            this.InvName = newInvName;
-            this.InvDescription = newInvDesc;
+            Client = client;
+            Prims = prims;
+            InvName = newInvName;
+            InvDescription = newInvDesc;
         }
 
         List<byte[]> Images;
@@ -82,19 +78,18 @@ namespace OpenMetaverse.ImportExport
 
         OSD AssetResources(bool upload)
         {
-            OSDArray instanceList = new OSDArray();
-            List<byte[]> meshes = new List<byte[]>();
-            List<byte[]> textures = new List<byte[]>();
+            var instanceList = new OSDArray();
+            var meshes = new List<byte[]>();
+            //not used??/ var textures = new List<byte[]>();
 
             foreach (var prim in Prims)
             {
-                OSDMap primMap = new OSDMap();
-
-                OSDArray faceList = new OSDArray();
+                var primMap = new OSDMap();
+                var faceList = new OSDArray();
 
                 foreach (var face in prim.Faces)
                 {
-                    OSDMap faceMap = new OSDMap();
+                    var faceMap = new OSDMap();
 
                     faceMap["diffuse_color"] = face.Material.DiffuseColor;
                     faceMap["fullbright"] = false;
@@ -138,17 +133,17 @@ namespace OpenMetaverse.ImportExport
                 instanceList.Add(primMap);
             }
 
-            OSDMap resources = new OSDMap();
+            var resources = new OSDMap();
             resources["instance_list"] = instanceList;
 
-            OSDArray meshList = new OSDArray();
+            var meshList = new OSDArray();
             foreach (var mesh in meshes)
             {
                 meshList.Add(OSD.FromBinary(mesh));
             }
             resources["mesh_list"] = meshList;
 
-            OSDArray textureList = new OSDArray();
+            var textureList = new OSDArray();
             for (int i = 0; i < Images.Count; i++)
             {
                 if (upload)
@@ -193,7 +188,7 @@ namespace OpenMetaverse.ImportExport
                 if (result is OSDMap)
                 {
                     var res = (OSDMap)result;
-                    Uri uploader = new Uri(res["uploader"]);
+                    var uploader = new Uri(res["uploader"]);
                     PerformUpload(uploader, (contents =>
                     {
                         if (contents != null)
@@ -231,7 +226,7 @@ namespace OpenMetaverse.ImportExport
             Images = new List<byte[]>();
             ImgIndex = new Dictionary<string, int>();
 
-            OSDMap req = new OSDMap();
+            var req = new OSDMap();
             req["name"] = InvName;
             req["description"] = InvDescription;
 
@@ -243,10 +238,10 @@ namespace OpenMetaverse.ImportExport
             req["texture_folder_id"] = Client.Inventory.FindFolderForType(AssetType.Texture);
 
             req["everyone_mask"] = (int)PermissionMask.All;
-            req["group_mask"] = (int)PermissionMask.All; ;
+            req["group_mask"] = (int)PermissionMask.All; 
             req["next_owner_mask"] = (int)PermissionMask.All;
 
-            CapsClient request = new CapsClient(url);
+            var request = new CapsClient(url);
             request.OnComplete += (client, result, error) =>
             {
                 if (error != null || result == null || result.Type != OSDType.Map)
@@ -255,7 +250,7 @@ namespace OpenMetaverse.ImportExport
                     if (callback != null) callback(null);
                     return;
                 }
-                OSDMap res = (OSDMap)result;
+                var res = (OSDMap)result;
 
                 if (res["state"] != "upload")
                 {
@@ -279,7 +274,7 @@ namespace OpenMetaverse.ImportExport
         /// <param name="callback">Callback that will be invoke upon completion of the upload. Null is sent on request failure</param>
         public void PerformUpload(Uri uploader, ModelUploadCallback callback)
         {
-            CapsClient request = new CapsClient(uploader);
+            var request = new CapsClient(uploader);
             request.OnComplete += (client, result, error) =>
             {
                 if (error != null || result == null || result.Type != OSDType.Map)
@@ -288,7 +283,7 @@ namespace OpenMetaverse.ImportExport
                     if (callback != null) callback(null);
                     return;
                 }
-                OSDMap res = (OSDMap)result;
+                var res = (OSDMap)result;
                 Logger.Log("Response from mesh upload perform:\n" + OSDParser.SerializeLLSDNotationFormatted(result), Helpers.LogLevel.Debug);
                 if (callback != null) callback(res);
             };

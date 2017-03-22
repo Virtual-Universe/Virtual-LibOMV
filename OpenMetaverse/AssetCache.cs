@@ -37,33 +37,28 @@ namespace OpenMetaverse
     public class AssetCache
     {
         // User can plug in a routine to compute the asset cache location
-        public delegate string ComputeAssetCacheFilenameDelegate(string cacheDir, UUID assetID);
+        public delegate string ComputeAssetCacheFilenameDelegate (string cacheDir, UUID assetID);
 
         public ComputeAssetCacheFilenameDelegate ComputeAssetCacheFilename = null;
 
-        private GridClient Client;
-        private Thread cleanerThread;
-        private System.Timers.Timer cleanerTimer;
-        private double pruneInterval = 1000 * 60 * 5;
-        private bool autoPruneEnabled = true;
+        GridClient Client;
+        Thread cleanerThread;
+        System.Timers.Timer cleanerTimer;
+        double pruneInterval = 1000 * 60 * 5;
+        bool autoPruneEnabled = true;
 
         /// <summary>
         /// Allows setting weather to periodicale prune the cache if it grows too big
         /// Default is enabled, when caching is enabled
         /// </summary>
-        public bool AutoPruneEnabled
-        {
-            set
-            {
+        public bool AutoPruneEnabled {
+            set {
                 autoPruneEnabled = value;
 
-                if (autoPruneEnabled)
-                {
-                    SetupTimer();
-                }
-                else
-                {
-                    DestroyTimer();
+                if (autoPruneEnabled) {
+                    SetupTimer ();
+                } else {
+                    DestroyTimer ();
                 }
             }
             get { return autoPruneEnabled; }
@@ -72,12 +67,10 @@ namespace OpenMetaverse
         /// <summary>
         /// How long (in ms) between cache checks (default is 5 min.) 
         /// </summary>
-        public double AutoPruneInterval
-        {
-            set
-            {
+        public double AutoPruneInterval {
+            set {
                 pruneInterval = value;
-                SetupTimer();
+                SetupTimer ();
             }
             get { return pruneInterval; }
         }
@@ -86,29 +79,26 @@ namespace OpenMetaverse
         /// Default constructor
         /// </summary>
         /// <param name="client">A reference to the GridClient object</param>
-        public AssetCache(GridClient client)
+        public AssetCache (GridClient client)
         {
             Client = client;
-            Client.Network.LoginProgress += delegate(object sender, LoginProgressEventArgs e)
-            {
-                if (e.Status == LoginStatus.Success)
-                {
-                    SetupTimer();
+            Client.Network.LoginProgress += delegate (object sender, LoginProgressEventArgs e) {
+                if (e.Status == LoginStatus.Success) {
+                    SetupTimer ();
                 }
             };
 
-            Client.Network.Disconnected += delegate(object sender, DisconnectedEventArgs e) { DestroyTimer(); };
+            Client.Network.Disconnected += delegate (object sender, DisconnectedEventArgs e) { DestroyTimer (); };
         }
 
 
         /// <summary>
         /// Disposes cleanup timer
         /// </summary>
-        private void DestroyTimer()
+        void DestroyTimer ()
         {
-            if (cleanerTimer != null)
-            {
-                cleanerTimer.Dispose();
+            if (cleanerTimer != null) {
+                cleanerTimer.Dispose ();
                 cleanerTimer = null;
             }
         }
@@ -116,14 +106,12 @@ namespace OpenMetaverse
         /// <summary>
         /// Only create timer when needed
         /// </summary>
-        private void SetupTimer()
+        void SetupTimer ()
         {
-            if (Operational() && autoPruneEnabled && Client.Network.Connected)
-            {
-                if (cleanerTimer == null)
-                {
-                    cleanerTimer = new System.Timers.Timer(pruneInterval);
-                    cleanerTimer.Elapsed += new System.Timers.ElapsedEventHandler(cleanerTimer_Elapsed);
+            if (Operational () && autoPruneEnabled && Client.Network.Connected) {
+                if (cleanerTimer == null) {
+                    cleanerTimer = new System.Timers.Timer (pruneInterval);
+                    cleanerTimer.Elapsed += cleanerTimer_Elapsed;
                 }
                 cleanerTimer.Interval = pruneInterval;
                 cleanerTimer.Enabled = true;
@@ -135,32 +123,25 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="assetID">UUID of the asset we want to get</param>
         /// <returns>Raw bytes of the asset, or null on failure</returns>
-        public byte[] GetCachedAssetBytes(UUID assetID)
+        public byte [] GetCachedAssetBytes (UUID assetID)
         {
-            if (!Operational())
-            {
+            if (!Operational ()) {
                 return null;
             }
-            try
-            {
-                byte[] data;
+            try {
+                byte [] data;
 
-                if (File.Exists(FileName(assetID)))
-                {
-                    DebugLog("Reading " + FileName(assetID) + " from asset cache.");
-                    data = File.ReadAllBytes(FileName(assetID));
-                }
-                else
-                {
-                    DebugLog("Reading " + StaticFileName(assetID) + " from static asset cache.");
-                    data = File.ReadAllBytes(StaticFileName(assetID));
+                if (File.Exists (FileName (assetID))) {
+                    DebugLog ("Reading " + FileName (assetID) + " from asset cache.");
+                    data = File.ReadAllBytes (FileName (assetID));
+                } else {
+                    DebugLog ("Reading " + StaticFileName (assetID) + " from static asset cache.");
+                    data = File.ReadAllBytes (StaticFileName (assetID));
 
                 }
                 return data;
-            }
-            catch (Exception ex)
-            {
-                DebugLog("Failed reading asset from cache (" + ex.Message + ")");
+            } catch (Exception ex) {
+                DebugLog ("Failed reading asset from cache (" + ex.Message + ")");
                 return null;
             }
         }
@@ -171,15 +152,15 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="imageID">UUID of the image we want to get</param>
         /// <returns>ImageDownload object containing the image, or null on failure</returns>
-        public ImageDownload GetCachedImage(UUID imageID)
+        public ImageDownload GetCachedImage (UUID imageID)
         {
-            if (!Operational())
+            if (!Operational ())
                 return null;
 
-            byte[] imageData = GetCachedAssetBytes(imageID);
+            byte [] imageData = GetCachedAssetBytes (imageID);
             if (imageData == null)
                 return null;
-            ImageDownload transfer = new ImageDownload();
+            ImageDownload transfer = new ImageDownload ();
             transfer.AssetType = AssetType.Texture;
             transfer.ID = imageID;
             transfer.Simulator = Client.Network.CurrentSim;
@@ -195,13 +176,12 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="assetID">UUID of the asset</param>
         /// <returns>String with the file name of the cahced asset</returns>
-        private string FileName(UUID assetID)
+        string FileName (UUID assetID)
         {
-            if (ComputeAssetCacheFilename != null)
-            {
-                return ComputeAssetCacheFilename(Client.Settings.ASSET_CACHE_DIR, assetID);
+            if (ComputeAssetCacheFilename != null) {
+                return ComputeAssetCacheFilename (Client.Settings.ASSET_CACHE_DIR, assetID);
             }
-            return Client.Settings.ASSET_CACHE_DIR + Path.DirectorySeparatorChar + assetID.ToString();
+            return Client.Settings.ASSET_CACHE_DIR + Path.DirectorySeparatorChar + assetID;
         }
 
         /// <summary>
@@ -209,9 +189,9 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="assetID">UUID of the asset</param>
         /// <returns>String with the file name of the static cached asset</returns>
-        private string StaticFileName(UUID assetID)
+        string StaticFileName (UUID assetID)
         {
-            return Settings.RESOURCE_DIR + Path.DirectorySeparatorChar + "static_assets" + Path.DirectorySeparatorChar + assetID.ToString();
+            return Settings.RESOURCE_DIR + Path.DirectorySeparatorChar + "static_assets" + Path.DirectorySeparatorChar + assetID;
         }
 
         /// <summary>
@@ -220,36 +200,31 @@ namespace OpenMetaverse
         /// <param name="assetID">UUID of the asset</param>
         /// <param name="assetData">Raw bytes the asset consists of</param>
         /// <returns>Weather the operation was successfull</returns>
-        public bool SaveAssetToCache(UUID assetID, byte[] assetData)
+        public bool SaveAssetToCache (UUID assetID, byte [] assetData)
         {
-            if (!Operational())
-            {
+            if (!Operational ()) {
                 return false;
             }
 
-            try
-            {
-                DebugLog("Saving " + FileName(assetID) + " to asset cache.");
+            try {
+                DebugLog ("Saving " + FileName (assetID) + " to asset cache.");
 
-                if (!Directory.Exists(Client.Settings.ASSET_CACHE_DIR))
-                {
-                    Directory.CreateDirectory(Client.Settings.ASSET_CACHE_DIR);
+                if (!Directory.Exists (Client.Settings.ASSET_CACHE_DIR)) {
+                    Directory.CreateDirectory (Client.Settings.ASSET_CACHE_DIR);
                 }
 
-                File.WriteAllBytes(FileName(assetID), assetData);
-            }
-            catch (Exception ex)
-            {
-                Logger.Log("Failed saving asset to cache (" + ex.Message + ")", Helpers.LogLevel.Warning, Client);
+                File.WriteAllBytes (FileName (assetID), assetData);
+            } catch (Exception ex) {
+                Logger.Log ("Failed saving asset to cache (" + ex.Message + ")", Helpers.LogLevel.Warning, Client);
                 return false;
             }
 
             return true;
         }
 
-        private void DebugLog(string message)
+        void DebugLog (string message)
         {
-            if (Client.Settings.LOG_DISKCACHE) Logger.DebugLog(message, Client);
+            if (Client.Settings.LOG_DISKCACHE) Logger.DebugLog (message, Client);
         }
 
         /// <summary>
@@ -257,19 +232,17 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="assetID">UUID of the asset</param>
         /// <returns>Null if we don't have that UUID cached on disk, file name if found in the cache folder</returns>
-        public string AssetFileName(UUID assetID)
+        public string AssetFileName (UUID assetID)
         {
-            if (!Operational())
-            {
+            if (!Operational ()) {
                 return null;
             }
 
-            string fileName = FileName(assetID);
+            string fileName = FileName (assetID);
 
-            if (File.Exists(fileName))
+            if (File.Exists (fileName))
                 return fileName;
-            else
-                return null;
+            return null;
         }
 
         /// <summary>
@@ -277,79 +250,68 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="assetID">UUID of the asset</param>
         /// <returns>True is the asset is stored in the cache, otherwise false</returns>
-        public bool HasAsset(UUID assetID)
+        public bool HasAsset (UUID assetID)
         {
-            if (!Operational())
+            if (!Operational ())
                 return false;
-            else
-                if (File.Exists(FileName(assetID)))
-                    return true;
-                else
-                    return File.Exists(StaticFileName(assetID));
+            if (File.Exists (FileName (assetID)))
+                return true;
+            return File.Exists (StaticFileName (assetID));
 
         }
 
         /// <summary>
         /// Wipes out entire cache
         /// </summary>
-        public void Clear()
+        public void Clear ()
         {
             string cacheDir = Client.Settings.ASSET_CACHE_DIR;
-            if (!Directory.Exists(cacheDir))
-            {
+            if (!Directory.Exists (cacheDir))
                 return;
-            }
 
-            DirectoryInfo di = new DirectoryInfo(cacheDir);
+            DirectoryInfo di = new DirectoryInfo (cacheDir);
             // We save file with UUID as file name, only delete those
-            FileInfo[] files = di.GetFiles("????????-????-????-????-????????????", SearchOption.TopDirectoryOnly);
+            FileInfo [] files = di.GetFiles ("????????-????-????-????-????????????", SearchOption.TopDirectoryOnly);
 
             int num = 0;
-            foreach (FileInfo file in files)
-            {
-                file.Delete();
+            foreach (FileInfo file in files) {
+                file.Delete ();
                 ++num;
             }
 
-            DebugLog("Wiped out " + num + " files from the cache directory.");
+            DebugLog ("Wiped out " + num + " files from the cache directory.");
         }
 
         /// <summary>
         /// Brings cache size to the 90% of the max size
         /// </summary>
-        public void Prune()
+        public void Prune ()
         {
             string cacheDir = Client.Settings.ASSET_CACHE_DIR;
-            if (!Directory.Exists(cacheDir))
-            {
+            if (!Directory.Exists (cacheDir))
                 return;
-            }
-            DirectoryInfo di = new DirectoryInfo(cacheDir);
+
+            DirectoryInfo di = new DirectoryInfo (cacheDir);
             // We save file with UUID as file name, only count those
-            FileInfo[] files = di.GetFiles("????????-????-????-????-????????????", SearchOption.TopDirectoryOnly);
+            FileInfo [] files = di.GetFiles ("????????-????-????-????-????????????", SearchOption.TopDirectoryOnly);
 
-            long size = GetFileSize(files);
+            long size = GetFileSize (files);
 
-            if (size > Client.Settings.ASSET_CACHE_MAX_SIZE)
-            {
-                Array.Sort(files, new SortFilesByAccesTimeHelper());
+            if (size > Client.Settings.ASSET_CACHE_MAX_SIZE) {
+                Array.Sort (files, new SortFilesByAccesTimeHelper ());
                 long targetSize = (long)(Client.Settings.ASSET_CACHE_MAX_SIZE * 0.9);
                 int num = 0;
-                foreach (FileInfo file in files)
-                {
+                foreach (FileInfo file in files) {
                     ++num;
                     size -= file.Length;
-                    file.Delete();
-                    if (size < targetSize)
-                    {
+                    file.Delete ();
+                    if (size < targetSize) {
                         break;
                     }
                 }
-                DebugLog(num + " files deleted from the cache, cache size now: " + NiceFileSize(size));
-            }
-            else
-            {
-                DebugLog("Cache size is " + NiceFileSize(size) + ", file deletion not needed");
+                DebugLog (num + " files deleted from the cache, cache size now: " + NiceFileSize (size));
+            } else {
+                DebugLog ("Cache size is " + NiceFileSize (size) + ", file deletion not needed");
             }
 
         }
@@ -357,30 +319,27 @@ namespace OpenMetaverse
         /// <summary>
         /// Asynchronously brings cache size to the 90% of the max size
         /// </summary>
-        public void BeginPrune()
+        public void BeginPrune ()
         {
             // Check if the background cache cleaning thread is active first
-            if (cleanerThread != null && cleanerThread.IsAlive)
-            {
+            if (cleanerThread != null && cleanerThread.IsAlive) {
                 return;
             }
 
-            lock (this)
-            {
-                cleanerThread = new Thread(new ThreadStart(this.Prune));
+            lock (this) {
+                cleanerThread = new Thread (new ThreadStart (Prune));
                 cleanerThread.IsBackground = true;
-                cleanerThread.Start();
+                cleanerThread.Start ();
             }
         }
 
         /// <summary>
         /// Adds up file sizes passes in a FileInfo array
         /// </summary>
-        long GetFileSize(FileInfo[] files)
+        long GetFileSize (FileInfo [] files)
         {
             long ret = 0;
-            foreach (FileInfo file in files)
-            {
+            foreach (FileInfo file in files) {
                 ret += file.Length;
             }
             return ret;
@@ -389,7 +348,7 @@ namespace OpenMetaverse
         /// <summary>
         /// Checks whether caching is enabled
         /// </summary>
-        private bool Operational()
+        private bool Operational ()
         {
             return Client.Settings.USE_ASSET_CACHE;
         }
@@ -397,9 +356,9 @@ namespace OpenMetaverse
         /// <summary>
         /// Periodically prune the cache
         /// </summary>
-        private void cleanerTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void cleanerTimer_Elapsed (object sender, System.Timers.ElapsedEventArgs e)
         {
-            BeginPrune();
+            BeginPrune ();
         }
 
         /// <summary>
@@ -407,17 +366,17 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="byteCount">Byte size we want to output</param>
         /// <returns>String with humanly readable file size</returns>
-        private string NiceFileSize(long byteCount)
+        private string NiceFileSize (long byteCount)
         {
             string size = "0 Bytes";
             if (byteCount >= 1073741824)
-                size = String.Format("{0:##.##}", byteCount / 1073741824) + " GB";
+                size = string.Format ("{0:##.##}", byteCount / 1073741824) + " GB";
             else if (byteCount >= 1048576)
-                size = String.Format("{0:##.##}", byteCount / 1048576) + " MB";
+                size = string.Format ("{0:##.##}", byteCount / 1048576) + " MB";
             else if (byteCount >= 1024)
-                size = String.Format("{0:##.##}", byteCount / 1024) + " KB";
+                size = string.Format ("{0:##.##}", byteCount / 1024) + " KB";
             else if (byteCount > 0 && byteCount < 1024)
-                size = byteCount.ToString() + " Bytes";
+                size = byteCount + " Bytes";
 
             return size;
         }
@@ -427,14 +386,13 @@ namespace OpenMetaverse
         /// </summary>
         private class SortFilesByAccesTimeHelper : IComparer<FileInfo>
         {
-            int IComparer<FileInfo>.Compare(FileInfo f1, FileInfo f2)
+            int IComparer<FileInfo>.Compare (FileInfo f1, FileInfo f2)
             {
                 if (f1.LastAccessTime > f2.LastAccessTime)
                     return 1;
                 if (f1.LastAccessTime < f2.LastAccessTime)
                     return -1;
-                else
-                    return 0;
+                return 0;
             }
         }
     }

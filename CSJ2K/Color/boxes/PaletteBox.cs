@@ -145,7 +145,11 @@ namespace CSJ2K.Color.Boxes
 		/// <summary>Are entries signed predicate. </summary>
 		public bool isSigned(int column)
 		{
-			return (bitdepth[column] & 0x80) == 1;
+            // This is always false as 0x80 != 1 :(
+			//return (bitdepth[column] & 0x80) == 1;
+
+            // 0: not signed, !0 : signed
+            return (bitdepth [column] & 0x80) != 0;
 		}
 		
 		/// <summary>Are entries unsigned predicate. </summary>

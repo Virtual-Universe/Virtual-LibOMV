@@ -25,7 +25,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using OpenMetaverse.StructuredData;
 
@@ -185,29 +184,29 @@ namespace OpenMetaverse
             // | SSFBBBBB | F = Fullbright
             // | 76543210 | B = Bumpmap
             // +----------+
-            private const byte BUMP_MASK = 0x1F;
-            private const byte FULLBRIGHT_MASK = 0x20;
-            private const byte SHINY_MASK = 0xC0;
+            const byte BUMP_MASK = 0x1F;
+            const byte FULLBRIGHT_MASK = 0x20;
+            const byte SHINY_MASK = 0xC0;
             // +----------+ M = Media Flags (web page)
             // | .....TTM | T = Texture Mapping
             // | 76543210 | . = Unused
             // +----------+
-            private const byte MEDIA_MASK = 0x01;
-            private const byte TEX_MAP_MASK = 0x06;
+            const byte MEDIA_MASK = 0x01;
+            const byte TEX_MAP_MASK = 0x06;
 
-            private Color4 rgba;
-            private float repeatU;
-            private float repeatV;
-            private float offsetU;
-            private float offsetV;
-            private float rotation;
-            private float glow;
-            private byte materialb;
-            private byte mediab;
-            private TextureAttributes hasAttribute;
-            private UUID textureID;
-            private UUID materialID;
-            private TextureEntryFace DefaultTexture;
+            Color4 rgba;
+            float repeatU;
+            float repeatV;
+            float offsetU;
+            float offsetV;
+            float rotation;
+            float glow;
+            byte materialb;
+            byte mediab;
+            TextureAttributes hasAttribute;
+            UUID textureID;
+            UUID materialID;
+            TextureEntryFace DefaultTexture;
 
 
             #region Properties
@@ -537,7 +536,7 @@ namespace OpenMetaverse
                 tex["mapping"] = OSD.FromInteger((int)TexMapType);
                 tex["glow"] = OSD.FromReal(Glow);
 
-                if (TextureID != Primitive.TextureEntry.WHITE_TEXTURE)
+                if (TextureID != TextureEntry.WHITE_TEXTURE)
                     tex["imageid"] = OSD.FromUUID(TextureID);
                 else
                     tex["imageid"] = OSD.FromUUID(UUID.Zero);
@@ -574,7 +573,7 @@ namespace OpenMetaverse
 
             public object Clone()
             {
-                TextureEntryFace ret = new TextureEntryFace(this.DefaultTexture == null ? null : (TextureEntryFace)this.DefaultTexture.Clone());
+                TextureEntryFace ret = new TextureEntryFace(DefaultTexture == null ? null : (TextureEntryFace)DefaultTexture.Clone());
                 ret.rgba = rgba;
                 ret.repeatU = repeatU;
                 ret.repeatV = repeatV;
@@ -615,7 +614,7 @@ namespace OpenMetaverse
             /// <returns></returns>
             public override string ToString()
             {
-                return String.Format("Color: {0} RepeatU: {1} RepeatV: {2} OffsetU: {3} OffsetV: {4} " +
+                return string.Format("Color: {0} RepeatU: {1} RepeatV: {2} OffsetU: {3} OffsetV: {4} " +
                     "Rotation: {5} Bump: {6} Shiny: {7} Fullbright: {8} Mapping: {9} Media: {10} Glow: {11} ID: {12} MaterialID: {13}",
                     RGBA, RepeatU, RepeatV, OffsetU, OffsetV, Rotation, Bump, Shiny, Fullbright, TexMapType,
                     MediaFlags, Glow, TextureID, MaterialID);
@@ -701,7 +700,7 @@ namespace OpenMetaverse
                 if (index >= MAX_FACES) throw new Exception(index + " is outside the range of MAX_FACES");
 
                 if (FaceTextures[index] == null)
-                    FaceTextures[index] = new TextureEntryFace(this.DefaultTexture);
+                    FaceTextures[index] = new TextureEntryFace(DefaultTexture);
 
                 return FaceTextures[index];
             }
@@ -773,7 +772,7 @@ namespace OpenMetaverse
                 return new TextureEntry(UUID.Zero);
             }
 
-            private void FromBytes(byte[] data, int pos, int length)
+            void FromBytes(byte[] data, int pos, int length)
             {
                 if (length < 16)
                 {
@@ -1003,57 +1002,57 @@ namespace OpenMetaverse
 
                             if (FaceTextures[i].TextureID != DefaultTexture.TextureID)
                             {
-                                if (textures[i] == UInt32.MaxValue) textures[i] = 0;
+                                if (textures[i] == uint.MaxValue) textures[i] = 0;
                                 textures[i] |= (uint)(1 << i);
                             }
                             if (FaceTextures[i].RGBA != DefaultTexture.RGBA)
                             {
-                                if (rgbas[i] == UInt32.MaxValue) rgbas[i] = 0;
+                                if (rgbas[i] == uint.MaxValue) rgbas[i] = 0;
                                 rgbas[i] |= (uint)(1 << i);
                             }
                             if (FaceTextures[i].RepeatU != DefaultTexture.RepeatU)
                             {
-                                if (repeatus[i] == UInt32.MaxValue) repeatus[i] = 0;
+                                if (repeatus[i] == uint.MaxValue) repeatus[i] = 0;
                                 repeatus[i] |= (uint)(1 << i);
                             }
-                            if (FaceTextures[i].RepeatV != DefaultTexture.RepeatV)
+                            if (Math.Abs (FaceTextures [i].RepeatV - DefaultTexture.RepeatV) > 0.0000001f)
                             {
-                                if (repeatvs[i] == UInt32.MaxValue) repeatvs[i] = 0;
+                                if (repeatvs[i] == uint.MaxValue) repeatvs[i] = 0;
                                 repeatvs[i] |= (uint)(1 << i);
                             }
                             if (Helpers.TEOffsetShort(FaceTextures[i].OffsetU) != Helpers.TEOffsetShort(DefaultTexture.OffsetU))
                             {
-                                if (offsetus[i] == UInt32.MaxValue) offsetus[i] = 0;
+                                if (offsetus[i] == uint.MaxValue) offsetus[i] = 0;
                                 offsetus[i] |= (uint)(1 << i);
                             }
                             if (Helpers.TEOffsetShort(FaceTextures[i].OffsetV) != Helpers.TEOffsetShort(DefaultTexture.OffsetV))
                             {
-                                if (offsetvs[i] == UInt32.MaxValue) offsetvs[i] = 0;
+                                if (offsetvs[i] == uint.MaxValue) offsetvs[i] = 0;
                                 offsetvs[i] |= (uint)(1 << i);
                             }
                             if (Helpers.TERotationShort(FaceTextures[i].Rotation) != Helpers.TERotationShort(DefaultTexture.Rotation))
                             {
-                                if (rotations[i] == UInt32.MaxValue) rotations[i] = 0;
+                                if (rotations[i] == uint.MaxValue) rotations[i] = 0;
                                 rotations[i] |= (uint)(1 << i);
                             }
                             if (FaceTextures[i].material != DefaultTexture.material)
                             {
-                                if (materials[i] == UInt32.MaxValue) materials[i] = 0;
+                                if (materials[i] == uint.MaxValue) materials[i] = 0;
                                 materials[i] |= (uint)(1 << i);
                             }
                             if (FaceTextures[i].media != DefaultTexture.media)
                             {
-                                if (medias[i] == UInt32.MaxValue) medias[i] = 0;
+                                if (medias[i] == uint.MaxValue) medias[i] = 0;
                                 medias[i] |= (uint)(1 << i);
                             }
                             if (Helpers.TEGlowByte(FaceTextures[i].Glow) != Helpers.TEGlowByte(DefaultTexture.Glow))
                             {
-                                if (glows[i] == UInt32.MaxValue) glows[i] = 0;
+                                if (glows[i] == uint.MaxValue) glows[i] = 0;
                                 glows[i] |= (uint)(1 << i);
                             }
                             if (FaceTextures[i].MaterialID != DefaultTexture.MaterialID)
                             {
-                                if (materialIDs[i] == UInt32.MaxValue) materialIDs[i] = 0;
+                                if (materialIDs[i] == uint.MaxValue) materialIDs[i] = 0;
                                 materialIDs[i] |= (uint)(1 << i);
                             }
                         }
@@ -1064,7 +1063,7 @@ namespace OpenMetaverse
                         binWriter.Write(DefaultTexture.TextureID.GetBytes());
                         for (int i = 0; i < textures.Length; i++)
                         {
-                            if (textures[i] != UInt32.MaxValue)
+                            if (textures[i] != uint.MaxValue)
                             {
                                 binWriter.Write(GetFaceBitfieldBytes(textures[i]));
                                 binWriter.Write(FaceTextures[i].TextureID.GetBytes());
@@ -1078,7 +1077,7 @@ namespace OpenMetaverse
                         binWriter.Write(DefaultTexture.RGBA.GetBytes(true));
                         for (int i = 0; i < rgbas.Length; i++)
                         {
-                            if (rgbas[i] != UInt32.MaxValue)
+                            if (rgbas[i] != uint.MaxValue)
                             {
                                 binWriter.Write(GetFaceBitfieldBytes(rgbas[i]));
                                 // Serialize the color bytes inverted to optimize for zerocoding
@@ -1092,7 +1091,7 @@ namespace OpenMetaverse
                         binWriter.Write(DefaultTexture.RepeatU);
                         for (int i = 0; i < repeatus.Length; i++)
                         {
-                            if (repeatus[i] != UInt32.MaxValue)
+                            if (repeatus[i] != uint.MaxValue)
                             {
                                 binWriter.Write(GetFaceBitfieldBytes(repeatus[i]));
                                 binWriter.Write(FaceTextures[i].RepeatU);
@@ -1105,7 +1104,7 @@ namespace OpenMetaverse
                         binWriter.Write(DefaultTexture.RepeatV);
                         for (int i = 0; i < repeatvs.Length; i++)
                         {
-                            if (repeatvs[i] != UInt32.MaxValue)
+                            if (repeatvs[i] != uint.MaxValue)
                             {
                                 binWriter.Write(GetFaceBitfieldBytes(repeatvs[i]));
                                 binWriter.Write(FaceTextures[i].RepeatV);
@@ -1118,7 +1117,7 @@ namespace OpenMetaverse
                         binWriter.Write(Helpers.TEOffsetShort(DefaultTexture.OffsetU));
                         for (int i = 0; i < offsetus.Length; i++)
                         {
-                            if (offsetus[i] != UInt32.MaxValue)
+                            if (offsetus[i] != uint.MaxValue)
                             {
                                 binWriter.Write(GetFaceBitfieldBytes(offsetus[i]));
                                 binWriter.Write(Helpers.TEOffsetShort(FaceTextures[i].OffsetU));
@@ -1131,7 +1130,7 @@ namespace OpenMetaverse
                         binWriter.Write(Helpers.TEOffsetShort(DefaultTexture.OffsetV));
                         for (int i = 0; i < offsetvs.Length; i++)
                         {
-                            if (offsetvs[i] != UInt32.MaxValue)
+                            if (offsetvs[i] != uint.MaxValue)
                             {
                                 binWriter.Write(GetFaceBitfieldBytes(offsetvs[i]));
                                 binWriter.Write(Helpers.TEOffsetShort(FaceTextures[i].OffsetV));
@@ -1144,7 +1143,7 @@ namespace OpenMetaverse
                         binWriter.Write(Helpers.TERotationShort(DefaultTexture.Rotation));
                         for (int i = 0; i < rotations.Length; i++)
                         {
-                            if (rotations[i] != UInt32.MaxValue)
+                            if (rotations[i] != uint.MaxValue)
                             {
                                 binWriter.Write(GetFaceBitfieldBytes(rotations[i]));
                                 binWriter.Write(Helpers.TERotationShort(FaceTextures[i].Rotation));
@@ -1157,7 +1156,7 @@ namespace OpenMetaverse
                         binWriter.Write(DefaultTexture.material);
                         for (int i = 0; i < materials.Length; i++)
                         {
-                            if (materials[i] != UInt32.MaxValue)
+                            if (materials[i] != uint.MaxValue)
                             {
                                 binWriter.Write(GetFaceBitfieldBytes(materials[i]));
                                 binWriter.Write(FaceTextures[i].material);
@@ -1170,7 +1169,7 @@ namespace OpenMetaverse
                         binWriter.Write(DefaultTexture.media);
                         for (int i = 0; i < medias.Length; i++)
                         {
-                            if (medias[i] != UInt32.MaxValue)
+                            if (medias[i] != uint.MaxValue)
                             {
                                 binWriter.Write(GetFaceBitfieldBytes(medias[i]));
                                 binWriter.Write(FaceTextures[i].media);
@@ -1183,7 +1182,7 @@ namespace OpenMetaverse
                         binWriter.Write(Helpers.TEGlowByte(DefaultTexture.Glow));
                         for (int i = 0; i < glows.Length; i++)
                         {
-                            if (glows[i] != UInt32.MaxValue)
+                            if (glows[i] != uint.MaxValue)
                             {
                                 binWriter.Write(GetFaceBitfieldBytes(glows[i]));
                                 binWriter.Write(Helpers.TEGlowByte(FaceTextures[i].Glow));
@@ -1196,7 +1195,7 @@ namespace OpenMetaverse
                         binWriter.Write(DefaultTexture.MaterialID.GetBytes());
                         for (int i = 0; i < materialIDs.Length; i++)
                         {
-                            if (materialIDs[i] != UInt32.MaxValue)
+                            if (materialIDs[i] != uint.MaxValue)
                             {
                                 binWriter.Write(GetFaceBitfieldBytes(materialIDs[i]));
                                 binWriter.Write(FaceTextures[i].MaterialID.GetBytes());
@@ -1226,14 +1225,14 @@ namespace OpenMetaverse
             /// <returns></returns>
             public override string ToString()
             {
-                string output = String.Empty;
+                string output = string.Empty;
 
-                output += "Default Face: " + DefaultTexture.ToString() + Environment.NewLine;
+                output += "Default Face: " + DefaultTexture + Environment.NewLine;
 
                 for (int i = 0; i < FaceTextures.Length; i++)
                 {
                     if (FaceTextures[i] != null)
-                        output += "Face " + i + ": " + FaceTextures[i].ToString() + Environment.NewLine;
+                        output += "Face " + i + ": " + FaceTextures[i] + Environment.NewLine;
                 }
 
                 return output;
@@ -1241,13 +1240,13 @@ namespace OpenMetaverse
 
             #region Helpers
 
-            private void InitializeArray(ref uint[] array)
+            void InitializeArray(ref uint[] array)
             {
                 for (int i = 0; i < array.Length; i++)
-                    array[i] = UInt32.MaxValue;
+                    array[i] = uint.MaxValue;
             }
 
-            private bool ReadFaceBitfield(byte[] data, ref int pos, ref uint faceBits, ref uint bitfieldSize)
+            bool ReadFaceBitfield(byte[] data, ref int pos, ref uint faceBits, ref uint bitfieldSize)
             {
                 faceBits = 0;
                 bitfieldSize = 0;
@@ -1268,7 +1267,7 @@ namespace OpenMetaverse
                 return (faceBits != 0);
             }
 
-            private byte[] GetFaceBitfieldBytes(uint bitfield)
+            byte[] GetFaceBitfieldBytes(uint bitfield)
             {
                 int byteLength = 0;
                 uint tmpBitfield = bitfield;
@@ -1323,10 +1322,10 @@ namespace OpenMetaverse
             {
                 if (data.Length >= 16)
                 {
-                    Flags = (TextureAnimMode)((uint)data[pos++]);
-                    Face = (uint)data[pos++];
-                    SizeX = (uint)data[pos++];
-                    SizeY = (uint)data[pos++];
+                    Flags = (TextureAnimMode)data [pos++];
+                    Face = data[pos++];
+                    SizeX = data[pos++];
+                    SizeY = data[pos++];
 
                     Start = Utils.BytesToFloat(data, pos);
                     Length = Utils.BytesToFloat(data, pos + 4);

@@ -29,45 +29,31 @@ using System;
 namespace OpenMetaverse
 {
     /// <summary>
-    ///     A hierarchical token bucket for bandwidth throttling. See
-    ///     http://en.wikipedia.org/wiki/Token_bucket for more information
+    /// A hierarchical token bucket for bandwidth throttling. See
+    /// http://en.wikipedia.org/wiki/Token_bucket for more information
     /// </summary>
     public class TokenBucket
     {
-        /// <summary>
-        ///     Parent bucket to this bucket, or null if this is a root
-        ///     bucket
-        /// </summary>
+        /// <summary>Parent bucket to this bucket, or null if this is a root
+        /// bucket</summary>
         TokenBucket parent;
-
-        /// <summary>
-        ///     Size of the bucket in bytes. If zero, the bucket has 
-        ///     infinite capacity
-        /// </summary>
+        /// <summary>Size of the bucket in bytes. If zero, the bucket has 
+        /// infinite capacity</summary>
         int maxBurst;
-        
-        /// <summary>
-        ///     Rate that the bucket fills, in bytes per millisecond. If
-        ///     zero, the bucket always remains full
-        /// </summary>
+        /// <summary>Rate that the bucket fills, in bytes per millisecond. If
+        /// zero, the bucket always remains full</summary>
         int tokensPerMS;
-        
-        /// <summary>
-        ///     Number of tokens currently in the bucket
-        /// </summary>
+        /// <summary>Number of tokens currently in the bucket</summary>
         int content;
-        
-        /// <summary>
-        ///     Time of the last drip, in system ticks
-        /// </summary>
+        /// <summary>Time of the last drip, in system ticks</summary>
         int lastDrip;
 
         #region Properties
 
         /// <summary>
-        ///     The parent bucket of this bucket, or null if this bucket has no
-        ///     parent. The parent bucket will limit the aggregate bandwidth of all
-        ///     of its children buckets
+        /// The parent bucket of this bucket, or null if this bucket has no
+        /// parent. The parent bucket will limit the aggregate bandwidth of all
+        /// of its children buckets
         /// </summary>
         public TokenBucket Parent
         {
@@ -75,8 +61,8 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Maximum burst rate in bytes per second. This is the maximum number
-        ///     of tokens that can accumulate in the bucket at any one time
+        /// Maximum burst rate in bytes per second. This is the maximum number
+        /// of tokens that can accumulate in the bucket at any one time
         /// </summary>
         public int MaxBurst
         {
@@ -85,11 +71,11 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     The speed limit of this bucket in bytes per second. This is the
-        ///     number of tokens that are added to the bucket per second
+        /// The speed limit of this bucket in bytes per second. This is the
+        /// number of tokens that are added to the bucket per second
         /// </summary>
         /// <remarks>Tokens are added to the bucket any time 
-        /// <seealso cref="RemoveTokens"/> is called, at the granularity of
+        /// <seealso cref="this.RemoveTokens"/> is called, at the granularity of
         /// the system tick interval (typically around 15-22ms)</remarks>
         public int DripRate
         {
@@ -106,10 +92,10 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     The number of bytes that can be sent at this moment. This is the
-        ///     current number of tokens in the bucket
+        /// The number of bytes that can be sent at this moment. This is the
+        /// current number of tokens in the bucket
         /// <remarks>If this bucket has a parent bucket that does not have
-        /// enough tokens for a request, <seealso cref="RemoveTokens"/> will 
+        /// enough tokens for a request, <seealso cref="this.RemoveTokens"/> will 
         /// return false regardless of the content of this bucket</remarks>
         /// </summary>
         public int Content
@@ -120,7 +106,7 @@ namespace OpenMetaverse
         #endregion Properties
 
         /// <summary>
-        ///     Default constructor
+        /// Default constructor
         /// </summary>
         /// <param name="parent">Parent bucket if this is a child bucket, or
         /// null if this is a root bucket</param>
@@ -133,11 +119,11 @@ namespace OpenMetaverse
             this.parent = parent;
             MaxBurst = maxBurst;
             DripRate = dripRate;
-            lastDrip = Environment.TickCount & Int32.MaxValue;
+            lastDrip = Environment.TickCount & int.MaxValue;
         }
 
         /// <summary>
-        ///     Remove a given number of tokens from the bucket
+        /// Remove a given number of tokens from the bucket
         /// </summary>
         /// <param name="amount">Number of tokens to remove from the bucket</param>
         /// <returns>True if the requested number of tokens were removed from
@@ -149,7 +135,7 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Remove a given number of tokens from the bucket
+        /// Remove a given number of tokens from the bucket
         /// </summary>
         /// <param name="amount">Number of tokens to remove from the bucket</param>
         /// <param name="dripSucceeded">True if tokens were added to the bucket
@@ -181,9 +167,9 @@ namespace OpenMetaverse
         }
 
         /// <summary>
-        ///     Add tokens to the bucket over time. The number of tokens added each
-        ///     call depends on the length of time that has passed since the last 
-        ///     call to Drip
+        /// Add tokens to the bucket over time. The number of tokens added each
+        /// call depends on the length of time that has passed since the last 
+        /// call to Drip
         /// </summary>
         /// <returns>True if tokens were added to the bucket, otherwise false</returns>
         private bool Drip()
@@ -195,7 +181,7 @@ namespace OpenMetaverse
             }
             else
             {
-                int now = Environment.TickCount & Int32.MaxValue;
+                int now = Environment.TickCount & int.MaxValue;
                 int deltaMS = now - lastDrip;
 
                 if (deltaMS <= 0)

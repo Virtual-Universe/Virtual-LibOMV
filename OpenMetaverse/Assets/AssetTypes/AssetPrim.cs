@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using OpenMetaverse;
 using OpenMetaverse.StructuredData;
 
 namespace OpenMetaverse.Assets
@@ -128,99 +127,90 @@ namespace OpenMetaverse.Assets
                 reader.ReadStartElement("SceneObjectGroup");
                 Parent = LoadPrim(reader);
 
-                if (Parent != null)
-                {
-                    if (this.AssetID == UUID.Zero)
-                        this.AssetID = Parent.ID;
+                if (Parent != null) {
+                    if (AssetID == UUID.Zero)
+                        AssetID = Parent.ID;
 
-                    List<PrimObject> children = new List<PrimObject>();
+                    var children = new List<PrimObject> ();
 
-                    reader.Read();
+                    reader.Read ();
 
-                    while (!reader.EOF)
-                    {
-                        switch (reader.NodeType)
-                        {
-                            case XmlNodeType.Element:
-                                if (reader.Name == "SceneObjectPart")
-                                {
-                                    PrimObject child = LoadPrim(reader);
-                                    if (child != null)
-                                        children.Add(child);
-                                }
-                                else
-                                {
-                                    //Logger.Log("Found unexpected prim XML element " + reader.Name, Helpers.LogLevel.Debug);
-                                    reader.Read();
-                                }
-                                break;
-                            case XmlNodeType.EndElement:
-                            default:
-                                reader.Read();
-                                break;
+                    while (!reader.EOF) {
+                        switch (reader.NodeType) {
+                        case XmlNodeType.Element:
+                            if (reader.Name == "SceneObjectPart") {
+                                PrimObject child = LoadPrim (reader);
+                                if (child != null)
+                                    children.Add (child);
+                            } else {
+                                //Logger.Log("Found unexpected prim XML element " + reader.Name, Helpers.LogLevel.Debug);
+                                reader.Read ();
+                            }
+                            break;
+                        //case XmlNodeType.EndElement:
+                        default:
+                            reader.Read ();
+                            break;
                         }
                     }
 
                     Children = children;
                     return true;
                 }
-                else
-                {
-                    Logger.Log("Failed to load root linkset prim", Helpers.LogLevel.Error);
-                    return false;
-                }
+                Logger.Log ("Failed to load root linkset prim", Helpers.LogLevel.Error);
+                return false;
             }
         }
 
         public static PrimObject LoadPrim(XmlTextReader reader)
         {
-            PrimObject obj = new PrimObject();
+            var obj = new PrimObject();
             obj.Shape = new PrimObject.ShapeBlock();
             obj.Inventory = new PrimObject.InventoryBlock();
 
             reader.ReadStartElement("SceneObjectPart");
 
             if (reader.Name == "AllowedDrop")
-                obj.AllowedDrop = reader.ReadElementContentAsBoolean("AllowedDrop", String.Empty);
+                obj.AllowedDrop = reader.ReadElementContentAsBoolean("AllowedDrop", string.Empty);
             else
                 obj.AllowedDrop = true;
 
             obj.CreatorID = ReadUUID(reader, "CreatorID");
             obj.FolderID = ReadUUID(reader, "FolderID");
-            obj.Inventory.Serial = reader.ReadElementContentAsInt("InventorySerial", String.Empty);
+            obj.Inventory.Serial = reader.ReadElementContentAsInt("InventorySerial", string.Empty);
 
             #region Task Inventory
 
-            List<PrimObject.InventoryBlock.ItemBlock> invItems = new List<PrimObject.InventoryBlock.ItemBlock>();
+            var invItems = new List<PrimObject.InventoryBlock.ItemBlock>();
 
-            reader.ReadStartElement("TaskInventory", String.Empty);
+            reader.ReadStartElement("TaskInventory", string.Empty);
             while (reader.Name == "TaskInventoryItem")
             {
-                PrimObject.InventoryBlock.ItemBlock item = new PrimObject.InventoryBlock.ItemBlock();
-                reader.ReadStartElement("TaskInventoryItem", String.Empty);
+                var item = new PrimObject.InventoryBlock.ItemBlock();
+                reader.ReadStartElement("TaskInventoryItem", string.Empty);
 
                 item.AssetID = ReadUUID(reader, "AssetID");
-                item.PermsBase = (uint)reader.ReadElementContentAsInt("BasePermissions", String.Empty);
-                item.CreationDate = Utils.UnixTimeToDateTime((uint)reader.ReadElementContentAsInt("CreationDate", String.Empty));
+                item.PermsBase = (uint)reader.ReadElementContentAsInt("BasePermissions", string.Empty);
+                item.CreationDate = Utils.UnixTimeToDateTime((uint)reader.ReadElementContentAsInt("CreationDate", string.Empty));
                 item.CreatorID = ReadUUID(reader, "CreatorID");
-                item.Description = reader.ReadElementContentAsString("Description", String.Empty);
-                item.PermsEveryone = (uint)reader.ReadElementContentAsInt("EveryonePermissions", String.Empty);
-                item.Flags = reader.ReadElementContentAsInt("Flags", String.Empty);
+                item.Description = reader.ReadElementContentAsString("Description", string.Empty);
+                item.PermsEveryone = (uint)reader.ReadElementContentAsInt("EveryonePermissions", string.Empty);
+                item.Flags = reader.ReadElementContentAsInt("Flags", string.Empty);
                 item.GroupID = ReadUUID(reader, "GroupID");
-                item.PermsGroup = (uint)reader.ReadElementContentAsInt("GroupPermissions", String.Empty);
-                item.InvType = (InventoryType)reader.ReadElementContentAsInt("InvType", String.Empty);
+                item.PermsGroup = (uint)reader.ReadElementContentAsInt("GroupPermissions", string.Empty);
+                item.InvType = (InventoryType)reader.ReadElementContentAsInt("InvType", string.Empty);
                 item.ID = ReadUUID(reader, "ItemID");
                 UUID oldItemID = ReadUUID(reader, "OldItemID"); // TODO: Is this useful?
                 item.LastOwnerID = ReadUUID(reader, "LastOwnerID");
-                item.Name = reader.ReadElementContentAsString("Name", String.Empty);
-                item.PermsNextOwner = (uint)reader.ReadElementContentAsInt("NextPermissions", String.Empty);
+                item.Name = reader.ReadElementContentAsString("Name", string.Empty);
+                item.PermsNextOwner = (uint)reader.ReadElementContentAsInt("NextPermissions", string.Empty);
                 item.OwnerID = ReadUUID(reader, "OwnerID");
-                item.PermsOwner = (uint)reader.ReadElementContentAsInt("CurrentPermissions", String.Empty);
+                item.PermsOwner = (uint)reader.ReadElementContentAsInt("CurrentPermissions", string.Empty);
                 UUID parentID = ReadUUID(reader, "ParentID");
                 UUID parentPartID = ReadUUID(reader, "ParentPartID");
                 item.PermsGranterID = ReadUUID(reader, "PermsGranter");
-                item.PermsBase = (uint)reader.ReadElementContentAsInt("PermsMask", String.Empty);
-                item.Type = (AssetType)reader.ReadElementContentAsInt("Type", String.Empty);
+                item.PermsBase = (uint)reader.ReadElementContentAsInt("PermsMask", string.Empty);
+                item.Type = (AssetType)reader.ReadElementContentAsInt("Type", string.Empty);
 
                 reader.ReadEndElement();
                 invItems.Add(item);
@@ -232,26 +222,27 @@ namespace OpenMetaverse.Assets
 
             #endregion Task Inventory
 
-            PrimFlags flags = (PrimFlags)reader.ReadElementContentAsInt("ObjectFlags", String.Empty);
+            var flags = (PrimFlags)reader.ReadElementContentAsInt("ObjectFlags", string.Empty);
             obj.UsePhysics = (flags & PrimFlags.Physics) != 0;
             obj.Phantom = (flags & PrimFlags.Phantom) != 0;
             obj.DieAtEdge = (flags & PrimFlags.DieAtEdge) != 0;
             obj.ReturnAtEdge = (flags & PrimFlags.ReturnAtEdge) != 0;
-            obj.Temporary = (flags & PrimFlags.Temporary) != 0;
+            obj.Temporary = (flags & PrimFlags.Temporary) != 0 ||
+                            (flags & PrimFlags.TemporaryOnRez) != 0;
             obj.Sandbox = (flags & PrimFlags.Sandbox) != 0;
 
             obj.ID = ReadUUID(reader, "UUID");
-            obj.LocalID = (uint)reader.ReadElementContentAsLong("LocalId", String.Empty);
+            obj.LocalID = (uint)reader.ReadElementContentAsLong("LocalId", string.Empty);
             obj.Name = reader.ReadElementString("Name");
-            obj.Material = reader.ReadElementContentAsInt("Material", String.Empty);
+            obj.Material = reader.ReadElementContentAsInt("Material", string.Empty);
 
             if (reader.Name == "PassTouches")
-                obj.PassTouches = reader.ReadElementContentAsBoolean("PassTouches", String.Empty);
+                obj.PassTouches = reader.ReadElementContentAsBoolean("PassTouches", string.Empty);
             else
                 obj.PassTouches = false;
 
-            obj.RegionHandle = (ulong)reader.ReadElementContentAsLong("RegionHandle", String.Empty);
-            obj.RemoteScriptAccessPIN = reader.ReadElementContentAsInt("ScriptAccessPin", String.Empty);
+            obj.RegionHandle = (ulong)reader.ReadElementContentAsLong("RegionHandle", string.Empty);
+            obj.RemoteScriptAccessPIN = reader.ReadElementContentAsInt("ScriptAccessPin", string.Empty);
             
             if (reader.Name == "PlaySoundSlavePrims")
                 reader.ReadInnerXml();
@@ -270,54 +261,54 @@ namespace OpenMetaverse.Assets
             reader.ReadStartElement("Color");
             if (reader.Name == "R")
             {
-                obj.TextColor.R = reader.ReadElementContentAsFloat("R", String.Empty);
-                obj.TextColor.G = reader.ReadElementContentAsFloat("G", String.Empty);
-                obj.TextColor.B = reader.ReadElementContentAsFloat("B", String.Empty);
-                obj.TextColor.A = reader.ReadElementContentAsFloat("A", String.Empty);
+                obj.TextColor.R = reader.ReadElementContentAsFloat("R", string.Empty);
+                obj.TextColor.G = reader.ReadElementContentAsFloat("G", string.Empty);
+                obj.TextColor.B = reader.ReadElementContentAsFloat("B", string.Empty);
+                obj.TextColor.A = reader.ReadElementContentAsFloat("A", string.Empty);
                 reader.ReadEndElement();
             }
-            obj.Text = reader.ReadElementString("Text", String.Empty);
-            obj.SitName = reader.ReadElementString("SitName", String.Empty);
-            obj.TouchName = reader.ReadElementString("TouchName", String.Empty);
+            obj.Text = reader.ReadElementString("Text", string.Empty);
+            obj.SitName = reader.ReadElementString("SitName", string.Empty);
+            obj.TouchName = reader.ReadElementString("TouchName", string.Empty);
 
-            obj.LinkNumber = reader.ReadElementContentAsInt("LinkNum", String.Empty);
-            obj.ClickAction = reader.ReadElementContentAsInt("ClickAction", String.Empty);
+            obj.LinkNumber = reader.ReadElementContentAsInt("LinkNum", string.Empty);
+            obj.ClickAction = reader.ReadElementContentAsInt("ClickAction", string.Empty);
             
             reader.ReadStartElement("Shape");
-            obj.Shape.ProfileCurve = reader.ReadElementContentAsInt("ProfileCurve", String.Empty);
+            obj.Shape.ProfileCurve = reader.ReadElementContentAsInt("ProfileCurve", string.Empty);
 
             byte[] teData = Convert.FromBase64String(reader.ReadElementString("TextureEntry"));
             obj.Textures = new Primitive.TextureEntry(teData, 0, teData.Length);
 
             reader.ReadInnerXml(); // ExtraParams
 
-            obj.Shape.PathBegin = Primitive.UnpackBeginCut((ushort)reader.ReadElementContentAsInt("PathBegin", String.Empty));
-            obj.Shape.PathCurve = reader.ReadElementContentAsInt("PathCurve", String.Empty);
-            obj.Shape.PathEnd = Primitive.UnpackEndCut((ushort)reader.ReadElementContentAsInt("PathEnd", String.Empty));
-            obj.Shape.PathRadiusOffset = Primitive.UnpackPathTwist((sbyte)reader.ReadElementContentAsInt("PathRadiusOffset", String.Empty));
-            obj.Shape.PathRevolutions = Primitive.UnpackPathRevolutions((byte)reader.ReadElementContentAsInt("PathRevolutions", String.Empty));
-            obj.Shape.PathScaleX = Primitive.UnpackPathScale((byte)reader.ReadElementContentAsInt("PathScaleX", String.Empty));
-            obj.Shape.PathScaleY = Primitive.UnpackPathScale((byte)reader.ReadElementContentAsInt("PathScaleY", String.Empty));
-            obj.Shape.PathShearX = Primitive.UnpackPathShear((sbyte)reader.ReadElementContentAsInt("PathShearX", String.Empty));
-            obj.Shape.PathShearY = Primitive.UnpackPathShear((sbyte)reader.ReadElementContentAsInt("PathShearY", String.Empty));
-            obj.Shape.PathSkew = Primitive.UnpackPathTwist((sbyte)reader.ReadElementContentAsInt("PathSkew", String.Empty));
-            obj.Shape.PathTaperX = Primitive.UnpackPathTaper((sbyte)reader.ReadElementContentAsInt("PathTaperX", String.Empty));
-            obj.Shape.PathTaperY = Primitive.UnpackPathShear((sbyte)reader.ReadElementContentAsInt("PathTaperY", String.Empty));
-            obj.Shape.PathTwist = Primitive.UnpackPathTwist((sbyte)reader.ReadElementContentAsInt("PathTwist", String.Empty));
-            obj.Shape.PathTwistBegin = Primitive.UnpackPathTwist((sbyte)reader.ReadElementContentAsInt("PathTwistBegin", String.Empty));
-            obj.PCode = reader.ReadElementContentAsInt("PCode", String.Empty);
-            obj.Shape.ProfileBegin = Primitive.UnpackBeginCut((ushort)reader.ReadElementContentAsInt("ProfileBegin", String.Empty));
-            obj.Shape.ProfileEnd = Primitive.UnpackEndCut((ushort)reader.ReadElementContentAsInt("ProfileEnd", String.Empty));
-            obj.Shape.ProfileHollow = Primitive.UnpackProfileHollow((ushort)reader.ReadElementContentAsInt("ProfileHollow", String.Empty));
+            obj.Shape.PathBegin = Primitive.UnpackBeginCut((ushort)reader.ReadElementContentAsInt("PathBegin", string.Empty));
+            obj.Shape.PathCurve = reader.ReadElementContentAsInt("PathCurve", string.Empty);
+            obj.Shape.PathEnd = Primitive.UnpackEndCut((ushort)reader.ReadElementContentAsInt("PathEnd", string.Empty));
+            obj.Shape.PathRadiusOffset = Primitive.UnpackPathTwist((sbyte)reader.ReadElementContentAsInt("PathRadiusOffset", string.Empty));
+            obj.Shape.PathRevolutions = Primitive.UnpackPathRevolutions((byte)reader.ReadElementContentAsInt("PathRevolutions", string.Empty));
+            obj.Shape.PathScaleX = Primitive.UnpackPathScale((byte)reader.ReadElementContentAsInt("PathScaleX", string.Empty));
+            obj.Shape.PathScaleY = Primitive.UnpackPathScale((byte)reader.ReadElementContentAsInt("PathScaleY", string.Empty));
+            obj.Shape.PathShearX = Primitive.UnpackPathShear((sbyte)reader.ReadElementContentAsInt("PathShearX", string.Empty));
+            obj.Shape.PathShearY = Primitive.UnpackPathShear((sbyte)reader.ReadElementContentAsInt("PathShearY", string.Empty));
+            obj.Shape.PathSkew = Primitive.UnpackPathTwist((sbyte)reader.ReadElementContentAsInt("PathSkew", string.Empty));
+            obj.Shape.PathTaperX = Primitive.UnpackPathTaper((sbyte)reader.ReadElementContentAsInt("PathTaperX", string.Empty));
+            obj.Shape.PathTaperY = Primitive.UnpackPathShear((sbyte)reader.ReadElementContentAsInt("PathTaperY", string.Empty));
+            obj.Shape.PathTwist = Primitive.UnpackPathTwist((sbyte)reader.ReadElementContentAsInt("PathTwist", string.Empty));
+            obj.Shape.PathTwistBegin = Primitive.UnpackPathTwist((sbyte)reader.ReadElementContentAsInt("PathTwistBegin", string.Empty));
+            obj.PCode = reader.ReadElementContentAsInt("PCode", string.Empty);
+            obj.Shape.ProfileBegin = Primitive.UnpackBeginCut((ushort)reader.ReadElementContentAsInt("ProfileBegin", string.Empty));
+            obj.Shape.ProfileEnd = Primitive.UnpackEndCut((ushort)reader.ReadElementContentAsInt("ProfileEnd", string.Empty));
+            obj.Shape.ProfileHollow = Primitive.UnpackProfileHollow((ushort)reader.ReadElementContentAsInt("ProfileHollow", string.Empty));
             obj.Scale = ReadVector(reader, "Scale");
-            obj.State = (byte)reader.ReadElementContentAsInt("State", String.Empty);
+            obj.State = (byte)reader.ReadElementContentAsInt("State", string.Empty);
 
-            ProfileShape profileShape = (ProfileShape)Enum.Parse(typeof(ProfileShape), reader.ReadElementString("ProfileShape"));
-            HoleType holeType = (HoleType)Enum.Parse(typeof(HoleType), reader.ReadElementString("HollowShape"));
+            var profileShape = (ProfileShape)Enum.Parse(typeof(ProfileShape), reader.ReadElementString("ProfileShape"));
+            var holeType = (HoleType)Enum.Parse(typeof(HoleType), reader.ReadElementString("HollowShape"));
             obj.Shape.ProfileCurve = (int)profileShape | (int)holeType;
 
             UUID sculptTexture = ReadUUID(reader, "SculptTexture");
-            SculptType sculptType = (SculptType)reader.ReadElementContentAsInt("SculptType", String.Empty);
+            var sculptType = (SculptType)reader.ReadElementContentAsInt("SculptType", string.Empty);
             if (sculptTexture != UUID.Zero)
             {
                 obj.Sculpt = new PrimObject.SculptBlock();
@@ -325,31 +316,31 @@ namespace OpenMetaverse.Assets
                 obj.Sculpt.Type = (int)sculptType;
             }
 
-            PrimObject.FlexibleBlock flexible = new PrimObject.FlexibleBlock();
-            PrimObject.LightBlock light = new PrimObject.LightBlock();
+            var flexible = new PrimObject.FlexibleBlock();
+            var light = new PrimObject.LightBlock();
 
             reader.ReadInnerXml(); // SculptData
 
-            flexible.Softness = reader.ReadElementContentAsInt("FlexiSoftness", String.Empty);
-            flexible.Tension = reader.ReadElementContentAsFloat("FlexiTension", String.Empty);
-            flexible.Drag = reader.ReadElementContentAsFloat("FlexiDrag", String.Empty);
-            flexible.Gravity = reader.ReadElementContentAsFloat("FlexiGravity", String.Empty);
-            flexible.Wind = reader.ReadElementContentAsFloat("FlexiWind", String.Empty);
-            flexible.Force.X = reader.ReadElementContentAsFloat("FlexiForceX", String.Empty);
-            flexible.Force.Y = reader.ReadElementContentAsFloat("FlexiForceY", String.Empty);
-            flexible.Force.Z = reader.ReadElementContentAsFloat("FlexiForceZ", String.Empty);
+            flexible.Softness = reader.ReadElementContentAsInt("FlexiSoftness", string.Empty);
+            flexible.Tension = reader.ReadElementContentAsFloat("FlexiTension", string.Empty);
+            flexible.Drag = reader.ReadElementContentAsFloat("FlexiDrag", string.Empty);
+            flexible.Gravity = reader.ReadElementContentAsFloat("FlexiGravity", string.Empty);
+            flexible.Wind = reader.ReadElementContentAsFloat("FlexiWind", string.Empty);
+            flexible.Force.X = reader.ReadElementContentAsFloat("FlexiForceX", string.Empty);
+            flexible.Force.Y = reader.ReadElementContentAsFloat("FlexiForceY", string.Empty);
+            flexible.Force.Z = reader.ReadElementContentAsFloat("FlexiForceZ", string.Empty);
 
-            light.Color.R = reader.ReadElementContentAsFloat("LightColorR", String.Empty);
-            light.Color.G = reader.ReadElementContentAsFloat("LightColorG", String.Empty);
-            light.Color.B = reader.ReadElementContentAsFloat("LightColorB", String.Empty);
-            light.Color.A = reader.ReadElementContentAsFloat("LightColorA", String.Empty);
-            light.Radius = reader.ReadElementContentAsFloat("LightRadius", String.Empty);
-            light.Cutoff = reader.ReadElementContentAsFloat("LightCutoff", String.Empty);
-            light.Falloff = reader.ReadElementContentAsFloat("LightFalloff", String.Empty);
-            light.Intensity = reader.ReadElementContentAsFloat("LightIntensity", String.Empty);
+            light.Color.R = reader.ReadElementContentAsFloat("LightColorR", string.Empty);
+            light.Color.G = reader.ReadElementContentAsFloat("LightColorG", string.Empty);
+            light.Color.B = reader.ReadElementContentAsFloat("LightColorB", string.Empty);
+            light.Color.A = reader.ReadElementContentAsFloat("LightColorA", string.Empty);
+            light.Radius = reader.ReadElementContentAsFloat("LightRadius", string.Empty);
+            light.Cutoff = reader.ReadElementContentAsFloat("LightCutoff", string.Empty);
+            light.Falloff = reader.ReadElementContentAsFloat("LightFalloff", string.Empty);
+            light.Intensity = reader.ReadElementContentAsFloat("LightIntensity", string.Empty);
 
-            bool hasFlexi = reader.ReadElementContentAsBoolean("FlexiEntry", String.Empty);
-            bool hasLight = reader.ReadElementContentAsBoolean("LightEntry", String.Empty);
+            bool hasFlexi = reader.ReadElementContentAsBoolean("FlexiEntry", string.Empty);
+            bool hasLight = reader.ReadElementContentAsBoolean("LightEntry", string.Empty);
             reader.ReadInnerXml(); // SculptEntry
 
             if (hasFlexi)
@@ -366,25 +357,25 @@ namespace OpenMetaverse.Assets
             reader.ReadInnerXml(); // SitTargetPosition
             obj.SitOffset = ReadVector(reader, "SitTargetPositionLL");
             obj.SitRotation = ReadQuaternion(reader, "SitTargetOrientationLL");
-            obj.ParentID = (uint)reader.ReadElementContentAsLong("ParentID", String.Empty);
-            obj.CreationDate = Utils.UnixTimeToDateTime(reader.ReadElementContentAsInt("CreationDate", String.Empty));
-            int category = reader.ReadElementContentAsInt("Category", String.Empty);
-            obj.SalePrice = reader.ReadElementContentAsInt("SalePrice", String.Empty);
-            obj.SaleType = reader.ReadElementContentAsInt("ObjectSaleType", String.Empty);
-            int ownershipCost = reader.ReadElementContentAsInt("OwnershipCost", String.Empty);
+            obj.ParentID = (uint)reader.ReadElementContentAsLong("ParentID", string.Empty);
+            obj.CreationDate = Utils.UnixTimeToDateTime(reader.ReadElementContentAsInt("CreationDate", string.Empty));
+            int category = reader.ReadElementContentAsInt("Category", string.Empty);
+            obj.SalePrice = reader.ReadElementContentAsInt("SalePrice", string.Empty);
+            obj.SaleType = reader.ReadElementContentAsInt("ObjectSaleType", string.Empty);
+            int ownershipCost = reader.ReadElementContentAsInt("OwnershipCost", string.Empty);
             obj.GroupID = ReadUUID(reader, "GroupID");
             obj.OwnerID = ReadUUID(reader, "OwnerID");
             obj.LastOwnerID = ReadUUID(reader, "LastOwnerID");
-            obj.PermsBase = (uint)reader.ReadElementContentAsInt("BaseMask", String.Empty);
-            obj.PermsOwner = (uint)reader.ReadElementContentAsInt("OwnerMask", String.Empty);
-            obj.PermsGroup = (uint)reader.ReadElementContentAsInt("GroupMask", String.Empty);
-            obj.PermsEveryone = (uint)reader.ReadElementContentAsInt("EveryoneMask", String.Empty);
-            obj.PermsNextOwner = (uint)reader.ReadElementContentAsInt("NextOwnerMask", String.Empty);
+            obj.PermsBase = (uint)reader.ReadElementContentAsInt("BaseMask", string.Empty);
+            obj.PermsOwner = (uint)reader.ReadElementContentAsInt("OwnerMask", string.Empty);
+            obj.PermsGroup = (uint)reader.ReadElementContentAsInt("GroupMask", string.Empty);
+            obj.PermsEveryone = (uint)reader.ReadElementContentAsInt("EveryoneMask", string.Empty);
+            obj.PermsNextOwner = (uint)reader.ReadElementContentAsInt("NextOwnerMask", string.Empty);
 
             reader.ReadInnerXml(); // Flags
 
             obj.CollisionSound = ReadUUID(reader, "CollisionSound");
-            obj.CollisionSoundVolume = reader.ReadElementContentAsFloat("CollisionSoundVolume", String.Empty);
+            obj.CollisionSoundVolume = reader.ReadElementContentAsFloat("CollisionSoundVolume", string.Empty);
 
             reader.ReadEndElement();
 
@@ -419,9 +410,9 @@ namespace OpenMetaverse.Assets
             Vector3 vec;
 
             reader.ReadStartElement(name);
-            vec.X = reader.ReadElementContentAsFloat("X", String.Empty);
-            vec.Y = reader.ReadElementContentAsFloat("Y", String.Empty);
-            vec.Z = reader.ReadElementContentAsFloat("Z", String.Empty);
+            vec.X = reader.ReadElementContentAsFloat("X", string.Empty);
+            vec.Y = reader.ReadElementContentAsFloat("Y", string.Empty);
+            vec.Z = reader.ReadElementContentAsFloat("Z", string.Empty);
             reader.ReadEndElement();
 
             return vec;
@@ -432,10 +423,10 @@ namespace OpenMetaverse.Assets
             Quaternion quat;
 
             reader.ReadStartElement(name);
-            quat.X = reader.ReadElementContentAsFloat("X", String.Empty);
-            quat.Y = reader.ReadElementContentAsFloat("Y", String.Empty);
-            quat.Z = reader.ReadElementContentAsFloat("Z", String.Empty);
-            quat.W = reader.ReadElementContentAsFloat("W", String.Empty);
+            quat.X = reader.ReadElementContentAsFloat("X", string.Empty);
+            quat.Y = reader.ReadElementContentAsFloat("Y", string.Empty);
+            quat.Z = reader.ReadElementContentAsFloat("Z", string.Empty);
+            quat.W = reader.ReadElementContentAsFloat("W", string.Empty);
             reader.ReadEndElement();
 
             return quat;
@@ -458,7 +449,7 @@ namespace OpenMetaverse.Assets
 
             public OSDMap Serialize()
             {
-                OSDMap map = new OSDMap();
+                var map = new OSDMap();
                 map["softness"] = OSD.FromInteger(Softness);
                 map["gravity"] = OSD.FromReal(Gravity);
                 map["drag"] = OSD.FromReal(Drag);
@@ -489,7 +480,7 @@ namespace OpenMetaverse.Assets
 
             public OSDMap Serialize()
             {
-                OSDMap map = new OSDMap();
+                var map = new OSDMap();
                 map["color"] = OSD.FromColor4(Color);
                 map["intensity"] = OSD.FromReal(Intensity);
                 map["radius"] = OSD.FromReal(Radius);
@@ -515,7 +506,7 @@ namespace OpenMetaverse.Assets
 
             public OSDMap Serialize()
             {
-                OSDMap map = new OSDMap();
+                var map = new OSDMap();
                 map["texture"] = OSD.FromUUID(Texture);
                 map["type"] = OSD.FromInteger(Type);
                 return map;
@@ -554,7 +545,7 @@ namespace OpenMetaverse.Assets
 
             public OSDMap Serialize()
             {
-                OSDMap map = new OSDMap();
+                var map = new OSDMap();
                 map["flags"] = OSD.FromInteger(Flags);
                 map["pattern"] = OSD.FromInteger(Pattern);
                 map["max_age"] = OSD.FromReal(MaxAge);
@@ -627,7 +618,7 @@ namespace OpenMetaverse.Assets
 
             public OSDMap Serialize()
             {
-                OSDMap map = new OSDMap();
+                var map = new OSDMap();
                 map["path_curve"] = OSD.FromInteger(PathCurve);
                 map["path_begin"] = OSD.FromReal(PathBegin);
                 map["path_end"] = OSD.FromReal(PathEnd);
@@ -697,7 +688,7 @@ namespace OpenMetaverse.Assets
 
                 public OSDMap Serialize()
                 {
-                    OSDMap map = new OSDMap();
+                    var map = new OSDMap();
                     map["id"] = OSD.FromUUID(ID);
                     map["name"] = OSD.FromString(Name);
                     map["owner_id"] = OSD.FromUUID(OwnerID);
@@ -743,7 +734,7 @@ namespace OpenMetaverse.Assets
 
                 public static ItemBlock FromInventoryBase(InventoryItem item)
                 {
-                    ItemBlock block = new ItemBlock();
+                    var block = new ItemBlock();
                     block.AssetID = item.AssetUUID;
                     block.CreationDate = item.CreationDate;
                     block.CreatorID = item.CreatorID;
@@ -751,7 +742,7 @@ namespace OpenMetaverse.Assets
                     block.Flags = (int)item.Flags;
                     block.GroupID = item.GroupID;
                     block.ID = item.UUID;
-                    block.InvType = item.InventoryType == InventoryType.Unknown && item.AssetType == AssetType.LSLText ? InventoryType.LSL : item.InventoryType; ;
+                    block.InvType = item.InventoryType == InventoryType.Unknown && item.AssetType == AssetType.LSLText ? InventoryType.LSL : item.InventoryType; 
                     block.LastOwnerID = item.LastOwnerID;
                     block.Name = item.Name;
                     block.OwnerID = item.OwnerID;
@@ -771,12 +762,11 @@ namespace OpenMetaverse.Assets
 
             public OSDMap Serialize()
             {
-                OSDMap map = new OSDMap();
+                var map = new OSDMap();
                 map["serial"] = OSD.FromInteger(Serial);
 
-                if (Items != null)
-                {
-                    OSDArray array = new OSDArray(Items.Length);
+                if (Items != null) {
+                    var array = new OSDArray(Items.Length);
                     for (int i = 0; i < Items.Length; i++)
                         array.Add(Items[i].Serialize());
                     map["items"] = array;
@@ -789,20 +779,16 @@ namespace OpenMetaverse.Assets
             {
                 Serial = map["serial"].AsInteger();
 
-                if (map.ContainsKey("items"))
-                {
-                    OSDArray array = (OSDArray)map["items"];
+                if (map.ContainsKey("items")) {
+                    var array = (OSDArray)map["items"];
                     Items = new ItemBlock[array.Count];
 
-                    for (int i = 0; i < array.Count; i++)
-                    {
-                        ItemBlock item = new ItemBlock();
+                    for (int i = 0; i < array.Count; i++) {
+                        var item = new ItemBlock();
                         item.Deserialize((OSDMap)array[i]);
                         Items[i] = item;
                     }
-                }
-                else
-                {
+                } else {
                     Items = new ItemBlock[0];
                 }
             }
@@ -880,7 +866,7 @@ namespace OpenMetaverse.Assets
 
         public OSDMap Serialize()
         {
-            OSDMap map = new OSDMap();
+            var map = new OSDMap();
             map["id"] = OSD.FromUUID(ID);
             map["attachment_position"] = OSD.FromVector3(AttachmentPosition);
             map["attachment_rotation"] = OSD.FromQuaternion(AttachmentRotation);
@@ -1022,7 +1008,7 @@ namespace OpenMetaverse.Assets
 
         public static PrimObject FromPrimitive(Primitive obj)
         {
-            PrimObject prim = new PrimObject();
+            var prim = new PrimObject();
             prim.Acceleration = obj.Acceleration;
             prim.AllowedDrop = (obj.Flags & PrimFlags.AllowInventoryDrop) == PrimFlags.AllowInventoryDrop;
             prim.AngularVelocity = obj.AngularVelocity;
@@ -1037,7 +1023,7 @@ namespace OpenMetaverse.Assets
             prim.CreationDate = obj.Properties.CreationDate;
             prim.CreatorID = obj.Properties.CreatorID;
             prim.Description = obj.Properties.Description;
-            prim.DieAtEdge = (obj.Flags & PrimFlags.DieAtEdge) == PrimFlags.AllowInventoryDrop;
+            prim.DieAtEdge = (obj.Flags & PrimFlags.DieAtEdge) == PrimFlags.DieAtEdge;
             if (obj.Flexible != null)
             {
                 prim.Flexible = new FlexibleBlock();
@@ -1075,7 +1061,7 @@ namespace OpenMetaverse.Assets
             prim.Particles.AngularVelocity = obj.ParticleSys.AngularVelocity;
             prim.Particles.Acceleration = obj.ParticleSys.PartAcceleration;
             prim.Particles.BurstParticleCount = obj.ParticleSys.BurstPartCount;
-            prim.Particles.BurstRate = obj.ParticleSys.BurstRadius;
+            prim.Particles.BurstRadius = obj.ParticleSys.BurstRadius;
             prim.Particles.BurstRate = obj.ParticleSys.BurstRate;
             prim.Particles.BurstSpeedMax = obj.ParticleSys.BurstSpeedMax;
             prim.Particles.BurstSpeedMin = obj.ParticleSys.BurstSpeedMin;
@@ -1148,7 +1134,8 @@ namespace OpenMetaverse.Assets
             prim.SoundID = obj.Sound;
             prim.SoundRadius = obj.SoundRadius;
             prim.State = obj.PrimData.State;
-            prim.Temporary = (obj.Flags & PrimFlags.Temporary) == PrimFlags.Temporary;
+            prim.Temporary = ((obj.Flags & PrimFlags.Temporary) == PrimFlags.Temporary ||
+                              (obj.Flags & PrimFlags.TemporaryOnRez) == PrimFlags.TemporaryOnRez);
             prim.Text = obj.Text;
             prim.TextColor = obj.TextColor;
             prim.Textures = obj.Textures;
@@ -1161,120 +1148,120 @@ namespace OpenMetaverse.Assets
 
         public Primitive ToPrimitive()
         {
-            Primitive prim = new Primitive();
+            var prim = new Primitive();
             prim.Properties = new Primitive.ObjectProperties();
             
-            prim.Acceleration = this.Acceleration;
-            prim.AngularVelocity = this.AngularVelocity;
-            prim.ClickAction = (ClickAction)this.ClickAction;
-            prim.Properties.CreationDate = this.CreationDate;
-            prim.Properties.CreatorID = this.CreatorID;
-            prim.Properties.Description = this.Description;
-            if (this.DieAtEdge) prim.Flags |= PrimFlags.DieAtEdge;
-            prim.Properties.FolderID = this.FolderID;
-            prim.Properties.GroupID = this.GroupID;
-            prim.ID = this.ID;
-            prim.Properties.LastOwnerID = this.LastOwnerID;
-            prim.LocalID = this.LocalID;
-            prim.PrimData.Material = (Material)this.Material;
-            prim.Properties.Name = this.Name;
-            prim.OwnerID = this.OwnerID;
-            prim.ParentID = this.ParentID;
-            prim.PrimData.PCode = (PCode)this.PCode;
-            prim.Properties.Permissions = new Permissions(this.PermsBase, this.PermsEveryone, this.PermsGroup, this.PermsNextOwner, this.PermsOwner);
-            if (this.Phantom) prim.Flags |= PrimFlags.Phantom;
-            prim.Position = this.Position;
-            if (this.ReturnAtEdge) prim.Flags |= PrimFlags.ReturnAtEdge;
-            prim.Rotation = this.Rotation;
-            prim.Properties.SalePrice = this.SalePrice;
-            prim.Properties.SaleType = (SaleType)this.SaleType;
-            if (this.Sandbox) prim.Flags |= PrimFlags.Sandbox;
-            prim.Scale = this.Scale;
-            prim.SoundFlags = (SoundFlags)this.SoundFlags;
-            prim.SoundGain = this.SoundGain;
-            prim.Sound = this.SoundID;
-            prim.SoundRadius = this.SoundRadius;
-            prim.PrimData.State = (byte)this.State;
-            if (this.Temporary) prim.Flags |= PrimFlags.Temporary;
-            prim.Text = this.Text;
-            prim.TextColor = this.TextColor;
-            prim.Textures = this.Textures;
-            if (this.UsePhysics) prim.Flags |= PrimFlags.Physics;
-            prim.Velocity = this.Velocity;
+            prim.Acceleration = Acceleration;
+            prim.AngularVelocity = AngularVelocity;
+            prim.ClickAction = (ClickAction)ClickAction;
+            prim.Properties.CreationDate = CreationDate;
+            prim.Properties.CreatorID = CreatorID;
+            prim.Properties.Description = Description;
+            if (DieAtEdge) prim.Flags |= PrimFlags.DieAtEdge;
+            prim.Properties.FolderID = FolderID;
+            prim.Properties.GroupID = GroupID;
+            prim.ID = ID;
+            prim.Properties.LastOwnerID = LastOwnerID;
+            prim.LocalID = LocalID;
+            prim.PrimData.Material = (Material)Material;
+            prim.Properties.Name = Name;
+            prim.OwnerID = OwnerID;
+            prim.ParentID = ParentID;
+            prim.PrimData.PCode = (PCode)PCode;
+            prim.Properties.Permissions = new Permissions(PermsBase, PermsEveryone, PermsGroup, PermsNextOwner, PermsOwner);
+            if (Phantom) prim.Flags |= PrimFlags.Phantom;
+            prim.Position = Position;
+            if (ReturnAtEdge) prim.Flags |= PrimFlags.ReturnAtEdge;
+            prim.Rotation = Rotation;
+            prim.Properties.SalePrice = SalePrice;
+            prim.Properties.SaleType = (SaleType)SaleType;
+            if (Sandbox) prim.Flags |= PrimFlags.Sandbox;
+            prim.Scale = Scale;
+            prim.SoundFlags = (SoundFlags)SoundFlags;
+            prim.SoundGain = SoundGain;
+            prim.Sound = SoundID;
+            prim.SoundRadius = SoundRadius;
+            prim.PrimData.State = (byte)State;
+            if (Temporary) prim.Flags |= PrimFlags.Temporary;
+            prim.Text = Text;
+            prim.TextColor = TextColor;
+            prim.Textures = Textures;
+            if (UsePhysics) prim.Flags |= PrimFlags.Physics;
+            prim.Velocity = Velocity;
 
-            prim.PrimData.PathBegin = this.Shape.PathBegin;
-            prim.PrimData.PathCurve = (PathCurve)this.Shape.PathCurve;
-            prim.PrimData.PathEnd = this.Shape.PathEnd;
-            prim.PrimData.PathRadiusOffset = this.Shape.PathRadiusOffset;
-            prim.PrimData.PathRevolutions = this.Shape.PathRevolutions;
-            prim.PrimData.PathScaleX = this.Shape.PathScaleX;
-            prim.PrimData.PathScaleY = this.Shape.PathScaleY;
-            prim.PrimData.PathShearX = this.Shape.PathShearX;
-            prim.PrimData.PathShearY = this.Shape.PathShearY;
-            prim.PrimData.PathSkew = this.Shape.PathSkew;
-            prim.PrimData.PathTaperX = this.Shape.PathTaperX;
-            prim.PrimData.PathTaperY = this.Shape.PathTaperY;
-            prim.PrimData.PathTwist = this.Shape.PathTwist;
-            prim.PrimData.PathTwistBegin = this.Shape.PathTwistBegin;
-            prim.PrimData.ProfileBegin = this.Shape.ProfileBegin;
-            prim.PrimData.profileCurve = (byte)this.Shape.ProfileCurve;
-            prim.PrimData.ProfileEnd = this.Shape.ProfileEnd;
-            prim.PrimData.ProfileHollow = this.Shape.ProfileHollow;
+            prim.PrimData.PathBegin = Shape.PathBegin;
+            prim.PrimData.PathCurve = (PathCurve)Shape.PathCurve;
+            prim.PrimData.PathEnd = Shape.PathEnd;
+            prim.PrimData.PathRadiusOffset = Shape.PathRadiusOffset;
+            prim.PrimData.PathRevolutions = Shape.PathRevolutions;
+            prim.PrimData.PathScaleX = Shape.PathScaleX;
+            prim.PrimData.PathScaleY = Shape.PathScaleY;
+            prim.PrimData.PathShearX = Shape.PathShearX;
+            prim.PrimData.PathShearY = Shape.PathShearY;
+            prim.PrimData.PathSkew = Shape.PathSkew;
+            prim.PrimData.PathTaperX = Shape.PathTaperX;
+            prim.PrimData.PathTaperY = Shape.PathTaperY;
+            prim.PrimData.PathTwist = Shape.PathTwist;
+            prim.PrimData.PathTwistBegin = Shape.PathTwistBegin;
+            prim.PrimData.ProfileBegin = Shape.ProfileBegin;
+            prim.PrimData.profileCurve = (byte)Shape.ProfileCurve;
+            prim.PrimData.ProfileEnd = Shape.ProfileEnd;
+            prim.PrimData.ProfileHollow = Shape.ProfileHollow;
 
-            if (this.Flexible != null)
+            if (Flexible != null)
             {
                 prim.Flexible = new Primitive.FlexibleData();
-                prim.Flexible.Drag = this.Flexible.Drag;
-                prim.Flexible.Force = this.Flexible.Force;
-                prim.Flexible.Gravity = this.Flexible.Gravity;
-                prim.Flexible.Softness = this.Flexible.Softness;
-                prim.Flexible.Tension = this.Flexible.Tension;
-                prim.Flexible.Wind = this.Flexible.Wind;
+                prim.Flexible.Drag = Flexible.Drag;
+                prim.Flexible.Force = Flexible.Force;
+                prim.Flexible.Gravity = Flexible.Gravity;
+                prim.Flexible.Softness = Flexible.Softness;
+                prim.Flexible.Tension = Flexible.Tension;
+                prim.Flexible.Wind = Flexible.Wind;
             }
 
-            if (this.Light != null)
+            if (Light != null)
             {
                 prim.Light = new Primitive.LightData();
-                prim.Light.Color = this.Light.Color;
-                prim.Light.Cutoff = this.Light.Cutoff;
-                prim.Light.Falloff = this.Light.Falloff;
-                prim.Light.Intensity = this.Light.Intensity;
-                prim.Light.Radius = this.Light.Radius;
+                prim.Light.Color = Light.Color;
+                prim.Light.Cutoff = Light.Cutoff;
+                prim.Light.Falloff = Light.Falloff;
+                prim.Light.Intensity = Light.Intensity;
+                prim.Light.Radius = Light.Radius;
             }
 
-            if (this.Particles != null)
+            if (Particles != null)
             {
                 prim.ParticleSys = new Primitive.ParticleSystem();
-                prim.ParticleSys.AngularVelocity = this.Particles.AngularVelocity;
-                prim.ParticleSys.PartAcceleration = this.Particles.Acceleration;
-                prim.ParticleSys.BurstPartCount = (byte)this.Particles.BurstParticleCount;
-                prim.ParticleSys.BurstRate = this.Particles.BurstRadius;
-                prim.ParticleSys.BurstRate = this.Particles.BurstRate;
-                prim.ParticleSys.BurstSpeedMax = this.Particles.BurstSpeedMax;
-                prim.ParticleSys.BurstSpeedMin = this.Particles.BurstSpeedMin;
-                prim.ParticleSys.PartDataFlags = (Primitive.ParticleSystem.ParticleDataFlags)this.Particles.DataFlags;
-                prim.ParticleSys.PartFlags = (uint)this.Particles.Flags;
-                prim.ParticleSys.InnerAngle = this.Particles.InnerAngle;
-                prim.ParticleSys.MaxAge = this.Particles.MaxAge;
-                prim.ParticleSys.OuterAngle = this.Particles.OuterAngle;
-                prim.ParticleSys.PartEndColor = this.Particles.ParticleEndColor;
-                prim.ParticleSys.PartEndScaleX = this.Particles.ParticleEndScale.X;
-                prim.ParticleSys.PartEndScaleY = this.Particles.ParticleEndScale.Y;
-                prim.ParticleSys.MaxAge = this.Particles.ParticleMaxAge;
-                prim.ParticleSys.PartStartColor = this.Particles.ParticleStartColor;
-                prim.ParticleSys.PartStartScaleX = this.Particles.ParticleStartScale.X;
-                prim.ParticleSys.PartStartScaleY = this.Particles.ParticleStartScale.Y;
-                prim.ParticleSys.Pattern = (Primitive.ParticleSystem.SourcePattern)this.Particles.Pattern;
-                prim.ParticleSys.StartAge = this.Particles.StartAge;
-                prim.ParticleSys.Target = this.Particles.TargetID;
-                prim.ParticleSys.Texture = this.Particles.TextureID;
+                prim.ParticleSys.AngularVelocity = Particles.AngularVelocity;
+                prim.ParticleSys.PartAcceleration = Particles.Acceleration;
+                prim.ParticleSys.BurstPartCount = (byte)Particles.BurstParticleCount;
+                prim.ParticleSys.BurstRadius = Particles.BurstRadius;
+                prim.ParticleSys.BurstRate = Particles.BurstRate;
+                prim.ParticleSys.BurstSpeedMax = Particles.BurstSpeedMax;
+                prim.ParticleSys.BurstSpeedMin = Particles.BurstSpeedMin;
+                prim.ParticleSys.PartDataFlags = (Primitive.ParticleSystem.ParticleDataFlags)Particles.DataFlags;
+                prim.ParticleSys.PartFlags = (uint)Particles.Flags;
+                prim.ParticleSys.InnerAngle = Particles.InnerAngle;
+                prim.ParticleSys.MaxAge = Particles.MaxAge;
+                prim.ParticleSys.OuterAngle = Particles.OuterAngle;
+                prim.ParticleSys.PartEndColor = Particles.ParticleEndColor;
+                prim.ParticleSys.PartEndScaleX = Particles.ParticleEndScale.X;
+                prim.ParticleSys.PartEndScaleY = Particles.ParticleEndScale.Y;
+                prim.ParticleSys.MaxAge = Particles.ParticleMaxAge;
+                prim.ParticleSys.PartStartColor = Particles.ParticleStartColor;
+                prim.ParticleSys.PartStartScaleX = Particles.ParticleStartScale.X;
+                prim.ParticleSys.PartStartScaleY = Particles.ParticleStartScale.Y;
+                prim.ParticleSys.Pattern = (Primitive.ParticleSystem.SourcePattern)Particles.Pattern;
+                prim.ParticleSys.StartAge = Particles.StartAge;
+                prim.ParticleSys.Target = Particles.TargetID;
+                prim.ParticleSys.Texture = Particles.TextureID;
             }
 
-            if (this.Sculpt != null)
+            if (Sculpt != null)
             {
                 prim.Sculpt = new Primitive.SculptData();
-                prim.Sculpt.SculptTexture = this.Sculpt.Texture;
-                prim.Sculpt.Type = (SculptType)this.Sculpt.Type;
+                prim.Sculpt.SculptTexture = Sculpt.Texture;
+                prim.Sculpt.Type = (SculptType)Sculpt.Type;
             }
 
             return prim;

@@ -114,7 +114,7 @@ namespace OpenMetaverse.Rendering
         /// <param name="currentJoint">The joint we are supposed to expand</param>
         /// <param name="expandedJointList">Joint list that we will extend upon</param>
         /// <param name="jointsFilter">The expanded list should only contain these joints</param>
-        private void ExpandJoint(Joint parentJoint, Joint currentJoint, List<string> expandedJointList, IEnumerable<string> jointsFilter)
+        void ExpandJoint(Joint parentJoint, Joint currentJoint, List<string> expandedJointList, IEnumerable<string> jointsFilter)
         {
             // does the mesh reference this joint
             if (jointsFilter.Contains(currentJoint.name))

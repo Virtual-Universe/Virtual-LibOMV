@@ -90,7 +90,8 @@ namespace OpenMetaverse.Rendering
             /// <returns>Vertex definition as a string</returns>
             public override string ToString()
             {
-                return String.Format("Coord: {0} Norm: {1} BiNorm: {2} TexCoord: {3} DetailTexCoord: {4}", Coord, Normal, BiNormal, TexCoord, DetailTexCoord);
+                return string.Format("Coord: {0} Norm: {1} BiNorm: {2} TexCoord: {3} DetailTexCoord: {4}",
+                                     Coord, Normal, BiNormal, TexCoord, DetailTexCoord);
             }
         }
 
@@ -111,7 +112,8 @@ namespace OpenMetaverse.Rendering
             /// <returns>MorphVertex definition as a string</returns>
             public override string ToString()
             {
-                return String.Format("Index: {0} Coord: {1} Norm: {2} BiNorm: {3} TexCoord: {4}", VertexIndex, Coord, Normal, BiNormal, TexCoord);
+                return string.Format("Index: {0} Coord: {1} Norm: {2} BiNorm: {3} TexCoord: {4}",
+                                     VertexIndex, Coord, Normal, BiNormal, TexCoord);
             }
         }
 
@@ -148,7 +150,7 @@ namespace OpenMetaverse.Rendering
             /// <returns>Human friendly format</returns>
             public override string ToString()
             {
-                return String.Format("{0} -> {1}", RemapSource, RemapDestination);
+                return string.Format("{0} -> {1}", RemapSource, RemapDestination);
             }
         }
         #endregion Mesh Structs
@@ -187,7 +189,7 @@ namespace OpenMetaverse.Rendering
                 using (EndianAwareBinaryReader reader = new EndianAwareBinaryReader(meshStream))
                 {
                     Header = TrimAt0(reader.ReadString(24));
-                    if (!String.Equals(Header, MeshHeader))
+                    if (!string.Equals(Header, MeshHeader))
                         throw new FileLoadException("Unrecognized mesh format");
 
                     // Populate base mesh parameters
@@ -231,7 +233,7 @@ namespace OpenMetaverse.Rendering
                 BitPack input = new BitPack(buffer, 0);
 
                 _header = TrimAt0(input.UnpackString(24));
-                if (!String.Equals(_header, MeshHeader))
+                if (!string.Equals(_header, MeshHeader))
                     return;
 
                 // Populate base mesh variables
@@ -308,7 +310,7 @@ namespace OpenMetaverse.Rendering
             using (EndianAwareBinaryReader reader = new EndianAwareBinaryReader(meshData))
             {
                 Header = TrimAt0(reader.ReadString(24));
-                if (!String.Equals(Header, MeshHeader))
+                if (!string.Equals(Header, MeshHeader))
                     throw new FileLoadException("Unrecognized mesh format");
 
                 // Populate base mesh parameters
@@ -548,7 +550,7 @@ namespace OpenMetaverse.Rendering
         /// <returns>A standard .Net string</returns>
         public static string TrimAt0(string s)
         {
-            int pos = s.IndexOf("\0");
+            int pos = s.IndexOf ("\0", StringComparison.Ordinal);
 
             if (pos >= 0)
                 return s.Substring(0, pos);

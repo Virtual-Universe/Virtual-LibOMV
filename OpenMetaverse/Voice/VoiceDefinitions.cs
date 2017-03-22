@@ -131,7 +131,7 @@ namespace OpenMetaverse.Voice
             public VoiceLoggingSettings()
             {
                 Enabled = false;
-                Folder = String.Empty;
+                Folder = string.Empty;
                 FileNamePrefix = "Connector";
                 FileNameSuffix = ".log";
                 LogLevel = 0;
@@ -150,10 +150,10 @@ namespace OpenMetaverse.Voice
             // All Voice Response events carry these properties.
             public VoiceResponseEventArgs(ResponseType type, int rcode, int scode, string text)
             {
-                this.Type = type;
-                this.ReturnCode = rcode;
-                this.StatusCode = scode;
-                this.Message = text;
+                Type = type;
+                ReturnCode = rcode;
+                StatusCode = scode;
+                Message = text;
             }
         }
 
@@ -165,7 +165,7 @@ namespace OpenMetaverse.Voice
             public VoiceSessionEventArgs(int rcode, int scode, string text, string shandle) :
                 base(ResponseType.SessionCreate, rcode, scode, text)
             {
-                this.SessionHandle = shandle;
+                SessionHandle = shandle;
             }
         }
 
@@ -177,13 +177,13 @@ namespace OpenMetaverse.Voice
             public readonly string Name;
             public readonly string AudioMedia;
 
-            public NewSessionEventArgs(string AccountHandle, string SessionHandle, string URI, bool IsChannel, string Name, string AudioMedia)
+            public NewSessionEventArgs(string accountHandle, string sessionHandle, string uri, bool isChannel, string name, string audioMedia)
             {
-                this.AccountHandle = AccountHandle;
-                this.SessionHandle = SessionHandle;
-                this.URI = URI;
-                this.Name = Name;
-                this.AudioMedia = AudioMedia;
+                AccountHandle = accountHandle;
+                SessionHandle = sessionHandle;
+                URI = uri;
+                Name = name;
+                AudioMedia = audioMedia;
             }
         }
 
@@ -195,13 +195,13 @@ namespace OpenMetaverse.Voice
             public readonly bool HasVideo;
             public readonly bool Terminated;
 
-            public SessionMediaEventArgs(string SessionHandle, bool HasText, bool HasAudio, bool HasVideo, bool Terminated)
+            public SessionMediaEventArgs(string sessionHandle, bool hasText, bool hasAudio, bool hasVideo, bool terminated)
             {
-                this.SessionHandle = SessionHandle;
-                this.HasText = HasText;
-                this.HasAudio = HasAudio;
-                this.HasVideo = HasVideo;
-                this.Terminated = Terminated;
+                SessionHandle = sessionHandle;
+                HasText = hasText;
+                HasAudio = hasAudio;
+                HasVideo = hasVideo;
+                Terminated = terminated;
             }
         }
 
@@ -214,15 +214,16 @@ namespace OpenMetaverse.Voice
             public readonly string URI;
             public readonly bool IsChannel;
             public readonly string ChannelName;
-            public SessionStateChangeEventArgs(string SessionHandle, int StatusCode, string StatusString, SessionState State, string URI, bool IsChannel, string ChannelName)
+            public SessionStateChangeEventArgs(string sessionHandle, int statusCode, string statusString,
+                                               SessionState state, string uri, bool isChannel, string channelName)
             {
-                this.SessionHandle = SessionHandle;
-                this.StatusCode = StatusCode;
-                this.StatusString = StatusString;
-                this.State = State;
-                this.URI = URI;
-                this.IsChannel = IsChannel;
-                this.ChannelName = ChannelName;
+                SessionHandle = sessionHandle;
+                StatusCode = statusCode;
+                StatusString = statusString;
+                State = state;
+                URI = uri;
+                IsChannel = isChannel;
+                ChannelName = channelName;
             }
         }
 
@@ -236,22 +237,16 @@ namespace OpenMetaverse.Voice
             public readonly string DisplayName;
             public readonly ParticipantType Type;
             public readonly string Appllication;
-            public ParticipantAddedEventArgs(
-                    string SessionGroupHandle,
-                    string SessionHandle,
-                    string ParticipantUri,
-                    string AccountName,
-                    string DisplayName,
-                    ParticipantType type,
-                    string Application)
+            public ParticipantAddedEventArgs( string sessionGroupHandle, string sessionHandle, string participantUri,
+                                             string accountName, string displayName, ParticipantType type, string application)
             {
-                this.SessionGroupHandle = SessionGroupHandle;
-                this.SessionHandle = SessionHandle;
-                this.URI = ParticipantUri;
-                this.AccountName = AccountName;
-                this.DisplayName = DisplayName;
-                this.Type = type;
-                this.Appllication = Application;
+                SessionGroupHandle = sessionGroupHandle;
+                SessionHandle = sessionHandle;
+                URI = participantUri;
+                AccountName = accountName;
+                DisplayName = displayName;
+                Type = type;
+                Appllication = application;
             }
         }
 
@@ -263,18 +258,14 @@ namespace OpenMetaverse.Voice
             public readonly string AccountName;
             public readonly string Reason;
 
-            public ParticipantRemovedEventArgs(
-                string SessionGroupHandle,
-                string SessionHandle,
-                string ParticipantUri,
-                string AccountName,
-                string Reason)
+            public ParticipantRemovedEventArgs(string sessionGroupHandle, string sessionHandle, string participantUri,
+                                               string accountName, string reason)
             {
-                this.SessionGroupHandle = SessionGroupHandle;
-                this.SessionHandle = SessionHandle;
-                this.URI = ParticipantUri;
-                this.AccountName = AccountName;
-                this.Reason = Reason;
+                SessionGroupHandle = sessionGroupHandle;
+                SessionHandle = sessionHandle;
+                URI = participantUri;
+                AccountName = accountName;
+                Reason = reason;
             }
         }
 
@@ -289,18 +280,18 @@ namespace OpenMetaverse.Voice
             public readonly string DisplayName;
             public readonly ParticipantType Type;
 
-            public ParticipantStateChangeEventArgs(string SessionHandle, int StatusCode, string StatusString,
-                ParticipantState State, string ParticipantURI, string AccountName,
-                string DisplayName, ParticipantType ParticipantType)
+            public ParticipantStateChangeEventArgs(string sessionHandle, int statusCode, string statusString,
+                                                   ParticipantState state, string participantURI, string accountName,
+                                                   string displayName, ParticipantType participantType)
             {
-                this.SessionHandle = SessionHandle;
-                this.StatusCode = StatusCode;
-                this.StatusString = StatusString;
-                this.State = State;
-                this.URI = ParticipantURI;
-                this.AccountName = AccountName;
-                this.DisplayName = DisplayName;
-                this.Type = ParticipantType;
+                SessionHandle = sessionHandle;
+                StatusCode = statusCode;
+                StatusString = statusString;
+                State = state;
+                URI = participantURI;
+                AccountName = accountName;
+                DisplayName = displayName;
+                Type = participantType;
             }
         }
 
@@ -314,16 +305,17 @@ namespace OpenMetaverse.Voice
             public readonly int Volume;
             public readonly float Energy;
 
-            public ParticipantPropertiesEventArgs(string SessionHandle, string ParticipantURI,
-                bool IsLocallyMuted, bool IsModeratorMuted, bool IsSpeaking, int Volume, float Energy)
+            public ParticipantPropertiesEventArgs(string sessionHandle, string participantURI,
+                                                  bool isLocallyMuted, bool isModeratorMuted, 
+                                                  bool isSpeaking, int volume, float energy)
             {
-                this.SessionHandle = SessionHandle;
-                this.URI = ParticipantURI;
-                this.IsLocallyMuted = IsLocallyMuted;
-                this.IsModeratorMuted = IsModeratorMuted;
-                this.IsSpeaking = IsSpeaking;
-                this.Volume = Volume;
-                this.Energy = Energy;
+                SessionHandle = sessionHandle;
+                URI = participantURI;
+                IsLocallyMuted = isLocallyMuted;
+                IsModeratorMuted = isModeratorMuted;
+                IsSpeaking = isSpeaking;
+                Volume = volume;
+                Energy = energy;
             }
 
         }
@@ -337,14 +329,15 @@ namespace OpenMetaverse.Voice
             public readonly int Volume;
             public readonly float Energy;
 
-            public ParticipantUpdatedEventArgs(string sessionHandle, string URI, bool isMuted, bool isSpeaking, int volume, float energy)
+            public ParticipantUpdatedEventArgs(string sessionHandle, string uri, bool isMuted, 
+                                               bool isSpeaking, int volume, float energy)
             {
-                this.SessionHandle = sessionHandle;
-                this.URI = URI;
-                this.IsMuted = isMuted;
-                this.IsSpeaking = isSpeaking;
-                this.Volume = volume;
-                this.Energy = energy;
+                SessionHandle = sessionHandle;
+                URI = uri;
+                IsMuted = isMuted;
+                IsSpeaking = isSpeaking;
+                Volume = volume;
+                Energy = energy;
             }
         }
 
@@ -357,13 +350,13 @@ namespace OpenMetaverse.Voice
             public readonly bool IsIncoming;
 
             public SessionAddedEventArgs(string sessionGroupHandle, string sessionHandle,
-                string URI, bool isChannel, bool isIncoming)
+                                         string uri, bool isChannel, bool isIncoming)
             {
-                this.SessionGroupHandle = sessionGroupHandle;
-                this.SessionHandle = sessionHandle;
-                this.URI = URI;
-                this.IsChannel = isChannel;
-                this.IsIncoming = isIncoming;
+                SessionGroupHandle = sessionGroupHandle;
+                SessionHandle = sessionHandle;
+                URI = uri;
+                IsChannel = isChannel;
+                IsIncoming = isIncoming;
             }
         }
 
@@ -372,14 +365,11 @@ namespace OpenMetaverse.Voice
             public readonly string SessionGroupHandle;
             public readonly string SessionHandle;
             public readonly string URI;
-            public SessionRemovedEventArgs(
-                string SessionGroupHandle,
-                string SessionHandle,
-                string Uri)
+            public SessionRemovedEventArgs(string sessionGroupHandle, string sessionHandle, string uri)
             {
-                this.SessionGroupHandle = SessionGroupHandle;
-                this.SessionHandle = SessionHandle;
-                this.URI = Uri;
+                SessionGroupHandle = sessionGroupHandle;
+                SessionHandle = sessionHandle;
+                URI = uri;
             }
         }
 
@@ -392,17 +382,16 @@ namespace OpenMetaverse.Voice
             public readonly int Volume;
             public readonly bool TransmitEnabled;
             public readonly bool IsFocused;
-            public SessionUpdatedEventArgs(string SessionGroupHandle,
-                string SessionHandle, string URI, bool IsMuted, int Volume,
-                bool TransmitEnabled, bool IsFocused)
+            public SessionUpdatedEventArgs(string sessionGroupHandle, string sessionHandle, string uri,
+                                           bool isMuted, int volume, bool transmitEnabled, bool isFocused)
             {
-                this.SessionGroupHandle = SessionGroupHandle;
-                this.SessionHandle = SessionHandle;
-                this.URI = URI;
-                this.IsMuted = IsMuted;
-                this.Volume = Volume;
-                this.TransmitEnabled = TransmitEnabled;
-                this.IsFocused = IsFocused;
+                SessionGroupHandle = sessionGroupHandle;
+                SessionHandle = sessionHandle;
+                URI = uri;
+                IsMuted = isMuted;
+                Volume = volume;
+                TransmitEnabled = transmitEnabled;
+                IsFocused = isFocused;
             }
 
         }
@@ -414,9 +403,9 @@ namespace OpenMetaverse.Voice
             public readonly string Type;
             public SessionGroupAddedEventArgs(string acctHandle, string sessionGroupHandle, string type)
             {
-                this.AccountHandle = acctHandle;
-                this.SessionGroupHandle = sessionGroupHandle;
-                this.Type = type;
+                AccountHandle = acctHandle;
+                SessionGroupHandle = sessionGroupHandle;
+                Type = type;
             }
         }
         #endregion Session Event Args
@@ -424,8 +413,8 @@ namespace OpenMetaverse.Voice
         #region Connector Delegates
         public class VoiceConnectorEventArgs : VoiceResponseEventArgs
         {
-            private readonly string m_Version;
-            private readonly string m_ConnectorHandle;
+            readonly string m_Version;
+            readonly string m_ConnectorHandle;
             public string Version { get { return m_Version; } }
             public string Handle { get { return m_ConnectorHandle; } }
 
@@ -443,8 +432,8 @@ namespace OpenMetaverse.Voice
         #region Aux Event Args
         public class VoiceDevicesEventArgs : VoiceResponseEventArgs
         {
-            private readonly string m_CurrentDevice;
-            private readonly List<string> m_Available;
+            readonly string m_CurrentDevice;
+            readonly List<string> m_Available;
             public string CurrentDevice { get { return m_CurrentDevice; } }
             public List<string> Devices { get { return m_Available; } }
 
@@ -464,12 +453,12 @@ namespace OpenMetaverse.Voice
             public readonly float MicEnergy;
             public readonly int MicVolume;
             public readonly int SpeakerVolume;
-            public AudioPropertiesEventArgs(bool MicIsActive, float MicEnergy, int MicVolume, int SpeakerVolume)
+            public AudioPropertiesEventArgs(bool micIsActive, float micEnergy, int micVolume, int speakerVolume)
             {
-                this.IsMicActive = MicIsActive;
-                this.MicEnergy = MicEnergy;
-                this.MicVolume = MicVolume;
-                this.SpeakerVolume = SpeakerVolume;
+                IsMicActive = micIsActive;
+                MicEnergy = micEnergy;
+                MicVolume = micVolume;
+                SpeakerVolume = speakerVolume;
             }
         }
 
@@ -478,13 +467,13 @@ namespace OpenMetaverse.Voice
         #region Account Event Args
         public class VoiceAccountEventArgs : VoiceResponseEventArgs
         {
-            private readonly string m_AccountHandle;
+            readonly string m_AccountHandle;
             public string AccountHandle { get { return m_AccountHandle; } }
 
             public VoiceAccountEventArgs(int rcode, int scode, string text, string ahandle) :
                 base(ResponseType.AccountLogin, rcode, scode, text)
             {
-                this.m_AccountHandle = ahandle;
+                m_AccountHandle = ahandle;
             }
         }
 
@@ -494,12 +483,12 @@ namespace OpenMetaverse.Voice
             public readonly int StatusCode;
             public readonly string StatusString;
             public readonly LoginState State;
-            public AccountLoginStateChangeEventArgs(string AccountHandle, int StatusCode, string StatusString, LoginState State)
+            public AccountLoginStateChangeEventArgs(string accountHandle, int statusCode, string statusString, LoginState state)
             {
-                this.AccountHandle = AccountHandle;
-                this.StatusCode = StatusCode;
-                this.StatusString = StatusString;
-                this.State = State;
+                AccountHandle = accountHandle;
+                StatusCode = statusCode;
+                StatusString = statusString;
+                State = state;
             }
         }
 
@@ -559,8 +548,8 @@ namespace OpenMetaverse.Voice
 
         #region XML Serialization Classes
 
-        private XmlSerializer EventSerializer = new XmlSerializer(typeof(VoiceEvent));
-        private XmlSerializer ResponseSerializer = new XmlSerializer(typeof(VoiceResponse));
+        XmlSerializer EventSerializer = new XmlSerializer(typeof(VoiceEvent));
+        XmlSerializer ResponseSerializer = new XmlSerializer(typeof(VoiceResponse));
 
         [XmlRoot("Event")]
         public class VoiceEvent

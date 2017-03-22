@@ -55,21 +55,13 @@ namespace OpenMetaverse.Utilities
 
     public enum VoiceServiceType
     {
-        /// <summary>
-        ///     Unknown voice service level
-        /// </summary>
+        /// <summary>Unknown voice service level</summary>
         Unknown,
-        /// <summary>
-        ///     Spatialized local chat
-        /// </summary>
+        /// <summary>Spatialized local chat</summary>
         TypeA,
-        /// <summary>
-        ///     Remote multi-party chat
-        /// </summary>
+        /// <summary>Remote multi-party chat</summary>
         TypeB,
-        /// <summary>
-        ///     One-to-one and small group chat
-        /// </summary>
+        /// <summary>One-to-one and small group chat</summary>
         TypeC
     }
 
@@ -136,12 +128,14 @@ namespace OpenMetaverse.Utilities
         private bool isModeratorMuted = false;
         private bool isSpeaking = false;
         private int cookie = 0;
+        //private int returnCode = 0;
         private int statusCode = 0;
         private int volume = 0;
         private int state = 0;
         private int participantType = 0;
         private float energy = 0f;
         private string statusString = String.Empty;
+        //private string uuidString = String.Empty;
         private string actionString = String.Empty;
         private string connectorHandle = String.Empty;
         private string accountHandle = String.Empty;
@@ -150,6 +144,7 @@ namespace OpenMetaverse.Utilities
         private string eventTypeString = String.Empty;
         private string uriString = String.Empty;
         private string nameString = String.Empty;
+        //private string audioMediaString = String.Empty;
         private string displayNameString = String.Empty;
 
         #endregion Response Processing Variables
@@ -257,7 +252,9 @@ namespace OpenMetaverse.Utilities
             if (_DaemonPipe.Connected)
             {
                 _DaemonPipe.SendData(Encoding.ASCII.GetBytes(String.Format(
-                    "<Request requestId=\"{0}\" action=\"Aux.GetCaptureDevices.1\"></Request>{1}", _CommandCookie++, REQUEST_TERMINATOR)));
+                    "<Request requestId=\"{0}\" action=\"Aux.GetCaptureDevices.1\"></Request>{1}",
+                    _CommandCookie++,
+                    REQUEST_TERMINATOR)));
 
                 return _CommandCookie - 1;
             }
@@ -273,7 +270,9 @@ namespace OpenMetaverse.Utilities
             if (_DaemonPipe.Connected)
             {
                 _DaemonPipe.SendData(Encoding.ASCII.GetBytes(String.Format(
-                    "<Request requestId=\"{0}\" action=\"Aux.GetRenderDevices.1\"></Request>{1}", _CommandCookie++, REQUEST_TERMINATOR)));
+                    "<Request requestId=\"{0}\" action=\"Aux.GetRenderDevices.1\"></Request>{1}",
+                    _CommandCookie++,
+                    REQUEST_TERMINATOR)));
 
                 return _CommandCookie - 1;
             }
@@ -342,13 +341,15 @@ namespace OpenMetaverse.Utilities
                     }
                     else
                     {
-                        Logger.Log("VoiceManager." + me + "(): " + capsName + " capability is missing",  Helpers.LogLevel.Info, Client);
+                        Logger.Log("VoiceManager." + me + "(): " + capsName + " capability is missing", 
+                                   Helpers.LogLevel.Info, Client);
                         return false;
                     }
                 }
             }
 
-            Logger.Log("VoiceManager.RequestVoiceInternal(): Voice system is currently disabled",  Helpers.LogLevel.Info, Client);
+            Logger.Log("VoiceManager.RequestVoiceInternal(): Voice system is currently disabled", 
+                       Helpers.LogLevel.Info, Client);
             return false;
             
         }
@@ -395,7 +396,8 @@ namespace OpenMetaverse.Utilities
             if (_DaemonPipe.Connected)
             {
                 _DaemonPipe.SendData(Encoding.ASCII.GetBytes(String.Format(
-                    "<Request requestId=\"{0}\" action=\"Aux.SetRenderDevice.1\"><RenderDeviceSpecifier>{1}</RenderDeviceSpecifier></Request>{2}", _CommandCookie, deviceName, REQUEST_TERMINATOR)));
+                    "<Request requestId=\"{0}\" action=\"Aux.SetRenderDevice.1\"><RenderDeviceSpecifier>{1}</RenderDeviceSpecifier></Request>{2}",
+                    _CommandCookie, deviceName, REQUEST_TERMINATOR)));
 
                 return _CommandCookie - 1;
             }
@@ -411,7 +413,8 @@ namespace OpenMetaverse.Utilities
             if (_DaemonPipe.Connected)
             {
                 _DaemonPipe.SendData(Encoding.ASCII.GetBytes(String.Format(
-                    "<Request requestId=\"{0}\" action=\"Aux.CaptureAudioStart.1\"><Duration>{1}</Duration></Request>{2}", _CommandCookie, duration, REQUEST_TERMINATOR)));
+                    "<Request requestId=\"{0}\" action=\"Aux.CaptureAudioStart.1\"><Duration>{1}</Duration></Request>{2}",
+                    _CommandCookie, duration, REQUEST_TERMINATOR)));
 
                 return _CommandCookie - 1;
             }
@@ -427,7 +430,8 @@ namespace OpenMetaverse.Utilities
             if (_DaemonPipe.Connected)
             {
                 _DaemonPipe.SendData(Encoding.ASCII.GetBytes(String.Format(
-                    "<Request requestId=\"{0}\" action=\"Aux.CaptureAudioStop.1\"></Request>{1}", _CommandCookie, REQUEST_TERMINATOR)));
+                    "<Request requestId=\"{0}\" action=\"Aux.CaptureAudioStop.1\"></Request>{1}",
+                    _CommandCookie, REQUEST_TERMINATOR)));
 
                 return _CommandCookie - 1;
             }
@@ -446,7 +450,8 @@ namespace OpenMetaverse.Utilities
             if (_DaemonPipe.Connected)
             {
                 _DaemonPipe.SendData(Encoding.ASCII.GetBytes(String.Format(
-                    "<Request requestId=\"{0}\" action=\"Aux.SetSpeakerLevel.1\"><Level>{1}</Level></Request>{2}", _CommandCookie, volume, REQUEST_TERMINATOR)));
+                    "<Request requestId=\"{0}\" action=\"Aux.SetSpeakerLevel.1\"><Level>{1}</Level></Request>{2}",
+                    _CommandCookie, volume, REQUEST_TERMINATOR)));
 
                 return _CommandCookie - 1;
             }
@@ -465,7 +470,8 @@ namespace OpenMetaverse.Utilities
             if (_DaemonPipe.Connected)
             {
                 _DaemonPipe.SendData(Encoding.ASCII.GetBytes(String.Format(
-                    "<Request requestId=\"{0}\" action=\"Aux.SetMicLevel.1\"><Level>{1}</Level></Request>{2}", _CommandCookie, volume, REQUEST_TERMINATOR)));
+                    "<Request requestId=\"{0}\" action=\"Aux.SetMicLevel.1\"><Level>{1}</Level></Request>{2}",
+                    _CommandCookie, volume, REQUEST_TERMINATOR)));
 
                 return _CommandCookie - 1;
             }
@@ -477,7 +483,7 @@ namespace OpenMetaverse.Utilities
         }
 
         /// <summary>
-        ///     Does not appear to be working
+        /// Does not appear to be working
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="loop"></param>
@@ -488,7 +494,8 @@ namespace OpenMetaverse.Utilities
                 _TuningSoundFile = fileName;
 
                 _DaemonPipe.SendData(Encoding.ASCII.GetBytes(String.Format(
-                    "<Request requestId=\"{0}\" action=\"Aux.RenderAudioStart.1\"><SoundFilePath>{1}</SoundFilePath><Loop>{2}</Loop></Request>{3}", _CommandCookie++, _TuningSoundFile, (loop ? "1" : "0"), REQUEST_TERMINATOR)));
+                    "<Request requestId=\"{0}\" action=\"Aux.RenderAudioStart.1\"><SoundFilePath>{1}</SoundFilePath><Loop>{2}</Loop></Request>{3}",
+                    _CommandCookie++, _TuningSoundFile, (loop ? "1" : "0"), REQUEST_TERMINATOR)));
 
                 return _CommandCookie - 1;
             }
@@ -504,7 +511,8 @@ namespace OpenMetaverse.Utilities
             if (_DaemonPipe.Connected)
             {
                 _DaemonPipe.SendData(Encoding.ASCII.GetBytes(String.Format(
-                    "<Request requestId=\"{0}\" action=\"Aux.RenderAudioStop.1\"><SoundFilePath>{1}</SoundFilePath></Request>{2}", _CommandCookie++, _TuningSoundFile, REQUEST_TERMINATOR)));
+                    "<Request requestId=\"{0}\" action=\"Aux.RenderAudioStop.1\"><SoundFilePath>{1}</SoundFilePath></Request>{2}",
+                    _CommandCookie++, _TuningSoundFile, REQUEST_TERMINATOR)));
 
                 return _CommandCookie - 1;
             }
@@ -523,7 +531,8 @@ namespace OpenMetaverse.Utilities
             
                 if (VOICE_MAJOR_VERSION != msg.MajorVersion)
                 {
-                    Logger.Log(String.Format("Voice version mismatch! Got {0}, expecting {1}. Disabling the voice manager", msg.MajorVersion, VOICE_MAJOR_VERSION), Helpers.LogLevel.Error, Client);
+                    Logger.Log(String.Format("Voice version mismatch! Got {0}, expecting {1}. Disabling the voice manager",
+                        msg.MajorVersion, VOICE_MAJOR_VERSION), Helpers.LogLevel.Error, Client);
                     Enabled = false;
                 }
                 else
@@ -594,6 +603,9 @@ namespace OpenMetaverse.Utilities
 
                                     switch (reader.Name)
                                     {
+//                                         case "requestId":
+//                                             uuidString = reader.Value;
+//                                             break;
                                         case "action":
                                             actionString = reader.Value;
                                             break;
@@ -629,57 +641,87 @@ namespace OpenMetaverse.Utilities
 
                                     if (cookie == -1)
                                     {
-                                        Logger.Log("VoiceManager._DaemonPipe_OnReceiveLine(): Failed to parse InputXml for the cookie", Helpers.LogLevel.Warning, Client);
+                                        Logger.Log("VoiceManager._DaemonPipe_OnReceiveLine(): Failed to parse InputXml for the cookie",
+                                            Helpers.LogLevel.Warning, Client);
                                     }
                                     break;
-                                case "CaptureDevices": _CaptureDevices.Clear();
+                                case "CaptureDevices":
+                                    _CaptureDevices.Clear();
                                     break;
-                                case "RenderDevices": _RenderDevices.Clear();
+                                case "RenderDevices":
+                                    _RenderDevices.Clear();
                                     break;
-                                case "StatusCode": statusCode = reader.ReadElementContentAsInt();
+//                                 case "ReturnCode":
+//                                     returnCode = reader.ReadElementContentAsInt();
+//                                     break;
+                                case "StatusCode":
+                                    statusCode = reader.ReadElementContentAsInt();
                                     break;
-                                case "StatusString": statusString = reader.ReadElementContentAsString();
+                                case "StatusString":
+                                    statusString = reader.ReadElementContentAsString();
                                     break;
-                                case "State": state = reader.ReadElementContentAsInt();
+                                case "State":
+                                    state = reader.ReadElementContentAsInt();
                                     break;
-                                case "ConnectorHandle": connectorHandle = reader.ReadElementContentAsString();
+                                case "ConnectorHandle":
+                                    connectorHandle = reader.ReadElementContentAsString();
                                     break;
-                                case "AccountHandle": accountHandle = reader.ReadElementContentAsString();
+                                case "AccountHandle":
+                                    accountHandle = reader.ReadElementContentAsString();
                                     break;
-                                case "SessionHandle": sessionHandle = reader.ReadElementContentAsString();
+                                case "SessionHandle":
+                                    sessionHandle = reader.ReadElementContentAsString();
                                     break;
-                                case "URI": uriString = reader.ReadElementContentAsString();
+                                case "URI":
+                                    uriString = reader.ReadElementContentAsString();
                                     break;
-                                case "IsChannel": isChannel = reader.ReadElementContentAsBoolean();
+                                case "IsChannel":
+                                    isChannel = reader.ReadElementContentAsBoolean();
                                     break;
-                                case "Name": nameString = reader.ReadElementContentAsString();
+                                case "Name":
+                                    nameString = reader.ReadElementContentAsString();
                                     break;
-                                case "ChannelName": nameString = reader.ReadElementContentAsString();
+//                                 case "AudioMedia":
+//                                     audioMediaString = reader.ReadElementContentAsString();
+//                                     break;
+                                case "ChannelName":
+                                    nameString = reader.ReadElementContentAsString();
                                     break;
-                                case "ParticipantURI": uriString = reader.ReadElementContentAsString();
+                                case "ParticipantURI":
+                                    uriString = reader.ReadElementContentAsString();
                                     break;
-                                case "DisplayName": displayNameString = reader.ReadElementContentAsString();
+                                case "DisplayName":
+                                    displayNameString = reader.ReadElementContentAsString();
                                     break;
-                                case "AccountName": nameString = reader.ReadElementContentAsString();
+                                case "AccountName":
+                                    nameString = reader.ReadElementContentAsString();
                                     break;
-                                case "ParticipantType": participantType = reader.ReadElementContentAsInt();
+                                case "ParticipantType":
+                                    participantType = reader.ReadElementContentAsInt();
                                     break;
-                                case "IsLocallyMuted": isLocallyMuted = reader.ReadElementContentAsBoolean();
+                                case "IsLocallyMuted":
+                                    isLocallyMuted = reader.ReadElementContentAsBoolean();
                                     break;
-                                case "IsModeratorMuted": isModeratorMuted = reader.ReadElementContentAsBoolean();
+                                case "IsModeratorMuted":
+                                    isModeratorMuted = reader.ReadElementContentAsBoolean();
                                     break;
                                 case "IsSpeaking":
                                     isSpeaking = reader.ReadElementContentAsBoolean();
                                     break;
-                                case "Volume": volume = reader.ReadElementContentAsInt();
+                                case "Volume":
+                                    volume = reader.ReadElementContentAsInt();
                                     break;
-                                case "Energy": energy = reader.ReadElementContentAsFloat();
+                                case "Energy":
+                                    energy = reader.ReadElementContentAsFloat();
                                     break;
-                                case "MicEnergy": energy = reader.ReadElementContentAsFloat();
+                                case "MicEnergy":
+                                    energy = reader.ReadElementContentAsFloat();
                                     break;
-                                case "ChannelURI": uriString = reader.ReadElementContentAsString();
+                                case "ChannelURI":
+                                    uriString = reader.ReadElementContentAsString();
                                     break;
-                                case "ChannelListResult": _ChannelMap[nameString] = uriString;
+                                case "ChannelListResult":
+                                    _ChannelMap[nameString] = uriString;
                                     break;
                                 case "CaptureDevice":
                                     reader.Read();
@@ -712,6 +754,8 @@ namespace OpenMetaverse.Utilities
             if (isEvent)
             {
             }
+
+            //Client.DebugLog("VOICE: " + line);
         }
 
         private void ProcessEvent()
@@ -720,17 +764,23 @@ namespace OpenMetaverse.Utilities
             {
                 switch (eventTypeString)
                 {
-                    case "LoginStateChangeEvent": if (OnLoginStateChange != null) OnLoginStateChange(cookie, accountHandle, statusCode, statusString, state);
+                    case "LoginStateChangeEvent":
+                        if (OnLoginStateChange != null) OnLoginStateChange(cookie, accountHandle, statusCode, statusString, state);
                         break;
-                    case "SessionNewEvent": if (OnNewSession != null) OnNewSession(cookie, accountHandle, eventSessionHandle, state, nameString, uriString);
+                    case "SessionNewEvent":
+                        if (OnNewSession != null) OnNewSession(cookie, accountHandle, eventSessionHandle, state, nameString, uriString);
                         break;
-                    case "SessionStateChangeEvent": if (OnSessionStateChange != null) OnSessionStateChange(cookie, uriString, statusCode, statusString, eventSessionHandle, state, isChannel, nameString);
+                    case "SessionStateChangeEvent":
+                        if (OnSessionStateChange != null) OnSessionStateChange(cookie, uriString, statusCode, statusString, eventSessionHandle, state, isChannel, nameString);
                         break;
-                    case "ParticipantStateChangeEvent": if (OnParticipantStateChange != null) OnParticipantStateChange(cookie, uriString, statusCode, statusString, state, nameString, displayNameString, participantType);
+                    case "ParticipantStateChangeEvent":
+                        if (OnParticipantStateChange != null) OnParticipantStateChange(cookie, uriString, statusCode, statusString, state, nameString, displayNameString, participantType);
                         break;
-                    case "ParticipantPropertiesEvent": if (OnParticipantProperties != null) OnParticipantProperties(cookie, uriString, statusCode, statusString, isLocallyMuted, isModeratorMuted, isSpeaking, volume, energy);
+                    case "ParticipantPropertiesEvent":
+                        if (OnParticipantProperties != null) OnParticipantProperties(cookie, uriString, statusCode, statusString, isLocallyMuted, isModeratorMuted, isSpeaking, volume, energy);
                         break;
-                    case "AuxAudioPropertiesEvent": if (OnAuxAudioProperties != null) OnAuxAudioProperties(cookie, energy);
+                    case "AuxAudioPropertiesEvent":
+                        if (OnAuxAudioProperties != null) OnAuxAudioProperties(cookie, energy);
                         break;
                 }
             }
@@ -738,25 +788,35 @@ namespace OpenMetaverse.Utilities
             {
                 switch (actionString)
                 {
-                    case "Connector.Create.1": if (OnConnectorCreated != null) OnConnectorCreated(cookie, statusCode, statusString, connectorHandle);
+                    case "Connector.Create.1":
+                        if (OnConnectorCreated != null) OnConnectorCreated(cookie, statusCode, statusString, connectorHandle);
                         break;
-                    case "Account.Login.1": if (OnLogin != null) OnLogin(cookie, statusCode, statusString, accountHandle);
+                    case "Account.Login.1":
+                        if (OnLogin != null) OnLogin(cookie, statusCode, statusString, accountHandle);
                         break;
-                    case "Session.Create.1": if (OnSessionCreated != null) OnSessionCreated(cookie, statusCode, statusString, sessionHandle);
+                    case "Session.Create.1":
+                        if (OnSessionCreated != null) OnSessionCreated(cookie, statusCode, statusString, sessionHandle);
                         break;
-                    case "Session.Connect.1": if (OnSessionConnected != null) OnSessionConnected(cookie, statusCode, statusString);
+                    case "Session.Connect.1":
+                        if (OnSessionConnected != null) OnSessionConnected(cookie, statusCode, statusString);
                         break;
-                    case "Session.Terminate.1": if (OnSessionTerminated != null) OnSessionTerminated(cookie, statusCode, statusString);
+                    case "Session.Terminate.1":
+                        if (OnSessionTerminated != null) OnSessionTerminated(cookie, statusCode, statusString);
                         break;
-                    case "Account.Logout.1": if (OnAccountLogout != null) OnAccountLogout(cookie, statusCode, statusString);
+                    case "Account.Logout.1":
+                        if (OnAccountLogout != null) OnAccountLogout(cookie, statusCode, statusString);
                         break;
-                    case "Connector.InitiateShutdown.1": if (OnConnectorInitiateShutdown != null) OnConnectorInitiateShutdown(cookie, statusCode, statusString);
+                    case "Connector.InitiateShutdown.1":
+                        if (OnConnectorInitiateShutdown != null) OnConnectorInitiateShutdown(cookie, statusCode, statusString);
                         break;
-                    case "Account.ChannelGetList.1": if (OnAccountChannelGetList != null) OnAccountChannelGetList(cookie, statusCode, statusString);
+                    case "Account.ChannelGetList.1":
+                        if (OnAccountChannelGetList != null) OnAccountChannelGetList(cookie, statusCode, statusString);
                         break;
-                    case "Aux.GetCaptureDevices.1": if (OnCaptureDevices != null) OnCaptureDevices(cookie, statusCode, statusString, nameString);
+                    case "Aux.GetCaptureDevices.1":
+                        if (OnCaptureDevices != null) OnCaptureDevices(cookie, statusCode, statusString, nameString);
                         break;
-                    case "Aux.GetRenderDevices.1": if (OnRenderDevices != null) OnRenderDevices(cookie, statusCode, statusString, nameString);
+                    case "Aux.GetRenderDevices.1":
+                        if (OnRenderDevices != null) OnRenderDevices(cookie, statusCode, statusString, nameString);
                         break;
                 }
             }

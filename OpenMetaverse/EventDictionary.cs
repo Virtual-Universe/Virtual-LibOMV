@@ -26,10 +26,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using OpenMetaverse.Packets;
-using OpenMetaverse.Messages.Linden;
 using OpenMetaverse.Interfaces;
 
 namespace OpenMetaverse
@@ -39,7 +37,7 @@ namespace OpenMetaverse
     /// </summary>
     public class PacketEventDictionary
     {
-        private sealed class PacketCallback
+        sealed class PacketCallback
         {
             public EventHandler<PacketReceivedEventArgs> Callback;
             public bool IsAsync;
@@ -55,7 +53,7 @@ namespace OpenMetaverse
         /// Object that is passed to worker threads in the ThreadPool for
         /// firing packet callbacks
         /// </summary>
-        private struct PacketCallbackWrapper
+        struct PacketCallbackWrapper
         {
             /// <summary>Callback to fire for this packet</summary>
             public EventHandler<PacketReceivedEventArgs> Callback;
@@ -151,7 +149,7 @@ namespace OpenMetaverse
                     try { callback.Callback(this, new PacketReceivedEventArgs(packet, simulator)); }
                     catch (Exception ex)
                     {
-                        Logger.Log("Default packet event handler: " + ex.ToString(), Helpers.LogLevel.Error, Client);
+                        Logger.Log("Default packet event handler: " + ex, Helpers.LogLevel.Error, Client);
                     }
                 }
             }
@@ -171,7 +169,7 @@ namespace OpenMetaverse
                     try { callback.Callback(this, new PacketReceivedEventArgs(packet, simulator)); }
                     catch (Exception ex)
                     {
-                        Logger.Log("Packet event handler: " + ex.ToString(), Helpers.LogLevel.Error, Client);
+                        Logger.Log("Packet event handler: " + ex, Helpers.LogLevel.Error, Client);
                     }
                 }
 
@@ -184,7 +182,7 @@ namespace OpenMetaverse
             }
         }
 
-        private void ThreadPoolDelegate(Object state)
+        void ThreadPoolDelegate(object state)
         {
             PacketCallbackWrapper wrapper = (PacketCallbackWrapper)state;
 
@@ -194,7 +192,7 @@ namespace OpenMetaverse
             }
             catch (Exception ex)
             {
-                Logger.Log("Async Packet Event Handler: " + ex.ToString(), Helpers.LogLevel.Error, Client);
+                Logger.Log("Async Packet Event Handler: " + ex, Helpers.LogLevel.Error, Client);
             }
         }
     }
@@ -224,9 +222,9 @@ namespace OpenMetaverse
         /// <summary>Reference to the GridClient object</summary>
         public GridClient Client;
 
-        private Dictionary<string, Caps.EventQueueCallback> _EventTable =
+        Dictionary<string, Caps.EventQueueCallback> _EventTable =
             new Dictionary<string, Caps.EventQueueCallback>();
-        private WaitCallback _ThreadPoolCallback;
+        WaitCallback _ThreadPoolCallback;
 
         /// <summary>
         /// Default constructor
@@ -290,7 +288,7 @@ namespace OpenMetaverse
                 if (callback != null)
                 {
                     try { callback(capsEvent, message, simulator); }
-                    catch (Exception ex) { Logger.Log("CAPS Event Handler: " + ex.ToString(), Helpers.LogLevel.Error, Client); }
+                    catch (Exception ex) { Logger.Log("CAPS Event Handler: " + ex, Helpers.LogLevel.Error, Client); }
                 }
             }
 
@@ -298,7 +296,7 @@ namespace OpenMetaverse
             if (_EventTable.TryGetValue(capsEvent, out callback) && callback != null)
             {
                 try { callback(capsEvent, message, simulator); }
-                catch (Exception ex) { Logger.Log("CAPS Event Handler: " + ex.ToString(), Helpers.LogLevel.Error, Client); }
+                catch (Exception ex) { Logger.Log("CAPS Event Handler: " + ex, Helpers.LogLevel.Error, Client); }
 
                 specialHandler = true;
             }
@@ -320,7 +318,7 @@ namespace OpenMetaverse
             Caps.EventQueueCallback callback;
 
             // Default handler first, if one exists
-            if (_EventTable.TryGetValue(String.Empty, out callback))
+            if (_EventTable.TryGetValue(string.Empty, out callback))
             {
                 if (callback != null)
                 {
@@ -353,7 +351,7 @@ namespace OpenMetaverse
                 Logger.Log("Unhandled CAPS event " + capsEvent, Helpers.LogLevel.Warning, Client);
         }
 
-        private void ThreadPoolDelegate(Object state)
+        void ThreadPoolDelegate(object state)
         {
             CapsCallbackWrapper wrapper = (CapsCallbackWrapper)state;
 
@@ -363,7 +361,7 @@ namespace OpenMetaverse
             }
             catch (Exception ex)
             {
-                Logger.Log("Async CAPS Event Handler: " + ex.ToString(), Helpers.LogLevel.Error, Client);
+                Logger.Log("Async CAPS Event Handler: " + ex, Helpers.LogLevel.Error, Client);
             }
         }
     }

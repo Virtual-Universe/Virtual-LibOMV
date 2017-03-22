@@ -48,7 +48,7 @@ namespace OpenMetaverse
     /// </summary>
     public class EstateTools
     {
-        private GridClient Client;
+        GridClient Client;
 
         /// <summary>Textures for each of the four terrain height levels</summary>
         public GroundTextureSettings GroundTextures;
@@ -158,20 +158,22 @@ namespace OpenMetaverse
         #region Event delegates, Raise Events
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<TopCollidersReplyEventArgs> m_TopCollidersReply;
+        EventHandler<TopCollidersReplyEventArgs> m_TopCollidersReply;
 
         /// <summary>Raises the TopCollidersReply event</summary>
         /// <param name="e">A TopCollidersReplyEventArgs object containing the
         /// data returned from the data server</param>
         protected virtual void OnTopCollidersReply(TopCollidersReplyEventArgs e)
         {
-            EventHandler<TopCollidersReplyEventArgs> handler = m_TopCollidersReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_TopCollidersReply_Lock) {
+                EventHandler<TopCollidersReplyEventArgs> handler = m_TopCollidersReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_TopCollidersReply_Lock = new object();
+        readonly object m_TopCollidersReply_Lock = new object();
 
         /// <summary>Raised when the data server responds to a <see cref="LandStatRequest"/> request.</summary>
         public event EventHandler<TopCollidersReplyEventArgs> TopCollidersReply
@@ -181,20 +183,22 @@ namespace OpenMetaverse
         }        
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<TopScriptsReplyEventArgs> m_TopScriptsReply;
+        EventHandler<TopScriptsReplyEventArgs> m_TopScriptsReply;
 
         /// <summary>Raises the TopScriptsReply event</summary>
         /// <param name="e">A TopScriptsReplyEventArgs object containing the
         /// data returned from the data server</param>
         protected virtual void OnTopScriptsReply(TopScriptsReplyEventArgs e)
         {
-            EventHandler<TopScriptsReplyEventArgs> handler = m_TopScriptsReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_TopScriptsReply_Lock) {
+                EventHandler<TopScriptsReplyEventArgs> handler = m_TopScriptsReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_TopScriptsReply_Lock = new object();
+        readonly object m_TopScriptsReply_Lock = new object();
 
         /// <summary>Raised when the data server responds to a <see cref="LandStatRequest"/> request.</summary>
         public event EventHandler<TopScriptsReplyEventArgs> TopScriptsReply
@@ -205,20 +209,22 @@ namespace OpenMetaverse
 
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<EstateUsersReplyEventArgs> m_EstateUsersReply;
+        EventHandler<EstateUsersReplyEventArgs> m_EstateUsersReply;
 
         /// <summary>Raises the EstateUsersReply event</summary>
         /// <param name="e">A EstateUsersReplyEventArgs object containing the
         /// data returned from the data server</param>
         protected virtual void OnEstateUsersReply(EstateUsersReplyEventArgs e)
         {
-            EventHandler<EstateUsersReplyEventArgs> handler = m_EstateUsersReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_EstateUsersReply_Lock) {
+                EventHandler<EstateUsersReplyEventArgs> handler = m_EstateUsersReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_EstateUsersReply_Lock = new object();
+        readonly object m_EstateUsersReply_Lock = new object();
 
         /// <summary>Raised when the data server responds to a <see cref="LandStatRequest"/> request.</summary>
         public event EventHandler<EstateUsersReplyEventArgs> EstateUsersReply
@@ -229,20 +235,22 @@ namespace OpenMetaverse
 
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<EstateGroupsReplyEventArgs> m_EstateGroupsReply;
+        EventHandler<EstateGroupsReplyEventArgs> m_EstateGroupsReply;
 
         /// <summary>Raises the EstateGroupsReply event</summary>
         /// <param name="e">A EstateGroupsReplyEventArgs object containing the
         /// data returned from the data server</param>
         protected virtual void OnEstateGroupsReply(EstateGroupsReplyEventArgs e)
         {
-            EventHandler<EstateGroupsReplyEventArgs> handler = m_EstateGroupsReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_EstateGroupsReply_Lock) {
+                EventHandler<EstateGroupsReplyEventArgs> handler = m_EstateGroupsReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_EstateGroupsReply_Lock = new object();
+        readonly object m_EstateGroupsReply_Lock = new object();
 
         /// <summary>Raised when the data server responds to a <see cref="LandStatRequest"/> request.</summary>
         public event EventHandler<EstateGroupsReplyEventArgs> EstateGroupsReply
@@ -252,20 +260,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<EstateManagersReplyEventArgs> m_EstateManagersReply;
+        EventHandler<EstateManagersReplyEventArgs> m_EstateManagersReply;
 
         /// <summary>Raises the EstateManagersReply event</summary>
         /// <param name="e">A EstateManagersReplyEventArgs object containing the
         /// data returned from the data server</param>
         protected virtual void OnEstateManagersReply(EstateManagersReplyEventArgs e)
         {
-            EventHandler<EstateManagersReplyEventArgs> handler = m_EstateManagersReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_EstateManagersReply_Lock) {
+                EventHandler<EstateManagersReplyEventArgs> handler = m_EstateManagersReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_EstateManagersReply_Lock = new object();
+        readonly object m_EstateManagersReply_Lock = new object();
 
         /// <summary>Raised when the data server responds to a <see cref="LandStatRequest"/> request.</summary>
         public event EventHandler<EstateManagersReplyEventArgs> EstateManagersReply
@@ -275,20 +285,22 @@ namespace OpenMetaverse
         }
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<EstateBansReplyEventArgs> m_EstateBansReply;
+        EventHandler<EstateBansReplyEventArgs> m_EstateBansReply;
 
         /// <summary>Raises the EstateBansReply event</summary>
         /// <param name="e">A EstateBansReplyEventArgs object containing the
         /// data returned from the data server</param>
         protected virtual void OnEstateBansReply(EstateBansReplyEventArgs e)
         {
-            EventHandler<EstateBansReplyEventArgs> handler = m_EstateBansReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_EstateBansReply_Lock) {
+                EventHandler<EstateBansReplyEventArgs> handler = m_EstateBansReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_EstateBansReply_Lock = new object();
+        readonly object m_EstateBansReply_Lock = new object();
 
         /// <summary>Raised when the data server responds to a <see cref="LandStatRequest"/> request.</summary>
         public event EventHandler<EstateBansReplyEventArgs> EstateBansReply
@@ -298,20 +310,22 @@ namespace OpenMetaverse
         }
                 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<EstateCovenantReplyEventArgs> m_EstateCovenantReply;
+        EventHandler<EstateCovenantReplyEventArgs> m_EstateCovenantReply;
 
         /// <summary>Raises the EstateCovenantReply event</summary>
         /// <param name="e">A EstateCovenantReplyEventArgs object containing the
         /// data returned from the data server</param>
         protected virtual void OnEstateCovenantReply(EstateCovenantReplyEventArgs e)
         {
-            EventHandler<EstateCovenantReplyEventArgs> handler = m_EstateCovenantReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_EstateCovenantReply_Lock) {
+                EventHandler<EstateCovenantReplyEventArgs> handler = m_EstateCovenantReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_EstateCovenantReply_Lock = new object();
+        readonly object m_EstateCovenantReply_Lock = new object();
 
         /// <summary>Raised when the data server responds to a <see cref="LandStatRequest"/> request.</summary>
         public event EventHandler<EstateCovenantReplyEventArgs> EstateCovenantReply
@@ -322,20 +336,22 @@ namespace OpenMetaverse
 
 
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<EstateUpdateInfoReplyEventArgs> m_EstateUpdateInfoReply;
+        EventHandler<EstateUpdateInfoReplyEventArgs> m_EstateUpdateInfoReply;
 
         /// <summary>Raises the EstateUpdateInfoReply event</summary>
         /// <param name="e">A EstateUpdateInfoReplyEventArgs object containing the
         /// data returned from the data server</param>
         protected virtual void OnEstateUpdateInfoReply(EstateUpdateInfoReplyEventArgs e)
         {
-            EventHandler<EstateUpdateInfoReplyEventArgs> handler = m_EstateUpdateInfoReply;
-            if (handler != null)
-                handler(this, e);
+            lock (m_EstateUpdateInfoReply_Lock) {
+                EventHandler<EstateUpdateInfoReplyEventArgs> handler = m_EstateUpdateInfoReply;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_EstateUpdateInfoReply_Lock = new object();
+        readonly object m_EstateUpdateInfoReply_Lock = new object();
 
         /// <summary>Raised when the data server responds to a <see cref="LandStatRequest"/> request.</summary>
         public event EventHandler<EstateUpdateInfoReplyEventArgs> EstateUpdateInfoReply
@@ -466,7 +482,7 @@ namespace OpenMetaverse
                 estate.ParamList[i] = new EstateOwnerMessagePacket.ParamListBlock();
                 estate.ParamList[i].Parameter = Utils.StringToBytes(listParams[i]);
             }
-            Client.Network.SendPacket((Packet)estate);
+            Client.Network.SendPacket(estate);
         }
 
         /// <summary>
@@ -594,10 +610,10 @@ namespace OpenMetaverse
         public void SetRegionTerrain(UUID low, UUID midLow, UUID midHigh, UUID high)
         {
             List<string> listParams = new List<string>();
-            listParams.Add("0 " + low.ToString());
-            listParams.Add("1 " + midLow.ToString());
-            listParams.Add("2 " + midHigh.ToString());
-            listParams.Add("3 " + high.ToString());
+            listParams.Add("0 " + low);
+            listParams.Add("1 " + midLow);
+            listParams.Add("2 " + midHigh);
+            listParams.Add("3 " + high);
             EstateOwnerMessage("texturedetail", listParams);
             EstateOwnerMessage("texturecommit", "");
         }
@@ -641,7 +657,7 @@ namespace OpenMetaverse
             Client.Assets.SetPendingAssetUploadData(upload);
 
             // Create and populate a list with commands specific to uploading a raw terrain file
-            List<String> paramList = new List<string>();
+            List<string> paramList = new List<string>();
             paramList.Add("upload filename");
             paramList.Add(fileName);
 
@@ -942,7 +958,7 @@ namespace OpenMetaverse
             }
         }
 
-        private void LandStatCapsReplyHandler(string capsKey, IMessage message, Simulator simulator)
+        void LandStatCapsReplyHandler(string capsKey, IMessage message, Simulator simulator)
         {
             LandStatReplyMessage m = (LandStatReplyMessage)message;
             Dictionary<UUID, EstateTask> Tasks = new Dictionary<UUID, EstateTask>();
@@ -978,8 +994,8 @@ namespace OpenMetaverse
     /// <summary>Raised on LandStatReply when the report type is for "top colliders"</summary>
     public class TopCollidersReplyEventArgs : EventArgs
     {
-        private readonly int m_objectCount;
-        private readonly Dictionary<UUID, EstateTask> m_Tasks;
+        readonly int m_objectCount;
+        readonly Dictionary<UUID, EstateTask> m_Tasks;
 
         /// <summary>
         /// The number of returned items in LandStatReply
@@ -995,16 +1011,16 @@ namespace OpenMetaverse
         /// <param name="tasks">Dictionary of Object UUIDs to tasks returned in LandStatReply</param>
         public TopCollidersReplyEventArgs(int objectCount, Dictionary<UUID, EstateTask> tasks)
         {
-            this.m_objectCount = objectCount;
-            this.m_Tasks = tasks;
+            m_objectCount = objectCount;
+            m_Tasks = tasks;
         }
     }
 
     /// <summary>Raised on LandStatReply when the report type is for "top Scripts"</summary>
     public class TopScriptsReplyEventArgs : EventArgs
     {
-        private readonly int m_objectCount;
-        private readonly Dictionary<UUID, EstateTask> m_Tasks;
+        readonly int m_objectCount;
+        readonly Dictionary<UUID, EstateTask> m_Tasks;
 
         /// <summary>
         /// The number of scripts returned in LandStatReply
@@ -1020,17 +1036,17 @@ namespace OpenMetaverse
         /// <param name="tasks">Dictionary of Object UUIDs to tasks returned in LandStatReply</param>
         public TopScriptsReplyEventArgs(int objectCount, Dictionary<UUID, EstateTask> tasks)
         {
-            this.m_objectCount = objectCount;
-            this.m_Tasks = tasks;
+            m_objectCount = objectCount;
+            m_Tasks = tasks;
         }
     }
 
     /// <summary>Returned, along with other info, upon a successful .RequestInfo()</summary>
     public class EstateBansReplyEventArgs : EventArgs
     {
-        private readonly uint m_estateID;
-        private readonly int m_count;
-        private readonly List<UUID> m_banned;
+        readonly uint m_estateID;
+        readonly int m_count;
+        readonly List<UUID> m_banned;
 
         /// <summary>
         /// The identifier of the estate
@@ -1051,18 +1067,18 @@ namespace OpenMetaverse
         /// <param name="banned">User UUIDs banned</param>
         public EstateBansReplyEventArgs(uint estateID, int count, List<UUID> banned)
         {
-            this.m_estateID = estateID;
-            this.m_count = count;
-            this.m_banned = banned;
+            m_estateID = estateID;
+            m_count = count;
+            m_banned = banned;
         }
     }
 
     /// <summary>Returned, along with other info, upon a successful .RequestInfo()</summary>
     public class EstateUsersReplyEventArgs : EventArgs
     {
-        private readonly uint m_estateID;
-        private readonly int m_count;
-        private readonly List<UUID> m_allowedUsers;
+        readonly uint m_estateID;
+        readonly int m_count;
+        readonly List<UUID> m_allowedUsers;
 
         /// <summary>
         /// The identifier of the estate
@@ -1083,18 +1099,18 @@ namespace OpenMetaverse
         /// <param name="allowedUsers">Allowed users UUIDs</param>
         public EstateUsersReplyEventArgs(uint estateID, int count, List<UUID> allowedUsers)
         {
-            this.m_estateID = estateID;
-            this.m_count = count;
-            this.m_allowedUsers = allowedUsers;
+            m_estateID = estateID;
+            m_count = count;
+            m_allowedUsers = allowedUsers;
         }
     }
 
     /// <summary>Returned, along with other info, upon a successful .RequestInfo()</summary>
     public class EstateGroupsReplyEventArgs : EventArgs
     {
-        private readonly uint m_estateID;
-        private readonly int m_count;
-        private readonly List<UUID> m_allowedGroups;
+        readonly uint m_estateID;
+        readonly int m_count;
+        readonly List<UUID> m_allowedGroups;
 
         /// <summary>
         /// The identifier of the estate
@@ -1115,18 +1131,18 @@ namespace OpenMetaverse
         /// <param name="allowedGroups">Allowed Groups UUIDs</param>
         public EstateGroupsReplyEventArgs(uint estateID, int count, List<UUID> allowedGroups)
         {
-            this.m_estateID = estateID;
-            this.m_count = count;
-            this.m_allowedGroups = allowedGroups;
+            m_estateID = estateID;
+            m_count = count;
+            m_allowedGroups = allowedGroups;
         }
     }
 
     /// <summary>Returned, along with other info, upon a successful .RequestInfo()</summary>
     public class EstateManagersReplyEventArgs : EventArgs
     {
-        private readonly uint m_estateID;
-        private readonly int m_count;
-        private readonly List<UUID> m_Managers;
+        readonly uint m_estateID;
+        readonly int m_count;
+        readonly List<UUID> m_Managers;
 
         /// <summary>
         /// The identifier of the estate
@@ -1147,19 +1163,19 @@ namespace OpenMetaverse
         /// <param name="managers"> Managers UUIDs</param>
         public EstateManagersReplyEventArgs(uint estateID, int count, List<UUID> managers)
         {
-            this.m_estateID = estateID;
-            this.m_count = count;
-            this.m_Managers = managers;
+            m_estateID = estateID;
+            m_count = count;
+            m_Managers = managers;
         }
     }
 
     /// <summary>Returned, along with other info, upon a successful .RequestInfo()</summary>
     public class EstateCovenantReplyEventArgs : EventArgs
     {
-        private readonly UUID m_covenantID;
-        private readonly long m_timestamp;
-        private readonly string m_estateName;
-        private readonly UUID m_estateOwnerID;
+        readonly UUID m_covenantID;
+        readonly long m_timestamp;
+        readonly string m_estateName;
+        readonly UUID m_estateOwnerID;
 
         /// <summary>
         /// The Covenant
@@ -1172,7 +1188,7 @@ namespace OpenMetaverse
         /// <summary>
         /// The Estate name
         /// </summary>
-        public String EstateName { get { return m_estateName; } }
+        public string EstateName { get { return m_estateName; } }
         /// <summary>
         /// The Estate Owner's ID (can be a GroupID)
         /// </summary>
@@ -1185,10 +1201,10 @@ namespace OpenMetaverse
         /// <param name="estateOwnerID">The Estate Owner's ID (can be a GroupID)</param>
         public EstateCovenantReplyEventArgs(UUID covenantID, long timestamp, string estateName, UUID estateOwnerID)
         {
-            this.m_covenantID = covenantID;
-            this.m_timestamp = timestamp;
-            this.m_estateName = estateName;
-            this.m_estateOwnerID = estateOwnerID;
+            m_covenantID = covenantID;
+            m_timestamp = timestamp;
+            m_estateName = estateName;
+            m_estateOwnerID = estateOwnerID;
 
         }
     }
@@ -1197,15 +1213,15 @@ namespace OpenMetaverse
     /// <summary>Returned, along with other info, upon a successful .RequestInfo()</summary>
     public class EstateUpdateInfoReplyEventArgs : EventArgs
     {
-        private readonly uint m_estateID;
-        private readonly bool m_denyNoPaymentInfo;
-        private readonly string m_estateName;
-        private readonly UUID m_estateOwner;
+        readonly uint m_estateID;
+        readonly bool m_denyNoPaymentInfo;
+        readonly string m_estateName;
+        readonly UUID m_estateOwner;
 
         /// <summary>
         /// The estate's name
         /// </summary>
-        public String EstateName { get { return m_estateName; } }
+        public string EstateName { get { return m_estateName; } }
         /// <summary>
         /// The Estate Owner's ID (can be a GroupID)
         /// </summary>
@@ -1224,10 +1240,10 @@ namespace OpenMetaverse
         /// <param name="denyNoPaymentInfo"></param>
         public EstateUpdateInfoReplyEventArgs(string estateName, UUID estateOwner, uint estateID, bool denyNoPaymentInfo)
         {
-            this.m_estateName = estateName;
-            this.m_estateOwner = estateOwner;
-            this.m_estateID = estateID;
-            this.m_denyNoPaymentInfo = denyNoPaymentInfo;
+            m_estateName = estateName;
+            m_estateOwner = estateOwner;
+            m_estateID = estateID;
+            m_denyNoPaymentInfo = denyNoPaymentInfo;
 
         }
     }

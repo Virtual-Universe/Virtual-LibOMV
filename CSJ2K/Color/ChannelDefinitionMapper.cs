@@ -6,9 +6,8 @@
 /// $Date $
 /// ***************************************************************************
 /// </summary>
-using System;
+
 using CSJ2K.j2k.image;
-using CSJ2K.j2k.util;
 namespace CSJ2K.Color
 {
 	
@@ -45,7 +44,7 @@ namespace CSJ2K.Color
 		/// </summary>
 		/// <param name="src">-- Source of image data
 		/// </param>
-		/// <param name="csm">-- provides colorspace info
+		/// <param name="csMap">-- provides colorspace info
 		/// </param>
 		protected internal ChannelDefinitionMapper(BlkImgDataSrc src, ColorSpace csMap):base(src, csMap)
 		{
@@ -73,7 +72,7 @@ namespace CSJ2K.Color
 		/// input data.
 		/// 
 		/// </summary>
-		/// <param name="blk">Its coordinates and dimensions specify the area to
+		/// <param name="out_Renamed">Its coordinates and dimensions specify the area to
 		/// return. If it contains a non-null data array, then it must have the
 		/// correct dimensions. If it contains a null data array a new one is
 		/// created. The fields in this object are modified to return the data.
@@ -119,7 +118,7 @@ namespace CSJ2K.Color
 		/// case the returned data is only an approximation of the "final" data.
 		/// 
 		/// </summary>
-		/// <param name="blk">Its coordinates and dimensions specify the area to return,
+		/// <param name="out_Renamed">Its coordinates and dimensions specify the area to return,
 		/// relative to the current tile. If it contains a non-null data array,
 		/// then it must be large enough. If it contains a null data array a new
 		/// one is created. Some fields in this object are modified to return the
@@ -202,7 +201,7 @@ namespace CSJ2K.Color
 			return src.getTileCompWidth(t, csMap.getChannelDefinition(c));
 		}
 		
-		public override System.String ToString()
+		public override string ToString()
 		{
 			int i;
 			System.Text.StringBuilder rep = new System.Text.StringBuilder("[ChannelDefinitionMapper nchannels= ").Append(ncomps);

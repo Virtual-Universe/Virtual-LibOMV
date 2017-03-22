@@ -2344,6 +2344,8 @@ namespace CSJ2K.j2k.entropy.encoder
 					} // End loop on horizontal code-blocks
 				} // End loop on vertical code-blocks
 				sb = (SubbandAn) sb.nextSubband();
+                if (sb == null)
+                    break;
 			} // End loop on subbands
 		}
 		

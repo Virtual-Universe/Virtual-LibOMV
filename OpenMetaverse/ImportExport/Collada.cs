@@ -55,17 +55,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class COLLADA
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private COLLADAScene sceneField;
+        COLLADAScene sceneField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private VersionType versionField;
+        VersionType versionField;
 
-        private string baseField;
+        string baseField;
 
         /// <remarks/>
         public asset asset
@@ -174,23 +174,23 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class asset
     {
 
-        private assetContributor[] contributorField;
+        assetContributor[] contributorField;
 
-        private System.DateTime createdField;
+        System.DateTime createdField;
 
-        private string keywordsField;
+        string keywordsField;
 
-        private System.DateTime modifiedField;
+        System.DateTime modifiedField;
 
-        private string revisionField;
+        string revisionField;
 
-        private string subjectField;
+        string subjectField;
 
-        private string titleField;
+        string titleField;
 
-        private assetUnit unitField;
+        assetUnit unitField;
 
-        private UpAxisType up_axisField;
+        UpAxisType up_axisField;
 
         public asset()
         {
@@ -326,15 +326,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class assetContributor
     {
 
-        private string authorField;
+        string authorField;
 
-        private string authoring_toolField;
+        string authoring_toolField;
 
-        private string commentsField;
+        string commentsField;
 
-        private string copyrightField;
+        string copyrightField;
 
-        private string source_dataField;
+        string source_dataField;
 
         /// <remarks/>
         public string author
@@ -412,9 +412,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_clearstencil_common
     {
 
-        private string indexField;
+        string indexField;
 
-        private sbyte valueField;
+        sbyte valueField;
 
         public fx_clearstencil_common()
         {
@@ -460,9 +460,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_cleardepth_common
     {
 
-        private string indexField;
+        string indexField;
 
-        private double valueField;
+        double valueField;
 
         public fx_cleardepth_common()
         {
@@ -508,9 +508,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_clearcolor_common
     {
 
-        private string indexField;
+        string indexField;
 
-        private double[] textField;
+        double[] textField;
 
         public fx_clearcolor_common()
         {
@@ -562,15 +562,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_stenciltarget_common
     {
 
-        private string indexField;
+        string indexField;
 
-        private fx_surface_face_enum faceField;
+        fx_surface_face_enum faceField;
 
-        private string mipField;
+        string mipField;
 
-        private string sliceField;
+        string sliceField;
 
-        private string valueField;
+        string valueField;
 
         public fx_stenciltarget_common()
         {
@@ -690,15 +690,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_depthtarget_common
     {
 
-        private string indexField;
+        string indexField;
 
-        private fx_surface_face_enum faceField;
+        fx_surface_face_enum faceField;
 
-        private string mipField;
+        string mipField;
 
-        private string sliceField;
+        string sliceField;
 
-        private string valueField;
+        string valueField;
 
         public fx_depthtarget_common()
         {
@@ -792,15 +792,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_colortarget_common
     {
 
-        private string indexField;
+        string indexField;
 
-        private fx_surface_face_enum faceField;
+        fx_surface_face_enum faceField;
 
-        private string mipField;
+        string mipField;
 
-        private string sliceField;
+        string sliceField;
 
-        private string valueField;
+        string valueField;
 
         public fx_colortarget_common()
         {
@@ -894,13 +894,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_surface_init_from_common
     {
 
-        private uint mipField;
+        uint mipField;
 
-        private uint sliceField;
+        uint sliceField;
 
-        private fx_surface_face_enum faceField;
+        fx_surface_face_enum faceField;
 
-        private string valueField;
+        string valueField;
 
         public fx_surface_init_from_common()
         {
@@ -978,81 +978,81 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class gles_newparam
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private string semanticField;
+        string semanticField;
 
-        private fx_modifier_enum_common modifierField;
+        fx_modifier_enum_common modifierField;
 
-        private bool modifierFieldSpecified;
+        bool modifierFieldSpecified;
 
-        private bool boolField;
+        bool boolField;
 
-        private string bool2Field;
+        string bool2Field;
 
-        private string bool3Field;
+        string bool3Field;
 
-        private string bool4Field;
+        string bool4Field;
 
-        private long intField;
+        long intField;
 
-        private string int2Field;
+        string int2Field;
 
-        private string int3Field;
+        string int3Field;
 
-        private string int4Field;
+        string int4Field;
 
-        private double floatField;
+        double floatField;
 
-        private string float2Field;
+        string float2Field;
 
-        private string float3Field;
+        string float3Field;
 
-        private string float4Field;
+        string float4Field;
 
-        private double float1x1Field;
+        double float1x1Field;
 
-        private string float1x2Field;
+        string float1x2Field;
 
-        private string float1x3Field;
+        string float1x3Field;
 
-        private string float1x4Field;
+        string float1x4Field;
 
-        private string float2x1Field;
+        string float2x1Field;
 
-        private string float2x2Field;
+        string float2x2Field;
 
-        private string float2x3Field;
+        string float2x3Field;
 
-        private string float2x4Field;
+        string float2x4Field;
 
-        private string float3x1Field;
+        string float3x1Field;
 
-        private string float3x2Field;
+        string float3x2Field;
 
-        private string float3x3Field;
+        string float3x3Field;
 
-        private string float3x4Field;
+        string float3x4Field;
 
-        private string float4x1Field;
+        string float4x1Field;
 
-        private string float4x2Field;
+        string float4x2Field;
 
-        private string float4x3Field;
+        string float4x3Field;
 
-        private string float4x4Field;
+        string float4x4Field;
 
-        private fx_surface_common surfaceField;
+        fx_surface_common surfaceField;
 
-        private gles_texture_pipeline texture_pipelineField;
+        gles_texture_pipeline texture_pipelineField;
 
-        private gles_sampler_state sampler_stateField;
+        gles_sampler_state sampler_stateField;
 
-        private gles_texture_unit texture_unitField;
+        gles_texture_unit texture_unitField;
 
-        private string enumField;
+        string enumField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -1562,39 +1562,39 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_annotate_common
     {
 
-        private bool boolField;
+        bool boolField;
 
-        private string bool2Field;
+        string bool2Field;
 
-        private string bool3Field;
+        string bool3Field;
 
-        private string bool4Field;
+        string bool4Field;
 
-        private long intField;
+        long intField;
 
-        private string int2Field;
+        string int2Field;
 
-        private string int3Field;
+        string int3Field;
 
-        private string int4Field;
+        string int4Field;
 
-        private double floatField;
+        double floatField;
 
-        private string float2Field;
+        string float2Field;
 
-        private string float3Field;
+        string float3Field;
 
-        private string float4Field;
+        string float4Field;
 
-        private string float2x2Field;
+        string float2x2Field;
 
-        private string float3x3Field;
+        string float3x3Field;
 
-        private string float4x4Field;
+        string float4x4Field;
 
-        private string stringField;
+        string stringField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public bool @bool
@@ -1859,33 +1859,33 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_surface_common
     {
 
-        private object init_as_nullField;
+        object init_as_nullField;
 
-        private object init_as_targetField;
+        object init_as_targetField;
 
-        private fx_surface_init_cube_common init_cubeField;
+        fx_surface_init_cube_common init_cubeField;
 
-        private fx_surface_init_volume_common init_volumeField;
+        fx_surface_init_volume_common init_volumeField;
 
-        private fx_surface_init_planar_common init_planarField;
+        fx_surface_init_planar_common init_planarField;
 
-        private fx_surface_init_from_common[] init_fromField;
+        fx_surface_init_from_common[] init_fromField;
 
-        private string formatField;
+        string formatField;
 
-        private fx_surface_format_hint_common format_hintField;
+        fx_surface_format_hint_common format_hintField;
 
-        private object itemField;
+        object itemField;
 
-        private uint mip_levelsField;
+        uint mip_levelsField;
 
-        private bool mipmap_generateField;
+        bool mipmap_generateField;
 
-        private bool mipmap_generateFieldSpecified;
+        bool mipmap_generateFieldSpecified;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private fx_surface_type_enum typeField;
+        fx_surface_type_enum typeField;
 
         public fx_surface_common()
         {
@@ -2092,7 +2092,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_surface_init_cube_common
     {
 
-        private object[] itemsField;
+        object[] itemsField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("all", typeof(fx_surface_init_cube_commonAll))]
@@ -2120,7 +2120,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_surface_init_cube_commonAll
     {
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
@@ -2146,7 +2146,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_surface_init_cube_commonFace
     {
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
@@ -2172,9 +2172,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_surface_init_cube_commonPrimary
     {
 
-        private fx_surface_face_enum[] orderField;
+        fx_surface_face_enum[] orderField;
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("order")]
@@ -2214,7 +2214,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_surface_init_volume_common
     {
 
-        private object itemField;
+        object itemField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("all", typeof(fx_surface_init_volume_commonAll))]
@@ -2241,7 +2241,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_surface_init_volume_commonAll
     {
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
@@ -2267,7 +2267,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_surface_init_volume_commonPrimary
     {
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
@@ -2293,7 +2293,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_surface_init_planar_common
     {
 
-        private fx_surface_init_planar_commonAll itemField;
+        fx_surface_init_planar_commonAll itemField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("all")]
@@ -2319,7 +2319,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_surface_init_planar_commonAll
     {
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "IDREF")]
@@ -2345,17 +2345,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_surface_format_hint_common
     {
 
-        private fx_surface_format_hint_channels_enum channelsField;
+        fx_surface_format_hint_channels_enum channelsField;
 
-        private fx_surface_format_hint_range_enum rangeField;
+        fx_surface_format_hint_range_enum rangeField;
 
-        private fx_surface_format_hint_precision_enum precisionField;
+        fx_surface_format_hint_precision_enum precisionField;
 
-        private bool precisionFieldSpecified;
+        bool precisionFieldSpecified;
 
-        private fx_surface_format_hint_option_enum[] optionField;
+        fx_surface_format_hint_option_enum[] optionField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         public fx_surface_format_hint_channels_enum channels
@@ -2538,15 +2538,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class extra
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private technique[] techniqueField;
+        technique[] techniqueField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
-        private string typeField;
+        string typeField;
 
         /// <remarks/>
         public asset asset
@@ -2628,9 +2628,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class technique
     {
 
-        private System.Xml.XmlElement[] anyField;
+        System.Xml.XmlElement[] anyField;
 
-        private string profileField;
+        string profileField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAnyElementAttribute()]
@@ -2702,7 +2702,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cg_surface_type : fx_surface_common
     {
 
-        private cg_surface_typeGenerator generatorField;
+        cg_surface_typeGenerator generatorField;
 
         /// <remarks/>
         public cg_surface_typeGenerator generator
@@ -2727,13 +2727,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cg_surface_typeGenerator
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private cg_surface_typeGeneratorName nameField;
+        cg_surface_typeGeneratorName nameField;
 
-        private cg_setparam_simple[] setparamField;
+        cg_setparam_simple[] setparamField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -2801,9 +2801,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_code_profile
     {
 
-        private string sidField;
+        string sidField;
 
-        private string valueField;
+        string valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -2843,9 +2843,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_include_common
     {
 
-        private string sidField;
+        string sidField;
 
-        private string urlField;
+        string urlField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -2885,9 +2885,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cg_surface_typeGeneratorName
     {
 
-        private string sourceField;
+        string sourceField;
 
-        private string valueField;
+        string valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -2927,237 +2927,237 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cg_setparam_simple
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private bool boolField;
+        bool boolField;
 
-        private bool bool1Field;
+        bool bool1Field;
 
-        private string bool2Field;
+        string bool2Field;
 
-        private string bool3Field;
+        string bool3Field;
 
-        private string bool4Field;
+        string bool4Field;
 
-        private string bool1x1Field;
+        string bool1x1Field;
 
-        private string bool1x2Field;
+        string bool1x2Field;
 
-        private string bool1x3Field;
+        string bool1x3Field;
 
-        private string bool1x4Field;
+        string bool1x4Field;
 
-        private string bool2x1Field;
+        string bool2x1Field;
 
-        private string bool2x2Field;
+        string bool2x2Field;
 
-        private string bool2x3Field;
+        string bool2x3Field;
 
-        private string bool2x4Field;
+        string bool2x4Field;
 
-        private string bool3x1Field;
+        string bool3x1Field;
 
-        private string bool3x2Field;
+        string bool3x2Field;
 
-        private string bool3x3Field;
+        string bool3x3Field;
 
-        private string bool3x4Field;
+        string bool3x4Field;
 
-        private string bool4x1Field;
+        string bool4x1Field;
 
-        private string bool4x2Field;
+        string bool4x2Field;
 
-        private string bool4x3Field;
+        string bool4x3Field;
 
-        private string bool4x4Field;
+        string bool4x4Field;
 
-        private float floatField;
+        float floatField;
 
-        private float float1Field;
+        float float1Field;
 
-        private string float2Field;
+        string float2Field;
 
-        private string float3Field;
+        string float3Field;
 
-        private string float4Field;
+        string float4Field;
 
-        private string float1x1Field;
+        string float1x1Field;
 
-        private string float1x2Field;
+        string float1x2Field;
 
-        private string float1x3Field;
+        string float1x3Field;
 
-        private string float1x4Field;
+        string float1x4Field;
 
-        private string float2x1Field;
+        string float2x1Field;
 
-        private string float2x2Field;
+        string float2x2Field;
 
-        private string float2x3Field;
+        string float2x3Field;
 
-        private string float2x4Field;
+        string float2x4Field;
 
-        private string float3x1Field;
+        string float3x1Field;
 
-        private string float3x2Field;
+        string float3x2Field;
 
-        private string float3x3Field;
+        string float3x3Field;
 
-        private string float3x4Field;
+        string float3x4Field;
 
-        private string float4x1Field;
+        string float4x1Field;
 
-        private string float4x2Field;
+        string float4x2Field;
 
-        private string float4x3Field;
+        string float4x3Field;
 
-        private string float4x4Field;
+        string float4x4Field;
 
-        private int intField;
+        int intField;
 
-        private int int1Field;
+        int int1Field;
 
-        private string int2Field;
+        string int2Field;
 
-        private string int3Field;
+        string int3Field;
 
-        private string int4Field;
+        string int4Field;
 
-        private string int1x1Field;
+        string int1x1Field;
 
-        private string int1x2Field;
+        string int1x2Field;
 
-        private string int1x3Field;
+        string int1x3Field;
 
-        private string int1x4Field;
+        string int1x4Field;
 
-        private string int2x1Field;
+        string int2x1Field;
 
-        private string int2x2Field;
+        string int2x2Field;
 
-        private string int2x3Field;
+        string int2x3Field;
 
-        private string int2x4Field;
+        string int2x4Field;
 
-        private string int3x1Field;
+        string int3x1Field;
 
-        private string int3x2Field;
+        string int3x2Field;
 
-        private string int3x3Field;
+        string int3x3Field;
 
-        private string int3x4Field;
+        string int3x4Field;
 
-        private string int4x1Field;
+        string int4x1Field;
 
-        private string int4x2Field;
+        string int4x2Field;
 
-        private string int4x3Field;
+        string int4x3Field;
 
-        private string int4x4Field;
+        string int4x4Field;
 
-        private float halfField;
+        float halfField;
 
-        private float half1Field;
+        float half1Field;
 
-        private string half2Field;
+        string half2Field;
 
-        private string half3Field;
+        string half3Field;
 
-        private string half4Field;
+        string half4Field;
 
-        private string half1x1Field;
+        string half1x1Field;
 
-        private string half1x2Field;
+        string half1x2Field;
 
-        private string half1x3Field;
+        string half1x3Field;
 
-        private string half1x4Field;
+        string half1x4Field;
 
-        private string half2x1Field;
+        string half2x1Field;
 
-        private string half2x2Field;
+        string half2x2Field;
 
-        private string half2x3Field;
+        string half2x3Field;
 
-        private string half2x4Field;
+        string half2x4Field;
 
-        private string half3x1Field;
+        string half3x1Field;
 
-        private string half3x2Field;
+        string half3x2Field;
 
-        private string half3x3Field;
+        string half3x3Field;
 
-        private string half3x4Field;
+        string half3x4Field;
 
-        private string half4x1Field;
+        string half4x1Field;
 
-        private string half4x2Field;
+        string half4x2Field;
 
-        private string half4x3Field;
+        string half4x3Field;
 
-        private string half4x4Field;
+        string half4x4Field;
 
-        private float fixedField;
+        float fixedField;
 
-        private float fixed1Field;
+        float fixed1Field;
 
-        private string fixed2Field;
+        string fixed2Field;
 
-        private string fixed3Field;
+        string fixed3Field;
 
-        private string fixed4Field;
+        string fixed4Field;
 
-        private string fixed1x1Field;
+        string fixed1x1Field;
 
-        private string fixed1x2Field;
+        string fixed1x2Field;
 
-        private string fixed1x3Field;
+        string fixed1x3Field;
 
-        private string fixed1x4Field;
+        string fixed1x4Field;
 
-        private string fixed2x1Field;
+        string fixed2x1Field;
 
-        private string fixed2x2Field;
+        string fixed2x2Field;
 
-        private string fixed2x3Field;
+        string fixed2x3Field;
 
-        private string fixed2x4Field;
+        string fixed2x4Field;
 
-        private string fixed3x1Field;
+        string fixed3x1Field;
 
-        private string fixed3x2Field;
+        string fixed3x2Field;
 
-        private string fixed3x3Field;
+        string fixed3x3Field;
 
-        private string fixed3x4Field;
+        string fixed3x4Field;
 
-        private string fixed4x1Field;
+        string fixed4x1Field;
 
-        private string fixed4x2Field;
+        string fixed4x2Field;
 
-        private string fixed4x3Field;
+        string fixed4x3Field;
 
-        private string fixed4x4Field;
+        string fixed4x4Field;
 
-        private cg_surface_type surfaceField;
+        cg_surface_type surfaceField;
 
-        private cg_sampler1D sampler1DField;
+        cg_sampler1D sampler1DField;
 
-        private cg_sampler2D sampler2DField;
+        cg_sampler2D sampler2DField;
 
-        private cg_sampler3D sampler3DField;
+        cg_sampler3D sampler3DField;
 
-        private cg_samplerRECT samplerRECTField;
+        cg_samplerRECT samplerRECTField;
 
-        private cg_samplerCUBE samplerCUBEField;
+        cg_samplerCUBE samplerCUBEField;
 
-        private cg_samplerDEPTH samplerDEPTHField;
+        cg_samplerDEPTH samplerDEPTHField;
 
-        private string stringField;
+        string stringField;
 
-        private string enumField;
+        string enumField;
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -4691,23 +4691,23 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_sampler1D_common
     {
 
-        private string sourceField;
+        string sourceField;
 
-        private fx_sampler_wrap_common wrap_sField;
+        fx_sampler_wrap_common wrap_sField;
 
-        private fx_sampler_filter_common minfilterField;
+        fx_sampler_filter_common minfilterField;
 
-        private fx_sampler_filter_common magfilterField;
+        fx_sampler_filter_common magfilterField;
 
-        private fx_sampler_filter_common mipfilterField;
+        fx_sampler_filter_common mipfilterField;
 
-        private string border_colorField;
+        string border_colorField;
 
-        private byte mipmap_maxlevelField;
+        byte mipmap_maxlevelField;
 
-        private float mipmap_biasField;
+        float mipmap_biasField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         public fx_sampler1D_common()
         {
@@ -4928,25 +4928,25 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_sampler2D_common
     {
 
-        private string sourceField;
+        string sourceField;
 
-        private fx_sampler_wrap_common wrap_sField;
+        fx_sampler_wrap_common wrap_sField;
 
-        private fx_sampler_wrap_common wrap_tField;
+        fx_sampler_wrap_common wrap_tField;
 
-        private fx_sampler_filter_common minfilterField;
+        fx_sampler_filter_common minfilterField;
 
-        private fx_sampler_filter_common magfilterField;
+        fx_sampler_filter_common magfilterField;
 
-        private fx_sampler_filter_common mipfilterField;
+        fx_sampler_filter_common mipfilterField;
 
-        private string border_colorField;
+        string border_colorField;
 
-        private byte mipmap_maxlevelField;
+        byte mipmap_maxlevelField;
 
-        private float mipmap_biasField;
+        float mipmap_biasField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         public fx_sampler2D_common()
         {
@@ -5130,27 +5130,27 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_sampler3D_common
     {
 
-        private string sourceField;
+        string sourceField;
 
-        private fx_sampler_wrap_common wrap_sField;
+        fx_sampler_wrap_common wrap_sField;
 
-        private fx_sampler_wrap_common wrap_tField;
+        fx_sampler_wrap_common wrap_tField;
 
-        private fx_sampler_wrap_common wrap_pField;
+        fx_sampler_wrap_common wrap_pField;
 
-        private fx_sampler_filter_common minfilterField;
+        fx_sampler_filter_common minfilterField;
 
-        private fx_sampler_filter_common magfilterField;
+        fx_sampler_filter_common magfilterField;
 
-        private fx_sampler_filter_common mipfilterField;
+        fx_sampler_filter_common mipfilterField;
 
-        private string border_colorField;
+        string border_colorField;
 
-        private byte mipmap_maxlevelField;
+        byte mipmap_maxlevelField;
 
-        private float mipmap_biasField;
+        float mipmap_biasField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         public fx_sampler3D_common()
         {
@@ -5349,25 +5349,25 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_samplerRECT_common
     {
 
-        private string sourceField;
+        string sourceField;
 
-        private fx_sampler_wrap_common wrap_sField;
+        fx_sampler_wrap_common wrap_sField;
 
-        private fx_sampler_wrap_common wrap_tField;
+        fx_sampler_wrap_common wrap_tField;
 
-        private fx_sampler_filter_common minfilterField;
+        fx_sampler_filter_common minfilterField;
 
-        private fx_sampler_filter_common magfilterField;
+        fx_sampler_filter_common magfilterField;
 
-        private fx_sampler_filter_common mipfilterField;
+        fx_sampler_filter_common mipfilterField;
 
-        private string border_colorField;
+        string border_colorField;
 
-        private byte mipmap_maxlevelField;
+        byte mipmap_maxlevelField;
 
-        private float mipmap_biasField;
+        float mipmap_biasField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         public fx_samplerRECT_common()
         {
@@ -5551,27 +5551,27 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_samplerCUBE_common
     {
 
-        private string sourceField;
+        string sourceField;
 
-        private fx_sampler_wrap_common wrap_sField;
+        fx_sampler_wrap_common wrap_sField;
 
-        private fx_sampler_wrap_common wrap_tField;
+        fx_sampler_wrap_common wrap_tField;
 
-        private fx_sampler_wrap_common wrap_pField;
+        fx_sampler_wrap_common wrap_pField;
 
-        private fx_sampler_filter_common minfilterField;
+        fx_sampler_filter_common minfilterField;
 
-        private fx_sampler_filter_common magfilterField;
+        fx_sampler_filter_common magfilterField;
 
-        private fx_sampler_filter_common mipfilterField;
+        fx_sampler_filter_common mipfilterField;
 
-        private string border_colorField;
+        string border_colorField;
 
-        private byte mipmap_maxlevelField;
+        byte mipmap_maxlevelField;
 
-        private float mipmap_biasField;
+        float mipmap_biasField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         public fx_samplerCUBE_common()
         {
@@ -5770,17 +5770,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_samplerDEPTH_common
     {
 
-        private string sourceField;
+        string sourceField;
 
-        private fx_sampler_wrap_common wrap_sField;
+        fx_sampler_wrap_common wrap_sField;
 
-        private fx_sampler_wrap_common wrap_tField;
+        fx_sampler_wrap_common wrap_tField;
 
-        private fx_sampler_filter_common minfilterField;
+        fx_sampler_filter_common minfilterField;
 
-        private fx_sampler_filter_common magfilterField;
+        fx_sampler_filter_common magfilterField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         public fx_samplerDEPTH_common()
         {
@@ -5894,7 +5894,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class glsl_surface_type : fx_surface_common
     {
 
-        private glsl_surface_typeGenerator generatorField;
+        glsl_surface_typeGenerator generatorField;
 
         /// <remarks/>
         public glsl_surface_typeGenerator generator
@@ -5919,13 +5919,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class glsl_surface_typeGenerator
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private glsl_surface_typeGeneratorName nameField;
+        glsl_surface_typeGeneratorName nameField;
 
-        private glsl_setparam_simple[] setparamField;
+        glsl_setparam_simple[] setparamField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -5993,9 +5993,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class glsl_surface_typeGeneratorName
     {
 
-        private string sourceField;
+        string sourceField;
 
-        private string valueField;
+        string valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -6035,55 +6035,55 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class glsl_setparam_simple
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private bool boolField;
+        bool boolField;
 
-        private string bool2Field;
+        string bool2Field;
 
-        private string bool3Field;
+        string bool3Field;
 
-        private string bool4Field;
+        string bool4Field;
 
-        private float floatField;
+        float floatField;
 
-        private string float2Field;
+        string float2Field;
 
-        private string float3Field;
+        string float3Field;
 
-        private string float4Field;
+        string float4Field;
 
-        private string float2x2Field;
+        string float2x2Field;
 
-        private string float3x3Field;
+        string float3x3Field;
 
-        private string float4x4Field;
+        string float4x4Field;
 
-        private int intField;
+        int intField;
 
-        private string int2Field;
+        string int2Field;
 
-        private string int3Field;
+        string int3Field;
 
-        private string int4Field;
+        string int4Field;
 
-        private glsl_surface_type surfaceField;
+        glsl_surface_type surfaceField;
 
-        private gl_sampler1D sampler1DField;
+        gl_sampler1D sampler1DField;
 
-        private gl_sampler2D sampler2DField;
+        gl_sampler2D sampler2DField;
 
-        private gl_sampler3D sampler3DField;
+        gl_sampler3D sampler3DField;
 
-        private gl_samplerCUBE samplerCUBEField;
+        gl_samplerCUBE samplerCUBEField;
 
-        private gl_samplerRECT samplerRECTField;
+        gl_samplerRECT samplerRECTField;
 
-        private gl_samplerDEPTH samplerDEPTHField;
+        gl_samplerDEPTH samplerDEPTHField;
 
-        private string enumField;
+        string enumField;
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -6422,9 +6422,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class gles_texture_pipeline
     {
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("extra", typeof(extra))]
@@ -6466,11 +6466,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class gles_texcombiner_command_type
     {
 
-        private gles_texture_constant_type constantField;
+        gles_texture_constant_type constantField;
 
-        private gles_texcombiner_commandRGB_type rGBField;
+        gles_texcombiner_commandRGB_type rGBField;
 
-        private gles_texcombiner_commandAlpha_type alphaField;
+        gles_texcombiner_commandAlpha_type alphaField;
 
         /// <remarks/>
         public gles_texture_constant_type constant
@@ -6521,9 +6521,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class gles_texture_constant_type
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -6563,15 +6563,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class gles_texcombiner_commandRGB_type
     {
 
-        private gles_texcombiner_argumentRGB_type[] argumentField;
+        gles_texcombiner_argumentRGB_type[] argumentField;
 
-        private gles_texcombiner_operatorRGB_enums operatorField;
+        gles_texcombiner_operatorRGB_enums operatorField;
 
-        private bool operatorFieldSpecified;
+        bool operatorFieldSpecified;
 
-        private float scaleField;
+        float scaleField;
 
-        private bool scaleFieldSpecified;
+        bool scaleFieldSpecified;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("argument")]
@@ -6653,13 +6653,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class gles_texcombiner_argumentRGB_type
     {
 
-        private gles_texcombiner_source_enums sourceField;
+        gles_texcombiner_source_enums sourceField;
 
-        private bool sourceFieldSpecified;
+        bool sourceFieldSpecified;
 
-        private gles_texcombiner_operandRGB_enums operandField;
+        gles_texcombiner_operandRGB_enums operandField;
 
-        private string unitField;
+        string unitField;
 
         public gles_texcombiner_argumentRGB_type()
         {
@@ -6805,15 +6805,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class gles_texcombiner_commandAlpha_type
     {
 
-        private gles_texcombiner_argumentAlpha_type[] argumentField;
+        gles_texcombiner_argumentAlpha_type[] argumentField;
 
-        private gles_texcombiner_operatorAlpha_enums operatorField;
+        gles_texcombiner_operatorAlpha_enums operatorField;
 
-        private bool operatorFieldSpecified;
+        bool operatorFieldSpecified;
 
-        private float scaleField;
+        float scaleField;
 
-        private bool scaleFieldSpecified;
+        bool scaleFieldSpecified;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("argument")]
@@ -6895,13 +6895,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class gles_texcombiner_argumentAlpha_type
     {
 
-        private gles_texcombiner_source_enums sourceField;
+        gles_texcombiner_source_enums sourceField;
 
-        private bool sourceFieldSpecified;
+        bool sourceFieldSpecified;
 
-        private gles_texcombiner_operandAlpha_enums operandField;
+        gles_texcombiner_operandAlpha_enums operandField;
 
-        private string unitField;
+        string unitField;
 
         public gles_texcombiner_argumentAlpha_type()
         {
@@ -7015,13 +7015,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class gles_texenv_command_type
     {
 
-        private gles_texture_constant_type constantField;
+        gles_texture_constant_type constantField;
 
-        private gles_texenv_mode_enums operatorField;
+        gles_texenv_mode_enums operatorField;
 
-        private bool operatorFieldSpecified;
+        bool operatorFieldSpecified;
 
-        private string unitField;
+        string unitField;
 
         /// <remarks/>
         public gles_texture_constant_type constant
@@ -7111,23 +7111,23 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class gles_sampler_state
     {
 
-        private gles_sampler_wrap wrap_sField;
+        gles_sampler_wrap wrap_sField;
 
-        private gles_sampler_wrap wrap_tField;
+        gles_sampler_wrap wrap_tField;
 
-        private fx_sampler_filter_common minfilterField;
+        fx_sampler_filter_common minfilterField;
 
-        private fx_sampler_filter_common magfilterField;
+        fx_sampler_filter_common magfilterField;
 
-        private fx_sampler_filter_common mipfilterField;
+        fx_sampler_filter_common mipfilterField;
 
-        private byte mipmap_maxlevelField;
+        byte mipmap_maxlevelField;
 
-        private float mipmap_biasField;
+        float mipmap_biasField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string sidField;
+        string sidField;
 
         public gles_sampler_state()
         {
@@ -7296,15 +7296,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class gles_texture_unit
     {
 
-        private string surfaceField;
+        string surfaceField;
 
-        private string sampler_stateField;
+        string sampler_stateField;
 
-        private gles_texture_unitTexcoord texcoordField;
+        gles_texture_unitTexcoord texcoordField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(DataType = "NCName")]
@@ -7385,7 +7385,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class gles_texture_unitTexcoord
     {
 
-        private string semanticField;
+        string semanticField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -7411,19 +7411,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cg_newparam
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private string semanticField;
+        string semanticField;
 
-        private fx_modifier_enum_common modifierField;
+        fx_modifier_enum_common modifierField;
 
-        private bool modifierFieldSpecified;
+        bool modifierFieldSpecified;
 
-        private object itemField;
+        object itemField;
 
-        private ItemChoiceType4 itemElementNameField;
+        ItemChoiceType4 itemElementNameField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -7648,11 +7648,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cg_newarray_type
     {
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private ItemsChoiceType6[] itemsElementNameField;
+        ItemsChoiceType6[] itemsElementNameField;
 
-        private string lengthField;
+        string lengthField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("array", typeof(cg_newarray_type))]
@@ -7824,7 +7824,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cg_connect_param
     {
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "token")]
@@ -7850,13 +7850,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cg_setuser_type
     {
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private ItemsChoiceType5[] itemsElementNameField;
+        ItemsChoiceType5[] itemsElementNameField;
 
-        private string nameField;
+        string nameField;
 
-        private string sourceField;
+        string sourceField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("array", typeof(cg_setarray_type))]
@@ -8043,11 +8043,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cg_setarray_type
     {
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private ItemsChoiceType4[] itemsElementNameField;
+        ItemsChoiceType4[] itemsElementNameField;
 
-        private string lengthField;
+        string lengthField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("array", typeof(cg_setarray_type))]
@@ -8574,13 +8574,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cg_setparam
     {
 
-        private object itemField;
+        object itemField;
 
-        private ItemChoiceType3 itemElementNameField;
+        ItemChoiceType3 itemElementNameField;
 
-        private string refField;
+        string refField;
 
-        private string programField;
+        string programField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("array", typeof(cg_setarray_type))]
@@ -10201,13 +10201,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class common_newparam_type
     {
 
-        private string semanticField;
+        string semanticField;
 
-        private object itemField;
+        object itemField;
 
-        private ItemChoiceType2 itemElementNameField;
+        ItemChoiceType2 itemElementNameField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(DataType = "NCName")]
@@ -10308,7 +10308,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class common_color_or_texture_type
     {
 
-        private object itemField;
+        object itemField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("color", typeof(common_color_or_texture_typeColor))]
@@ -10336,9 +10336,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class common_color_or_texture_typeColor
     {
 
-        private string sidField;
+        string sidField;
 
-        private double[] textField;
+        double[] textField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -10384,7 +10384,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class common_color_or_texture_typeParam
     {
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -10410,11 +10410,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class common_color_or_texture_typeTexture
     {
 
-        private extra extraField;
+        extra extraField;
 
-        private string textureField;
+        string textureField;
 
-        private string texcoordField;
+        string texcoordField;
 
         /// <remarks/>
         public extra extra
@@ -10467,7 +10467,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class common_transparent_type : common_color_or_texture_type
     {
 
-        private fx_opaque_enum opaqueField;
+        fx_opaque_enum opaqueField;
 
         public common_transparent_type()
         {
@@ -10513,7 +10513,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class common_float_or_param_type
     {
 
-        private object itemField;
+        object itemField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("float", typeof(common_float_or_param_typeFloat))]
@@ -10540,9 +10540,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class common_float_or_param_typeFloat
     {
 
-        private string sidField;
+        string sidField;
 
-        private double valueField;
+        double valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -10582,7 +10582,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class common_float_or_param_typeParam
     {
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -10608,15 +10608,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class glsl_setparam
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private object itemField;
+        object itemField;
 
-        private ItemChoiceType1 itemElementNameField;
+        ItemChoiceType1 itemElementNameField;
 
-        private string refField;
+        string refField;
 
-        private string programField;
+        string programField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -10722,11 +10722,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class glsl_setarray_type
     {
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private ItemsChoiceType3[] itemsElementNameField;
+        ItemsChoiceType3[] itemsElementNameField;
 
-        private string lengthField;
+        string lengthField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("array", typeof(glsl_setarray_type))]
@@ -10965,19 +10965,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class glsl_newparam
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private string semanticField;
+        string semanticField;
 
-        private fx_modifier_enum_common modifierField;
+        fx_modifier_enum_common modifierField;
 
-        private bool modifierFieldSpecified;
+        bool modifierFieldSpecified;
 
-        private object itemField;
+        object itemField;
 
-        private ItemChoiceType itemElementNameField;
+        ItemChoiceType itemElementNameField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -11110,11 +11110,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class glsl_newarray_type
     {
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private ItemsChoiceType2[] itemsElementNameField;
+        ItemsChoiceType2[] itemsElementNameField;
 
-        private string lengthField;
+        string lengthField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("array", typeof(glsl_newarray_type))]
@@ -11353,9 +11353,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class InputGlobal
     {
 
-        private string semanticField;
+        string semanticField;
 
-        private string sourceField;
+        string sourceField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
@@ -11395,87 +11395,87 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class fx_newparam_common
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private string semanticField;
+        string semanticField;
 
-        private fx_modifier_enum_common modifierField;
+        fx_modifier_enum_common modifierField;
 
-        private bool modifierFieldSpecified;
+        bool modifierFieldSpecified;
 
-        private bool boolField;
+        bool boolField;
 
-        private string bool2Field;
+        string bool2Field;
 
-        private string bool3Field;
+        string bool3Field;
 
-        private string bool4Field;
+        string bool4Field;
 
-        private long intField;
+        long intField;
 
-        private string int2Field;
+        string int2Field;
 
-        private string int3Field;
+        string int3Field;
 
-        private string int4Field;
+        string int4Field;
 
-        private double floatField;
+        double floatField;
 
-        private string float2Field;
+        string float2Field;
 
-        private string float3Field;
+        string float3Field;
 
-        private string float4Field;
+        string float4Field;
 
-        private double float1x1Field;
+        double float1x1Field;
 
-        private string float1x2Field;
+        string float1x2Field;
 
-        private string float1x3Field;
+        string float1x3Field;
 
-        private string float1x4Field;
+        string float1x4Field;
 
-        private string float2x1Field;
+        string float2x1Field;
 
-        private string float2x2Field;
+        string float2x2Field;
 
-        private string float2x3Field;
+        string float2x3Field;
 
-        private string float2x4Field;
+        string float2x4Field;
 
-        private string float3x1Field;
+        string float3x1Field;
 
-        private string float3x2Field;
+        string float3x2Field;
 
-        private string float3x3Field;
+        string float3x3Field;
 
-        private string float3x4Field;
+        string float3x4Field;
 
-        private string float4x1Field;
+        string float4x1Field;
 
-        private string float4x2Field;
+        string float4x2Field;
 
-        private string float4x3Field;
+        string float4x3Field;
 
-        private string float4x4Field;
+        string float4x4Field;
 
-        private fx_surface_common surfaceField;
+        fx_surface_common surfaceField;
 
-        private fx_sampler1D_common sampler1DField;
+        fx_sampler1D_common sampler1DField;
 
-        private fx_sampler2D_common sampler2DField;
+        fx_sampler2D_common sampler2DField;
 
-        private fx_sampler3D_common sampler3DField;
+        fx_sampler3D_common sampler3DField;
 
-        private fx_samplerCUBE_common samplerCUBEField;
+        fx_samplerCUBE_common samplerCUBEField;
 
-        private fx_samplerRECT_common samplerRECTField;
+        fx_samplerRECT_common samplerRECTField;
 
-        private fx_samplerDEPTH_common samplerDEPTHField;
+        fx_samplerDEPTH_common samplerDEPTHField;
 
-        private string enumField;
+        string enumField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -12024,15 +12024,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class InputLocalOffset
     {
 
-        private ulong offsetField;
+        ulong offsetField;
 
-        private string semanticField;
+        string semanticField;
 
-        private string sourceField;
+        string sourceField;
 
-        private ulong setField;
+        ulong setField;
 
-        private bool setFieldSpecified;
+        bool setFieldSpecified;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -12114,9 +12114,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class TargetableFloat
     {
 
-        private string sidField;
+        string sidField;
 
-        private double valueField;
+        double valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -12156,9 +12156,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class InputLocal
     {
 
-        private string semanticField;
+        string semanticField;
 
-        private string sourceField;
+        string sourceField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
@@ -12199,19 +12199,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_material
     {
 
-        private instance_materialBind[] bindField;
+        instance_materialBind[] bindField;
 
-        private instance_materialBind_vertex_input[] bind_vertex_inputField;
+        instance_materialBind_vertex_input[] bind_vertex_inputField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string symbolField;
+        string symbolField;
 
-        private string targetField;
+        string targetField;
 
-        private string sidField;
+        string sidField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("bind")]
@@ -12321,9 +12321,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_materialBind
     {
 
-        private string semanticField;
+        string semanticField;
 
-        private string targetField;
+        string targetField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -12363,13 +12363,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_materialBind_vertex_input
     {
 
-        private string semanticField;
+        string semanticField;
 
-        private string input_semanticField;
+        string input_semanticField;
 
-        private ulong input_setField;
+        ulong input_setField;
 
-        private bool input_setFieldSpecified;
+        bool input_setFieldSpecified;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -12437,9 +12437,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class assetUnit
     {
 
-        private double meterField;
+        double meterField;
 
-        private string nameField;
+        string nameField;
 
         public assetUnit()
         {
@@ -12505,15 +12505,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_animation_clips
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private animation_clip[] animation_clipField;
+        animation_clip[] animation_clipField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -12595,21 +12595,21 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class animation_clip
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private InstanceWithExtra[] instance_animationField;
+        InstanceWithExtra[] instance_animationField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
-        private double startField;
+        double startField;
 
-        private double endField;
+        double endField;
 
-        private bool endFieldSpecified;
+        bool endFieldSpecified;
 
         public animation_clip()
         {
@@ -12739,13 +12739,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class InstanceWithExtra
     {
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string urlField;
+        string urlField;
 
-        private string sidField;
+        string sidField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("extra")]
@@ -12814,15 +12814,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_animations
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private animation[] animationField;
+        animation[] animationField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -12904,15 +12904,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class animation
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -12997,9 +12997,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class channel
     {
 
-        private string sourceField;
+        string sourceField;
 
-        private string targetField;
+        string targetField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -13040,9 +13040,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class sampler
     {
 
-        private InputLocal[] inputField;
+        InputLocal[] inputField;
 
-        private string idField;
+        string idField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("input")]
@@ -13083,17 +13083,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class source
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private object itemField;
+        object itemField;
 
-        private sourceTechnique_common technique_commonField;
+        sourceTechnique_common technique_commonField;
 
-        private technique[] techniqueField;
+        technique[] techniqueField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -13192,13 +13192,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class IDREF_array
     {
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
-        private ulong countField;
+        ulong countField;
 
-        private string valueField;
+        string valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "ID")]
@@ -13267,13 +13267,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class Name_array
     {
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
-        private ulong countField;
+        ulong countField;
 
-        private string[] textField;
+        string[] textField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "ID")]
@@ -13349,13 +13349,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class bool_array
     {
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
-        private ulong countField;
+        ulong countField;
 
-        private bool[] textField;
+        bool[] textField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "ID")]
@@ -13431,17 +13431,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class float_array
     {
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
-        private ulong countField;
+        ulong countField;
 
-        private short digitsField;
+        short digitsField;
 
-        private short magnitudeField;
+        short magnitudeField;
 
-        private double[] textField;
+        double[] textField;
 
         public float_array()
         {
@@ -13552,17 +13552,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class int_array
     {
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
-        private ulong countField;
+        ulong countField;
 
-        private string minInclusiveField;
+        string minInclusiveField;
 
-        private string maxInclusiveField;
+        string maxInclusiveField;
 
-        private long[] textField;
+        long[] textField;
 
         public int_array()
         {
@@ -13673,7 +13673,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class sourceTechnique_common
     {
 
-        private accessor accessorField;
+        accessor accessorField;
 
         /// <remarks/>
         public accessor accessor
@@ -13699,15 +13699,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class accessor
     {
 
-        private param[] paramField;
+        param[] paramField;
 
-        private ulong countField;
+        ulong countField;
 
-        private ulong offsetField;
+        ulong offsetField;
 
-        private string sourceField;
+        string sourceField;
 
-        private ulong strideField;
+        ulong strideField;
 
         public accessor()
         {
@@ -13798,15 +13798,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class param
     {
 
-        private string nameField;
+        string nameField;
 
-        private string sidField;
+        string sidField;
 
-        private string semanticField;
+        string semanticField;
 
-        private string typeField;
+        string typeField;
 
-        private string valueField;
+        string valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -13889,15 +13889,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_cameras
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private camera[] cameraField;
+        camera[] cameraField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -13979,17 +13979,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class camera
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private cameraOptics opticsField;
+        cameraOptics opticsField;
 
-        private cameraImager imagerField;
+        cameraImager imagerField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -14082,11 +14082,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cameraOptics
     {
 
-        private cameraOpticsTechnique_common technique_commonField;
+        cameraOpticsTechnique_common technique_commonField;
 
-        private technique[] techniqueField;
+        technique[] techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         public cameraOpticsTechnique_common technique_common
@@ -14139,7 +14139,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cameraOpticsTechnique_common
     {
 
-        private object itemField;
+        object itemField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("orthographic", typeof(cameraOpticsTechnique_commonOrthographic))]
@@ -14166,13 +14166,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cameraOpticsTechnique_commonOrthographic
     {
 
-        private TargetableFloat[] itemsField;
+        TargetableFloat[] itemsField;
 
-        private ItemsChoiceType[] itemsElementNameField;
+        ItemsChoiceType[] itemsElementNameField;
 
-        private TargetableFloat znearField;
+        TargetableFloat znearField;
 
-        private TargetableFloat zfarField;
+        TargetableFloat zfarField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("aspect_ratio", typeof(TargetableFloat))]
@@ -14259,13 +14259,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cameraOpticsTechnique_commonPerspective
     {
 
-        private TargetableFloat[] itemsField;
+        TargetableFloat[] itemsField;
 
-        private ItemsChoiceType1[] itemsElementNameField;
+        ItemsChoiceType1[] itemsElementNameField;
 
-        private TargetableFloat znearField;
+        TargetableFloat znearField;
 
-        private TargetableFloat zfarField;
+        TargetableFloat zfarField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("aspect_ratio", typeof(TargetableFloat))]
@@ -14352,9 +14352,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cameraImager
     {
 
-        private technique[] techniqueField;
+        technique[] techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("technique")]
@@ -14395,15 +14395,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_controllers
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private controller[] controllerField;
+        controller[] controllerField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -14485,15 +14485,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class controller
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private object itemField;
+        object itemField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -14576,15 +14576,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class morph
     {
 
-        private source[] sourceField;
+        source[] sourceField;
 
-        private morphTargets targetsField;
+        morphTargets targetsField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private MorphMethodType methodField;
+        MorphMethodType methodField;
 
-        private string source1Field;
+        string source1Field;
 
         public morph()
         {
@@ -14671,9 +14671,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class morphTargets
     {
 
-        private InputLocal[] inputField;
+        InputLocal[] inputField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("input")]
@@ -14728,17 +14728,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class skin
     {
 
-        private string bind_shape_matrixField;
+        string bind_shape_matrixField;
 
-        private source[] sourceField;
+        source[] sourceField;
 
-        private skinJoints jointsField;
+        skinJoints jointsField;
 
-        private skinVertex_weights vertex_weightsField;
+        skinVertex_weights vertex_weightsField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string source1Field;
+        string source1Field;
 
         /// <remarks/>
         public string bind_shape_matrix
@@ -14831,9 +14831,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class skinJoints
     {
 
-        private InputLocal[] inputField;
+        InputLocal[] inputField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("input")]
@@ -14873,15 +14873,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class skinVertex_weights
     {
 
-        private InputLocalOffset[] inputField;
+        InputLocalOffset[] inputField;
 
-        private string vcountField;
+        string vcountField;
 
-        private string vField;
+        string vField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private ulong countField;
+        ulong countField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("input")]
@@ -14962,15 +14962,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_effects
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private effect[] effectField;
+        effect[] effectField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -15052,21 +15052,21 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effect
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private image[] imageField;
+        image[] imageField;
 
-        private fx_newparam_common[] newparamField;
+        fx_newparam_common[] newparamField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -15193,27 +15193,27 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class image
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private object itemField;
+        object itemField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
-        private string formatField;
+        string formatField;
 
-        private ulong heightField;
+        ulong heightField;
 
-        private bool heightFieldSpecified;
+        bool heightFieldSpecified;
 
-        private ulong widthField;
+        ulong widthField;
 
-        private bool widthFieldSpecified;
+        bool widthFieldSpecified;
 
-        private ulong depthField;
+        ulong depthField;
 
         public image()
         {
@@ -15386,19 +15386,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_CG
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private object[] items1Field;
+        object[] items1Field;
 
-        private effectFx_profile_abstractProfile_CGTechnique[] techniqueField;
+        effectFx_profile_abstractProfile_CGTechnique[] techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string platformField;
+        string platformField;
 
         public effectFx_profile_abstractProfile_CG()
         {
@@ -15515,21 +15515,21 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_CGTechnique
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private object[] items1Field;
+        object[] items1Field;
 
-        private effectFx_profile_abstractProfile_CGTechniquePass[] passField;
+        effectFx_profile_abstractProfile_CGTechniquePass[] passField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         public asset asset
@@ -15655,27 +15655,27 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_CGTechniquePass
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private fx_colortarget_common[] color_targetField;
+        fx_colortarget_common[] color_targetField;
 
-        private fx_depthtarget_common[] depth_targetField;
+        fx_depthtarget_common[] depth_targetField;
 
-        private fx_stenciltarget_common[] stencil_targetField;
+        fx_stenciltarget_common[] stencil_targetField;
 
-        private fx_clearcolor_common[] color_clearField;
+        fx_clearcolor_common[] color_clearField;
 
-        private fx_cleardepth_common[] depth_clearField;
+        fx_cleardepth_common[] depth_clearField;
 
-        private fx_clearstencil_common[] stencil_clearField;
+        fx_clearstencil_common[] stencil_clearField;
 
-        private string drawField;
+        string drawField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -15949,9 +15949,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassAlpha_func
     {
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassAlpha_funcFunc funcField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassAlpha_funcFunc funcField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassAlpha_funcValue valueField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassAlpha_funcValue valueField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLSLTechniquePassAlpha_funcFunc func
@@ -15989,9 +15989,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassAlpha_funcFunc
     {
 
-        private gl_func_type valueField;
+        gl_func_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassAlpha_funcFunc()
         {
@@ -16069,9 +16069,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassAlpha_funcValue
     {
 
-        private float valueField;
+        float valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassAlpha_funcValue()
         {
@@ -16117,9 +16117,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassAlpha_test_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassAlpha_test_enable()
         {
@@ -16165,9 +16165,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassAuto_normal_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassAuto_normal_enable()
         {
@@ -16213,9 +16213,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_color
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_color()
         {
@@ -16265,9 +16265,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_enable()
         {
@@ -16313,9 +16313,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_equation
     {
 
-        private gl_blend_equation_type valueField;
+        gl_blend_equation_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_equation()
         {
@@ -16384,9 +16384,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_equation_separate
     {
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassBlend_equation_separateRgb rgbField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassBlend_equation_separateRgb rgbField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassBlend_equation_separateAlpha alphaField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassBlend_equation_separateAlpha alphaField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_equation_separateRgb rgb
@@ -16424,9 +16424,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_equation_separateRgb
     {
 
-        private gl_blend_equation_type valueField;
+        gl_blend_equation_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_equation_separateRgb()
         {
@@ -16472,9 +16472,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_equation_separateAlpha
     {
 
-        private gl_blend_equation_type valueField;
+        gl_blend_equation_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_equation_separateAlpha()
         {
@@ -16520,9 +16520,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func
     {
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassBlend_funcSrc srcField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassBlend_funcSrc srcField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassBlend_funcDest destField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassBlend_funcDest destField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_funcSrc src
@@ -16560,9 +16560,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_funcSrc
     {
 
-        private gl_blend_type valueField;
+        gl_blend_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_funcSrc()
         {
@@ -16661,9 +16661,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_funcDest
     {
 
-        private gl_blend_type valueField;
+        gl_blend_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_funcDest()
         {
@@ -16709,13 +16709,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separate
     {
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateSrc_rgb src_rgbField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateSrc_rgb src_rgbField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateDest_rgb dest_rgbField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateDest_rgb dest_rgbField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateSrc_alpha src_alphaField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateSrc_alpha src_alphaField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateDest_alpha dest_alphaField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateDest_alpha dest_alphaField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateSrc_rgb src_rgb
@@ -16779,9 +16779,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateSrc_rgb
     {
 
-        private gl_blend_type valueField;
+        gl_blend_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateSrc_rgb()
         {
@@ -16827,9 +16827,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateDest_rgb
     {
 
-        private gl_blend_type valueField;
+        gl_blend_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateDest_rgb()
         {
@@ -16875,9 +16875,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateSrc_alpha
     {
 
-        private gl_blend_type valueField;
+        gl_blend_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateSrc_alpha()
         {
@@ -16923,9 +16923,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateDest_alpha
     {
 
-        private gl_blend_type valueField;
+        gl_blend_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassBlend_func_separateDest_alpha()
         {
@@ -16971,9 +16971,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassClear_color
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassClear_color()
         {
@@ -17023,9 +17023,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassClear_depth
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassClear_depth()
         {
@@ -17071,9 +17071,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassClear_stencil
     {
 
-        private long valueField;
+        long valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassClear_stencil()
         {
@@ -17119,11 +17119,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassClip_plane
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassClip_plane()
         {
@@ -17187,11 +17187,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassClip_plane_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassClip_plane_enable()
         {
@@ -17251,9 +17251,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassColor_logic_op_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassColor_logic_op_enable()
         {
@@ -17299,9 +17299,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassColor_mask
     {
 
-        private bool[] valueField;
+        bool[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassColor_mask()
         {
@@ -17351,9 +17351,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassColor_material
     {
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassColor_materialFace faceField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassColor_materialFace faceField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassColor_materialMode modeField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassColor_materialMode modeField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLSLTechniquePassColor_materialFace face
@@ -17391,9 +17391,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassColor_materialFace
     {
 
-        private gl_face_type valueField;
+        gl_face_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassColor_materialFace()
         {
@@ -17456,9 +17456,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassColor_materialMode
     {
 
-        private gl_material_type valueField;
+        gl_material_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassColor_materialMode()
         {
@@ -17527,9 +17527,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassColor_material_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassColor_material_enable()
         {
@@ -17575,9 +17575,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassCull_face
     {
 
-        private gl_face_type valueField;
+        gl_face_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassCull_face()
         {
@@ -17623,9 +17623,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassCull_face_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassCull_face_enable()
         {
@@ -17671,9 +17671,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassDepth_bounds
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -17713,9 +17713,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassDepth_bounds_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassDepth_bounds_enable()
         {
@@ -17761,9 +17761,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassDepth_clamp_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassDepth_clamp_enable()
         {
@@ -17809,9 +17809,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassDepth_func
     {
 
-        private gl_func_type valueField;
+        gl_func_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassDepth_func()
         {
@@ -17857,9 +17857,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassDepth_mask
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassDepth_mask()
         {
@@ -17905,9 +17905,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassDepth_range
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassDepth_range()
         {
@@ -17955,9 +17955,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassDepth_test_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassDepth_test_enable()
         {
@@ -18003,9 +18003,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassDither_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassDither_enable()
         {
@@ -18051,9 +18051,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassFog_color
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassFog_color()
         {
@@ -18103,9 +18103,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassFog_coord_src
     {
 
-        private gl_fog_coord_src_type valueField;
+        gl_fog_coord_src_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassFog_coord_src()
         {
@@ -18165,9 +18165,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassFog_density
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassFog_density()
         {
@@ -18213,9 +18213,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassFog_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassFog_enable()
         {
@@ -18261,9 +18261,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassFog_end
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassFog_end()
         {
@@ -18309,9 +18309,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassFog_mode
     {
 
-        private gl_fog_type valueField;
+        gl_fog_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassFog_mode()
         {
@@ -18374,9 +18374,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassFog_start
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassFog_start()
         {
@@ -18422,9 +18422,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassFront_face
     {
 
-        private gl_front_face_type valueField;
+        gl_front_face_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassFront_face()
         {
@@ -18484,11 +18484,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_ambient
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_ambient()
         {
@@ -18552,11 +18552,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_constant_attenuation
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_constant_attenuation()
         {
@@ -18616,11 +18616,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_diffuse
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_diffuse()
         {
@@ -18684,11 +18684,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_enable()
         {
@@ -18748,11 +18748,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_linear_attenuation
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_linear_attenuation()
         {
@@ -18812,9 +18812,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_model_ambient
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_model_ambient()
         {
@@ -18864,9 +18864,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_model_color_control
     {
 
-        private gl_light_model_color_control_type valueField;
+        gl_light_model_color_control_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_model_color_control()
         {
@@ -18926,9 +18926,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_model_local_viewer_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_model_local_viewer_enable()
         {
@@ -18974,9 +18974,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_model_two_side_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_model_two_side_enable()
         {
@@ -19022,11 +19022,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_position
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_position()
         {
@@ -19090,11 +19090,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_quadratic_attenuation
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_quadratic_attenuation()
         {
@@ -19154,11 +19154,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_specular
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_specular()
         {
@@ -19222,11 +19222,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_spot_cutoff
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_spot_cutoff()
         {
@@ -19286,11 +19286,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_spot_direction
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_spot_direction()
         {
@@ -19353,11 +19353,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLight_spot_exponent
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLight_spot_exponent()
         {
@@ -19417,9 +19417,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLighting_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLighting_enable()
         {
@@ -19465,9 +19465,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLine_smooth_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLine_smooth_enable()
         {
@@ -19513,9 +19513,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLine_stipple
     {
 
-        private long[] valueField;
+        long[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLine_stipple()
         {
@@ -19563,9 +19563,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLine_stipple_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLine_stipple_enable()
         {
@@ -19611,9 +19611,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLine_width
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLine_width()
         {
@@ -19659,9 +19659,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLogic_op
     {
 
-        private gl_logic_op_type valueField;
+        gl_logic_op_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLogic_op()
         {
@@ -19760,9 +19760,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassLogic_op_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassLogic_op_enable()
         {
@@ -19808,9 +19808,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassMaterial_ambient
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassMaterial_ambient()
         {
@@ -19860,9 +19860,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassMaterial_diffuse
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassMaterial_diffuse()
         {
@@ -19912,9 +19912,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassMaterial_emission
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassMaterial_emission()
         {
@@ -19964,9 +19964,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassMaterial_shininess
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassMaterial_shininess()
         {
@@ -20012,9 +20012,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassMaterial_specular
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassMaterial_specular()
         {
@@ -20064,9 +20064,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassModel_view_matrix
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassModel_view_matrix()
         {
@@ -20128,9 +20128,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassMultisample_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassMultisample_enable()
         {
@@ -20176,9 +20176,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassNormalize_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassNormalize_enable()
         {
@@ -20224,9 +20224,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPoint_distance_attenuation
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPoint_distance_attenuation()
         {
@@ -20275,9 +20275,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPoint_fade_threshold_size
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPoint_fade_threshold_size()
         {
@@ -20323,9 +20323,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPoint_size
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPoint_size()
         {
@@ -20371,9 +20371,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPoint_size_max
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPoint_size_max()
         {
@@ -20419,9 +20419,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPoint_size_min
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPoint_size_min()
         {
@@ -20467,9 +20467,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPoint_smooth_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPoint_smooth_enable()
         {
@@ -20515,9 +20515,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_mode
     {
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_modeFace faceField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_modeFace faceField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_modeMode modeField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_modeMode modeField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_modeFace face
@@ -20555,9 +20555,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_modeFace
     {
 
-        private gl_face_type valueField;
+        gl_face_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_modeFace()
         {
@@ -20603,9 +20603,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_modeMode
     {
 
-        private gl_polygon_mode_type valueField;
+        gl_polygon_mode_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_modeMode()
         {
@@ -20668,9 +20668,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_offset
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_offset()
         {
@@ -20718,9 +20718,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_offset_fill_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_offset_fill_enable()
         {
@@ -20766,9 +20766,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_offset_line_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_offset_line_enable()
         {
@@ -20814,9 +20814,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_offset_point_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_offset_point_enable()
         {
@@ -20862,9 +20862,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_smooth_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_smooth_enable()
         {
@@ -20910,9 +20910,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_stipple_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassPolygon_stipple_enable()
         {
@@ -20958,9 +20958,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassProjection_matrix
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassProjection_matrix()
         {
@@ -21022,9 +21022,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassRescale_normal_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassRescale_normal_enable()
         {
@@ -21070,9 +21070,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassSample_alpha_to_coverage_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassSample_alpha_to_coverage_enable()
         {
@@ -21118,9 +21118,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassSample_alpha_to_one_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassSample_alpha_to_one_enable()
         {
@@ -21166,9 +21166,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassSample_coverage_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassSample_coverage_enable()
         {
@@ -21214,9 +21214,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassScissor
     {
 
-        private long[] valueField;
+        long[] valueField;
 
-        private string paramField;
+        string paramField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -21256,9 +21256,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassScissor_test_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassScissor_test_enable()
         {
@@ -21304,9 +21304,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassShade_model
     {
 
-        private gl_shade_model_type valueField;
+        gl_shade_model_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassShade_model()
         {
@@ -21366,19 +21366,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_CGTechniquePassShader
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private effectFx_profile_abstractProfile_CGTechniquePassShaderCompiler_target compiler_targetField;
+        effectFx_profile_abstractProfile_CGTechniquePassShaderCompiler_target compiler_targetField;
 
-        private string compiler_optionsField;
+        string compiler_optionsField;
 
-        private effectFx_profile_abstractProfile_CGTechniquePassShaderName nameField;
+        effectFx_profile_abstractProfile_CGTechniquePassShaderName nameField;
 
-        private effectFx_profile_abstractProfile_CGTechniquePassShaderBind[] bindField;
+        effectFx_profile_abstractProfile_CGTechniquePassShaderBind[] bindField;
 
-        private cg_pipeline_stage stageField;
+        cg_pipeline_stage stageField;
 
-        private bool stageFieldSpecified;
+        bool stageFieldSpecified;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -21485,7 +21485,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_CGTechniquePassShaderCompiler_target
     {
 
-        private string valueField;
+        string valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute(DataType = "NMTOKEN")]
@@ -21511,9 +21511,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_CGTechniquePassShaderName
     {
 
-        private string sourceField;
+        string sourceField;
 
-        private string valueField;
+        string valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -21553,11 +21553,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_CGTechniquePassShaderBind
     {
 
-        private object itemField;
+        object itemField;
 
-        private ItemChoiceType6 itemElementNameField;
+        ItemChoiceType6 itemElementNameField;
 
-        private string symbolField;
+        string symbolField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("bool", typeof(bool))]
@@ -21726,7 +21726,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_CGTechniquePassShaderBindParam
     {
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -22119,11 +22119,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func
     {
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_funcFunc funcField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_funcFunc funcField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_funcRef refField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_funcRef refField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_funcMask maskField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_funcMask maskField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_funcFunc func
@@ -22174,9 +22174,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_funcFunc
     {
 
-        private gl_func_type valueField;
+        gl_func_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_funcFunc()
         {
@@ -22222,9 +22222,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_funcRef
     {
 
-        private byte valueField;
+        byte valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_funcRef()
         {
@@ -22270,9 +22270,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_funcMask
     {
 
-        private byte valueField;
+        byte valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_funcMask()
         {
@@ -22318,13 +22318,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separate
     {
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateFront frontField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateFront frontField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateBack backField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateBack backField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateRef refField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateRef refField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateMask maskField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateMask maskField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateFront front
@@ -22388,9 +22388,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateFront
     {
 
-        private gl_func_type valueField;
+        gl_func_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateFront()
         {
@@ -22436,9 +22436,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateBack
     {
 
-        private gl_func_type valueField;
+        gl_func_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateBack()
         {
@@ -22484,9 +22484,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateRef
     {
 
-        private byte valueField;
+        byte valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateRef()
         {
@@ -22532,9 +22532,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateMask
     {
 
-        private byte valueField;
+        byte valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_func_separateMask()
         {
@@ -22580,9 +22580,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_mask
     {
 
-        private long valueField;
+        long valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_mask()
         {
@@ -22628,9 +22628,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_mask_separate
     {
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_mask_separateFace faceField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_mask_separateFace faceField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_mask_separateMask maskField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_mask_separateMask maskField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_mask_separateFace face
@@ -22668,9 +22668,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_mask_separateFace
     {
 
-        private gl_face_type valueField;
+        gl_face_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_mask_separateFace()
         {
@@ -22716,9 +22716,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_mask_separateMask
     {
 
-        private byte valueField;
+        byte valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_mask_separateMask()
         {
@@ -22764,11 +22764,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op
     {
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_opFail failField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_opFail failField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_opZfail zfailField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_opZfail zfailField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_opZpass zpassField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_opZpass zpassField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_opFail fail
@@ -22819,9 +22819,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_opFail
     {
 
-        private gl_stencil_op_type valueField;
+        gl_stencil_op_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_opFail()
         {
@@ -22899,9 +22899,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_opZfail
     {
 
-        private gl_stencil_op_type valueField;
+        gl_stencil_op_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_opZfail()
         {
@@ -22947,9 +22947,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_opZpass
     {
 
-        private gl_stencil_op_type valueField;
+        gl_stencil_op_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_opZpass()
         {
@@ -22995,13 +22995,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separate
     {
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateFace faceField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateFace faceField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateFail failField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateFail failField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateZfail zfailField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateZfail zfailField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateZpass zpassField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateZpass zpassField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateFace face
@@ -23065,9 +23065,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateFace
     {
 
-        private gl_face_type valueField;
+        gl_face_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateFace()
         {
@@ -23113,9 +23113,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateFail
     {
 
-        private gl_stencil_op_type valueField;
+        gl_stencil_op_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateFail()
         {
@@ -23161,9 +23161,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateZfail
     {
 
-        private gl_stencil_op_type valueField;
+        gl_stencil_op_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateZfail()
         {
@@ -23209,9 +23209,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateZpass
     {
 
-        private gl_stencil_op_type valueField;
+        gl_stencil_op_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_op_separateZpass()
         {
@@ -23257,9 +23257,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassStencil_test_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassStencil_test_enable()
         {
@@ -23305,9 +23305,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTexture1D
     {
 
-        private object itemField;
+        object itemField;
 
-        private string indexField;
+        string indexField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("param", typeof(string), DataType = "NCName")]
@@ -23348,11 +23348,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTexture1D_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassTexture1D_enable()
         {
@@ -23412,9 +23412,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTexture2D
     {
 
-        private object itemField;
+        object itemField;
 
-        private string indexField;
+        string indexField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("param", typeof(string), DataType = "NCName")]
@@ -23455,11 +23455,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTexture2D_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassTexture2D_enable()
         {
@@ -23519,9 +23519,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTexture3D
     {
 
-        private object itemField;
+        object itemField;
 
-        private string indexField;
+        string indexField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("param", typeof(string), DataType = "NCName")]
@@ -23562,11 +23562,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTexture3D_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassTexture3D_enable()
         {
@@ -23626,9 +23626,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTextureCUBE
     {
 
-        private object itemField;
+        object itemField;
 
-        private string indexField;
+        string indexField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("param", typeof(string), DataType = "NCName")]
@@ -23669,11 +23669,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTextureCUBE_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassTextureCUBE_enable()
         {
@@ -23733,9 +23733,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTextureDEPTH
     {
 
-        private object itemField;
+        object itemField;
 
-        private string indexField;
+        string indexField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("param", typeof(string), DataType = "NCName")]
@@ -23776,11 +23776,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTextureDEPTH_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassTextureDEPTH_enable()
         {
@@ -23840,9 +23840,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTextureRECT
     {
 
-        private object itemField;
+        object itemField;
 
-        private string indexField;
+        string indexField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("param", typeof(string), DataType = "NCName")]
@@ -23883,11 +23883,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTextureRECT_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLSLTechniquePassTextureRECT_enable()
         {
@@ -23947,11 +23947,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTexture_env_color
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -24005,11 +24005,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassTexture_env_mode
     {
 
-        private string valueField;
+        string valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -24064,15 +24064,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_COMMON
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private effectFx_profile_abstractProfile_COMMONTechnique techniqueField;
+        effectFx_profile_abstractProfile_COMMONTechnique techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
         /// <remarks/>
         public asset asset
@@ -24153,17 +24153,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_COMMONTechnique
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private object itemField;
+        object itemField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         public asset asset
@@ -24262,25 +24262,25 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_COMMONTechniqueBlinn
     {
 
-        private common_color_or_texture_type emissionField;
+        common_color_or_texture_type emissionField;
 
-        private common_color_or_texture_type ambientField;
+        common_color_or_texture_type ambientField;
 
-        private common_color_or_texture_type diffuseField;
+        common_color_or_texture_type diffuseField;
 
-        private common_color_or_texture_type specularField;
+        common_color_or_texture_type specularField;
 
-        private common_float_or_param_type shininessField;
+        common_float_or_param_type shininessField;
 
-        private common_color_or_texture_type reflectiveField;
+        common_color_or_texture_type reflectiveField;
 
-        private common_float_or_param_type reflectivityField;
+        common_float_or_param_type reflectivityField;
 
-        private common_transparent_type transparentField;
+        common_transparent_type transparentField;
 
-        private common_float_or_param_type transparencyField;
+        common_float_or_param_type transparencyField;
 
-        private common_float_or_param_type index_of_refractionField;
+        common_float_or_param_type index_of_refractionField;
 
         /// <remarks/>
         public common_color_or_texture_type emission
@@ -24422,17 +24422,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_COMMONTechniqueConstant
     {
 
-        private common_color_or_texture_type emissionField;
+        common_color_or_texture_type emissionField;
 
-        private common_color_or_texture_type reflectiveField;
+        common_color_or_texture_type reflectiveField;
 
-        private common_float_or_param_type reflectivityField;
+        common_float_or_param_type reflectivityField;
 
-        private common_transparent_type transparentField;
+        common_transparent_type transparentField;
 
-        private common_float_or_param_type transparencyField;
+        common_float_or_param_type transparencyField;
 
-        private common_float_or_param_type index_of_refractionField;
+        common_float_or_param_type index_of_refractionField;
 
         /// <remarks/>
         public common_color_or_texture_type emission
@@ -24522,21 +24522,21 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_COMMONTechniqueLambert
     {
 
-        private common_color_or_texture_type emissionField;
+        common_color_or_texture_type emissionField;
 
-        private common_color_or_texture_type ambientField;
+        common_color_or_texture_type ambientField;
 
-        private common_color_or_texture_type diffuseField;
+        common_color_or_texture_type diffuseField;
 
-        private common_color_or_texture_type reflectiveField;
+        common_color_or_texture_type reflectiveField;
 
-        private common_float_or_param_type reflectivityField;
+        common_float_or_param_type reflectivityField;
 
-        private common_transparent_type transparentField;
+        common_transparent_type transparentField;
 
-        private common_float_or_param_type transparencyField;
+        common_float_or_param_type transparencyField;
 
-        private common_float_or_param_type index_of_refractionField;
+        common_float_or_param_type index_of_refractionField;
 
         /// <remarks/>
         public common_color_or_texture_type emission
@@ -24652,25 +24652,25 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_COMMONTechniquePhong
     {
 
-        private common_color_or_texture_type emissionField;
+        common_color_or_texture_type emissionField;
 
-        private common_color_or_texture_type ambientField;
+        common_color_or_texture_type ambientField;
 
-        private common_color_or_texture_type diffuseField;
+        common_color_or_texture_type diffuseField;
 
-        private common_color_or_texture_type specularField;
+        common_color_or_texture_type specularField;
 
-        private common_float_or_param_type shininessField;
+        common_float_or_param_type shininessField;
 
-        private common_color_or_texture_type reflectiveField;
+        common_color_or_texture_type reflectiveField;
 
-        private common_float_or_param_type reflectivityField;
+        common_float_or_param_type reflectivityField;
 
-        private common_transparent_type transparentField;
+        common_transparent_type transparentField;
 
-        private common_float_or_param_type transparencyField;
+        common_float_or_param_type transparencyField;
 
-        private common_float_or_param_type index_of_refractionField;
+        common_float_or_param_type index_of_refractionField;
 
         /// <remarks/>
         public common_color_or_texture_type emission
@@ -24813,17 +24813,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLES
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private effectFx_profile_abstractProfile_GLESTechnique[] techniqueField;
+        effectFx_profile_abstractProfile_GLESTechnique[] techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string platformField;
+        string platformField;
 
         public effectFx_profile_abstractProfile_GLES()
         {
@@ -24925,19 +24925,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechnique
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private effectFx_profile_abstractProfile_GLESTechniquePass[] passField;
+        effectFx_profile_abstractProfile_GLESTechniquePass[] passField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         public asset asset
@@ -25048,75 +25048,75 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniqueSetparam
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private bool boolField;
+        bool boolField;
 
-        private string bool2Field;
+        string bool2Field;
 
-        private string bool3Field;
+        string bool3Field;
 
-        private string bool4Field;
+        string bool4Field;
 
-        private long intField;
+        long intField;
 
-        private string int2Field;
+        string int2Field;
 
-        private string int3Field;
+        string int3Field;
 
-        private string int4Field;
+        string int4Field;
 
-        private double floatField;
+        double floatField;
 
-        private string float2Field;
+        string float2Field;
 
-        private string float3Field;
+        string float3Field;
 
-        private string float4Field;
+        string float4Field;
 
-        private double float1x1Field;
+        double float1x1Field;
 
-        private string float1x2Field;
+        string float1x2Field;
 
-        private string float1x3Field;
+        string float1x3Field;
 
-        private string float1x4Field;
+        string float1x4Field;
 
-        private string float2x1Field;
+        string float2x1Field;
 
-        private string float2x2Field;
+        string float2x2Field;
 
-        private string float2x3Field;
+        string float2x3Field;
 
-        private string float2x4Field;
+        string float2x4Field;
 
-        private string float3x1Field;
+        string float3x1Field;
 
-        private string float3x2Field;
+        string float3x2Field;
 
-        private string float3x3Field;
+        string float3x3Field;
 
-        private string float3x4Field;
+        string float3x4Field;
 
-        private string float4x1Field;
+        string float4x1Field;
 
-        private string float4x2Field;
+        string float4x2Field;
 
-        private string float4x3Field;
+        string float4x3Field;
 
-        private string float4x4Field;
+        string float4x4Field;
 
-        private fx_surface_common surfaceField;
+        fx_surface_common surfaceField;
 
-        private gles_texture_pipeline texture_pipelineField;
+        gles_texture_pipeline texture_pipelineField;
 
-        private gles_sampler_state sampler_stateField;
+        gles_sampler_state sampler_stateField;
 
-        private gles_texture_unit texture_unitField;
+        gles_texture_unit texture_unitField;
 
-        private string enumField;
+        string enumField;
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -25585,31 +25585,31 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePass
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private string color_targetField;
+        string color_targetField;
 
-        private string depth_targetField;
+        string depth_targetField;
 
-        private string stencil_targetField;
+        string stencil_targetField;
 
-        private string color_clearField;
+        string color_clearField;
 
-        private double depth_clearField;
+        double depth_clearField;
 
-        private bool depth_clearFieldSpecified;
+        bool depth_clearFieldSpecified;
 
-        private sbyte stencil_clearField;
+        sbyte stencil_clearField;
 
-        private bool stencil_clearFieldSpecified;
+        bool stencil_clearFieldSpecified;
 
-        private string drawField;
+        string drawField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -25871,9 +25871,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassAlpha_func
     {
 
-        private effectFx_profile_abstractProfile_GLESTechniquePassAlpha_funcFunc funcField;
+        effectFx_profile_abstractProfile_GLESTechniquePassAlpha_funcFunc funcField;
 
-        private effectFx_profile_abstractProfile_GLESTechniquePassAlpha_funcValue valueField;
+        effectFx_profile_abstractProfile_GLESTechniquePassAlpha_funcValue valueField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLESTechniquePassAlpha_funcFunc func
@@ -25911,9 +25911,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassAlpha_funcFunc
     {
 
-        private gl_func_type valueField;
+        gl_func_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassAlpha_funcFunc()
         {
@@ -25959,9 +25959,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassAlpha_funcValue
     {
 
-        private float valueField;
+        float valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassAlpha_funcValue()
         {
@@ -26007,9 +26007,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassAlpha_test_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassAlpha_test_enable()
         {
@@ -26055,9 +26055,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassBlend_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassBlend_enable()
         {
@@ -26103,9 +26103,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassBlend_func
     {
 
-        private effectFx_profile_abstractProfile_GLESTechniquePassBlend_funcSrc srcField;
+        effectFx_profile_abstractProfile_GLESTechniquePassBlend_funcSrc srcField;
 
-        private effectFx_profile_abstractProfile_GLESTechniquePassBlend_funcDest destField;
+        effectFx_profile_abstractProfile_GLESTechniquePassBlend_funcDest destField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLESTechniquePassBlend_funcSrc src
@@ -26143,9 +26143,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassBlend_funcSrc
     {
 
-        private gl_blend_type valueField;
+        gl_blend_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassBlend_funcSrc()
         {
@@ -26191,9 +26191,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassBlend_funcDest
     {
 
-        private gl_blend_type valueField;
+        gl_blend_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassBlend_funcDest()
         {
@@ -26239,9 +26239,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassClear_color
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -26281,11 +26281,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassClear_depth
     {
 
-        private double valueField;
+        double valueField;
 
-        private bool valueFieldSpecified;
+        bool valueFieldSpecified;
 
-        private string paramField;
+        string paramField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -26339,11 +26339,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassClear_stencil
     {
 
-        private long valueField;
+        long valueField;
 
-        private bool valueFieldSpecified;
+        bool valueFieldSpecified;
 
-        private string paramField;
+        string paramField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -26397,11 +26397,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassClip_plane
     {
 
-        private bool[] valueField;
+        bool[] valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -26455,11 +26455,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassClip_plane_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassClip_plane_enable()
         {
@@ -26519,9 +26519,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassColor_logic_op_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassColor_logic_op_enable()
         {
@@ -26567,9 +26567,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassColor_mask
     {
 
-        private bool[] valueField;
+        bool[] valueField;
 
-        private string paramField;
+        string paramField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -26609,9 +26609,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassColor_material_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassColor_material_enable()
         {
@@ -26657,9 +26657,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassCull_face
     {
 
-        private gl_face_type valueField;
+        gl_face_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassCull_face()
         {
@@ -26705,9 +26705,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassCull_face_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassCull_face_enable()
         {
@@ -26753,9 +26753,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassDepth_func
     {
 
-        private gl_func_type valueField;
+        gl_func_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassDepth_func()
         {
@@ -26801,9 +26801,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassDepth_mask
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassDepth_mask()
         {
@@ -26849,9 +26849,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassDepth_range
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassDepth_range()
         {
@@ -26899,9 +26899,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassDepth_test_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassDepth_test_enable()
         {
@@ -26947,9 +26947,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassDither_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassDither_enable()
         {
@@ -26995,9 +26995,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassFog_color
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassFog_color()
         {
@@ -27047,9 +27047,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassFog_density
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassFog_density()
         {
@@ -27095,9 +27095,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassFog_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassFog_enable()
         {
@@ -27143,9 +27143,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassFog_end
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassFog_end()
         {
@@ -27191,9 +27191,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassFog_mode
     {
 
-        private gl_fog_type valueField;
+        gl_fog_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassFog_mode()
         {
@@ -27239,9 +27239,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassFog_start
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassFog_start()
         {
@@ -27287,9 +27287,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassFront_face
     {
 
-        private gl_front_face_type valueField;
+        gl_front_face_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassFront_face()
         {
@@ -27335,11 +27335,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLight_ambient
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLight_ambient()
         {
@@ -27403,11 +27403,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLight_constant_attenuation
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLight_constant_attenuation()
         {
@@ -27467,11 +27467,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLight_diffuse
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLight_diffuse()
         {
@@ -27535,11 +27535,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLight_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLight_enable()
         {
@@ -27599,11 +27599,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLight_linear_attenutation
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLight_linear_attenutation()
         {
@@ -27663,9 +27663,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLight_model_ambient
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLight_model_ambient()
         {
@@ -27715,9 +27715,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLight_model_two_side_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLight_model_two_side_enable()
         {
@@ -27763,11 +27763,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLight_position
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLight_position()
         {
@@ -27831,11 +27831,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLight_quadratic_attenuation
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLight_quadratic_attenuation()
         {
@@ -27895,11 +27895,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLight_specular
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLight_specular()
         {
@@ -27963,11 +27963,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLight_spot_cutoff
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLight_spot_cutoff()
         {
@@ -28027,11 +28027,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLight_spot_direction
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLight_spot_direction()
         {
@@ -28094,11 +28094,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLight_spot_exponent
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
-        private string indexField;
+        string indexField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLight_spot_exponent()
         {
@@ -28158,9 +28158,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLighting_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLighting_enable()
         {
@@ -28206,9 +28206,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLine_smooth_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLine_smooth_enable()
         {
@@ -28254,9 +28254,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLine_width
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLine_width()
         {
@@ -28302,9 +28302,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassLogic_op
     {
 
-        private gl_logic_op_type valueField;
+        gl_logic_op_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassLogic_op()
         {
@@ -28350,9 +28350,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassMaterial_ambient
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassMaterial_ambient()
         {
@@ -28402,9 +28402,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassMaterial_diffuse
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassMaterial_diffuse()
         {
@@ -28454,9 +28454,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassMaterial_emission
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassMaterial_emission()
         {
@@ -28506,9 +28506,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassMaterial_shininess
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassMaterial_shininess()
         {
@@ -28554,9 +28554,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassMaterial_specular
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassMaterial_specular()
         {
@@ -28606,9 +28606,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassModel_view_matrix
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassModel_view_matrix()
         {
@@ -28670,9 +28670,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassMultisample_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassMultisample_enable()
         {
@@ -28718,9 +28718,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassNormalize_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassNormalize_enable()
         {
@@ -28766,9 +28766,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassPoint_distance_attenuation
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassPoint_distance_attenuation()
         {
@@ -28817,9 +28817,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassPoint_fade_threshold_size
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassPoint_fade_threshold_size()
         {
@@ -28865,9 +28865,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassPoint_size
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassPoint_size()
         {
@@ -28913,9 +28913,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassPoint_size_max
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassPoint_size_max()
         {
@@ -28961,9 +28961,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassPoint_size_min
     {
 
-        private double valueField;
+        double valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassPoint_size_min()
         {
@@ -29009,9 +29009,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassPoint_smooth_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassPoint_smooth_enable()
         {
@@ -29057,9 +29057,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassPolygon_offset
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassPolygon_offset()
         {
@@ -29107,9 +29107,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassPolygon_offset_fill_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassPolygon_offset_fill_enable()
         {
@@ -29155,9 +29155,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassProjection_matrix
     {
 
-        private double[] valueField;
+        double[] valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassProjection_matrix()
         {
@@ -29219,9 +29219,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassRescale_normal_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassRescale_normal_enable()
         {
@@ -29267,9 +29267,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassSample_alpha_to_coverage_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassSample_alpha_to_coverage_enable()
         {
@@ -29315,9 +29315,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassSample_alpha_to_one_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassSample_alpha_to_one_enable()
         {
@@ -29363,9 +29363,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassSample_coverage_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassSample_coverage_enable()
         {
@@ -29411,9 +29411,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassScissor
     {
 
-        private long[] valueField;
+        long[] valueField;
 
-        private string paramField;
+        string paramField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -29453,9 +29453,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassScissor_test_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassScissor_test_enable()
         {
@@ -29501,9 +29501,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassShade_model
     {
 
-        private gl_shade_model_type valueField;
+        gl_shade_model_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassShade_model()
         {
@@ -29549,11 +29549,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassStencil_func
     {
 
-        private effectFx_profile_abstractProfile_GLESTechniquePassStencil_funcFunc funcField;
+        effectFx_profile_abstractProfile_GLESTechniquePassStencil_funcFunc funcField;
 
-        private effectFx_profile_abstractProfile_GLESTechniquePassStencil_funcRef refField;
+        effectFx_profile_abstractProfile_GLESTechniquePassStencil_funcRef refField;
 
-        private effectFx_profile_abstractProfile_GLESTechniquePassStencil_funcMask maskField;
+        effectFx_profile_abstractProfile_GLESTechniquePassStencil_funcMask maskField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLESTechniquePassStencil_funcFunc func
@@ -29604,9 +29604,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassStencil_funcFunc
     {
 
-        private gl_func_type valueField;
+        gl_func_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassStencil_funcFunc()
         {
@@ -29652,9 +29652,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassStencil_funcRef
     {
 
-        private byte valueField;
+        byte valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassStencil_funcRef()
         {
@@ -29700,9 +29700,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassStencil_funcMask
     {
 
-        private byte valueField;
+        byte valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassStencil_funcMask()
         {
@@ -29748,9 +29748,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassStencil_mask
     {
 
-        private long valueField;
+        long valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassStencil_mask()
         {
@@ -29796,11 +29796,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassStencil_op
     {
 
-        private effectFx_profile_abstractProfile_GLESTechniquePassStencil_opFail failField;
+        effectFx_profile_abstractProfile_GLESTechniquePassStencil_opFail failField;
 
-        private effectFx_profile_abstractProfile_GLESTechniquePassStencil_opZfail zfailField;
+        effectFx_profile_abstractProfile_GLESTechniquePassStencil_opZfail zfailField;
 
-        private effectFx_profile_abstractProfile_GLESTechniquePassStencil_opZpass zpassField;
+        effectFx_profile_abstractProfile_GLESTechniquePassStencil_opZpass zpassField;
 
         /// <remarks/>
         public effectFx_profile_abstractProfile_GLESTechniquePassStencil_opFail fail
@@ -29851,9 +29851,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassStencil_opFail
     {
 
-        private gles_stencil_op_type valueField;
+        gles_stencil_op_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassStencil_opFail()
         {
@@ -29925,9 +29925,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassStencil_opZfail
     {
 
-        private gles_stencil_op_type valueField;
+        gles_stencil_op_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassStencil_opZfail()
         {
@@ -29973,9 +29973,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassStencil_opZpass
     {
 
-        private gles_stencil_op_type valueField;
+        gles_stencil_op_type valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassStencil_opZpass()
         {
@@ -30021,9 +30021,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassStencil_test_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassStencil_test_enable()
         {
@@ -30069,9 +30069,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassTexture_pipeline
     {
 
-        private gles_texture_pipeline valueField;
+        gles_texture_pipeline valueField;
 
-        private string paramField;
+        string paramField;
 
         /// <remarks/>
         public gles_texture_pipeline value
@@ -30110,9 +30110,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLESTechniquePassTexture_pipeline_enable
     {
 
-        private bool valueField;
+        bool valueField;
 
-        private string paramField;
+        string paramField;
 
         public effectFx_profile_abstractProfile_GLESTechniquePassTexture_pipeline_enable()
         {
@@ -30159,17 +30159,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSL
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private object[] items1Field;
+        object[] items1Field;
 
-        private effectFx_profile_abstractProfile_GLSLTechnique[] techniqueField;
+        effectFx_profile_abstractProfile_GLSLTechnique[] techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
         /// <remarks/>
         public asset asset
@@ -30266,19 +30266,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechnique
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private object[] items1Field;
+        object[] items1Field;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePass[] passField;
+        effectFx_profile_abstractProfile_GLSLTechniquePass[] passField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -30391,27 +30391,27 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePass
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private fx_colortarget_common[] color_targetField;
+        fx_colortarget_common[] color_targetField;
 
-        private fx_depthtarget_common[] depth_targetField;
+        fx_depthtarget_common[] depth_targetField;
 
-        private fx_stenciltarget_common[] stencil_targetField;
+        fx_stenciltarget_common[] stencil_targetField;
 
-        private fx_clearcolor_common[] color_clearField;
+        fx_clearcolor_common[] color_clearField;
 
-        private fx_cleardepth_common[] depth_clearField;
+        fx_cleardepth_common[] depth_clearField;
 
-        private fx_clearstencil_common[] stencil_clearField;
+        fx_clearstencil_common[] stencil_clearField;
 
-        private string drawField;
+        string drawField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string sidField;
+        string sidField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -30685,19 +30685,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassShader
     {
 
-        private fx_annotate_common[] annotateField;
+        fx_annotate_common[] annotateField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassShaderCompiler_target compiler_targetField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassShaderCompiler_target compiler_targetField;
 
-        private string compiler_optionsField;
+        string compiler_optionsField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassShaderName nameField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassShaderName nameField;
 
-        private effectFx_profile_abstractProfile_GLSLTechniquePassShaderBind[] bindField;
+        effectFx_profile_abstractProfile_GLSLTechniquePassShaderBind[] bindField;
 
-        private glsl_pipeline_stage stageField;
+        glsl_pipeline_stage stageField;
 
-        private bool stageFieldSpecified;
+        bool stageFieldSpecified;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("annotate")]
@@ -30804,7 +30804,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassShaderCompiler_target
     {
 
-        private string valueField;
+        string valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute(DataType = "NMTOKEN")]
@@ -30830,9 +30830,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassShaderName
     {
 
-        private string sourceField;
+        string sourceField;
 
-        private string valueField;
+        string valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -30872,11 +30872,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassShaderBind
     {
 
-        private object itemField;
+        object itemField;
 
-        private ItemChoiceType5 itemElementNameField;
+        ItemChoiceType5 itemElementNameField;
 
-        private string symbolField;
+        string symbolField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("bool", typeof(bool))]
@@ -30954,7 +30954,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class effectFx_profile_abstractProfile_GLSLTechniquePassShaderBindParam
     {
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -31075,15 +31075,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_force_fields
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private force_field[] force_fieldField;
+        force_field[] force_fieldField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -31165,15 +31165,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class force_field
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private technique[] techniqueField;
+        technique[] techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -31255,15 +31255,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_geometries
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private geometry[] geometryField;
+        geometry[] geometryField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -31345,15 +31345,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class geometry
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private object itemField;
+        object itemField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -31437,15 +31437,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class convex_mesh
     {
 
-        private source[] sourceField;
+        source[] sourceField;
 
-        private vertices verticesField;
+        vertices verticesField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string convex_hull_ofField;
+        string convex_hull_ofField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("source")]
@@ -31533,13 +31533,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class vertices
     {
 
-        private InputLocal[] inputField;
+        InputLocal[] inputField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("input")]
@@ -31608,17 +31608,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class lines
     {
 
-        private InputLocalOffset[] inputField;
+        InputLocalOffset[] inputField;
 
-        private string pField;
+        string pField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string nameField;
+        string nameField;
 
-        private ulong countField;
+        ulong countField;
 
-        private string materialField;
+        string materialField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("input")]
@@ -31714,17 +31714,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class linestrips
     {
 
-        private InputLocalOffset[] inputField;
+        InputLocalOffset[] inputField;
 
-        private string[] pField;
+        string[] pField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string nameField;
+        string nameField;
 
-        private ulong countField;
+        ulong countField;
 
-        private string materialField;
+        string materialField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("input")]
@@ -31821,17 +31821,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class polygons
     {
 
-        private InputLocalOffset[] inputField;
+        InputLocalOffset[] inputField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string nameField;
+        string nameField;
 
-        private ulong countField;
+        ulong countField;
 
-        private string materialField;
+        string materialField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("input")]
@@ -31928,9 +31928,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class polygonsPH
     {
 
-        private string pField;
+        string pField;
 
-        private string[] hField;
+        string[] hField;
 
         /// <remarks/>
         public string p
@@ -31970,19 +31970,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class polylist
     {
 
-        private InputLocalOffset[] inputField;
+        InputLocalOffset[] inputField;
 
-        private string vcountField;
+        string vcountField;
 
-        private string pField;
+        string pField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string nameField;
+        string nameField;
 
-        private ulong countField;
+        ulong countField;
 
-        private string materialField;
+        string materialField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("input")]
@@ -32091,17 +32091,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class triangles
     {
 
-        private InputLocalOffset[] inputField;
+        InputLocalOffset[] inputField;
 
-        private string pField;
+        string pField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string nameField;
+        string nameField;
 
-        private ulong countField;
+        ulong countField;
 
-        private string materialField;
+        string materialField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("input")]
@@ -32197,17 +32197,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class trifans
     {
 
-        private InputLocalOffset[] inputField;
+        InputLocalOffset[] inputField;
 
-        private string[] pField;
+        string[] pField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string nameField;
+        string nameField;
 
-        private ulong countField;
+        ulong countField;
 
-        private string materialField;
+        string materialField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("input")]
@@ -32304,17 +32304,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class tristrips
     {
 
-        private InputLocalOffset[] inputField;
+        InputLocalOffset[] inputField;
 
-        private string[] pField;
+        string[] pField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string nameField;
+        string nameField;
 
-        private ulong countField;
+        ulong countField;
 
-        private string materialField;
+        string materialField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("input")]
@@ -32411,13 +32411,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class mesh
     {
 
-        private source[] sourceField;
+        source[] sourceField;
 
-        private vertices verticesField;
+        vertices verticesField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("source")]
@@ -32491,13 +32491,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class spline
     {
 
-        private source[] sourceField;
+        source[] sourceField;
 
-        private splineControl_vertices control_verticesField;
+        splineControl_vertices control_verticesField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private bool closedField;
+        bool closedField;
 
         public spline()
         {
@@ -32570,9 +32570,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class splineControl_vertices
     {
 
-        private InputLocal[] inputField;
+        InputLocal[] inputField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("input")]
@@ -32613,15 +32613,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_images
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private image[] imageField;
+        image[] imageField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -32703,15 +32703,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_lights
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private light[] lightField;
+        light[] lightField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -32793,17 +32793,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class light
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private lightTechnique_common technique_commonField;
+        lightTechnique_common technique_commonField;
 
-        private technique[] techniqueField;
+        technique[] techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -32897,7 +32897,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class lightTechnique_common
     {
 
-        private object itemField;
+        object itemField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("ambient", typeof(lightTechnique_commonAmbient))]
@@ -32926,7 +32926,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class lightTechnique_commonAmbient
     {
 
-        private TargetableFloat3 colorField;
+        TargetableFloat3 colorField;
 
         /// <remarks/>
         public TargetableFloat3 color
@@ -32952,9 +32952,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class TargetableFloat3
     {
 
-        private string sidField;
+        string sidField;
 
-        private double[] textField;
+        double[] textField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -33000,7 +33000,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class lightTechnique_commonDirectional
     {
 
-        private TargetableFloat3 colorField;
+        TargetableFloat3 colorField;
 
         /// <remarks/>
         public TargetableFloat3 color
@@ -33025,13 +33025,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class lightTechnique_commonPoint
     {
 
-        private TargetableFloat3 colorField;
+        TargetableFloat3 colorField;
 
-        private TargetableFloat constant_attenuationField;
+        TargetableFloat constant_attenuationField;
 
-        private TargetableFloat linear_attenuationField;
+        TargetableFloat linear_attenuationField;
 
-        private TargetableFloat quadratic_attenuationField;
+        TargetableFloat quadratic_attenuationField;
 
         /// <remarks/>
         public TargetableFloat3 color
@@ -33101,17 +33101,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class lightTechnique_commonSpot
     {
 
-        private TargetableFloat3 colorField;
+        TargetableFloat3 colorField;
 
-        private TargetableFloat constant_attenuationField;
+        TargetableFloat constant_attenuationField;
 
-        private TargetableFloat linear_attenuationField;
+        TargetableFloat linear_attenuationField;
 
-        private TargetableFloat quadratic_attenuationField;
+        TargetableFloat quadratic_attenuationField;
 
-        private TargetableFloat falloff_angleField;
+        TargetableFloat falloff_angleField;
 
-        private TargetableFloat falloff_exponentField;
+        TargetableFloat falloff_exponentField;
 
         /// <remarks/>
         public TargetableFloat3 color
@@ -33212,15 +33212,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_materials
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private material[] materialField;
+        material[] materialField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -33302,15 +33302,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class material
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private instance_effect instance_effectField;
+        instance_effect instance_effectField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -33391,17 +33391,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_effect
     {
 
-        private instance_effectTechnique_hint[] technique_hintField;
+        instance_effectTechnique_hint[] technique_hintField;
 
-        private instance_effectSetparam[] setparamField;
+        instance_effectSetparam[] setparamField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string urlField;
+        string urlField;
 
-        private string sidField;
+        string sidField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("technique_hint")]
@@ -33497,11 +33497,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_effectTechnique_hint
     {
 
-        private string platformField;
+        string platformField;
 
-        private string profileField;
+        string profileField;
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -33555,79 +33555,79 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_effectSetparam
     {
 
-        private bool boolField;
+        bool boolField;
 
-        private string bool2Field;
+        string bool2Field;
 
-        private string bool3Field;
+        string bool3Field;
 
-        private string bool4Field;
+        string bool4Field;
 
-        private long intField;
+        long intField;
 
-        private string int2Field;
+        string int2Field;
 
-        private string int3Field;
+        string int3Field;
 
-        private string int4Field;
+        string int4Field;
 
-        private double floatField;
+        double floatField;
 
-        private string float2Field;
+        string float2Field;
 
-        private string float3Field;
+        string float3Field;
 
-        private string float4Field;
+        string float4Field;
 
-        private double float1x1Field;
+        double float1x1Field;
 
-        private string float1x2Field;
+        string float1x2Field;
 
-        private string float1x3Field;
+        string float1x3Field;
 
-        private string float1x4Field;
+        string float1x4Field;
 
-        private string float2x1Field;
+        string float2x1Field;
 
-        private string float2x2Field;
+        string float2x2Field;
 
-        private string float2x3Field;
+        string float2x3Field;
 
-        private string float2x4Field;
+        string float2x4Field;
 
-        private string float3x1Field;
+        string float3x1Field;
 
-        private string float3x2Field;
+        string float3x2Field;
 
-        private string float3x3Field;
+        string float3x3Field;
 
-        private string float3x4Field;
+        string float3x4Field;
 
-        private string float4x1Field;
+        string float4x1Field;
 
-        private string float4x2Field;
+        string float4x2Field;
 
-        private string float4x3Field;
+        string float4x3Field;
 
-        private string float4x4Field;
+        string float4x4Field;
 
-        private fx_surface_common surfaceField;
+        fx_surface_common surfaceField;
 
-        private fx_sampler1D_common sampler1DField;
+        fx_sampler1D_common sampler1DField;
 
-        private fx_sampler2D_common sampler2DField;
+        fx_sampler2D_common sampler2DField;
 
-        private fx_sampler3D_common sampler3DField;
+        fx_sampler3D_common sampler3DField;
 
-        private fx_samplerCUBE_common samplerCUBEField;
+        fx_samplerCUBE_common samplerCUBEField;
 
-        private fx_samplerRECT_common samplerRECTField;
+        fx_samplerRECT_common samplerRECTField;
 
-        private fx_samplerDEPTH_common samplerDEPTHField;
+        fx_samplerDEPTH_common samplerDEPTHField;
 
-        private string enumField;
+        string enumField;
 
-        private string refField;
+        string refField;
 
         /// <remarks/>
         public bool @bool
@@ -34122,15 +34122,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_nodes
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private node[] nodeField;
+        node[] nodeField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -34212,35 +34212,35 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class node
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private ItemsChoiceType7[] itemsElementNameField;
+        ItemsChoiceType7[] itemsElementNameField;
 
-        private InstanceWithExtra[] instance_cameraField;
+        InstanceWithExtra[] instance_cameraField;
 
-        private instance_controller[] instance_controllerField;
+        instance_controller[] instance_controllerField;
 
-        private instance_geometry[] instance_geometryField;
+        instance_geometry[] instance_geometryField;
 
-        private InstanceWithExtra[] instance_lightField;
+        InstanceWithExtra[] instance_lightField;
 
-        private InstanceWithExtra[] instance_nodeField;
+        InstanceWithExtra[] instance_nodeField;
 
-        private node[] node1Field;
+        node[] node1Field;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
-        private string sidField;
+        string sidField;
 
-        private NodeType typeField;
+        NodeType typeField;
 
-        private string[] layerField;
+        string[] layerField;
 
         public node()
         {
@@ -34475,9 +34475,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class lookat
     {
 
-        private string sidField;
+        string sidField;
 
-        private double[] textField;
+        double[] textField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -34524,9 +34524,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class matrix
     {
 
-        private string sidField;
+        string sidField;
 
-        private double[] textField;
+        double[] textField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -34573,9 +34573,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rotate
     {
 
-        private string sidField;
+        string sidField;
 
-        private double[] textField;
+        double[] textField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -34622,9 +34622,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class skew
     {
 
-        private string sidField;
+        string sidField;
 
-        private double[] textField;
+        double[] textField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -34697,17 +34697,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_controller
     {
 
-        private string[] skeletonField;
+        string[] skeletonField;
 
-        private bind_material bind_materialField;
+        bind_material bind_materialField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string urlField;
+        string urlField;
 
-        private string sidField;
+        string sidField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("skeleton", DataType = "anyURI")]
@@ -34803,13 +34803,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class bind_material
     {
 
-        private param[] paramField;
+        param[] paramField;
 
-        private instance_material[] technique_commonField;
+        instance_material[] technique_commonField;
 
-        private technique[] techniqueField;
+        technique[] techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("param")]
@@ -34878,15 +34878,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_geometry
     {
 
-        private bind_material bind_materialField;
+        bind_material bind_materialField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string urlField;
+        string urlField;
 
-        private string sidField;
+        string sidField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public bind_material bind_material
@@ -34982,15 +34982,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_physics_materials
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private physics_material[] physics_materialField;
+        physics_material[] physics_materialField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -35072,17 +35072,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class physics_material
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private physics_materialTechnique_common technique_commonField;
+        physics_materialTechnique_common technique_commonField;
 
-        private technique[] techniqueField;
+        technique[] techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -35176,11 +35176,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class physics_materialTechnique_common
     {
 
-        private TargetableFloat dynamic_frictionField;
+        TargetableFloat dynamic_frictionField;
 
-        private TargetableFloat restitutionField;
+        TargetableFloat restitutionField;
 
-        private TargetableFloat static_frictionField;
+        TargetableFloat static_frictionField;
 
         /// <remarks/>
         public TargetableFloat dynamic_friction
@@ -35232,15 +35232,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_physics_models
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private physics_model[] physics_modelField;
+        physics_model[] physics_modelField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -35322,19 +35322,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class physics_model
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private rigid_body[] rigid_bodyField;
+        rigid_body[] rigid_bodyField;
 
-        private rigid_constraint[] rigid_constraintField;
+        rigid_constraint[] rigid_constraintField;
 
-        private instance_physics_model[] instance_physics_modelField;
+        instance_physics_model[] instance_physics_modelField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -35444,15 +35444,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_body
     {
 
-        private rigid_bodyTechnique_common technique_commonField;
+        rigid_bodyTechnique_common technique_commonField;
 
-        private technique[] techniqueField;
+        technique[] techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string sidField;
+        string sidField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public rigid_bodyTechnique_common technique_common
@@ -35533,17 +35533,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_bodyTechnique_common
     {
 
-        private rigid_bodyTechnique_commonDynamic dynamicField;
+        rigid_bodyTechnique_commonDynamic dynamicField;
 
-        private TargetableFloat massField;
+        TargetableFloat massField;
 
-        private object[] mass_frameField;
+        object[] mass_frameField;
 
-        private TargetableFloat3 inertiaField;
+        TargetableFloat3 inertiaField;
 
-        private object itemField;
+        object itemField;
 
-        private rigid_bodyTechnique_commonShape[] shapeField;
+        rigid_bodyTechnique_commonShape[] shapeField;
 
         /// <remarks/>
         public rigid_bodyTechnique_commonDynamic dynamic
@@ -35638,9 +35638,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_bodyTechnique_commonDynamic
     {
 
-        private string sidField;
+        string sidField;
 
-        private bool valueField;
+        bool valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -35680,19 +35680,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_bodyTechnique_commonShape
     {
 
-        private rigid_bodyTechnique_commonShapeHollow hollowField;
+        rigid_bodyTechnique_commonShapeHollow hollowField;
 
-        private TargetableFloat massField;
+        TargetableFloat massField;
 
-        private TargetableFloat densityField;
+        TargetableFloat densityField;
 
-        private object itemField;
+        object itemField;
 
-        private object item1Field;
+        object item1Field;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         public rigid_bodyTechnique_commonShapeHollow hollow
@@ -35808,9 +35808,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_bodyTechnique_commonShapeHollow
     {
 
-        private string sidField;
+        string sidField;
 
-        private bool valueField;
+        bool valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -35851,9 +35851,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class box
     {
 
-        private string half_extentsField;
+        string half_extentsField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         public string half_extents
@@ -35893,11 +35893,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class capsule
     {
 
-        private double heightField;
+        double heightField;
 
-        private string radiusField;
+        string radiusField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         public double height
@@ -35950,11 +35950,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class cylinder
     {
 
-        private double heightField;
+        double heightField;
 
-        private string radiusField;
+        string radiusField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         public double height
@@ -36007,9 +36007,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class plane
     {
 
-        private string equationField;
+        string equationField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         public string equation
@@ -36049,9 +36049,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class sphere
     {
 
-        private double radiusField;
+        double radiusField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         public double radius
@@ -36091,13 +36091,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class tapered_capsule
     {
 
-        private double heightField;
+        double heightField;
 
-        private string radius1Field;
+        string radius1Field;
 
-        private string radius2Field;
+        string radius2Field;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         public double height
@@ -36163,13 +36163,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class tapered_cylinder
     {
 
-        private double heightField;
+        double heightField;
 
-        private string radius1Field;
+        string radius1Field;
 
-        private string radius2Field;
+        string radius2Field;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         public double height
@@ -36235,19 +36235,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_constraint
     {
 
-        private rigid_constraintRef_attachment ref_attachmentField;
+        rigid_constraintRef_attachment ref_attachmentField;
 
-        private rigid_constraintAttachment attachmentField;
+        rigid_constraintAttachment attachmentField;
 
-        private rigid_constraintTechnique_common technique_commonField;
+        rigid_constraintTechnique_common technique_commonField;
 
-        private technique[] techniqueField;
+        technique[] techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string sidField;
+        string sidField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public rigid_constraintRef_attachment ref_attachment
@@ -36354,9 +36354,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_constraintRef_attachment
     {
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private string rigid_bodyField;
+        string rigid_bodyField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("extra", typeof(extra))]
@@ -36398,9 +36398,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_constraintAttachment
     {
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private string rigid_bodyField;
+        string rigid_bodyField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("extra", typeof(extra))]
@@ -36442,13 +36442,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_constraintTechnique_common
     {
 
-        private rigid_constraintTechnique_commonEnabled enabledField;
+        rigid_constraintTechnique_commonEnabled enabledField;
 
-        private rigid_constraintTechnique_commonInterpenetrate interpenetrateField;
+        rigid_constraintTechnique_commonInterpenetrate interpenetrateField;
 
-        private rigid_constraintTechnique_commonLimits limitsField;
+        rigid_constraintTechnique_commonLimits limitsField;
 
-        private rigid_constraintTechnique_commonSpring springField;
+        rigid_constraintTechnique_commonSpring springField;
 
         /// <remarks/>
         // CODEGEN Warning: DefaultValue attribute on members of type rigid_constraintTechnique_commonEnabled is not supported in this version of the .Net Framework.
@@ -36516,9 +36516,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_constraintTechnique_commonEnabled
     {
 
-        private string sidField;
+        string sidField;
 
-        private bool valueField;
+        bool valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -36558,9 +36558,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_constraintTechnique_commonInterpenetrate
     {
 
-        private string sidField;
+        string sidField;
 
-        private bool valueField;
+        bool valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -36600,9 +36600,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_constraintTechnique_commonLimits
     {
 
-        private rigid_constraintTechnique_commonLimitsSwing_cone_and_twist swing_cone_and_twistField;
+        rigid_constraintTechnique_commonLimitsSwing_cone_and_twist swing_cone_and_twistField;
 
-        private rigid_constraintTechnique_commonLimitsLinear linearField;
+        rigid_constraintTechnique_commonLimitsLinear linearField;
 
         /// <remarks/>
         public rigid_constraintTechnique_commonLimitsSwing_cone_and_twist swing_cone_and_twist
@@ -36640,9 +36640,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_constraintTechnique_commonLimitsSwing_cone_and_twist
     {
 
-        private TargetableFloat3 minField;
+        TargetableFloat3 minField;
 
-        private TargetableFloat3 maxField;
+        TargetableFloat3 maxField;
 
         /// <remarks/>
         // CODEGEN Warning: DefaultValue attribute on members of type TargetableFloat3 is not supported in this version of the .Net Framework.
@@ -36684,9 +36684,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_constraintTechnique_commonLimitsLinear
     {
 
-        private TargetableFloat3 minField;
+        TargetableFloat3 minField;
 
-        private TargetableFloat3 maxField;
+        TargetableFloat3 maxField;
 
         /// <remarks/>
         // CODEGEN Warning: DefaultValue attribute on members of type TargetableFloat3 is not supported in this version of the .Net Framework.
@@ -36728,9 +36728,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_constraintTechnique_commonSpring
     {
 
-        private rigid_constraintTechnique_commonSpringAngular angularField;
+        rigid_constraintTechnique_commonSpringAngular angularField;
 
-        private rigid_constraintTechnique_commonSpringLinear linearField;
+        rigid_constraintTechnique_commonSpringLinear linearField;
 
         /// <remarks/>
         public rigid_constraintTechnique_commonSpringAngular angular
@@ -36768,11 +36768,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_constraintTechnique_commonSpringAngular
     {
 
-        private TargetableFloat stiffnessField;
+        TargetableFloat stiffnessField;
 
-        private TargetableFloat dampingField;
+        TargetableFloat dampingField;
 
-        private TargetableFloat target_valueField;
+        TargetableFloat target_valueField;
 
         /// <remarks/>
         // CODEGEN Warning: DefaultValue attribute on members of type TargetableFloat is not supported in this version of the .Net Framework.
@@ -36829,11 +36829,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class rigid_constraintTechnique_commonSpringLinear
     {
 
-        private TargetableFloat stiffnessField;
+        TargetableFloat stiffnessField;
 
-        private TargetableFloat dampingField;
+        TargetableFloat dampingField;
 
-        private TargetableFloat target_valueField;
+        TargetableFloat target_valueField;
 
         /// <remarks/>
         // CODEGEN Warning: DefaultValue attribute on members of type TargetableFloat is not supported in this version of the .Net Framework.
@@ -36891,21 +36891,21 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_physics_model
     {
 
-        private InstanceWithExtra[] instance_force_fieldField;
+        InstanceWithExtra[] instance_force_fieldField;
 
-        private instance_rigid_body[] instance_rigid_bodyField;
+        instance_rigid_body[] instance_rigid_bodyField;
 
-        private instance_rigid_constraint[] instance_rigid_constraintField;
+        instance_rigid_constraint[] instance_rigid_constraintField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string urlField;
+        string urlField;
 
-        private string sidField;
+        string sidField;
 
-        private string nameField;
+        string nameField;
 
-        private string parentField;
+        string parentField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("instance_force_field")]
@@ -37030,19 +37030,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_rigid_body
     {
 
-        private instance_rigid_bodyTechnique_common technique_commonField;
+        instance_rigid_bodyTechnique_common technique_commonField;
 
-        private technique[] techniqueField;
+        technique[] techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string bodyField;
+        string bodyField;
 
-        private string sidField;
+        string sidField;
 
-        private string nameField;
+        string nameField;
 
-        private string targetField;
+        string targetField;
 
         /// <remarks/>
         public instance_rigid_bodyTechnique_common technique_common
@@ -37151,21 +37151,21 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_rigid_bodyTechnique_common
     {
 
-        private string angular_velocityField;
+        string angular_velocityField;
 
-        private string velocityField;
+        string velocityField;
 
-        private instance_rigid_bodyTechnique_commonDynamic dynamicField;
+        instance_rigid_bodyTechnique_commonDynamic dynamicField;
 
-        private TargetableFloat massField;
+        TargetableFloat massField;
 
-        private object[] mass_frameField;
+        object[] mass_frameField;
 
-        private TargetableFloat3 inertiaField;
+        TargetableFloat3 inertiaField;
 
-        private object itemField;
+        object itemField;
 
-        private instance_rigid_bodyTechnique_commonShape[] shapeField;
+        instance_rigid_bodyTechnique_commonShape[] shapeField;
 
         public instance_rigid_bodyTechnique_common()
         {
@@ -37294,9 +37294,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_rigid_bodyTechnique_commonDynamic
     {
 
-        private string sidField;
+        string sidField;
 
-        private bool valueField;
+        bool valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -37336,19 +37336,19 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_rigid_bodyTechnique_commonShape
     {
 
-        private instance_rigid_bodyTechnique_commonShapeHollow hollowField;
+        instance_rigid_bodyTechnique_commonShapeHollow hollowField;
 
-        private TargetableFloat massField;
+        TargetableFloat massField;
 
-        private TargetableFloat densityField;
+        TargetableFloat densityField;
 
-        private object itemField;
+        object itemField;
 
-        private object item1Field;
+        object item1Field;
 
-        private object[] itemsField;
+        object[] itemsField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         public instance_rigid_bodyTechnique_commonShapeHollow hollow
@@ -37464,9 +37464,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_rigid_bodyTechnique_commonShapeHollow
     {
 
-        private string sidField;
+        string sidField;
 
-        private bool valueField;
+        bool valueField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NCName")]
@@ -37507,13 +37507,13 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class instance_rigid_constraint
     {
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string constraintField;
+        string constraintField;
 
-        private string sidField;
+        string sidField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("extra")]
@@ -37582,15 +37582,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_physics_scenes
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private physics_scene[] physics_sceneField;
+        physics_scene[] physics_sceneField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -37672,21 +37672,21 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class physics_scene
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private InstanceWithExtra[] instance_force_fieldField;
+        InstanceWithExtra[] instance_force_fieldField;
 
-        private instance_physics_model[] instance_physics_modelField;
+        instance_physics_model[] instance_physics_modelField;
 
-        private physics_sceneTechnique_common technique_commonField;
+        physics_sceneTechnique_common technique_commonField;
 
-        private technique[] techniqueField;
+        technique[] techniqueField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -37808,9 +37808,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class physics_sceneTechnique_common
     {
 
-        private TargetableFloat3 gravityField;
+        TargetableFloat3 gravityField;
 
-        private TargetableFloat time_stepField;
+        TargetableFloat time_stepField;
 
         /// <remarks/>
         public TargetableFloat3 gravity
@@ -37849,15 +37849,15 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class library_visual_scenes
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private visual_scene[] visual_sceneField;
+        visual_scene[] visual_sceneField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -37939,17 +37939,17 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class visual_scene
     {
 
-        private asset assetField;
+        asset assetField;
 
-        private node[] nodeField;
+        node[] nodeField;
 
-        private visual_sceneEvaluate_scene[] evaluate_sceneField;
+        visual_sceneEvaluate_scene[] evaluate_sceneField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
-        private string idField;
+        string idField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         public asset asset
@@ -38044,9 +38044,9 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class visual_sceneEvaluate_scene
     {
 
-        private visual_sceneEvaluate_sceneRender[] renderField;
+        visual_sceneEvaluate_sceneRender[] renderField;
 
-        private string nameField;
+        string nameField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("render")]
@@ -38086,11 +38086,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class visual_sceneEvaluate_sceneRender
     {
 
-        private string[] layerField;
+        string[] layerField;
 
-        private instance_effect instance_effectField;
+        instance_effect instance_effectField;
 
-        private string camera_nodeField;
+        string camera_nodeField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("layer", DataType = "NCName")]
@@ -38143,11 +38143,11 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class COLLADAScene
     {
 
-        private InstanceWithExtra[] instance_physics_sceneField;
+        InstanceWithExtra[] instance_physics_sceneField;
 
-        private InstanceWithExtra instance_visual_sceneField;
+        InstanceWithExtra instance_visual_sceneField;
 
-        private extra[] extraField;
+        extra[] extraField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("instance_physics_scene")]
@@ -38217,7 +38217,7 @@ namespace OpenMetaverse.ImportExport.Collada14
     public partial class ellipsoid
     {
 
-        private string sizeField;
+        string sizeField;
 
         /// <remarks/>
         public string size

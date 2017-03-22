@@ -50,9 +50,9 @@ namespace OpenMetaverse.Http
         protected HttpWebRequest _Request;
 
         /// <summary>Number of times we've received an unknown CAPS exception in series.</summary>
-        private int _errorCount;
+        int _errorCount;
         /// <summary>For exponential backoff on error.</summary>
-        private static Random _random = new Random();
+        static readonly Random _random = new Random ();
 
         public EventQueueClient(Uri eventQueueLocation)
         {
@@ -64,7 +64,7 @@ namespace OpenMetaverse.Http
             _Dead = false;
 
             // Create an EventQueueGet request
-            OSDMap request = new OSDMap();
+            var request = new OSDMap();
             request["ack"] = new OSD();
             request["done"] = OSD.FromBoolean(false);
 
@@ -111,7 +111,7 @@ namespace OpenMetaverse.Http
             {
                 _errorCount = 0;
                 // Got a response
-                OSDMap result = OSDParser.DeserializeLLSDXml(responseData) as OSDMap;
+                var result = OSDParser.DeserializeLLSDXml(responseData) as OSDMap;
 
                 if (result != null)
                 {
@@ -132,7 +132,7 @@ namespace OpenMetaverse.Http
 
                 if (error is WebException)
                 {
-                    WebException webException = (WebException)error;
+                    var webException = (WebException)error;
 
                     if (webException.Response != null)
                         code = ((HttpWebResponse)webException.Response).StatusCode;
@@ -145,7 +145,7 @@ namespace OpenMetaverse.Http
 
                 if (code == HttpStatusCode.NotFound || code == HttpStatusCode.Gone)
                 {
-                    Logger.Log(String.Format("Closing event queue at {0} due to missing caps URI", _Address), Helpers.LogLevel.Info);
+                    Logger.Log(string.Format("Closing event queue at {0} due to missing caps URI", _Address), Helpers.LogLevel.Info);
 
                     _Running = false;
                     _Dead = true;
@@ -165,17 +165,17 @@ namespace OpenMetaverse.Http
                     // Try to log a meaningful error message
                     if (code != HttpStatusCode.OK)
                     {
-                        Logger.Log(String.Format("Unrecognized caps connection problem from {0}: {1}",
+                        Logger.Log(string.Format("Unrecognized caps connection problem from {0}: {1}",
                             _Address, code), Helpers.LogLevel.Warning);
                     }
                     else if (error.InnerException != null)
                     {
-                        Logger.Log(String.Format("Unrecognized internal caps exception from {0}: {1}",
+                        Logger.Log(string.Format("Unrecognized internal caps exception from {0}: {1}",
                             _Address, error.InnerException.Message), Helpers.LogLevel.Warning);
                     }
                     else
                     {
-                        Logger.Log(String.Format("Unrecognized caps exception from {0}: {1}",
+                        Logger.Log(string.Format("Unrecognized caps exception from {0}: {1}",
                             _Address, error.Message), Helpers.LogLevel.Warning);
                     }
                 }
@@ -195,7 +195,7 @@ namespace OpenMetaverse.Http
 
             if (_Running)
             {
-                OSDMap osdRequest = new OSDMap();
+                var osdRequest = new OSDMap();
                 if (ack != 0) osdRequest["ack"] = OSD.FromInteger(ack);
                 else osdRequest["ack"] = new OSD();
                 osdRequest["done"] = OSD.FromBoolean(_Dead);
@@ -229,7 +229,7 @@ namespace OpenMetaverse.Http
                 foreach (OSDMap evt in events)
                 {
                     string msg = evt["message"].AsString();
-                    OSDMap body = (OSDMap)evt["body"];
+                    var body = (OSDMap)evt["body"];
 
                     try { OnEvent(msg, body); }
                     catch (Exception ex) { Logger.Log(ex.Message, Helpers.LogLevel.Error, ex); }

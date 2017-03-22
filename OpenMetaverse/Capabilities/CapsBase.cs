@@ -28,7 +28,6 @@ using System;
 using System.Net;
 using System.Net.Security;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Security.Cryptography.X509Certificates;
 
@@ -41,7 +40,7 @@ namespace OpenMetaverse.Http
             return true;
         }
 
-        public static bool TrustAllCertificateHandler(Object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        public static bool TrustAllCertificateHandler(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
             return true;
         }
@@ -60,7 +59,7 @@ namespace OpenMetaverse.Http
             //ServicePointManager.ServerCertificateValidationCallback = TrustAllCertificatePolicy.TrustAllCertificateHandler;
         }
 
-        private class RequestState
+        class RequestState
         {
             public HttpWebRequest Request;
             public byte[] UploadData;
@@ -88,13 +87,12 @@ namespace OpenMetaverse.Http
             // Create the request
             HttpWebRequest request = SetupRequest(address, clientCert);
             request.ContentLength = data.Length;
-            if (!String.IsNullOrEmpty(contentType))
+            if (!string.IsNullOrEmpty(contentType))
                 request.ContentType = contentType;
             request.Method = "POST";
 
             // Create an object to hold all of the state for this request
-            RequestState state = new RequestState(request, data, millisecondsTimeout, openWriteCallback,
-                downloadProgressCallback, completedCallback);
+            var state = new RequestState(request, data, millisecondsTimeout, openWriteCallback, downloadProgressCallback, completedCallback);
 
             // Start the request for a stream to upload to
             IAsyncResult result = request.BeginGetRequestStream(OpenWrite, state);
@@ -118,8 +116,7 @@ namespace OpenMetaverse.Http
             DownloadProgressEventHandler downloadProgressCallback, RequestCompletedEventHandler completedCallback)
         {
             // Create an object to hold all of the state for this request
-            RequestState state = new RequestState(request, null, millisecondsTimeout, null, downloadProgressCallback,
-                completedCallback);
+            var state = new RequestState(request, null, millisecondsTimeout, null, downloadProgressCallback, completedCallback);
 
             // Start the request for the remote server response
             IAsyncResult result = request.BeginGetResponse(GetResponse, state);
@@ -133,7 +130,7 @@ namespace OpenMetaverse.Http
                 throw new ArgumentNullException("address");
 
             // Create the request
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(address);
+            var request = (HttpWebRequest)WebRequest.Create (address);
 
             // Add the client certificate to the request if one was given
             if (clientCert != null)
@@ -163,7 +160,7 @@ namespace OpenMetaverse.Http
 
         static void OpenWrite(IAsyncResult ar)
         {
-            RequestState state = (RequestState)ar.AsyncState;
+            var state = (RequestState)ar.AsyncState;
 
             try
             {
@@ -194,7 +191,7 @@ namespace OpenMetaverse.Http
 
         static void GetResponse(IAsyncResult ar)
         {
-            RequestState state = (RequestState)ar.AsyncState;
+            var state = (RequestState)ar.AsyncState;
             HttpWebResponse response = null;
             byte[] responseData = null;
             Exception error = null;
@@ -240,14 +237,11 @@ namespace OpenMetaverse.Http
                                 state.DownloadProgressCallback(state.Request, response, totalBytesRead, totalSize);
                         }
 
-                        if (nolength)
-                        {
+                        if (nolength) {
                             responseData = ms.ToArray();
                             ms.Close();
                             ms.Dispose();
-                        }
-                        else
-                        {
+                        } else {
                             responseData = buffer;
                         }
 
@@ -269,7 +263,7 @@ namespace OpenMetaverse.Http
         {
             if (timedOut)
             {
-                RequestState requestState = state as RequestState;
+                var requestState = state as RequestState;
                 //Logger.Log.Debug("CapsBase.TimeoutCallback(): Request to " + requestState.Request.RequestUri +
                 //    " timed out after " + requestState.MillisecondsTimeout + " milliseconds");
                 if (requestState != null && requestState.Request != null)

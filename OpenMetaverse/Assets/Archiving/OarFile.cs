@@ -28,10 +28,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Text;
-using System.Xml;
 using System.Threading;
-using OpenMetaverse;
+using System.Xml;
 
 namespace OpenMetaverse.Assets
 {
@@ -56,7 +54,7 @@ namespace OpenMetaverse.Assets
                 {
                     using (GZipStream loadStream = new GZipStream(fileStream, CompressionMode.Decompress))
                     {
-                        TarArchiveReader archive = new TarArchiveReader(loadStream);
+                        var archive = new TarArchiveReader(loadStream);
 
                         string filePath;
                         byte[] data;
@@ -64,13 +62,13 @@ namespace OpenMetaverse.Assets
 
                         while ((data = archive.ReadEntry(out filePath, out entryType)) != null)
                         {
-                            if (filePath.StartsWith(ArchiveConstants.OBJECTS_PATH))
+                            if (filePath.StartsWith (ArchiveConstants.OBJECTS_PATH, StringComparison.Ordinal))
                             {
                                 // Deserialize the XML bytes
                                 if (objectCallback != null)
                                     LoadObjects(data, objectCallback, fileStream.Position, fileStream.Length);
                             }
-                            else if (filePath.StartsWith(ArchiveConstants.ASSETS_PATH))
+                            else if (filePath.StartsWith (ArchiveConstants.ASSETS_PATH, StringComparison.Ordinal))
                             {
                                 if (assetCallback != null)
                                 {
@@ -80,12 +78,12 @@ namespace OpenMetaverse.Assets
                                         failedAssetRestores++;
                                 }
                             }
-                            else if (filePath.StartsWith(ArchiveConstants.TERRAINS_PATH))
+                            else if (filePath.StartsWith (ArchiveConstants.TERRAINS_PATH, StringComparison.Ordinal))
                             {
                                 if (terrainCallback != null)
                                     LoadTerrain(filePath, data, terrainCallback, fileStream.Position, fileStream.Length);
                             }
-                            else if (filePath.StartsWith(ArchiveConstants.SETTINGS_PATH))
+                            else if (filePath.StartsWith (ArchiveConstants.SETTINGS_PATH, StringComparison.Ordinal))
                             {
                                 if (settingsCallback != null)
                                     LoadRegionSettings(filePath, data, settingsCallback);
@@ -103,18 +101,18 @@ namespace OpenMetaverse.Assets
             }
 
             if (failedAssetRestores > 0)
-                Logger.Log(String.Format("[OarFile]: Failed to load {0} assets", failedAssetRestores), Helpers.LogLevel.Warning);
+                Logger.Log(string.Format("[OarFile]: Failed to load {0} assets", failedAssetRestores), Helpers.LogLevel.Warning);
         }
 
-        private static bool LoadAsset(string assetPath, byte[] data, AssetLoadedCallback assetCallback, long bytesRead, long totalBytes)
+        static bool LoadAsset(string assetPath, byte[] data, AssetLoadedCallback assetCallback, long bytesRead, long totalBytes)
         {
             // Right now we're nastily obtaining the UUID from the filename
             string filename = assetPath.Remove(0, ArchiveConstants.ASSETS_PATH.Length);
-            int i = filename.LastIndexOf(ArchiveConstants.ASSET_EXTENSION_SEPARATOR);
+            int i = filename.LastIndexOf (ArchiveConstants.ASSET_EXTENSION_SEPARATOR, StringComparison.Ordinal);
 
             if (i == -1)
             {
-                Logger.Log(String.Format(
+                Logger.Log(string.Format(
                     "[OarFile]: Could not find extension information in asset path {0} since it's missing the separator {1}.  Skipping",
                     assetPath, ArchiveConstants.ASSET_EXTENSION_SEPARATOR), Helpers.LogLevel.Warning);
                 return false;
@@ -180,7 +178,7 @@ namespace OpenMetaverse.Assets
             return false;
         }
 
-        private static bool LoadRegionSettings(string filePath, byte[] data, SettingsLoadedCallback settingsCallback)
+        static bool LoadRegionSettings(string filePath, byte[] data, SettingsLoadedCallback settingsCallback)
         {
             RegionSettings settings = null;
             bool loaded = false;
@@ -205,7 +203,7 @@ namespace OpenMetaverse.Assets
             return loaded;
         }
 
-        private static bool LoadTerrain(string filePath, byte[] data, TerrainLoadedCallback terrainCallback, long bytesRead, long totalBytes)
+        static bool LoadTerrain(string filePath, byte[] data, TerrainLoadedCallback terrainCallback, long bytesRead, long totalBytes)
         {
             float[,] terrain = new float[256, 256];
             bool loaded = false;
@@ -235,7 +233,8 @@ namespace OpenMetaverse.Assets
                             Helpers.LogLevel.Warning);
                     }
                     break;
-                case ".ter":
+                // other unrecognised types
+                /*case ".ter":
                     // Terragen
                 case ".raw":
                     // LLRAW
@@ -251,6 +250,7 @@ namespace OpenMetaverse.Assets
                 case ".tif":
                 case ".tiff":
                     // TIFF
+                */
                 default:
                     Logger.Log("[OarFile] Unrecognized terrain format in " + filePath, Helpers.LogLevel.Warning);
                     break;
@@ -264,7 +264,7 @@ namespace OpenMetaverse.Assets
 
         public static void LoadObjects(byte[] objectData, SceneObjectLoadedCallback objectCallback, long bytesRead, long totalBytes)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
 
             using (XmlTextReader reader = new XmlTextReader(new MemoryStream(objectData)))
             {
@@ -278,14 +278,14 @@ namespace OpenMetaverse.Assets
             {
                 foreach (XmlNode node in rootNode.ChildNodes)
                 {
-                    AssetPrim linkset = new AssetPrim(node.OuterXml);
+                    var linkset = new AssetPrim(node.OuterXml);
                     if (linkset != null)
                         objectCallback(linkset, bytesRead, totalBytes);
                 }
             }
             else
             {
-                AssetPrim linkset = new AssetPrim(rootNode.OuterXml);
+                var linkset = new AssetPrim(rootNode.OuterXml);
                 if (linkset != null)
                     objectCallback(linkset, bytesRead, totalBytes);
             }
@@ -299,7 +299,7 @@ namespace OpenMetaverse.Assets
         {
             const string ARCHIVE_XML = "<?xml version=\"1.0\" encoding=\"utf-16\"?>\n<archive major_version=\"0\" minor_version=\"1\" />";
 
-            TarArchiveWriter archive = new TarArchiveWriter(new GZipStream(new FileStream(filename, FileMode.Create), CompressionMode.Compress));
+            var archive = new TarArchiveWriter(new GZipStream(new FileStream(filename, FileMode.Create), CompressionMode.Compress));
 
             // Create the archive.xml file
             archive.WriteFile("archive.xml", ARCHIVE_XML);
@@ -339,16 +339,16 @@ namespace OpenMetaverse.Assets
             Thread.Sleep(100);
             Directory.CreateDirectory(terrainPath);
             Thread.Sleep(100);
-            FileInfo file = new FileInfo(Path.Combine(terrainPath, sim.Name + ".r32"));
+            var file = new FileInfo(Path.Combine(terrainPath, sim.Name + ".r32"));
             FileStream s = file.Open(FileMode.Create, FileAccess.Write);
             SaveTerrainStream(s, sim);
 
             s.Close();
         }
 
-        private static void SaveTerrainStream(Stream s, Simulator sim)
+        static void SaveTerrainStream(Stream s, Simulator sim)
         {
-            BinaryWriter bs = new BinaryWriter(s);
+            var bs = new BinaryWriter(s);
             
             int y;
             for (y = 0; y < 256; y++)
@@ -379,10 +379,10 @@ namespace OpenMetaverse.Assets
                 });
         }
 
-        private static void SerializeParcel(Parcel parcel, UUID globalID, string filename)
+        static void SerializeParcel(Parcel parcel, UUID globalID, string filename)
         {
-            StringWriter sw = new StringWriter();
-            XmlTextWriter xtw = new XmlTextWriter(sw) { Formatting = Formatting.Indented };
+            var sw = new StringWriter();
+            var xtw = new XmlTextWriter(sw) { Formatting = Formatting.Indented };
 
             xtw.WriteStartDocument();
             xtw.WriteStartElement("LandData");
@@ -453,7 +453,7 @@ namespace OpenMetaverse.Assets
             Directory.CreateDirectory(settingsPath);
             Thread.Sleep(100);
 
-            RegionSettings settings = new RegionSettings();
+            var settings = new RegionSettings();
             //settings.AgentLimit;
             settings.AllowDamage = (sim.Flags & RegionFlags.AllowDamage) == RegionFlags.AllowDamage;
             //settings.AllowLandJoinDivide;
@@ -465,7 +465,10 @@ namespace OpenMetaverse.Assets
             settings.DisablePhysics = (sim.Flags & RegionFlags.SkipPhysics) == RegionFlags.SkipPhysics;
             settings.DisableScripts = (sim.Flags & RegionFlags.SkipScripts) == RegionFlags.SkipScripts;
             settings.FixedSun = (sim.Flags & RegionFlags.SunFixed) == RegionFlags.SunFixed;
-            settings.MaturityRating = (int)(sim.Access & SimAccess.Mature & SimAccess.Adult & SimAccess.PG);
+            settings.MaturityRating = (int) (
+                (sim.Access & SimAccess.Mature) |
+                (sim.Access & SimAccess.Adult) |
+                (sim.Access & SimAccess.PG));
             //settings.ObjectBonus;
             settings.RestrictPushing = (sim.Flags & RegionFlags.RestrictPushObject) == RegionFlags.RestrictPushObject;
             settings.TerrainDetail0 = sim.TerrainDetail0;
@@ -488,7 +491,7 @@ namespace OpenMetaverse.Assets
 
         public static void SavePrims(AssetManager manager, IList<AssetPrim> prims, string primsPath, string assetsPath)
         {
-            Dictionary<UUID, UUID> textureList = new Dictionary<UUID, UUID>();
+            var textureList = new Dictionary<UUID, UUID>();
 
             // Delete all of the old linkset files
             try { Directory.Delete(primsPath, true); }
@@ -567,8 +570,8 @@ namespace OpenMetaverse.Assets
         {
             int count = 0;
 
-            List<UUID> remainingTextures = new List<UUID>(assets);
-            AutoResetEvent AllPropertiesReceived = new AutoResetEvent(false);
+            var remainingTextures = new List<UUID>(assets);
+            var AllPropertiesReceived = new AutoResetEvent(false);
             for (int i = 0; i < assets.Count; i++)
             {
                 UUID texture = assets[i];
@@ -587,7 +590,7 @@ namespace OpenMetaverse.Assets
                         if (ArchiveConstants.ASSET_TYPE_TO_EXTENSION.ContainsKey(assetType))
                             extension = ArchiveConstants.ASSET_TYPE_TO_EXTENSION[assetType];
 
-                        File.WriteAllBytes(Path.Combine(assetsPath, texture.ToString() + extension), assetTexture.AssetData);
+                        File.WriteAllBytes(Path.Combine(assetsPath, texture + extension), assetTexture.AssetData);
                         remainingTextures.Remove(assetTexture.AssetID);
                         if (remainingTextures.Count == 0)
                             AllPropertiesReceived.Set();
@@ -609,7 +612,7 @@ namespace OpenMetaverse.Assets
                         if (ArchiveConstants.ASSET_TYPE_TO_EXTENSION.ContainsKey(assetType))
                             extension = ArchiveConstants.ASSET_TYPE_TO_EXTENSION[assetType];
 
-                        File.WriteAllBytes(Path.Combine(assetsPath, texture.ToString() + extension), asset.AssetData);
+                        File.WriteAllBytes(Path.Combine(assetsPath, texture + extension), asset.AssetData);
                         remainingTextures.Remove(asset.AssetID);
                         if (remainingTextures.Count == 0)
                             AllPropertiesReceived.Set();
@@ -630,7 +633,7 @@ namespace OpenMetaverse.Assets
         {
             int count = 0;
 
-            AutoResetEvent AllPropertiesReceived = new AutoResetEvent(false);
+            var AllPropertiesReceived = new AutoResetEvent(false);
             assetManager.RequestAsset(assetID, itemID, primID, assetType, false, SourceType.SimInventoryItem, UUID.Random(), (transfer, asset) =>
             {
                 string extension = string.Empty;
@@ -643,7 +646,7 @@ namespace OpenMetaverse.Assets
                     AllPropertiesReceived.Set();
                     return;
                 }
-                File.WriteAllBytes(Path.Combine(assetsPath, assetID.ToString() + extension), asset.AssetData);
+                File.WriteAllBytes(Path.Combine(assetsPath, assetID + extension), asset.AssetData);
                 ++count;
                 AllPropertiesReceived.Set();
             });
@@ -658,7 +661,7 @@ namespace OpenMetaverse.Assets
             {
                 using (StreamWriter stream = new StreamWriter(filename))
                 {
-                    XmlTextWriter writer = new XmlTextWriter(stream);
+                    var writer = new XmlTextWriter(stream);
                     writer.Formatting = Formatting.Indented;
                     writer.Indentation = 4;
                     writer.IndentChar = ' ';
@@ -674,9 +677,9 @@ namespace OpenMetaverse.Assets
 
         public static void SOGToXml2(XmlTextWriter writer, AssetPrim prim)
         {
-            writer.WriteStartElement(String.Empty, "SceneObjectGroup", String.Empty);
+            writer.WriteStartElement(string.Empty, "SceneObjectGroup", string.Empty);
             SOPToXml(writer, prim.Parent, null);
-            writer.WriteStartElement(String.Empty, "OtherParts", String.Empty);
+            writer.WriteStartElement(string.Empty, "OtherParts", string.Empty);
 
             foreach (PrimObject child in prim.Children)
                 SOPToXml(writer, child, prim.Parent);
@@ -744,7 +747,7 @@ namespace OpenMetaverse.Assets
             WriteUUID(writer, "UUID", prim.ID);
             writer.WriteElementString("LocalId", prim.LocalID.ToString());
             writer.WriteElementString("Name", prim.Name);
-            writer.WriteElementString("Material", ((int)prim.Material).ToString());
+            writer.WriteElementString("Material", (prim.Material).ToString());
             writer.WriteElementString("RegionHandle", prim.RegionHandle.ToString());
             writer.WriteElementString("ScriptAccessPin", prim.RemoteScriptAccessPIN.ToString());
 
@@ -800,8 +803,8 @@ namespace OpenMetaverse.Assets
             WriteVector(writer, "Scale", prim.Scale);
             writer.WriteElementString("State", prim.State.ToString());
 
-            AssetPrim.ProfileShape shape = (AssetPrim.ProfileShape)(prim.Shape.ProfileCurve & 0x0F);
-            HoleType hole = (HoleType)(prim.Shape.ProfileCurve & 0xF0);
+            var shape = (AssetPrim.ProfileShape)(prim.Shape.ProfileCurve & 0x0F);
+            var hole = (HoleType)(prim.Shape.ProfileCurve & 0xF0);
             writer.WriteElementString("ProfileShape", shape.ToString());
             writer.WriteElementString("HollowShape", hole.ToString());
             writer.WriteElementString("ProfileCurve", prim.Shape.ProfileCurve.ToString());
@@ -832,7 +835,7 @@ namespace OpenMetaverse.Assets
             writer.WriteElementString("CreationDate", ((int)Utils.DateTimeToUnixTime(prim.CreationDate)).ToString());
             writer.WriteElementString("Category", "0");
             writer.WriteElementString("SalePrice", prim.SalePrice.ToString());
-            writer.WriteElementString("ObjectSaleType", ((int)prim.SaleType).ToString());
+            writer.WriteElementString("ObjectSaleType", (prim.SaleType).ToString());
             writer.WriteElementString("OwnershipCost", "0");
             WriteUUID(writer, "GroupID", prim.GroupID);
             WriteUUID(writer, "OwnerID", prim.OwnerID);

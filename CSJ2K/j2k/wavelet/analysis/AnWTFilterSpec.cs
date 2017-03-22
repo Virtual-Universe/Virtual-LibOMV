@@ -90,12 +90,12 @@ namespace CSJ2K.j2k.wavelet.analysis
 			pl.checkList(AnWTFilter.OPT_PREFIX, CSJ2K.j2k.util.ParameterList.toNameArray(AnWTFilter.ParameterInfo));
 			
 			System.String param = pl.getParameter("Ffilters");
-			bool isFilterSpecified = true;
+            bool isFilterSpecified = !string.IsNullOrEmpty(param);
 			
 			// No parameter specified
 			if (param == null)
 			{
-				isFilterSpecified = false;
+				// not used -g- isFilterSpecified = false;
 				
 				// If lossless compression, uses the reversible filters in each
 				// tile-components 

@@ -27,9 +27,9 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using NUnit.Framework;
 using OpenMetaverse;
 using OpenMetaverse.Packets;
+using NUnit.Framework;
 
 namespace OpenMetaverse.Tests
 {
@@ -44,7 +44,8 @@ namespace OpenMetaverse.Tests
                 float floatValue = Primitive.UnpackBeginCut(i);
                 ushort result = Primitive.PackBeginCut(floatValue);
 
-                Assert.IsTrue(result == i, "Started with " + i + ", float value was " + floatValue + ", and ended up with " + result);
+                Assert.IsTrue(result == i, "Started with " + i + ", float value was " + floatValue +
+                    ", and ended up with " + result);
             }
         }
 
@@ -56,7 +57,8 @@ namespace OpenMetaverse.Tests
                 float floatValue = Primitive.UnpackEndCut(i);
                 ushort result = Primitive.PackEndCut(floatValue);
 
-                Assert.IsTrue(result == i, "Started with " + i + ", float value was " + floatValue + ", and ended up with " + result);
+                Assert.IsTrue(result == i, "Started with " + i + ", float value was " + floatValue +
+                    ", and ended up with " + result);
             }
         }
 
@@ -68,7 +70,8 @@ namespace OpenMetaverse.Tests
                 float floatValue = Primitive.UnpackPathRevolutions(i);
                 byte result = Primitive.PackPathRevolutions(floatValue);
 
-                Assert.IsTrue(result == i, "Started with " + i + ", float value was " + floatValue + ", and ended up with " + result);
+                Assert.IsTrue(result == i, "Started with " + i + ", float value was " + floatValue +
+                    ", and ended up with " + result);
             }
         }
 
@@ -80,9 +83,23 @@ namespace OpenMetaverse.Tests
                 float floatValue = Primitive.UnpackPathScale(i);
                 byte result = Primitive.PackPathScale(floatValue);
 
-                Assert.IsTrue(result == i, "Started with " + i + ", float value was " + floatValue + ", and ended up with " + result);
+                Assert.IsTrue(result == i, "Started with " + i + ", float value was " + floatValue +
+                    ", and ended up with " + result);
             }
         }
+
+        //[Test]
+        //public void PathShear()
+        //{
+        //    for (byte i = 0; i < byte.MaxValue; i++)
+        //    {
+        //        float floatValue = Primitive.UnpackPathShear(i);
+        //        byte result = Primitive.PackPathShear(floatValue);
+
+        //        Assert.IsTrue(result == i, "Started with " + i + ", float value was " + floatValue +
+        //        ", and ended up with " + result);
+        //    }
+        //}
 
         [Test]
         public void PathTaper()
@@ -92,7 +109,8 @@ namespace OpenMetaverse.Tests
                 float floatValue = Primitive.UnpackPathTaper(i);
                 sbyte result = Primitive.PackPathTaper(floatValue);
 
-                Assert.IsTrue(result == i, "Started with " + i + ", float value was " + floatValue + ", and ended up with " + result);
+                Assert.IsTrue(result == i, "Started with " + i + ", float value was " + floatValue +
+                ", and ended up with " + result);
             }
         }
 

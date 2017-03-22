@@ -27,9 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.IO;
 using System.Net;
-using OpenMetaverse;
 using OpenMetaverse.Packets;
 using OpenMetaverse.Assets;
 using OpenMetaverse.Http;
@@ -40,7 +38,7 @@ namespace OpenMetaverse
 {
     #region Enums
 
-    public enum EstateAssetType : int
+    public enum EstateAssetType
     {
         None = -1,
         Covenant = 0
@@ -72,7 +70,7 @@ namespace OpenMetaverse
     /// <summary>
     /// 
     /// </summary>
-    public enum ChannelType : int
+    public enum ChannelType
     {
         /// <summary></summary>
         Unknown = 0,
@@ -85,7 +83,7 @@ namespace OpenMetaverse
     /// <summary>
     /// 
     /// </summary>
-    public enum SourceType : int
+    public enum SourceType
     {
         /// <summary></summary>
         Unknown = 0,
@@ -100,7 +98,7 @@ namespace OpenMetaverse
     /// <summary>
     /// 
     /// </summary>
-    public enum TargetType : int
+    public enum TargetType
     {
         /// <summary></summary>
         Unknown = 0,
@@ -138,7 +136,7 @@ namespace OpenMetaverse
         PNG = 7
     }
 
-    public enum TransferError : int
+    public enum TransferError
     {
         None = 0,
         Failed = -1,
@@ -169,7 +167,7 @@ namespace OpenMetaverse
         public bool Success;
         public AssetType AssetType;
 
-        private int transferStart;
+        int transferStart;
 
         /// <summary>Number of milliseconds passed since the last transfer
         /// packet was received</summary>
@@ -220,7 +218,7 @@ namespace OpenMetaverse
         public ulong XferID;
         public UUID VFileID;
         public uint PacketNum;
-        public string Filename = String.Empty;
+        public string Filename = string.Empty;
         public TransferError Error = TransferError.None;
 
         public XferDownload()
@@ -327,20 +325,22 @@ namespace OpenMetaverse
 
         #region XferReceived
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<XferReceivedEventArgs> m_XferReceivedEvent;
+        EventHandler<XferReceivedEventArgs> m_XferReceivedEvent;
 
         /// <summary>Raises the XferReceived event</summary>
         /// <param name="e">A XferReceivedEventArgs object containing the
         /// data returned from the simulator</param>
         protected virtual void OnXferReceived(XferReceivedEventArgs e)
         {
-            EventHandler<XferReceivedEventArgs> handler = m_XferReceivedEvent;
-            if (handler != null)
-                handler(this, e);
+            lock (m_XferReceivedLock) {
+                EventHandler<XferReceivedEventArgs> handler = m_XferReceivedEvent;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_XferReceivedLock = new object();
+        readonly object m_XferReceivedLock = new object();
 
         /// <summary>Raised when the simulator responds sends </summary>
         public event EventHandler<XferReceivedEventArgs> XferReceived
@@ -352,20 +352,22 @@ namespace OpenMetaverse
 
         #region AssetUploaded
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<AssetUploadEventArgs> m_AssetUploadedEvent;
+        EventHandler<AssetUploadEventArgs> m_AssetUploadedEvent;
 
         /// <summary>Raises the AssetUploaded event</summary>
         /// <param name="e">A AssetUploadedEventArgs object containing the
         /// data returned from the simulator</param>
         protected virtual void OnAssetUploaded(AssetUploadEventArgs e)
         {
-            EventHandler<AssetUploadEventArgs> handler = m_AssetUploadedEvent;
-            if (handler != null)
-                handler(this, e);
+            lock (m_AssetUploadedLock) {
+                EventHandler<AssetUploadEventArgs> handler = m_AssetUploadedEvent;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_AssetUploadedLock = new object();
+        readonly object m_AssetUploadedLock = new object();
 
         /// <summary>Raised during upload completes</summary>
         public event EventHandler<AssetUploadEventArgs> AssetUploaded
@@ -377,20 +379,22 @@ namespace OpenMetaverse
 
         #region UploadProgress
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<AssetUploadEventArgs> m_UploadProgressEvent;
+        EventHandler<AssetUploadEventArgs> m_UploadProgressEvent;
 
         /// <summary>Raises the UploadProgress event</summary>
         /// <param name="e">A UploadProgressEventArgs object containing the
         /// data returned from the simulator</param>
         protected virtual void OnUploadProgress(AssetUploadEventArgs e)
         {
-            EventHandler<AssetUploadEventArgs> handler = m_UploadProgressEvent;
-            if (handler != null)
-                handler(this, e);
+            lock (m_UploadProgressLock) {
+                EventHandler<AssetUploadEventArgs> handler = m_UploadProgressEvent;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_UploadProgressLock = new object();
+        readonly object m_UploadProgressLock = new object();
 
         /// <summary>Raised during upload with progres update</summary>
         public event EventHandler<AssetUploadEventArgs> UploadProgress
@@ -402,20 +406,22 @@ namespace OpenMetaverse
 
         #region InitiateDownload
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<InitiateDownloadEventArgs> m_InitiateDownloadEvent;
+        EventHandler<InitiateDownloadEventArgs> m_InitiateDownloadEvent;
 
         /// <summary>Raises the InitiateDownload event</summary>
         /// <param name="e">A InitiateDownloadEventArgs object containing the
         /// data returned from the simulator</param>
         protected virtual void OnInitiateDownload(InitiateDownloadEventArgs e)
         {
-            EventHandler<InitiateDownloadEventArgs> handler = m_InitiateDownloadEvent;
-            if (handler != null)
-                handler(this, e);
+            lock (m_InitiateDownloadLock) {
+                EventHandler<InitiateDownloadEventArgs> handler = m_InitiateDownloadEvent;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_InitiateDownloadLock = new object();
+        readonly object m_InitiateDownloadLock = new object();
 
         /// <summary>Fired when the simulator sends an InitiateDownloadPacket, used to download terrain .raw files</summary>
         public event EventHandler<InitiateDownloadEventArgs> InitiateDownload
@@ -427,20 +433,22 @@ namespace OpenMetaverse
 
         #region ImageReceiveProgress
         /// <summary>The event subscribers. null if no subcribers</summary>
-        private EventHandler<ImageReceiveProgressEventArgs> m_ImageReceiveProgressEvent;
+        EventHandler<ImageReceiveProgressEventArgs> m_ImageReceiveProgressEvent;
 
         /// <summary>Raises the ImageReceiveProgress event</summary>
         /// <param name="e">A ImageReceiveProgressEventArgs object containing the
         /// data returned from the simulator</param>
         protected virtual void OnImageReceiveProgress(ImageReceiveProgressEventArgs e)
         {
-            EventHandler<ImageReceiveProgressEventArgs> handler = m_ImageReceiveProgressEvent;
-            if (handler != null)
-                handler(this, e);
+            lock (m_ImageReceiveProgressLock) {
+                EventHandler<ImageReceiveProgressEventArgs> handler = m_ImageReceiveProgressEvent;
+                if (handler != null)
+                    handler (this, e);
+            }
         }
 
         /// <summary>Thread sync lock object</summary>
-        private readonly object m_ImageReceiveProgressLock = new object();
+        readonly object m_ImageReceiveProgressLock = new object();
 
         /// <summary>Fired when a texture is in the process of being downloaded by the TexturePipeline class</summary>
         public event EventHandler<ImageReceiveProgressEventArgs> ImageReceiveProgress
@@ -455,17 +463,17 @@ namespace OpenMetaverse
         /// <summary>Texture download cache</summary>
         public AssetCache Cache;
 
-        private TexturePipeline Texture;
+        TexturePipeline Texture;
 
-        private DownloadManager HttpDownloads;
+        DownloadManager HttpDownloads;
 
-        private GridClient Client;
+        GridClient Client;
 
-        private Dictionary<UUID, Transfer> Transfers = new Dictionary<UUID, Transfer>();
+        Dictionary<UUID, Transfer> Transfers = new Dictionary<UUID, Transfer>();
 
-        private AssetUpload PendingUpload;
-        private object PendingUploadLock = new object();
-        private volatile bool WaitingForUploadConfirm = false;
+        AssetUpload PendingUpload;
+        object PendingUploadLock = new object();
+        volatile bool WaitingForUploadConfirm = false;
 
         /// <summary>
         /// Default constructor
@@ -811,8 +819,8 @@ namespace OpenMetaverse
             {
                 isMultiPacketUpload = false;
                 Logger.Log(
-                    String.Format("Beginning asset upload [Single Packet], ID: {0}, AssetID: {1}, Size: {2}",
-                    upload.ID.ToString(), upload.AssetID.ToString(), upload.Size), Helpers.LogLevel.Info, Client);
+                    string.Format("Beginning asset upload [Single Packet], ID: {0}, AssetID: {1}, Size: {2}",
+                    upload.ID, upload.AssetID, upload.Size), Helpers.LogLevel.Info, Client);
 
                 Transfers[upload.ID] = upload;
 
@@ -824,8 +832,8 @@ namespace OpenMetaverse
             {
                 isMultiPacketUpload = true;
                 Logger.Log(
-                    String.Format("Beginning asset upload [Multiple Packets], ID: {0}, AssetID: {1}, Size: {2}",
-                    upload.ID.ToString(), upload.AssetID.ToString(), upload.Size), Helpers.LogLevel.Info, Client);
+                    string.Format("Beginning asset upload [Multiple Packets], ID: {0}, AssetID: {1}, Size: {2}",
+                    upload.ID, upload.AssetID, upload.Size), Helpers.LogLevel.Info, Client);
 
                 // Asset is too big, send in multiple packets
                 request.AssetBlock.AssetData = Utils.EmptyBytes;
@@ -839,25 +847,20 @@ namespace OpenMetaverse
                 int t = 0;
                 while (WaitingForUploadConfirm && t < UPLOAD_CONFIRM_TIMEOUT)
                 {
-                    System.Threading.Thread.Sleep(SLEEP_INTERVAL);
+                    Thread.Sleep(SLEEP_INTERVAL);
                     t += SLEEP_INTERVAL;
                 }
 
-                if (t < UPLOAD_CONFIRM_TIMEOUT)
-                {
-                    if (isMultiPacketUpload)
-                    {
+                if (t < UPLOAD_CONFIRM_TIMEOUT) {
+                    if (isMultiPacketUpload) {
                         WaitingForUploadConfirm = true;
                     }
                     PendingUpload = upload;
-                    Client.Network.SendPacket(request);
+                    Client.Network.SendPacket (request);
 
                     return upload.ID;
                 }
-                else
-                {
-                    throw new Exception("Timeout waiting for previous asset upload to begin");
-                }
+                throw new Exception ("Timeout waiting for previous asset upload to begin");
             }
         }
 
@@ -991,7 +994,7 @@ namespace OpenMetaverse
         /// <code>
         /// Client.Assets.RequestImage(UUID.Parse("c307629f-e3a1-4487-5e88-0d96ac9d4965"), ImageType.Normal, TextureDownloader_OnDownloadFinished);
         /// 
-        /// private void TextureDownloader_OnDownloadFinished(TextureRequestState state, AssetTexture asset)
+        /// void TextureDownloader_OnDownloadFinished(TextureRequestState state, AssetTexture asset)
         /// {
         ///     if(state == TextureRequestState.Finished)
         ///     {
@@ -1018,7 +1021,7 @@ namespace OpenMetaverse
         /// <code>
         /// Client.Assets.RequestImage(UUID.Parse("c307629f-e3a1-4487-5e88-0d96ac9d4965"), ImageType.Normal, TextureDownloader_OnDownloadFinished);
         /// 
-        /// private void TextureDownloader_OnDownloadFinished(TextureRequestState state, AssetTexture asset)
+        /// void TextureDownloader_OnDownloadFinished(TextureRequestState state, AssetTexture asset)
         /// {
         ///     if(state == TextureRequestState.Finished)
         ///     {
@@ -1124,7 +1127,7 @@ namespace OpenMetaverse
                 Uri url = Client.Network.CurrentSim.Caps.CapabilityURI("GetMesh");
 
                 DownloadRequest req = new DownloadRequest(
-                    new Uri(string.Format("{0}/?mesh_id={1}", url.ToString(), meshID.ToString())),
+                    new Uri(string.Format("{0}/?mesh_id={1}", url, meshID)),
                     Client.Settings.CAPS_TIMEOUT,
                     null,
                     null,
@@ -1253,7 +1256,7 @@ namespace OpenMetaverse
         // Same signature as the UDP variant since we need all the params to
         // pass to the UDP TexturePipeline in case we need to fall back to it
         // (Linden servers currently (1.42) don't support bakes downloads via HTTP)
-        private void HttpRequestTexture(UUID textureID, ImageType imageType, float priority, int discardLevel,
+        void HttpRequestTexture(UUID textureID, ImageType imageType, float priority, int discardLevel,
     uint packetStart, TextureDownloadCallback callback, bool progress)
         {
             if (textureID == UUID.Zero || callback == null)
@@ -1291,7 +1294,7 @@ namespace OpenMetaverse
             Uri url = Client.Network.CurrentSim.Caps.CapabilityURI("GetTexture");
 
             DownloadRequest req = new DownloadRequest(
-                new Uri(string.Format("{0}/?texture_id={1}", url.ToString(), textureID.ToString())),
+                new Uri(string.Format("{0}/?texture_id={1}", url, textureID)),
                 Client.Settings.CAPS_TIMEOUT,
                 "image/x-j2c",
                 progressHandler,
@@ -1385,7 +1388,7 @@ namespace OpenMetaverse
             return asset;
         }
 
-        private Asset WrapAsset(AssetDownload download)
+        Asset WrapAsset(AssetDownload download)
         {
             Asset asset = CreateAssetWrapper(download.AssetType);
             if (asset != null)
@@ -1400,7 +1403,7 @@ namespace OpenMetaverse
             }
         }
 
-        private void SendNextUploadPacket(AssetUpload upload)
+        void SendNextUploadPacket(AssetUpload upload)
         {
             SendXferPacketPacket send = new SendXferPacketPacket();
 
@@ -1436,14 +1439,14 @@ namespace OpenMetaverse
                 int lastlen = upload.Size - ((int)send.XferID.Packet * 1000);
                 send.DataPacket.Data = new byte[lastlen];
                 Buffer.BlockCopy(upload.AssetData, (int)send.XferID.Packet * 1000, send.DataPacket.Data, 0, lastlen);
-                send.XferID.Packet |= (uint)0x80000000; // This signals the final packet
+                send.XferID.Packet |= 0x80000000; // This signals the final packet
                 upload.Transferred += lastlen;
             }
 
             Client.Network.SendPacket(send);
         }
 
-        private void SendConfirmXferPacket(ulong xferID, uint packetNum)
+        void SendConfirmXferPacket(ulong xferID, uint packetNum)
         {
             ConfirmXferPacketPacket confirm = new ConfirmXferPacketPacket();
             confirm.XferID.ID = xferID;
@@ -1520,7 +1523,7 @@ namespace OpenMetaverse
                     }
                     else
                     {
-                        Logger.Log("Received a TransferInfo packet with a SourceType of " + download.Source.ToString() +
+                        Logger.Log("Received a TransferInfo packet with a SourceType of " + download.Source +
                             " and a Params field length of " + info.TransferInfo.Params.Length,
                             Helpers.LogLevel.Warning, Client);
                     }
@@ -1556,7 +1559,7 @@ namespace OpenMetaverse
                     if (download.Size == 0)
                     {
                         Logger.Log("Timed out while waiting for the asset header to download for " +
-                            download.ID.ToString(), Helpers.LogLevel.Warning, Client);
+                            download.ID, Helpers.LogLevel.Warning, Client);
 
                         // Abort the transfer
                         TransferAbortPacket abort = new TransferAbortPacket();
@@ -1600,7 +1603,7 @@ namespace OpenMetaverse
                 }
                 catch (ArgumentException)
                 {
-                    Logger.Log(String.Format("TransferPacket handling failed. TransferData.Data.Length={0}, AssetData.Length={1}, TransferData.Packet={2}",
+                    Logger.Log(string.Format("TransferPacket handling failed. TransferData.Data.Length={0}, AssetData.Length={1}, TransferData.Packet={2}",
                         asset.TransferData.Data.Length, download.AssetData.Length, asset.TransferData.Packet), Helpers.LogLevel.Error);
                     return;
                 }
@@ -1612,7 +1615,7 @@ namespace OpenMetaverse
                 // Check if we downloaded the full asset
                 if (download.Transferred >= download.Size)
                 {
-                    Logger.DebugLog("Transfer for asset " + download.AssetID.ToString() + " completed", Client);
+                    Logger.DebugLog("Transfer for asset " + download.AssetID + " completed", Client);
 
                     download.Success = true;
                     lock (Transfers) Transfers.Remove(download.ID);
@@ -1706,13 +1709,15 @@ namespace OpenMetaverse
         protected void AssetUploadCompleteHandler(object sender, PacketReceivedEventArgs e)
         {
             AssetUploadCompletePacket complete = (AssetUploadCompletePacket)e.Packet;
+            bool update;
 
             // If we uploaded an asset in a single packet, RequestXferHandler()
             // will never be called so we need to set this here as well
             WaitingForUploadConfirm = false;
 
-            if (m_AssetUploadedEvent != null)
-            {
+            lock (m_AssetUploadedLock)
+                update = (m_AssetUploadedEvent != null);
+            if (update) {
                 bool found = false;
                 KeyValuePair<UUID, Transfer> foundTransfer = new KeyValuePair<UUID, Transfer>();
 
@@ -1746,7 +1751,7 @@ namespace OpenMetaverse
                 }
                 else
                 {
-                    Logger.Log(String.Format(
+                    Logger.Log(string.Format(
                         "Got an AssetUploadComplete on an unrecognized asset, AssetID: {0}, Type: {1}, Success: {2}",
                         complete.AssetBlock.UUID, (AssetType)complete.AssetBlock.Type, complete.AssetBlock.Success),
                         Helpers.LogLevel.Warning);
@@ -1820,10 +1825,10 @@ namespace OpenMetaverse
                 if ((xfer.XferID.Packet & 0x80000000) != 0)
                 {
                     // This is the last packet in the transfer
-                    if (!String.IsNullOrEmpty(download.Filename))
+                    if (!string.IsNullOrEmpty(download.Filename))
                         Logger.DebugLog("Xfer download for asset " + download.Filename + " completed", Client);
                     else
-                        Logger.DebugLog("Xfer download for asset " + download.VFileID.ToString() + " completed", Client);
+                        Logger.DebugLog("Xfer download for asset " + download.VFileID + " completed", Client);
 
                     download.Success = true;
                     lock (Transfers) Transfers.Remove(download.ID);
@@ -1855,8 +1860,10 @@ namespace OpenMetaverse
                 }
             }
 
-            if (download != null && m_XferReceivedEvent != null)
-            {
+            bool updateXfr;
+            lock (m_XferReceivedLock)
+                updateXfr = (download != null && m_XferReceivedEvent != null);
+            if (updateXfr) {
                 download.Success = false;
                 download.Error = (TransferError)abort.XferID.Result;
 
@@ -1871,36 +1878,36 @@ namespace OpenMetaverse
     // <summary>Provides data for XferReceived event</summary>
     public class XferReceivedEventArgs : EventArgs
     {
-        private readonly XferDownload m_Xfer;
+        readonly XferDownload m_Xfer;
 
         /// <summary>Xfer data</summary>
         public XferDownload Xfer { get { return m_Xfer; } }
 
         public XferReceivedEventArgs(XferDownload xfer)
         {
-            this.m_Xfer = xfer;
+            m_Xfer = xfer;
         }
     }
 
     // <summary>Provides data for AssetUploaded event</summary>
     public class AssetUploadEventArgs : EventArgs
     {
-        private readonly AssetUpload m_Upload;
+        readonly AssetUpload m_Upload;
 
         /// <summary>Upload data</summary>
         public AssetUpload Upload { get { return m_Upload; } }
 
         public AssetUploadEventArgs(AssetUpload upload)
         {
-            this.m_Upload = upload;
+            m_Upload = upload;
         }
     }
 
     // <summary>Provides data for InitiateDownloaded event</summary>
     public class InitiateDownloadEventArgs : EventArgs
     {
-        private readonly string m_SimFileName;
-        private readonly string m_ViewerFileName;
+        readonly string m_SimFileName;
+        readonly string m_ViewerFileName;
 
         /// <summary>Filename used on the simulator</summary>
         public string SimFileName { get { return m_SimFileName; } }
@@ -1910,17 +1917,17 @@ namespace OpenMetaverse
 
         public InitiateDownloadEventArgs(string simFilename, string viewerFilename)
         {
-            this.m_SimFileName = simFilename;
-            this.m_ViewerFileName = viewerFilename;
+            m_SimFileName = simFilename;
+            m_ViewerFileName = viewerFilename;
         }
     }
 
     // <summary>Provides data for ImageReceiveProgress event</summary>
     public class ImageReceiveProgressEventArgs : EventArgs
     {
-        private readonly UUID m_ImageID;
-        private readonly int m_Received;
-        private readonly int m_Total;
+        readonly UUID m_ImageID;
+        readonly int m_Received;
+        readonly int m_Total;
 
         /// <summary>UUID of the image that is in progress</summary>
         public UUID ImageID { get { return m_ImageID; } }
@@ -1933,9 +1940,9 @@ namespace OpenMetaverse
 
         public ImageReceiveProgressEventArgs(UUID imageID, int received, int total)
         {
-            this.m_ImageID = imageID;
-            this.m_Received = received;
-            this.m_Total = total;
+            m_ImageID = imageID;
+            m_Received = received;
+            m_Total = total;
         }
     }
     #endregion

@@ -24,8 +24,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System;
-using System.Collections.Generic;
 using OpenMetaverse.Packets;
 
 namespace OpenMetaverse
@@ -366,8 +364,8 @@ namespace OpenMetaverse
         #endregion
         #region Private Fields
 
-        private GridClient Client;
-        private int priceUpload = 0;
+        GridClient Client;
+        int priceUpload = 0;
         public static bool SORT_INVENTORY = false;
 
         /// <summary>Constructor</summary>
@@ -375,7 +373,7 @@ namespace OpenMetaverse
         public Settings(GridClient client)
         {
             Client = client;
-            Client.Network.RegisterCallback(Packets.PacketType.EconomyData, EconomyDataHandler);
+            Client.Network.RegisterCallback(PacketType.EconomyData, EconomyDataHandler);
         }
 
         #endregion
@@ -386,7 +384,7 @@ namespace OpenMetaverse
         /// <param name="e">The EventArgs object containing the packet data</param>
         protected void EconomyDataHandler(object sender, PacketReceivedEventArgs e)
         {
-            EconomyDataPacket econ = (EconomyDataPacket)e.Packet;
+            var econ = (EconomyDataPacket)e.Packet;
 
             priceUpload = econ.Info.PriceUpload;
         }

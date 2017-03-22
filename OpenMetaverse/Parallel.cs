@@ -35,7 +35,7 @@ namespace OpenMetaverse
     /// </summary>
     public static class Parallel
     {
-        private static readonly int processorCount = System.Environment.ProcessorCount;
+        static readonly int processorCount = Environment.ProcessorCount;
 
         /// <summary>
         /// Executes a for loop in which iterations may run in parallel
@@ -58,7 +58,7 @@ namespace OpenMetaverse
         public static void For(int threadCount, int fromInclusive, int toExclusive, Action<int> body)
         {
             int counter = threadCount;
-            AutoResetEvent threadFinishEvent = new AutoResetEvent(false);
+            var threadFinishEvent = new AutoResetEvent(false);
             Exception exception = null;
 
             --fromInclusive;
@@ -68,7 +68,7 @@ namespace OpenMetaverse
                 WorkPool.QueueUserWorkItem(
                     delegate(object o)
                     {
-                        int threadIndex = (int)o;
+                        // not used??// var threadIndex = (int)o;
 
                         while (exception == null)
                         {
@@ -87,10 +87,17 @@ namespace OpenMetaverse
                 );
             }
 
-            threadFinishEvent.WaitOne();
+            try {
+                threadFinishEvent.WaitOne ();
 
-            if (exception != null)
+                if (exception != null) {
+                    threadFinishEvent.Dispose ();
+                    throw exception;
+                }
+            } catch {  // in case of an exception in threadFinishEvent
+                threadFinishEvent.Dispose ();
                 throw exception;
+            }
         }
 
         /// <summary>
@@ -101,7 +108,7 @@ namespace OpenMetaverse
         /// <param name="body">Method body to run for each object in the collection</param>
         public static void ForEach<T>(IEnumerable<T> enumerable, Action<T> body)
         {
-            ForEach<T>(processorCount, enumerable, body);
+            ForEach (processorCount, enumerable, body);
         }
 
         /// <summary>
@@ -114,7 +121,7 @@ namespace OpenMetaverse
         public static void ForEach<T>(int threadCount, IEnumerable<T> enumerable, Action<T> body)
         {
             int counter = threadCount;
-            AutoResetEvent threadFinishEvent = new AutoResetEvent(false);
+            var threadFinishEvent = new AutoResetEvent(false);
             IEnumerator<T> enumerator = enumerable.GetEnumerator();
             Exception exception = null;
 
@@ -123,7 +130,7 @@ namespace OpenMetaverse
                 WorkPool.QueueUserWorkItem(
                     delegate(object o)
                     {
-                        int threadIndex = (int)o;
+                        // not used??// var threadIndex = (int)o;
 
                         while (exception == null)
                         {
@@ -133,11 +140,10 @@ namespace OpenMetaverse
                             {
                                 if (!enumerator.MoveNext())
                                     break;
-                                entry = (T)enumerator.Current; // Explicit typecast for Mono's sake
+                                entry = enumerator.Current; // Explicit typecast for Mono's sake
                             }
 
-                            try { body(entry); }
-                            catch (Exception ex) { exception = ex; break; }
+                            try { body (entry); } catch (Exception ex) { exception = ex; break; }
                         }
 
                         if (Interlocked.Decrement(ref counter) == 0)
@@ -146,10 +152,17 @@ namespace OpenMetaverse
                 );
             }
 
-            threadFinishEvent.WaitOne();
+            try {
+                threadFinishEvent.WaitOne ();
 
-            if (exception != null)
+                if (exception != null) {
+                    threadFinishEvent.Dispose ();
+                    throw exception;
+                }
+            } catch {  // in case of an exception in threadFinishEvent
+                threadFinishEvent.Dispose ();
                 throw exception;
+            }
         }
 
         /// <summary>
@@ -169,7 +182,7 @@ namespace OpenMetaverse
         public static void Invoke(int threadCount, params Action[] actions)
         {
             int counter = threadCount;
-            AutoResetEvent threadFinishEvent = new AutoResetEvent(false);
+            var threadFinishEvent = new AutoResetEvent(false);
             int index = -1;
             Exception exception = null;
 
@@ -178,7 +191,7 @@ namespace OpenMetaverse
                 WorkPool.QueueUserWorkItem(
                     delegate(object o)
                     {
-                        int threadIndex = (int)o;
+                        // not used??//  var threadIndex = (int)o;
 
                         while (exception == null)
                         {
@@ -197,10 +210,17 @@ namespace OpenMetaverse
                 );
             }
 
-            threadFinishEvent.WaitOne();
+            try {
+                threadFinishEvent.WaitOne ();
 
-            if (exception != null)
+                if (exception != null) {
+                    threadFinishEvent.Dispose ();
+                    throw exception;
+                }
+            } catch {  // in case of an exception in threadFinishEvent
+                threadFinishEvent.Dispose ();
                 throw exception;
+            }
         }
     }
 }

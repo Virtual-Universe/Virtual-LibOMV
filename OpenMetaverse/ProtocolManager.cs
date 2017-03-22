@@ -27,7 +27,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using OpenMetaverse;
 
 namespace OpenMetaverse
 {    
@@ -101,24 +100,16 @@ namespace OpenMetaverse
         /// <returns></returns>
 		public int CompareTo(object obj)
 		{
-			MapField temp = (MapField)obj;
+        var temp = (MapField)obj;
 
-			if (this.KeywordPosition > temp.KeywordPosition)
-			{
-				return 1;
-			}
-			else
-			{
-				if(temp.KeywordPosition == this.KeywordPosition)
-				{
-					return 0;
-				}
-				else
-				{
-					return -1;
-				}
-			}
-		}
+        if (KeywordPosition > temp.KeywordPosition) {
+            return 1;
+        }
+        if (temp.KeywordPosition == KeywordPosition) {
+            return 0;
+        }
+        return -1;
+    }
 	}
 
     /// <summary>
@@ -142,24 +133,16 @@ namespace OpenMetaverse
         /// <returns></returns>
 		public int CompareTo(object obj)
 		{
-			MapBlock temp = (MapBlock)obj;
+			var temp = (MapBlock)obj;
 
-			if (this.KeywordPosition > temp.KeywordPosition)
-			{
-				return 1;
-			}
-			else
-			{
-				if(temp.KeywordPosition == this.KeywordPosition)
-				{
-					return 0;
-				}
-				else
-				{
-					return -1;
-				}
-			}
-		}
+            if (KeywordPosition > temp.KeywordPosition) {
+                return 1;
+            }
+            if (temp.KeywordPosition == KeywordPosition) {
+                return 0;
+            }
+            return -1;
+        }
 	}
 
     /// <summary>
@@ -291,33 +274,24 @@ namespace OpenMetaverse
 		{
 			ushort command;
 
-			if (data.Length < 5)
-			{
+            if (data.Length < 5) {
 				return null;
 			}
 
-			if (data[4] == 0xFF)
-			{
-				if ((byte)data[5] == 0xFF)
-				{
-					// Low frequency
-					command = (ushort)(data[6] * 256 + data[7]);
-					return Command(command, PacketFrequency.Low);
-				}
-				else
-				{
-					// Medium frequency
-					command = (ushort)data[5];
-					return Command(command, PacketFrequency.Medium);
-				}
-			}
-			else
-			{
-				// High frequency
-				command = (ushort)data[4];
-				return Command(command, PacketFrequency.High);
-			}
-		}
+            if (data [4] == 0xFF) {
+                if (data [5] == 0xFF) {
+                    // Low frequency
+                    command = (ushort)(data [6] * 256 + data [7]);
+                    return Command (command, PacketFrequency.Low);
+                }
+                // Medium frequency
+                command = data [5];
+                return Command (command, PacketFrequency.Medium);
+            }
+            // High frequency
+            command = data [4];
+            return Command (command, PacketFrequency.High);
+        }
 
         /// <summary>
         /// 
@@ -355,7 +329,7 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="map"></param>
         /// <param name="frequency"></param>
-		private void PrintOneMap(MapPacket[] map, string frequency) {
+		void PrintOneMap(MapPacket[] map, string frequency) {
 			int i;
 
 			for (i = 0; i < map.Length; ++i)
@@ -396,7 +370,6 @@ namespace OpenMetaverse
 		{
 			byte magicKey = 0;
 			byte[] buffer = new byte[2048];
-			int nread;
 
             try
             {
@@ -404,6 +377,7 @@ namespace OpenMetaverse
                 {
                     using (BinaryWriter output = new BinaryWriter(new FileStream(outputFile, FileMode.CreateNew)))
                     {
+			                  int nread;
                         while ((nread = map.Read(buffer, 0, 2048)) != 0)
                         {
                             for (int i = 0; i < nread; ++i)
@@ -427,7 +401,7 @@ namespace OpenMetaverse
         /// 
         /// </summary>
         /// <param name="mapFile"></param>
-		private void LoadMapFile(string mapFile)
+		void LoadMapFile(string mapFile)
 		{
 			ushort low = 1;
 			ushort medium = 1;
@@ -445,9 +419,9 @@ namespace OpenMetaverse
                         string trimmedline;
                         bool inPacket = false;
                         bool inBlock = false;
-                        MapPacket currentPacket = null;
-                        MapBlock currentBlock = null;
-                        char[] trimArray = new char[] { ' ', '\t' };
+                        MapPacket currentPacket = new MapPacket ();
+                        MapBlock currentBlock = new MapBlock ();
+                        char[] trimArray = { ' ', '\t' };
 
                         // While not at the end of the file
                         while (r.Peek() > -1)
@@ -506,7 +480,7 @@ namespace OpenMetaverse
                                                     tokens[2] = tokens[2].Substring(2, tokens[2].Length - 2);
                                                 }
 
-                                                uint fixedID = UInt32.Parse(tokens[2], System.Globalization.NumberStyles.HexNumber);
+                                                uint fixedID = uint.Parse(tokens[2], System.Globalization.NumberStyles.HexNumber);
                                                 // Truncate the id to a short
                                                 fixedID ^= 0xFFFF0000;
                                                 LowMaps[fixedID] = new MapPacket();
@@ -577,7 +551,7 @@ namespace OpenMetaverse
                                         // A field
                                         #region ParseField
 
-                                        MapField field = new MapField();
+                                        var field = new MapField();
 
                                         // Splice the string in to tokens
                                         string[] tokens = trimmedline.Split(new char[] { ' ', '\t' });
@@ -588,7 +562,7 @@ namespace OpenMetaverse
 
                                         if (tokens[3] != "}")
                                         {
-                                            field.Count = Int32.Parse(tokens[3]);
+                                            field.Count = int.Parse(tokens[3]);
                                         }
                                         else
                                         {
@@ -626,7 +600,7 @@ namespace OpenMetaverse
                                         }
                                         else if (tokens[1] == "Multiple")
                                         {
-                                            currentBlock.Count = Int32.Parse(tokens[2]);
+                                            currentBlock.Count = int.Parse(tokens[2]);
                                         }
                                         else if (tokens[1] == "Variable")
                                         {
@@ -654,7 +628,7 @@ namespace OpenMetaverse
             }
 		}
 
-		private int KeywordPosition(string keyword)
+		int KeywordPosition(string keyword)
 		{
             if (KeywordPositions.ContainsKey(keyword))
             {
@@ -664,7 +638,7 @@ namespace OpenMetaverse
             int hash = 0;
             for (int i = 1; i < keyword.Length; i++)
             {
-                hash = (hash + (int)(keyword[i])) * 2;
+                hash = (hash + (keyword[i])) * 2;
             }
             hash *= 2;
             hash &= 0x1FFF;
