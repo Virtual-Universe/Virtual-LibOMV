@@ -162,7 +162,9 @@
        </Match>
      </Files>
     </Project>
-
+    
+    <!-- 2017-APR-08- BruceStarfinder
+         Tests appear to be in need of a rewrite for .Net 4.0
     <Project name="OpenMetaverse.Tests" path="OpenMetaverse.Tests" type="Library" frameworkVersion="v4_5">
       <Configuration name="Debug">
         <Options>
@@ -189,6 +191,7 @@
         </Match>
       </Files>
     </Project>
+    -->
 
     <Project name="GridProxy" path="Programs/GridProxy" type="Library" frameworkVersion="v4_5">
       <Configuration name="Debug">
@@ -491,6 +494,9 @@
       </Files>
     </Project>
     -->
+    <!-- 2017-APR-08- BruceStarfinder
+         Disabling PrimWorkshop temporarily as it appears to be breaking
+         build and compile
     <Project name="PrimWorkshop" path="Programs/PrimWorkshop" type="WinExe" frameworkVersion="v4_5" icon="..\..\docs\Libomv.ico">
       <Configuration name="Debug">
         <Options>
@@ -526,6 +532,7 @@
         <Match pattern="*.ico" recurse="true"/>
       </Files>
     </Project>
+    -->
 
     <Project name="GridImageUpload" path="Programs/GridImageUpload" type="WinExe" frameworkVersion="v4_5" icon="..\..\docs\Libomv.ico">
       <Configuration name="Debug">
