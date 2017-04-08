@@ -49,6 +49,7 @@ namespace OpenMetaverse.Packets
     /// <summary>
     /// Thrown when a packet could not be successfully deserialized
     /// </summary>
+    [Serializable]
     public class MalformedDataException : ApplicationException
     {
         /// <summary>
@@ -81026,5 +81027,4 @@ namespace OpenMetaverse.Packets
             return new byte[][] { this.ToBytes(pool, ref sizes[0]) };
         }
     }
-
 }

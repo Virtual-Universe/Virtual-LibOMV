@@ -1304,7 +1304,9 @@ namespace OpenMetaverse
 
         #endregion String Arrays
 
+        [NonSerialized]
         GridClient Client;
+        [NonSerialized]
         Inventory _Store;
         //Random _RandNumbers = new Random();
         object _CallbacksLock = new object ();
