@@ -1,0 +1,18 @@
+image: Visual Studio 2015
+
+version: 1.0.2.{build}
+
+branches:
+  only:
+  - master
+ 
+before_build:
+  - del "C:\Program Files (x86)\MSBuild\4.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
+ 
+build_script:
+- bin\Prebuild.exe /target vs2010 /targetframework v4_5 /conditionals ISWIN;NET_4_5
+- msbuild OpenMetaverse.sln /p:Configuration=Debug  /p:DefineConstants="ISWIN;NET_4_5"
+
+artifacts:
+- path: bin
+  name: VirtualLibOMV

@@ -12,3 +12,5 @@ compile.bat
 [Oo]bj/
 [Bb]in/
 
+# Visual Studio files
+.vs/*

@@ -50,13 +50,13 @@ namespace OpenMetaverse
         /// <param name="simulator">The simulator that generated the event</param>
         //public delegate void EventQueueCallback(string message, StructuredData.OSD body, Simulator simulator);
 
-        public delegate void EventQueueCallback (string capsKey, IMessage message, Simulator simulator);
+        public delegate void EventQueueCallback(string capsKey, IMessage message, Simulator simulator);
 
         /// <summary>Reference to the simulator this system is connected to</summary>
         public Simulator Simulator;
 
         internal string _SeedCapsURI;
-        internal Dictionary<string, Uri> _Caps = new Dictionary<string, Uri> ();
+        internal Dictionary<string, Uri> _Caps = new Dictionary<string, Uri>();
 
         CapsClient _SeedRequest;
         EventQueueClient _EventQueueCap = null;
@@ -66,8 +66,10 @@ namespace OpenMetaverse
 
         /// <summary>Whether the capabilities event queue is connected and
         /// listening for incoming events</summary>
-        public bool IsEventQueueRunning {
-            get {
+        public bool IsEventQueueRunning
+        {
+            get
+            {
                 if (_EventQueueCap != null)
                     return _EventQueueCap.Running;
                 else
@@ -80,24 +82,24 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="simulator"></param>
         /// <param name="seedcaps"></param>
-        internal Caps (Simulator simulator, string seedcaps)
+        internal Caps(Simulator simulator, string seedcaps)
         {
             Simulator = simulator;
             _SeedCapsURI = seedcaps;
 
-            MakeSeedRequest ();
+            MakeSeedRequest();
         }
 
-        public void Disconnect (bool immediate)
+        public void Disconnect(bool immediate)
         {
-            Logger.Log (string.Format ("Caps system for {0} is {1}", Simulator,
+            Logger.Log(string.Format("Caps system for {0} is {1}", Simulator,
                 (immediate ? "aborting" : "disconnecting")), Helpers.LogLevel.Info, Simulator.Client);
 
             if (_SeedRequest != null)
-                _SeedRequest.Cancel ();
+                _SeedRequest.Cancel();
 
             if (_EventQueueCap != null)
-                _EventQueueCap.Stop (immediate);
+                _EventQueueCap.Stop(immediate);
         }
 
         /// <summary>
@@ -106,155 +108,165 @@ namespace OpenMetaverse
         /// <param name="capability">Name of the capability to request</param>
         /// <returns>The URI of the requested capability, or String.Empty if
         /// the capability does not exist</returns>
-        public Uri CapabilityURI (string capability)
+        public Uri CapabilityURI(string capability)
         {
             Uri cap;
 
-            if (_Caps.TryGetValue (capability, out cap))
+            if (_Caps.TryGetValue(capability, out cap))
                 return cap;
             else
                 return null;
         }
 
-        void MakeSeedRequest ()
+        void MakeSeedRequest()
         {
             if (Simulator == null || !Simulator.Client.Network.Connected)
                 return;
 
             // Create a request list
-            OSDArray req = new OSDArray ();
+            OSDArray req = new OSDArray();
             // This list can be updated by using the following command to obtain a current list of capabilities the official linden viewer supports:
             // wget -q -O - https://bitbucket.org/lindenlab/viewer-release/raw/default/indra/newview/llviewerregion.cpp | grep 'capabilityNames.append'  | sed 's/^[ \t]*//;s/capabilityNames.append("/req.Add("/'
-            req.Add ("AgentPreferences");
-            req.Add ("AgentState");
-            req.Add ("AttachmentResources");
-            req.Add ("AvatarPickerSearch");
-            req.Add ("AvatarRenderInfo");
-            req.Add ("CharacterProperties");
-            req.Add ("ChatSessionRequest");
-            req.Add ("CopyInventoryFromNotecard");
-            req.Add ("CreateInventoryCategory");
-            req.Add ("DirectDelivery");
-            req.Add ("DispatchRegionInfo");
-            req.Add ("EnvironmentSettings");
-            req.Add ("EstateChangeInfo");
-            req.Add ("EventQueueGet");
-            req.Add ("FacebookConnect");
-            req.Add ("FetchInventory2");
-            req.Add ("FetchInventoryDescendents2");
-            req.Add ("FetchLib2");
-            req.Add ("FetchLibDescendents2");
-            req.Add ("FlickrConnect");
-            req.Add ("GetDisplayNames");
-            req.Add ("GetMesh");
-            req.Add ("GetMesh2");
-            req.Add ("GetMetadata");
-            req.Add ("GetObjectCost");
-            req.Add ("GetObjectPhysicsData");
-            req.Add ("GetTexture");
-            req.Add ("GroupAPIv1");
-            req.Add ("GroupMemberData");
-            req.Add ("GroupProposalBallot");
-            req.Add ("HomeLocation");
-            req.Add ("IncrementCOFVersion");
-            req.Add ("LandResources");
-            req.Add ("LSLSyntax");
-            req.Add ("MapLayer");
-            req.Add ("MapLayerGod");
-            req.Add ("MeshUploadFlag");
-            req.Add ("NavMeshGenerationStatus");
-            req.Add ("NewFileAgentInventory");
-            req.Add ("ObjectMedia");
-            req.Add ("ObjectMediaNavigate");
-            req.Add ("ObjectNavMeshProperties");
-            req.Add ("ParcelPropertiesUpdate");
-            req.Add ("ParcelVoiceInfoRequest");
-            req.Add ("ProductInfoRequest");
-            req.Add ("ProvisionVoiceAccountRequest");
-            req.Add ("RemoteParcelRequest");
-            req.Add ("RenderMaterials");
-            req.Add ("RequestTextureDownload");
-            req.Add ("ResourceCostSelected");
-            req.Add ("RetrieveNavMeshSrc");
-            req.Add ("SearchStatRequest");
-            req.Add ("SearchStatTracking");
-            req.Add ("SendPostcard");
-            req.Add ("SendUserReport");
-            req.Add ("SendUserReportWithScreenshot");
-            req.Add ("ServerReleaseNotes");
-            req.Add ("SetDisplayName");
-            req.Add ("SimConsoleAsync");
-            req.Add ("SimulatorFeatures");
-            req.Add ("StartGroupProposal");
-            req.Add ("TerrainNavMeshProperties");
-            req.Add ("TextureStats");
-            req.Add ("TwitterConnect");
-            req.Add ("UntrustedSimulatorMessage");
-            req.Add ("UpdateAgentInformation");
-            req.Add ("UpdateAgentLanguage");
-            req.Add ("UpdateAvatarAppearance");
-            req.Add ("UpdateGestureAgentInventory");
-            req.Add ("UpdateGestureTaskInventory");
-            req.Add ("UpdateNotecardAgentInventory");
-            req.Add ("UpdateNotecardTaskInventory");
-            req.Add ("UpdateScriptAgent");
-            req.Add ("UpdateScriptTask");
-            req.Add ("UploadBakedTexture");
-            req.Add ("ViewerMetrics");
-            req.Add ("ViewerStartAuction");
-            req.Add ("ViewerStats");
+            req.Add("AgentPreferences");
+            req.Add("AgentState");
+            req.Add("AttachmentResources");
+            req.Add("AvatarPickerSearch");
+            req.Add("AvatarRenderInfo");
+            req.Add("CharacterProperties");
+            req.Add("ChatSessionRequest");
+            req.Add("CopyInventoryFromNotecard");
+            req.Add("CreateInventoryCategory");
+            req.Add("DirectDelivery");
+            req.Add("DispatchRegionInfo");
+            req.Add("EnvironmentSettings");
+            req.Add("EstateChangeInfo");
+            req.Add("EventQueueGet");
+            req.Add("FacebookConnect");
+            req.Add("FetchInventory2");
+            req.Add("FetchInventoryDescendents2");
+            req.Add("FetchLib2");
+            req.Add("FetchLibDescendents2");
+            req.Add("FlickrConnect");
+            req.Add("GetDisplayNames");
+            req.Add("GetMesh");
+            req.Add("GetMesh2");
+            req.Add("GetMetadata");
+            req.Add("GetObjectCost");
+            req.Add("GetObjectPhysicsData");
+            req.Add("GetTexture");
+            req.Add("GroupAPIv1");
+            req.Add("GroupMemberData");
+            req.Add("GroupProposalBallot");
+            req.Add("HomeLocation");
+            req.Add("IncrementCOFVersion");
+            req.Add("LandResources");
+            req.Add("LSLSyntax");
+            req.Add("MapLayer");
+            req.Add("MapLayerGod");
+            req.Add("MeshUploadFlag");
+            req.Add("NavMeshGenerationStatus");
+            req.Add("NewFileAgentInventory");
+            req.Add("ObjectMedia");
+            req.Add("ObjectMediaNavigate");
+            req.Add("ObjectNavMeshProperties");
+            req.Add("ParcelPropertiesUpdate");
+            req.Add("ParcelVoiceInfoRequest");
+            req.Add("ProductInfoRequest");
+            req.Add("ProvisionVoiceAccountRequest");
+            req.Add("RemoteParcelRequest");
+            req.Add("RenderMaterials");
+            req.Add("RequestTextureDownload");
+            req.Add("ResourceCostSelected");
+            req.Add("RetrieveNavMeshSrc");
+            req.Add("SearchStatRequest");
+            req.Add("SearchStatTracking");
+            req.Add("SendPostcard");
+            req.Add("SendUserReport");
+            req.Add("SendUserReportWithScreenshot");
+            req.Add("ServerReleaseNotes");
+            req.Add("SetDisplayName");
+            req.Add("SimConsoleAsync");
+            req.Add("SimulatorFeatures");
+            req.Add("StartGroupProposal");
+            req.Add("TerrainNavMeshProperties");
+            req.Add("TextureStats");
+            req.Add("TwitterConnect");
+            req.Add("UntrustedSimulatorMessage");
+            req.Add("UpdateAgentInformation");
+            req.Add("UpdateAgentLanguage");
+            req.Add("UpdateAvatarAppearance");
+            req.Add("UpdateGestureAgentInventory");
+            req.Add("UpdateGestureTaskInventory");
+            req.Add("UpdateNotecardAgentInventory");
+            req.Add("UpdateNotecardTaskInventory");
+            req.Add("UpdateScriptAgent");
+            req.Add("UpdateScriptTask");
+            req.Add("UploadBakedTexture");
+            req.Add("ViewerMetrics");
+            req.Add("ViewerStartAuction");
+            req.Add("ViewerStats");
             // Experiences
-            req.Add ("AgentExperiences");
-            req.Add ("ExperiencePreferences");
-            req.Add ("FindExperienceByName");
-            req.Add ("GetExperiences");            
-            req.Add ("GetExperienceInfo");
-            req.Add ("GetAdminExperiences");
-            req.Add ("GetCreatorExperiences");            
-            req.Add ("GroupExperiences");            
-            req.Add ("IsExperienceAdmin");
-            req.Add ("IsExperienceContributor");
-            req.Add ("RegionExperiences");
-            req.Add ("UpdateExperience");
+            req.Add("AgentExperiences");
+            req.Add("ExperiencePreferences");
+            req.Add("FindExperienceByName");
+            req.Add("GetExperiences");
+            req.Add("GetExperienceInfo");
+            req.Add("GetAdminExperiences");
+            req.Add("GetCreatorExperiences");
+            req.Add("GroupExperiences");
+            req.Add("IsExperienceAdmin");
+            req.Add("IsExperienceContributor");
+            req.Add("RegionExperiences");
+            req.Add("UpdateExperience");
+            // AIS3
+            req.Add("InventoryAPIv3");
+            req.Add("LibraryAPIv3");
 
-            _SeedRequest = new CapsClient (new Uri (_SeedCapsURI));
+            _SeedRequest = new CapsClient(new Uri(_SeedCapsURI));
             _SeedRequest.OnComplete += SeedRequestCompleteHandler;
-            _SeedRequest.BeginGetResponse (req, OSDFormat.Xml, Simulator.Client.Settings.CAPS_TIMEOUT);
+            _SeedRequest.BeginGetResponse(req, OSDFormat.Xml, Simulator.Client.Settings.CAPS_TIMEOUT);
         }
 
-        void SeedRequestCompleteHandler (CapsClient client, OSD result, Exception error)
+        void SeedRequestCompleteHandler(CapsClient client, OSD result, Exception error)
         {
-            if (result != null && result.Type == OSDType.Map) {
+            if (result != null && result.Type == OSDType.Map)
+            {
                 OSDMap respTable = (OSDMap)result;
 
-                foreach (string cap in respTable.Keys) {
-                    _Caps [cap] = respTable [cap].AsUri ();
+                foreach (string cap in respTable.Keys)
+                {
+                    _Caps[cap] = respTable[cap].AsUri();
                 }
 
-                if (_Caps.ContainsKey ("EventQueueGet")) {
-                    Logger.DebugLog ("Starting event queue for " + Simulator, Simulator.Client);
+                if (_Caps.ContainsKey("EventQueueGet"))
+                {
+                    Logger.DebugLog("Starting event queue for " + Simulator, Simulator.Client);
 
-                    _EventQueueCap = new EventQueueClient (_Caps ["EventQueueGet"]);
+                    _EventQueueCap = new EventQueueClient(_Caps["EventQueueGet"]);
                     _EventQueueCap.OnConnected += EventQueueConnectedHandler;
                     _EventQueueCap.OnEvent += EventQueueEventHandler;
-                    _EventQueueCap.Start ();
+                    _EventQueueCap.Start();
                 }
-            } else if (
-                  error != null &&
-                  error is WebException &&
-                  ((WebException)error).Response != null &&
-                  ((HttpWebResponse)((WebException)error).Response).StatusCode == HttpStatusCode.NotFound) {
+            }
+            else if (
+                error != null &&
+                error is WebException &&
+                ((WebException)error).Response != null &&
+                ((HttpWebResponse)((WebException)error).Response).StatusCode == HttpStatusCode.NotFound)
+            {
                 // 404 error
-                Logger.Log ("Seed capability returned a 404, capability system is aborting", Helpers.LogLevel.Error);
-            } else {
+                Logger.Log("Seed capability returned a 404, capability system is aborting", Helpers.LogLevel.Error);
+            }
+            else
+            {
                 // The initial CAPS connection failed, try again
-                MakeSeedRequest ();
+                MakeSeedRequest();
             }
         }
 
-        void EventQueueConnectedHandler ()
+        void EventQueueConnectedHandler()
         {
-            Simulator.Client.Network.RaiseConnectedEvent (Simulator);
+            Simulator.Client.Network.RaiseConnectedEvent(Simulator);
         }
 
         /// <summary>
@@ -262,35 +274,43 @@ namespace OpenMetaverse
         /// </summary>
         /// <param name="eventName"></param>
         /// <param name="body"></param>
-        void EventQueueEventHandler (string eventName, OSDMap body)
+        void EventQueueEventHandler(string eventName, OSDMap body)
         {
-            IMessage message = Messages.MessageUtils.DecodeEvent (eventName, body);
-            if (message != null) {
-                Simulator.Client.Network.CapsEvents.BeginRaiseEvent (eventName, message, Simulator);
+            IMessage message = Messages.MessageUtils.DecodeEvent(eventName, body);
+            if (message != null)
+            {
+                Simulator.Client.Network.CapsEvents.BeginRaiseEvent(eventName, message, Simulator);
 
                 #region Stats Tracking
-                if (Simulator.Client.Settings.TRACK_UTILIZATION) {
-                    Simulator.Client.Stats.Update (eventName, Stats.Type.Message, 0, body.ToString ().Length);
+                if (Simulator.Client.Settings.TRACK_UTILIZATION)
+                {
+                    Simulator.Client.Stats.Update(eventName, Stats.Type.Message, 0, body.ToString().Length);
                 }
                 #endregion
-            } else {
-                Logger.Log ("No Message handler exists for event " + eventName + ". Unable to decode. Will try Generic Handler next", Helpers.LogLevel.Warning);
-                Logger.Log ("Please report this information to https://github.com/Virtual-Universe/Virtual-LibOMV/wiki/Unhandled-Packets: \n" + body, Helpers.LogLevel.Debug);
+            }
+            else
+            {
+                Logger.Log("No Message handler exists for event " + eventName + ". Unable to decode. Will try Generic Handler next", Helpers.LogLevel.Warning);
+                Logger.Log("Please report this information to https://github.com/Virtual-Universe/Virtual-LibOMV/wiki/UnHandled-Packets: \n" + body, Helpers.LogLevel.Debug);
 
                 // try generic decoder next which takes a caps event and tries to match it to an existing packet
-                if (body.Type == OSDType.Map) {
+                if (body.Type == OSDType.Map)
+                {
                     OSDMap map = (OSDMap)body;
-                    Packet packet = Packet.BuildPacket (eventName, map);
-                    if (packet != null) {
+                    Packet packet = Packet.BuildPacket(eventName, map);
+                    if (packet != null)
+                    {
                         NetworkManager.IncomingPacket incomingPacket;
                         incomingPacket.Simulator = Simulator;
                         incomingPacket.Packet = packet;
 
-                        Logger.DebugLog ("Serializing " + packet.Type + " capability with generic handler", Simulator.Client);
+                        Logger.DebugLog("Serializing " + packet.Type + " capability with generic handler", Simulator.Client);
 
-                        Simulator.Client.Network.PacketInbox.Enqueue (incomingPacket);
-                    } else {
-                        Logger.Log ("No Packet or Message handler exists for " + eventName, Helpers.LogLevel.Warning);
+                        Simulator.Client.Network.PacketInbox.Enqueue(incomingPacket);
+                    }
+                    else
+                    {
+                        Logger.Log("No Packet or Message handler exists for " + eventName, Helpers.LogLevel.Warning);
                     }
                 }
             }
