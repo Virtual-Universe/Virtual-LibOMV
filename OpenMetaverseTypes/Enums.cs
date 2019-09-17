@@ -285,6 +285,7 @@ namespace OpenMetaverse
         /// <summary>Physics</summary>
         Physics,
         /// <summary>Invalid wearable asset</summary>
-        Invalid = 255
+        Invalid = 255,
+        Universal = 16
     };
 }
